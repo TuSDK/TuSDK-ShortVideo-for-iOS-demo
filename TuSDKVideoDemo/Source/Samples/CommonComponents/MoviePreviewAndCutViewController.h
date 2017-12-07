@@ -53,4 +53,6 @@
 // 暂停播放
 - (void)pauseTheVideo;
 
+// 播放结束的通知
+- (void)playerEnd:(AVPlayerItem *)playerItem;
 @end

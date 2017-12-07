@@ -25,6 +25,9 @@
 // 隐藏状态栏 for IOS7
 - (BOOL)prefersStatusBarHidden;
 {
+    if ([UIDevice lsqIsDeviceiPhoneX]) {
+        return NO;
+    }
     return YES;
 }
 
@@ -55,8 +58,9 @@
     // 设置全屏
     self.wantsFullScreenLayout = YES;
     [self setNavigationBarHidden:YES animated:NO];
-    [self setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
-    
+    if (![UIDevice lsqIsDeviceiPhoneX]) {
+        [self setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+    }
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -77,10 +81,14 @@
 
 - (void)lsqInitView
 {
-    CGRect rect = [[UIScreen mainScreen] applicationFrame];
-    
+    CGRect rect = [UIScreen mainScreen].bounds;
+    self.view.backgroundColor = [UIColor whiteColor];
     // 默认相机顶部控制栏
-    _configBar = [[TopNavBar alloc]initWithFrame:CGRectMake(0, 0, rect.size.width, 44)];
+    CGFloat topY = 0;
+    if ([UIDevice lsqIsDeviceiPhoneX]) {
+        topY = 44;
+    }
+    _configBar = [[TopNavBar alloc]initWithFrame:CGRectMake(0, topY, rect.size.width, 44)];
     [_configBar setBackgroundColor:[UIColor whiteColor]];
     _configBar.topBarDelegate = self;
     NSString *backBtnTitle = [NSString stringWithFormat:@"video_style_default_btn_back.png+%@",NSLocalizedString(@"lsq_go_back", @"返回")];
@@ -90,7 +98,7 @@
     [self.view addSubview:_configBar];
     
     // 底部裁剪栏
-    self.cutVideoView = [[CutVideoBottomView alloc]initWithFrame:CGRectMake(0, rect.size.width + 44, rect.size.width , rect.size.height - rect.size.width - 44)];
+    self.cutVideoView = [[CutVideoBottomView alloc]initWithFrame:CGRectMake(0, rect.size.width + _configBar.lsqGetOriginY + _configBar.lsqGetSizeHeight, rect.size.width , rect.size.height - rect.size.width - (_configBar.lsqGetOriginY + _configBar.lsqGetSizeHeight))];
     self.cutVideoView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.cutVideoView];
     self.cutVideoView.userInteractionEnabled = false;
@@ -144,7 +152,7 @@
 
 - (void)initPlayerView
 {
-    _videoScroll = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 44, self.view.lsqGetSizeWidth, self.view.lsqGetSizeWidth)];
+    _videoScroll = [[UIScrollView alloc]initWithFrame:CGRectMake(0, _configBar.lsqGetOriginY + _configBar.lsqGetSizeHeight, self.view.lsqGetSizeWidth, self.view.lsqGetSizeWidth)];
     _videoScroll.bounces = NO;
     _videoView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.lsqGetSizeWidth, self.view.lsqGetSizeWidth)];
     [self.view addSubview:_videoScroll];
@@ -320,10 +328,14 @@
             if (_playerIV == nil) {
                 // 播放按钮
                 UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(clickPlayerBtn:)];
-                [_videoScroll addGestureRecognizer:tap];
+                [_videoView addGestureRecognizer:tap];
                 
                 _playerIV = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 60, 60)];
-                _playerIV.center = CGPointMake(_videoScroll.lsqGetSizeWidth/2, _videoScroll.lsqGetOriginY+_videoScroll.lsqGetSizeHeight/2);
+                if (_videoScroll) {
+                    _playerIV.center = CGPointMake(_videoScroll.lsqGetSizeWidth/2, _videoScroll.lsqGetOriginY+_videoScroll.lsqGetSizeHeight/2);
+                }else{
+                    _playerIV.center = CGPointMake(self.videoView.lsqGetSizeWidth/2, self.videoView.lsqGetOriginY + self.videoView.lsqGetSizeHeight/2);
+                }
                 _playerIV.image = [UIImage imageNamed:@"video_style_default_crop_btn_record"];
                 [self.view addSubview:_playerIV];
                 

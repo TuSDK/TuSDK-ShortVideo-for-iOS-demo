@@ -24,6 +24,9 @@
 #import "APIMovieClipperViewController.h"
 #import "APIVideoThumbnailsViewController.h"
 #import "APIAudioRecorderViewController.h"
+#import "TuAssetManager.h"
+#import "TuAlbumViewController.h"
+
 #pragma mark - ComponentListView
 /**
  *  演示选择
@@ -82,7 +85,11 @@
                    ];
     
     // 表格视图
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, lsqScreenWidth, lsqScreenHeight) style:UITableViewStylePlain];
+    CGFloat height = lsqScreenHeight;
+    if ([UIDevice lsqIsDeviceiPhoneX]) {
+        height -= 34;
+    }
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, lsqScreenWidth, height) style:UITableViewStylePlain];
     _tableView.tableHeaderView.backgroundColor = [UIColor lightGrayColor];
     _tableView.delegate = self;
     _tableView.dataSource = self;
@@ -146,10 +153,10 @@
 
 @end
 
-@interface ComponentListViewController()<DemoChooseDelegate,UIImagePickerControllerDelegate, UINavigationControllerDelegate>
-{
-    UIImagePickerController *ipc;
-}
+#pragma mark - ComponentListViewController
+
+@interface ComponentListViewController()<DemoChooseDelegate, UINavigationControllerDelegate, TuVideoSelectedDelegate>
+
 /**
  *  覆盖控制器视图
  */
@@ -365,17 +372,13 @@
 // 相册选择 + preview
 - (void)openImportVideo;
 {
-    if (!ipc) {
-        ipc = [[UIImagePickerController alloc] init];
-        
-        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]){
-            ipc.sourceType =  UIImagePickerControllerSourceTypePhotoLibrary;
-            ipc.mediaTypes = @[(NSString *)kUTTypeMovie];
-        }
-        ipc.allowsEditing = NO;
-        ipc.delegate = self;
-    }
-    [self presentViewController:ipc animated:YES completion:nil];
+    [TuAssetManager sharedManager].ifRefresh = YES;
+    TuAlbumViewController *videoSelector = [[TuAlbumViewController alloc] init];
+    videoSelector.selectedDelegate = self;
+    // 若需要选择视频后进行预览 设置为YES，默认为NO
+    videoSelector.isPreviewVideo = YES;
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:videoSelector];
+    [self presentViewController:nav animated:YES completion:nil];
 }
 
 // 音频录制
@@ -420,53 +423,38 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 
+#pragma mark - TuVideoSelectedDelegate
 
-#pragma mark - UIImagePickerControllerDelegate
-
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info;
+- (void)selectedModel:(TuVideoModel *)model;
 {
     ComponentListViewController *wSelf = self;
-    [picker dismissViewControllerAnimated:NO completion:^{
-        NSURL *url = [info objectForKey:UIImagePickerControllerMediaURL];
-        
-        if (_enableOpenVCType == 0) {
+    NSURL *url = model.url;
+    
+    if (_enableOpenVCType == 0) {
         // 相册导入 + 裁剪 + 视频编辑
-            MoviePreviewAndCutViewController *vc = [MoviePreviewAndCutViewController new];
-            vc.inputURL = url;
-            [wSelf.navigationController pushViewController:vc animated:YES];
-        }else if (_enableOpenVCType == 1)
-        {
+        MoviePreviewAndCutViewController *vc = [MoviePreviewAndCutViewController new];
+        vc.inputURL = url;
+        [wSelf.navigationController pushViewController:vc animated:YES];
+    }else if (_enableOpenVCType == 1)
+    {
         // 相册导入 + 视频编辑
-            AVAsset *avasset = [AVAsset assetWithURL:url];
-            MovieEditorRatioAdaptedController *vc = [MovieEditorRatioAdaptedController new];
-            vc.inputURL = url;
-            vc.startTime = 0;
-            vc.endTime = CMTimeGetSeconds(avasset.duration);
-            [wSelf.navigationController pushViewController:vc animated:YES];
-        } else if (_enableOpenVCType == 2) {
-            // 全屏显示，相册导入 + 时间裁剪 + 视频编辑
-            MoviePreviewAndCutFullScreenController *vc = [MoviePreviewAndCutFullScreenController new];
-            vc.inputURL = url;
-            [wSelf.navigationController pushViewController:vc animated:YES];
-        }else if (_enableOpenVCType == 3){
-            MoviePreviewAndCutRatioAdaptedController *vc = [MoviePreviewAndCutRatioAdaptedController new];
-            vc.inputURL = url;
-            [self.navigationController pushViewController:vc animated:YES];
-        }
-        
-    }];
-}
+        AVAsset *avasset = [AVAsset assetWithURL:url];
+        MovieEditorRatioAdaptedController *vc = [MovieEditorRatioAdaptedController new];
+        vc.inputURL = url;
+        vc.startTime = 0;
+        vc.endTime = CMTimeGetSeconds(avasset.duration);
+        [wSelf.navigationController pushViewController:vc animated:YES];
+    } else if (_enableOpenVCType == 2) {
+        // 全屏显示，相册导入 + 时间裁剪 + 视频编辑
+        MoviePreviewAndCutFullScreenController *vc = [MoviePreviewAndCutFullScreenController new];
+        vc.inputURL = url;
+        [wSelf.navigationController pushViewController:vc animated:YES];
+    }else if (_enableOpenVCType == 3){
+        MoviePreviewAndCutRatioAdaptedController *vc = [MoviePreviewAndCutRatioAdaptedController new];
+        vc.inputURL = url;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 
-
-- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker;
-{
-    [picker dismissModalViewControllerAnimated];
-}
-
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 @end

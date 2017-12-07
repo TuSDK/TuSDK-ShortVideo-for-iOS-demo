@@ -89,6 +89,18 @@
 "lsq_filter_Nude01" = "Nude";
 "lsq_filter_Orange01" = "Orange";
 "lsq_filter_BabyPink001" = "BabyPink";
+
+"lsq_filter_nature" = "Nature";
+"lsq_filter_pink" = "Pink";
+"lsq_filter_jelly" = "Jelly";
+"lsq_filter_ruddy" = "Ruddy";
+"lsq_filter_sugar" = "Sugar";
+"lsq_filter_honey" = "Honey";
+"lsq_filter_clear" = "Clear";
+"lsq_filter_timber" = "Timber";
+"lsq_filter_whitening" = "Whitening";
+"lsq_filter_porcelain" = "Porcelain";
+
 // 1.8.0
 "lsq_filter_SkinPink011" = "Pink";
 "lsq_filter_SkinJelly011" = "Jelly";
@@ -215,4 +227,11 @@
 // location
 "lsq_location_error_title" = "Can’t get location";
 "lsq_location_AccessUserDeniedError%@" = "Can’t get location. Please trun %@ on in Settings - Privacy - Location Services.";
+
+// album
+"lsq_albumComponent_allOfVideo" = "AllVideo";
+"lsq_albumComponent_albumTitle" = "Album";
+"lsq_albumComponent_closeButton" = "Close";
+"lsq_albumComponent_cancelButton" = "Cancel";
+"lsq_albumComponent_chooseButton" = "Choose";
 

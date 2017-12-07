@@ -15,21 +15,23 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.8.0</string>
+	<string>1.9.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>20170828</string>
+	<string>20171207</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
-	<string>Recording requires to use your camera</string>
+	<string>Recording video requires your camera permission</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Recording requires your location</string>
+	<string>Recording video requires your location permission</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>Recording requires to use your microphone</string>
+	<string>Recording audio requires your microphone permission
+Recording audio requires your microphone permission
+Recording audio requires your microphone permission</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Recording requires to use your photo library</string>
+	<string>Saving videos requires your photo library permission</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>

@@ -14,10 +14,10 @@
 - (void)lsqInitView
 {
     self.view.backgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
-    CGRect rect = [[UIScreen mainScreen] applicationFrame];
+    CGRect rect = [UIScreen mainScreen].bounds;
 
     // 滤镜列表
-    self.videoFilters =  @[@"SkinPink010",@"SkinJelly010",@"Pink010",@"Fair010",@"Forest010",@"SkinPink011",@"SkinJelly011",@"Pink011",@"Forest011"];
+    self.videoFilters =@[@"nature",@"pink",@"jelly",@"ruddy",@"sugar",@"honey",@"clear",@"timber",@"whitening",@"porcelain"];
     
     // 视频播放view，将 frame 修改为全屏
     self.previewView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, rect.size.width, rect.size.height)];
@@ -37,7 +37,12 @@
     [self.playBtn addSubview:self.playBtnIcon];
     
     // 默认相机顶部控制栏
-    self.topBar = [[TopNavBar alloc]initWithFrame:CGRectMake(0, 0, rect.size.width, 44)];
+    CGFloat topY = 0;
+    if ([UIDevice lsqIsDeviceiPhoneX]) {
+        topY = 44;
+    }
+    
+    self.topBar = [[TopNavBar alloc]initWithFrame:CGRectMake(0, topY, rect.size.width, 44)];
     [self.topBar setBackgroundColor:[UIColor colorWithWhite:0 alpha:0.5]];
     self.topBar.topBarDelegate = self;
     [self.topBar addTopBarInfoWithTitle:NSLocalizedString(@"lsq_movieEditor", @"视频编辑")
@@ -47,7 +52,12 @@
     [self.view addSubview:self.topBar];
     
     // 底部栏控件
-    self.bottomBar = [[MovieEditerBottomBar alloc]initWithFrame:CGRectMake(0, rect.size.width + 44, rect.size.width , rect.size.height - rect.size.width - 44)];
+    CGFloat bottomHeight = rect.size.height - rect.size.width - 44;
+    if ([UIDevice lsqIsDeviceiPhoneX]) {
+        bottomHeight -= 34;
+    }
+
+    self.bottomBar = [[MovieEditerBottomBar alloc]initWithFrame:CGRectMake(0, rect.size.width + 44, rect.size.width , bottomHeight)];
     self.bottomBar.backgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
     self.bottomBar.bottomBarDelegate = self;
     self.bottomBar.videoFilters = self.videoFilters;

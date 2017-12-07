@@ -14,6 +14,9 @@
 // 隐藏状态栏 for IOS7
 - (BOOL)prefersStatusBarHidden;
 {
+    if ([UIDevice lsqIsDeviceiPhoneX]) {
+        return NO;
+    }
     return YES;
 }
 
@@ -45,8 +48,9 @@
     // 设置全屏
     self.wantsFullScreenLayout = YES;
     [self setNavigationBarHidden:YES animated:NO];
-    [self setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
-    
+    if (![UIDevice lsqIsDeviceiPhoneX]) {
+        [self setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+    }
 }
 
 #pragma mark - 视图布局方法
@@ -79,13 +83,16 @@
 - (void)lsqInitView
 {
     self.view.backgroundColor = [UIColor whiteColor];
-    CGRect rect = [[UIScreen mainScreen] applicationFrame];
-
+    CGRect rect = [UIScreen mainScreen].bounds;
     // 滤镜列表
-    _videoFilters = @[@"SkinPink010",@"SkinJelly010",@"Pink010",@"Fair010",@"Forest010",@"SkinPink011",@"SkinJelly011",@"Pink011",@"Forest011"];
-    
+    _videoFilters =@[@"nature",@"pink",@"jelly",@"ruddy",@"sugar",@"honey",@"clear",@"timber",@"whitening",@"porcelain"];
+
     // 默认相机顶部控制栏
-    _topBar = [[TopNavBar alloc]initWithFrame:CGRectMake(0, 0, rect.size.width, 44)];
+    CGFloat topY = 0;
+    if ([UIDevice lsqIsDeviceiPhoneX]) {
+        topY = 44;
+    }
+    _topBar = [[TopNavBar alloc]initWithFrame:CGRectMake(0, topY, rect.size.width, 44)];
     [_topBar setBackgroundColor:[UIColor whiteColor]];
     _topBar.topBarDelegate = self;
     [_topBar addTopBarInfoWithTitle:NSLocalizedString(@"lsq_movieEditor", @"视频编辑")
@@ -94,7 +101,7 @@
     [self.view addSubview:_topBar];
     
     // 视频播放view
-    _previewView = [[UIView alloc]initWithFrame:CGRectMake(0, _topBar.lsqGetSizeHeight, rect.size.width, rect.size.width)];
+    _previewView = [[UIView alloc]initWithFrame:CGRectMake(0, _topBar.lsqGetOriginY+_topBar.lsqGetSizeHeight, rect.size.width, rect.size.width)];
     _previewView.backgroundColor = [UIColor blackColor];
     [self.view addSubview:_previewView];
     _videoView = [[UIView alloc]initWithFrame:_previewView.bounds];
@@ -110,8 +117,14 @@
     _playBtnIcon.image = [UIImage imageNamed:@"video_style_default_crop_btn_record"];
     [_playBtn addSubview:_playBtnIcon];
     
+    topY = rect.size.width + 44;
+    CGFloat height = rect.size.height - rect.size.width - 44;
+    if ([UIDevice lsqIsDeviceiPhoneX]) {
+        topY += 44;
+        height -= 78;
+    }
     // 底部栏控件
-    _bottomBar = [[MovieEditerBottomBar alloc]initWithFrame:CGRectMake(0, rect.size.width + 44, rect.size.width , rect.size.height - rect.size.width - 44)];
+    _bottomBar = [[MovieEditerBottomBar alloc]initWithFrame:CGRectMake(0, topY, rect.size.width , height)];
     _bottomBar.bottomBarDelegate = self;
     _bottomBar.videoDuration = self.endTime - self.startTime;
     _bottomBar.videoFilters = _videoFilters;
@@ -134,6 +147,8 @@
     options.playAtActualSpeed = YES;
     // 设置裁剪范围 注：该参数对应的值均为比例值，即：若视频展示View总高度800，此时截取时y从200开始，则cropRect的 originY = 偏移位置/总高度， 应为 0.25, 其余三个值同理
     options.cropRect = _cropRect;
+    // 视频输出尺寸 注：当使用 cropRect 设置了裁剪范围后，该参数不再生效
+    // options.outputSize = CGSizeMake(720, 720);
     // 设置编码视频的画质
     options.encodeVideoQuality = [TuSDKVideoQuality makeQualityWith:TuSDKRecordVideoQuality_Low1];
     // 是否保留原音
@@ -350,7 +365,11 @@
 
     // 展示 MV View，此时需要移动camera的位置，同时显示缩略图
     if (!_topThumbnailView) {
-        _topThumbnailView = [[MovieEditorClipView alloc]initWithFrame:CGRectMake(0, 44 + 3, self.view.lsqGetSizeWidth, adjustHeight - 6)];
+        CGFloat topY = 47;
+        if ([UIDevice lsqIsDeviceiPhoneX]) {
+            topY += 44;
+        }
+        _topThumbnailView = [[MovieEditorClipView alloc]initWithFrame:CGRectMake(0, topY, self.view.lsqGetSizeWidth, adjustHeight - 6)];
         _topThumbnailView.timeInterval = CMTimeGetSeconds(_movieEditor.cutTimeRange.duration);
         _topThumbnailView.clipDelegate = self;
         _topThumbnailView.minCutTime = 0.0;

@@ -16,7 +16,8 @@
     NSMutableArray<TuSDKMVStickerAudioEffectData *> *_mvArr;
     // 记录上一次点击的时间
     CGFloat _lastTapTime;
-
+    // 记录当前选中MV的index
+    NSIndexPath *_currentSelectIndexPath;
 }
 
 @end
@@ -119,14 +120,17 @@
     UICollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
     cell.layer.borderWidth = 2;
     cell.layer.borderColor = lsqRGB(244, 161, 24).CGColor;
+    _currentSelectIndexPath = indexPath;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath
 {
         // 给上一个选中的cell取消选中边框
     UICollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
-    cell.layer.borderWidth = 2;
-    cell.layer.borderColor = [UIColor clearColor].CGColor;
+    if (cell) {
+        cell.layer.borderWidth = 2;
+        cell.layer.borderColor = [UIColor clearColor].CGColor;
+    }
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
@@ -139,9 +143,19 @@
     return 1;
 }
 
+-(void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath;
+{
+    if (![indexPath isEqual:_currentSelectIndexPath]) {
+        cell.layer.borderWidth = 2;
+        cell.layer.borderColor = [UIColor clearColor].CGColor;
+    }else{
+        cell.layer.borderWidth = 2;
+        cell.layer.borderColor = lsqRGB(244, 161, 24).CGColor;
+    }
+}
+
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    
     // 设置cell
     UICollectionViewCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
     for (UIView *view in cell.subviews) {

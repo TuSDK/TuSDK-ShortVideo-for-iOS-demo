@@ -57,7 +57,7 @@
     // self.camera.cameraViewRatio = 1.0;
     
     // 指定比例后，如不指定尺寸，SDK 会根据设备情况自动输出适应比例的尺寸，采集如有设置尺寸 AVCaptureSessionPreset640x480，self.camera.outputSize需要保持一致
-     self.camera.outputSize = CGSizeMake(720, 1280);
+     self.camera.outputSize = self.view.bounds.size;
     
     // 输出视频的画质，主要包含码率、分辨率等参数 (默认为空，采用系统设置)
     self.camera.videoQuality =  [TuSDKVideoQuality makeQualityWith:TuSDKRecordVideoQuality_Low1];

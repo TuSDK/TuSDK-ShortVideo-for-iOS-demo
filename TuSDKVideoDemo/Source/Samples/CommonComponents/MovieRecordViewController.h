@@ -10,7 +10,6 @@
 #import "TuSDKFramework.h"
 #import "StickerScrollView.h"
 #import "RecordVideoBottomBar.h"
-#import "CustomTuSDKCPRegionHandler.h"
 #import "TopNavBar.h"
 #import "FilterBottomButtonView.h"
 

@@ -87,9 +87,16 @@
 {
     CGRect rect = self.view.bounds;
     // 背景图
-    UIImageView *backgroundImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, rect.size.width, 1334.0/750.0*rect.size.width)];
+    UIImageView *backgroundImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, rect.size.width,rect.size.height)];
     backgroundImage.center = self.view.center;
-    backgroundImage.image = [UIImage imageNamed:@"style_default_1.6.0_homepage_bg@2x"];
+    
+    if ([UIDevice lsqIsDeviceiPhoneX])
+    { // iPhone X
+        backgroundImage.image = [UIImage imageNamed:@"homepage_iphonex"];
+    }else{
+        backgroundImage.image = [UIImage imageNamed:@"style_default_1.6.0_homepage_bg@2x"];
+    }
+        
     backgroundImage.userInteractionEnabled = YES;
     [self.view addSubview:backgroundImage];
 

@@ -66,4 +66,7 @@
 // 当前的 MV\配音 音量
 @property (nonatomic, assign) CGFloat dubAudioVolume;
 
+// 点击 播放/暂停 按钮事件
+- (void)clickPlayerBtn:(UIButton *)sender;
+
 @end

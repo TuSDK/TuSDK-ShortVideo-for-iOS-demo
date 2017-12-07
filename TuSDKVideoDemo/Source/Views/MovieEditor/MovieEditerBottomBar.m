@@ -79,10 +79,16 @@
     [_bottomDisplayView addSubview:line];
     
     // 底部按钮
-    NSArray *normalImageNames = @[@"style_default_1.7.1_btn_beauty_default", @"style_default_1.5.0_btn_filter_unselected", @"style_default_1.5.0_btn_mv_unselected",@"style_default_1.7.0_sound_default"];
-    NSArray *selectImageNames = @[@"style_default_1.7.1_btn_beauty_selected", @"style_default_1.5.0_btn_filter", @"style_default_1.5.0_btn_mv", @"style_default_1.7.0_sound_selected"];
-    NSArray *titles = @[NSLocalizedString(@"lsq_filter_beautyArg", @"美颜"), NSLocalizedString(@"lsq_movieEditor_filterBtn", @"滤镜"), NSLocalizedString(@"lsq_movieEditor_MVBtn", @"MV"), NSLocalizedString(@"lsq_movieEditor_dubBtn", @"配音")];
+    NSMutableArray *normalImageNames = [NSMutableArray arrayWithArray:@[@"style_default_1.7.1_btn_beauty_default", @"style_default_1.5.0_btn_filter_unselected", @"style_default_1.5.0_btn_mv_unselected",@"style_default_1.7.0_sound_default"]];
+    NSMutableArray *selectImageNames = [NSMutableArray arrayWithArray:@[@"style_default_1.7.1_btn_beauty_selected", @"style_default_1.5.0_btn_filter", @"style_default_1.5.0_btn_mv", @"style_default_1.7.0_sound_selected"]];
+    NSMutableArray *titles = [NSMutableArray arrayWithArray:@[NSLocalizedString(@"lsq_filter_beautyArg", @"美颜"), NSLocalizedString(@"lsq_movieEditor_filterBtn", @"滤镜"), NSLocalizedString(@"lsq_movieEditor_MVBtn", @"MV"), NSLocalizedString(@"lsq_movieEditor_dubBtn", @"配音")]];
     
+    if ([UIDevice lsqDevicePlatform] == TuSDKDevicePlatform_other) {
+        [normalImageNames removeObjectAtIndex:1];
+        [selectImageNames removeObjectAtIndex:1];
+        [titles removeObjectAtIndex:1];
+    };
+
     _bottomButtonView = [[BottomButtonView alloc]initWithFrame:CGRectMake(0, 7, _bottomDisplayView.lsqGetSizeWidth, 50)];
     _bottomButtonView.clickDelegate = self;
     _bottomButtonView.selectedTitleColor = [UIColor lsqClorWithHex:@"#f4a11a"];
@@ -233,6 +239,9 @@
 // 底部按钮点击事件
 - (void)bottomButton:(BottomButtonView *)bottomButtonView clickIndex:(NSInteger)index;
 {
+    if ([UIDevice lsqDevicePlatform] == TuSDKDevicePlatform_other && index > 0) {
+        index++;
+    }
     if (index == 0) {
         // 点击美颜
         _filterView.hidden = NO;

@@ -95,6 +95,17 @@
 "lsq_filter_Pink011" = "淡雅";
 "lsq_filter_Forest011" = "小森林";
 
+"lsq_filter_nature" = "自然";
+"lsq_filter_pink" = "粉嫩";
+"lsq_filter_jelly" = "果凍";
+"lsq_filter_ruddy" = "紅潤";
+"lsq_filter_sugar" = "糖水色";
+"lsq_filter_honey" = "蜜粉";
+"lsq_filter_clear" = "白皙";
+"lsq_filter_timber" = "小森林";
+"lsq_filter_whitening" = "美白";
+"lsq_filter_porcelain" = "青花瓷";
+
 // audio
 "lsq_audio_lively" = "歡快";
 "lsq_audio_oldmovie" = "老電影";
@@ -214,3 +225,11 @@
 // location
 "lsq_location_error_title" = "無法獲取地理信息";
 "lsq_location_AccessUserDeniedError%@" = "無法獲取地理信息.請在'設置->隱私->定位服務'設置 定位服務以及 %@ 爲打開狀態.";
+
+// album
+"lsq_albumComponent_allOfVideo" = "所有視頻";
+"lsq_albumComponent_albumTitle" = "相冊";
+"lsq_albumComponent_closeButton" = "關閉";
+"lsq_albumComponent_cancelButton" = "取消";
+"lsq_albumComponent_chooseButton" = "選取";
+

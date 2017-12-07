@@ -9,7 +9,6 @@
 #import "RecordCameraViewController.h"
 #import "StickerScrollView.h"
 #import "RecordVideoBottomBar.h"
-#import "CustomTuSDKCPRegionHandler.h"
 #import "TopNavBar.h"
 
 #import <MobileCoreServices/MobileCoreServices.h>
@@ -17,10 +16,15 @@
 #import "MovieEditorViewController.h"
 #import "FilterBottomButtonView.h"
 
+#import "TuAssetManager.h"
+#import "TuAlbumViewController.h"
+#import "TuSDKFramework.h"
+
+
 /**
  *  视频录制相机示例
  */
-@interface RecordCameraViewController () <TopNavBarDelegate, BottomBarDelegate, TuSDKRecordVideoCameraDelegate, FilterViewEventDelegate, StickerViewClickDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface RecordCameraViewController () <TopNavBarDelegate, BottomBarDelegate, TuSDKRecordVideoCameraDelegate, FilterViewEventDelegate, StickerViewClickDelegate, TuVideoSelectedDelegate, UINavigationControllerDelegate>
 {
     // 录制相机对象
     TuSDKRecordVideoCamera  *_camera;
@@ -73,6 +77,9 @@
 // 隐藏状态栏 for IOS7
 - (BOOL)prefersStatusBarHidden;
 {
+    if ([UIDevice lsqIsDeviceiPhoneX]) {
+        return NO;
+    }
     return YES;
 }
 
@@ -118,7 +125,9 @@
     // 设置全屏
     self.wantsFullScreenLayout = YES;
     [self setNavigationBarHidden:YES animated:NO];
-    [self setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+    if (![UIDevice lsqIsDeviceiPhoneX]) {
+        [self setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+    }
 }
 
 -(void)requireAlbumPermission;
@@ -158,10 +167,11 @@
     
     // 滤镜列表，获取滤镜前往 TuSDK.bundle/others/lsq_tusdk_configs.json
     // TuSDK 滤镜信息介绍 @see-https://tusdk.com/docs/ios/self-customize-filter
-    _videoFilters = @[@"SkinPink010",@"SkinJelly010",@"Pink010",@"Fair010",@"Forest010",@"SkinPink011",@"SkinJelly011",@"Pink011",@"Forest011"];
+
+    _videoFilters =@[@"nature",@"pink",@"jelly",@"ruddy",@"sugar",@"honey",@"clear",@"timber",@"whitening",@"porcelain"];
     _videoFilterIndex = 0;
     
-    self.view.backgroundColor = lsqRGB(255, 255, 255);
+    self.view.backgroundColor = [UIColor whiteColor];
     
     _sessionQueue = dispatch_queue_create("org.lasque.tusdkvideo", DISPATCH_QUEUE_SERIAL);
     
@@ -177,10 +187,14 @@
 
 - (void)initRecorderView
 {
-    CGRect rect = [[UIScreen mainScreen] applicationFrame];
+    CGRect rect = [UIScreen mainScreen].bounds;
     
     // 默认相机顶部控制栏
-    _topBar = [[TopNavBar alloc]initWithFrame:CGRectMake(0, 0, self.view.lsqGetSizeWidth, 44)];
+    CGFloat topY = 0;
+    if ([UIDevice lsqIsDeviceiPhoneX]) {
+        topY = 44;
+    }
+    _topBar = [[TopNavBar alloc]initWithFrame:CGRectMake(0, topY, self.view.lsqGetSizeWidth, 44)];
     [_topBar addTopBarInfoWithTitle:nil
                      leftButtonInfo:@[[NSString stringWithFormat:@"video_style_default_btn_back.png+%@",NSLocalizedString(@"lsq_go_back", @"返回")]]
                     rightButtonInfo:@[@"video_style_default_btn_switch.png",@"video_style_default_btn_flash_off.png"]];
@@ -189,7 +203,14 @@
     [self.view addSubview:_topBar];
     
     // 默认相机底部控制栏
-    _bottomBackView = [[UIView alloc]initWithFrame:CGRectMake(0, rect.size.width + 74, rect.size.width , rect.size.height - rect.size.width - 74)];
+    topY = rect.size.width + 74;
+    CGFloat height = rect.size.height - rect.size.width - 74;
+    if ([UIDevice lsqIsDeviceiPhoneX]) {
+        topY += 44;
+        height -= 78;
+    }
+
+    _bottomBackView = [[UIView alloc]initWithFrame:CGRectMake(0, topY, rect.size.width, height)];
     _bottomBackView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:_bottomBackView];
     _bottomBar = [[RecordVideoBottomBar alloc]initWithFrame:_bottomBackView.bounds];
@@ -205,7 +226,7 @@
     if (!_camera) return;
     
     // 添加时间进度条
-    _underView = [[UIView alloc]initWithFrame:CGRectMake(0, 44, self.view.lsqGetSizeWidth, 30)];
+    _underView = [[UIView alloc]initWithFrame:CGRectMake(0, _topBar.lsqGetOriginY + _topBar.lsqGetSizeHeight, self.view.lsqGetSizeWidth, 30)];
     [_underView setBackgroundColor:[UIColor colorWithRed:0.93 green:0.93 blue:0.93 alpha:1]];
     [self.view addSubview:_underView];
     
@@ -375,13 +396,17 @@
     _camera.videoDelegate = self;
     // 配置相机参数
     // 相机预览画面区域显示算法
-    _camera.regionHandler = [[CustomTuSDKCPRegionDefaultHandler alloc]init];
+    CGFloat offset = 74/self.view.lsqGetSizeHeight;
+    if ([UIDevice lsqIsDeviceiPhoneX]) {
+        offset = 118/self.view.lsqGetSizeHeight;
+    }
+    _camera.regionHandler.offsetPercentTop = offset;
 
     // 输出 1:1 画幅视频
     _camera.cameraViewRatio = 1.0;
     // 指定比例后，如不指定尺寸，SDK 会根据设备情况自动输出适应比例的尺寸
     // _camera.outputSize = CGSizeMake(640, 640);
-    
+
     // 输出视频的画质，主要包含码率、分辨率等参数 (默认为空，采用系统设置)
     _camera.videoQuality = [TuSDKVideoQuality makeQualityWith:TuSDKRecordVideoQuality_Low1];
     // 禁止触摸聚焦功能 (默认: NO)
@@ -389,7 +414,7 @@
     // 是否禁用持续自动对焦
     _camera.disableContinueFoucs = NO;
     // 视频覆盖区域颜色 (默认：[UIColor blackColor])
-    _camera.regionViewColor = [UIColor blackColor];
+    _camera.regionViewColor = [UIColor whiteColor];
     // 禁用前置摄像头自动水平镜像 (默认: NO，前置摄像头拍摄结果自动进行水平镜像)
     _camera.disableMirrorFrontFacing = NO;
     // 默认闪光灯模式
@@ -424,9 +449,7 @@
 // 开始录制
 - (void)startRecording
 {
-    dispatch_async(self.sessionQueue, ^{
-        [_camera startRecording];
-    });
+    [_camera startRecording];
 }
 
 // 暂停录制
@@ -671,41 +694,33 @@
 #pragma mark - StickerViewClickDelegate
 - (void)openImportVideo;
 {
-    if (!ipc) {
-        ipc = [[UIImagePickerController alloc] init];
-        
-        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]){
-            ipc.sourceType =  UIImagePickerControllerSourceTypePhotoLibrary;
-            ipc.mediaTypes = @[(NSString *)kUTTypeMovie];
-        }
-        ipc.allowsEditing = NO;
-        ipc.delegate = self;
-    }
+    [TuAssetManager sharedManager].ifRefresh = YES;
+    TuAlbumViewController *videoSelector = [[TuAlbumViewController alloc] init];
+    videoSelector.selectedDelegate = self;
+    // 若需要选择视频后进行预览 设置为YES，默认为NO
+    videoSelector.isPreviewVideo = NO;
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:videoSelector];
+    [self presentViewController:nav animated:YES completion:nil];
+    
     // 删除已录内容
     if (_camera) {
         [self cancelRecording];
         [self resetRecordUI];
     }
-    [self presentViewController:ipc animated:YES completion:nil];
 }
 
-#pragma mark - UIImagePickerControllerDelegate
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info;
+#pragma mark - TuVideoSelectedDelegate
+
+- (void)selectedModel:(TuVideoModel *)model;
 {
     RecordCameraViewController *wSelf = self;
-    [picker dismissViewControllerAnimated:NO completion:^{
-        NSURL *url = [info objectForKey:UIImagePickerControllerMediaURL];
-        // 开启视频编辑导入视频
-        MoviePreviewAndCutViewController *vc = [MoviePreviewAndCutViewController new];
-        vc.inputURL = url;
-        [wSelf.navigationController pushViewController:vc animated:YES];
-    }];
+    NSURL *url = model.url;
+
+    MoviePreviewAndCutViewController *vc = [MoviePreviewAndCutViewController new];
+    vc.inputURL = url;
+    [wSelf.navigationController pushViewController:vc animated:YES];
 }
 
-- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker;
-{
-    [picker dismissModalViewControllerAnimated];
-}
 
 
 #pragma mark -- 贴纸栏点击事件 StickerViewClickDelegate
