@@ -8,6 +8,18 @@
 
 #import "MovieEditorViewController.h"
 
+@interface MovieEditorViewController() {
+    // 视频当前预览进度
+    CGFloat _videoProgress;
+    // 当前选中的场景特效code
+    NSString *_currentEffectCode;
+    // 场景特效对应的颜色数组
+    NSArray<UIColor *> *_effectColors;
+    // 场景特效工具对消
+    SceneEffectTools *_effectTools;
+}
+@end
+
 @implementation MovieEditorViewController
 
 #pragma mark - 基础配置方法
@@ -45,8 +57,6 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    // 设置全屏
-    self.wantsFullScreenLayout = YES;
     [self setNavigationBarHidden:YES animated:NO];
     if (![UIDevice lsqIsDeviceiPhoneX]) {
         [self setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
@@ -65,6 +75,7 @@
 {
     [super viewDidLoad];
 
+    [self lsqInitData];
     [self lsqInitView];
     // 设置默认数据
     // 设置默认的MV效果覆盖范围，此处应与UI保持一致
@@ -80,12 +91,23 @@
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(enterFrontFromBack) name:UIApplicationWillEnterForegroundNotification object:nil];
 }
 
+- (void)lsqInitData
+{
+    // Warning: Demo 中相机录制中已默认添加美颜滤镜，视频编辑中不推荐使用美颜滤镜，否则滤镜效果叠加会影响最终视频的效果
+    // 滤镜列表
+    _videoFilterCodes =@[@"Olympus_1",@"Leica_1",@"Gold_1",@"Cheerful_1",@"White_1",@"s1950_1",@"Blurred_1",@"Newborn_1",@"Fade_1",@"NewYork_1"];
+    // 场景特效code
+    _videoEffectCodes = @[@"LiveShake01",@"LiveMegrim01",@"EdgeMagic01",@"LiveFancy01_1",@"LiveSoulOut01",@"LiveSignal01"];
+    // 特效颜色数组
+    _effectColors = @[lsqRGBA(250, 118, 82, 0.7), lsqRGBA(244, 161, 26, 0.7), lsqRGBA(255, 253, 80, 0.7),lsqRGBA(91, 242, 84, 0.7), lsqRGBA(22, 206, 252, 0.7), lsqRGBA(110, 160, 242, 0.7)];
+    _effectTools = [SceneEffectTools new];
+    _effectTools.videoDuration = _endTime - _startTime;
+}
+
 - (void)lsqInitView
 {
     self.view.backgroundColor = [UIColor whiteColor];
     CGRect rect = [UIScreen mainScreen].bounds;
-    // 滤镜列表
-    _videoFilters =@[@"nature",@"pink",@"jelly",@"ruddy",@"sugar",@"honey",@"clear",@"timber",@"whitening",@"porcelain"];
 
     // 默认相机顶部控制栏
     CGFloat topY = 0;
@@ -96,7 +118,7 @@
     [_topBar setBackgroundColor:[UIColor whiteColor]];
     _topBar.topBarDelegate = self;
     [_topBar addTopBarInfoWithTitle:NSLocalizedString(@"lsq_movieEditor", @"视频编辑")
-                     leftButtonInfo:@[[NSString stringWithFormat:@"video_style_default_btn_back.png+%@",NSLocalizedString(@"lsq_go_back", @"返回")]]
+                     leftButtonInfo:@[@"video_style_default_btn_back.png"]
                     rightButtonInfo:@[NSLocalizedString(@"lsq_save_video", @"保存")]];
     [self.view addSubview:_topBar];
     
@@ -127,11 +149,13 @@
     _bottomBar = [[MovieEditerBottomBar alloc]initWithFrame:CGRectMake(0, topY, rect.size.width , height)];
     _bottomBar.bottomBarDelegate = self;
     _bottomBar.videoDuration = self.endTime - self.startTime;
-    _bottomBar.videoFilters = _videoFilters;
+    _bottomBar.videoFilters = _videoFilterCodes;
     _bottomBar.filterView.currentFilterTag = 200;
+    _bottomBar.videoURL = _inputURL;
+    _bottomBar.topThumbnailView.timeInterval = _endTime - _startTime;
+    _bottomBar.effectsView.effectsCode = _videoEffectCodes;
+    
     [self.view addSubview:_bottomBar];
-
-
 }
 
 #pragma mark - 初始化 movieEditor 
@@ -157,10 +181,6 @@
     _movieEditor = [[TuSDKMovieEditor alloc]initWithPreview:_videoView options:options];
     _movieEditor.delegate = self;
     
-    /*设置贴纸出现的默认时间范围 （开始时间~结束时间，注：基于裁剪范围，如原视频8秒，裁剪2~7秒的内容，此时贴纸时间范围为1~2，即原视频的3~4秒）
-     * 注： 应与顶部的缩略图滑动栏的默认范围一致
-     */
-//    _movieEditor.mvItemTimeRange = [[TuSDKMVEffectData alloc]initEffectInfoWithStart:_mvStartTime end:_mvEndTime type:lsqMVEffectDataTypeStickerAudio];
     // 保存到系统相册 默认为YES
     _movieEditor.saveToAlbum = NO;
     // 设置录制文件格式(默认：lsqFileTypeQuickTimeMovie)
@@ -172,10 +192,9 @@
     // 视频播放音量设置，0 ~ 1.0 仅在 enableVideoSound 为 YES 时有效
     _movieEditor.videoSoundVolume = 0.5;
     // 设置默认镜
-    [_movieEditor switchFilterWithCode:_videoFilters[0]];
+    [_movieEditor switchFilterWithCode:_videoFilterCodes[0]];
     // 加载视频，显示第一帧
     [_movieEditor loadVideo];
-    
 }
 
 #pragma mark - 自定义事件方法
@@ -184,12 +203,41 @@
 {
     if ([_movieEditor isPreviewing]) {
         // 暂停播放
-        _playBtnIcon.hidden = false;
-        [_movieEditor stopPreview];
+        [self stopPreview];
     }else{
         // 开始播放
-        _playBtnIcon.hidden = true;
-        [_movieEditor startPreview];
+        [self startPreview];
+    }
+}
+
+- (void)stopPreview
+{
+    _playBtnIcon.hidden = false;
+    if ([_movieEditor isPreviewing])
+        [_movieEditor stopPreview];
+}
+
+- (void)startPreview
+{
+    _playBtnIcon.hidden = true;
+    [_movieEditor startPreview];
+}
+
+#pragma mark - 预览时场景特效处理
+/**
+ 注：该Demo中逻辑只对应一种，接口本身可支持完成多种添加逻辑，不同的逻辑需要在应用中进行自定义逻辑控制
+*/
+- (void)switchSceneEffectWithCode:(NSString *)effectCode;
+{
+    if (!_movieEditor) return;
+    if (effectCode){
+        TuSDKTimeRange *timeRange = [TuSDKTimeRange makeTimeRangeWithStartSeconds:_startTime endSeconds:_endTime];
+        TuSDKMediaSceneEffectData *newSceneEffect = [[TuSDKMediaSceneEffectData alloc]initEffectInfoWithTimeRange:timeRange];
+        newSceneEffect.effectsCode = effectCode;
+        
+        _movieEditor.sceneEffects = @[newSceneEffect];
+    }else{
+        _movieEditor.sceneEffects = nil;
     }
 }
 
@@ -221,6 +269,9 @@
     if ([_movieEditor isRecording]){
         // do nothing
     }else{
+        // 设置场景特效
+        // 注： demo 中实现的交互逻辑仅一种，接口本身可支持多种，同样预览时设定该参数，预览画面也同样生效
+        _movieEditor.sceneEffects = [_effectTools getResultArr];
         [[TuSDK shared].messageHub setStatus:NSLocalizedString(@"lsq_movie_saving", @"正在保存...")];
         [_movieEditor startRecording];
     }
@@ -240,7 +291,14 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         if (_movieEditorStatus == lsqMovieEditorStatusPreviewing) {
             // 预览时
-            _topThumbnailView.currentTime = progress*(_endTime-_startTime);
+            _videoProgress = progress;
+            _bottomBar.topThumbnailView.currentTime = progress*(_endTime-_startTime);
+            if (!_bottomBar.effectsView.hidden)
+                _bottomBar.effectsView.progress = progress;
+            if (_currentEffectCode)
+                [_bottomBar.effectsView.displayView addSegmentViewMoveToLocation:progress];
+            if ([_effectTools needSwitchEffectWithProgress:progress])
+                [self switchSceneEffectWithCode:[_effectTools currentEffectCode]];
         }
     });
 }
@@ -278,8 +336,14 @@
 - (void)onMovieEditor:(TuSDKMovieEditor *)editor statusChanged:(lsqMovieEditorStatus)status
 {
     _movieEditorStatus = status;
+
     if (status == lsqMovieEditorStatusPreviewingCompleted){
-        [_movieEditor startPreview];
+        [self stopPreview];
+        // 重置播放进度记录
+        _videoProgress = 0;
+        // 若此时在添加特效，则结束当前的添加，该操作方式只针对Demo中的逻辑，若需要其他交互逻辑，可根据要实现的操作进行修改
+        if (_movieEditor.sceneEffects.count > 0)
+            [_effectTools addEffectEnd:_movieEditor.sceneEffects[0].effectsCode withProgress:1];
     }else if (status == lsqMovieEditorStatusPreviewingPause){
         // 注：此处进行是否正在预览判断，防止stopPreview后立即startPreview,造成按钮显示错乱
         if (![_movieEditor isPreviewing]) {
@@ -333,7 +397,7 @@
 }
 
 #pragma mark - MovieEditorBottomBarDelegate
-
+#pragma mark -- filter
 /**
  滤镜参数改变
 
@@ -352,64 +416,7 @@
     [_movieEditor switchFilterWithCode:filterCode];
 }
 
-/**
- 调整 bottom 整体 frame
-
- @param mvViewDisplayed mvViewDisplayed description
- @param lastFrame lastFrame description
- @param newFrame newFrame description
- */
-- (void)movieEditorBottom_adjustFrameWithMVDisplayed:(BOOL)mvViewDisplayed lastFrame:(CGRect)lastFrame newFrame:(CGRect)newFrame;
-{
-    CGFloat adjustHeight = newFrame.origin.y - lastFrame.origin.y;
-
-    // 展示 MV View，此时需要移动camera的位置，同时显示缩略图
-    if (!_topThumbnailView) {
-        CGFloat topY = 47;
-        if ([UIDevice lsqIsDeviceiPhoneX]) {
-            topY += 44;
-        }
-        _topThumbnailView = [[MovieEditorClipView alloc]initWithFrame:CGRectMake(0, topY, self.view.lsqGetSizeWidth, adjustHeight - 6)];
-        _topThumbnailView.timeInterval = CMTimeGetSeconds(_movieEditor.cutTimeRange.duration);
-        _topThumbnailView.clipDelegate = self;
-        _topThumbnailView.minCutTime = 0.0;
-        _topThumbnailView.clipsToBounds = YES;
-        [self.view addSubview:_topThumbnailView];
-        
-        // 获取视频缩略图
-        __weak MovieEditorViewController * wSelf = self;
-        TuSDKVideoImageExtractor *imageExtractor = [TuSDKVideoImageExtractor createExtractor];
-        imageExtractor.videoPath = wSelf.inputURL;
-        // 缩略图个数结合滑动栏宽高计算，若需求不同，可另外更改
-        int num = (int)ceilf(_topThumbnailView.lsqGetSizeWidth/(_topThumbnailView.lsqGetSizeHeight*3/5));
-        NSLog(@"thumbnails number：%d",num);
-        imageExtractor.extractFrameCount = num + 1;
-        [imageExtractor asyncExtractImageList:^(NSArray<UIImage *> * images) {
-            NSLog(@"get thumbnails = %@",images);
-            _topThumbnailView.thumbnails = images;
-        }];
-        
-        [_topThumbnailView lsqSetSizeHeight:0];
-        _topThumbnailView.hidden = YES;
-    }
-    
-    [UIView animateWithDuration:0.3 animations:^{
-        [_previewView lsqSetOriginY:_previewView.lsqGetOriginY + adjustHeight];
-        _playBtn.frame = _previewView.frame;
-        if (mvViewDisplayed) {
-            _topThumbnailView.hidden = NO;
-            [_topThumbnailView lsqSetSizeHeight:adjustHeight - 6];
-        }else{
-            [_topThumbnailView lsqSetSizeHeight:0];
-        }
-    } completion:^(BOOL finished) {
-        if (!mvViewDisplayed) {
-            _topThumbnailView.hidden = YES;
-        }
-    }];
-    
-}
-
+#pragma mark -- mv
 /**
  切换 MV
 
@@ -418,35 +425,28 @@
 - (void)movieEditorBottom_clickStickerMVWith:(TuSDKMVStickerAudioEffectData *)mvData;
 {
     if (!mvData) {
-        // 注：removeAllMVItem 方法即将废弃，建议使用 removeAllEffect 代替
-        //        [_movieEditor removeAllMVItem];
-        // 为nil时 移除已有贴纸组
+        // 为nil时 不添加贴纸 且移除已有贴纸组
         [_movieEditor removeAllEffect];
         return;
     }
     
-    // 注： isMVItemUsed showMVItem 两个方法即将废弃，依然使用该方法时，请按照屏蔽的内容进行修改； 建议使用 addMediaEffect 代替
-//    // 是否正在使用
-//    if (![_movieEditor isMVItemUsed:mvData]){
-//        // 展示对应贴纸组
-//        _currentMediaEffect = mvData;
-//        _currentMediaEffect.atTimeRange = _mediaEffectTimeRange;
-//        [_movieEditor showMVItem:mvData];
-//    }
-    
+    // 移除已有贴纸组
     [_movieEditor removeAllEffect];
     mvData.audioVolume = _dubAudioVolume;
     _currentMediaEffect = mvData;
     _currentMediaEffect.atTimeRange = _mediaEffectTimeRange;
+    // 添加贴纸
     [_movieEditor addMediaEffect:_currentMediaEffect];
     
     // 开始播放
     if ([_movieEditor isPreviewing]) {
         [_movieEditor stopPreview];
     }
-    _playBtnIcon.hidden = YES;
-    [_movieEditor startPreview];
+    
+    [self startPreview];
 }
+
+#pragma mark -- audio
 
 /**
  切换 配音音乐
@@ -471,8 +471,7 @@
     if ([_movieEditor isPreviewing]) {
         [_movieEditor stopPreview];
     }
-    _playBtnIcon.hidden = YES;
-    [_movieEditor startPreview];
+    [self startPreview];
 
 }
 
@@ -502,14 +501,85 @@
     }
 }
 
-#pragma mark - VideoClipViewDelegate
+#pragma mark -- effects
+
 /**
- 拖动到某位置处
+ 选中特效
+ */
+- (void)movieEditorBottom_effectsSelectedWithCode:(NSString *)effectCode;
+{
+    _currentEffectCode = effectCode;
+    CMTime startTime = CMTimeMakeWithSeconds(_videoProgress * (_endTime - _startTime), 1*USEC_PER_SEC);
+    [_movieEditor seekToPreviewWithTime:startTime];
+    [self startPreview];
+    [self switchSceneEffectWithCode:effectCode];
+    [_bottomBar.effectsView.displayView addSegmentViewBeginWithStartLocation:_videoProgress WithColor:_effectColors[[_videoEffectCodes indexOfObject:effectCode]]];
+    // begin 和 end 成对调用
+    [_effectTools addEffectBegin:effectCode withProgress:_videoProgress];
+}
+
+/**
+ 结束选中的特效
+ */
+- (void)movieEditorBottom_effectsEndWithCode:(NSString *)effectCode;
+{
+    _currentEffectCode = nil;
+    [self stopPreview];
+    [self switchSceneEffectWithCode:nil];
+    [_bottomBar.effectsView.displayView addSegmentViewEnd];
+    // begin 和 end 成对调用
+    [_effectTools addEffectEnd:effectCode withProgress:_videoProgress];
+    [_effectTools getResultArr];
+    if (_effectTools.historyArr.count > 0) {
+        [_bottomBar.effectsView backBtnEnabled:YES];
+    }
+}
+
+/**
+ 显示特效栏
+ */
+- (void)movieEditorBottom_effectsViewDisplay;
+{
+    [self stopPreview];
+    CMTime time = CMTimeMakeWithSeconds(0, 1*USEC_PER_SEC);
+    [_movieEditor seekToPreviewWithTime:time];
+    _videoProgress = 0;
+    _bottomBar.effectsView.displayView.currentLocation = 0;
+}
+
+/**
+ 移动视频的播放进度条
+ */
+- (void)movieEditorBottom_effectsMoveVideoProgress:(CGFloat)newProgress;
+{
+    [self stopPreview];
+    _videoProgress = newProgress;
+    CMTime newTime = CMTimeMakeWithSeconds(newProgress * (_endTime - _startTime), 1*USEC_PER_SEC);
+    [_movieEditor seekToPreviewWithTime:newTime];
+}
+
+/**
+ 回删添加的特效
+ */
+- (void)movieEditorBottom_effectsBackEvent;
+{
+    if ([_movieEditor isPreviewing])
+        [_movieEditor stopPreview];
+    [_effectTools removeLastEffect];
+    
+    if (_effectTools.historyArr.count == 0) {
+        [_bottomBar.effectsView backBtnEnabled:NO];
+    }
+}
+
+ #pragma mark -- bottomThumbnail
+/**
+ mv、配音缩略图 拖动到某位置处
  
  @param time 拖动的当前位置所代表的时间节点
  @param isStartStatus 当前拖动的是否为开始按钮 true:开始按钮  false:拖动结束按钮
  */
-- (void)chooseTimeWith:(CGFloat)time withState:(lsqClipViewStyle)isStartStatus;
+- (void)movieEditorBottom_slipThumbnailViewWith:(CGFloat)time withState:(lsqClipViewStyle)isStartStatus;
 {
     if (isStartStatus == lsqClipViewStyleLeft) {
         // 调整开始时间
@@ -522,9 +592,9 @@
 }
 
 /**
- 拖动结束的事件方法
+ mv、配音缩略图 拖动结束的事件方法
  */
-- (void)slipEndEvent;
+- (void)movieEditorBottom_slipThumbnailViewSlipEndEvent;
 {
     // 设置贴纸出现的时间范围 （开始时间~结束时间，注：基于裁剪范围，如原视频8秒，裁剪2~7秒的内容，此时贴纸时间范围为1~2，即原视频的3~4秒）
     _mediaEffectTimeRange = [TuSDKTimeRange makeTimeRangeWithStartSeconds:_mvStartTime endSeconds:_mvEndTime];
@@ -536,14 +606,15 @@
 }
 
 /**
- 拖动开始的事件方法
+ mv、配音缩略图 拖动开始的事件方法
  */
-- (void)slipBeginEvent;
+- (void)movieEditorBottom_slipThumbnailViewSlipBeginEvent;
 {
     if ([_movieEditor isPreviewing]) {
         [_movieEditor stopPreview];
     }
 }
+
 
 #pragma mark - 后台前台切换
 // 进入后台
@@ -579,10 +650,8 @@
     _topBar.topBarDelegate = nil;
     _bottomBar.bottomBarDelegate = nil;
     [_bottomBar removeFromSuperview];
-    [_topThumbnailView removeFromSuperview];
     
     _bottomBar = nil;
-    _topThumbnailView = nil;
 }
 
 - (void)dealloc

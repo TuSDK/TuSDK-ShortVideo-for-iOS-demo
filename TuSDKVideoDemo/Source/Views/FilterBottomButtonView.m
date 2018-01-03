@@ -33,8 +33,8 @@
     line.backgroundColor = lsqRGB(230, 230, 230);
     [self addSubview:line];
 
-    NSArray *normalImageNames = @[@"style_default_1.7.1_btn_beauty_default", @"style_default_1.5.0_btn_filter_unselected"];
-    NSArray *selectImageNames = @[@"style_default_1.7.1_btn_beauty_selected",@"style_default_1.5.0_btn_filter"];
+    NSArray *normalImageNames = @[@"style_default_1.7.1_btn_beauty_default", @"style_default_1.11_btn_filter_unselected"];
+    NSArray *selectImageNames = @[@"style_default_1.7.1_btn_beauty_selected",@"style_default_1.11_btn_filter"];
     NSArray *titles = @[NSLocalizedString(@"lsq_filter_beautyArg", @"美颜"),NSLocalizedString(@"lsq_movieEditor_filterBtn", @"滤镜")];
     
     _bottomButton = [[BottomButtonView alloc]initWithFrame:CGRectMake(0, self.lsqGetSizeHeight - 55, self.lsqGetSizeWidth, 50)];

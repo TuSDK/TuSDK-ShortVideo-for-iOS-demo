@@ -166,9 +166,9 @@
     [super viewDidLoad];
     
     // 滤镜列表，获取滤镜前往 TuSDK.bundle/others/lsq_tusdk_configs.json
-    // TuSDK 滤镜信息介绍 @see-https://tusdk.com/docs/ios/self-customize-filter
+    // TuSDK 滤镜信息介绍 @see-https://tutucloud.com/docs/ios/self-customize-filter
 
-    _videoFilters =@[@"nature",@"pink",@"jelly",@"ruddy",@"sugar",@"honey",@"clear",@"timber",@"whitening",@"porcelain"];
+    _videoFilters =@[@"porcelain",@"nature",@"pink",@"jelly",@"ruddy",@"sugar",@"honey",@"clear",@"timber",@"whitening"];
     _videoFilterIndex = 0;
     
     self.view.backgroundColor = [UIColor whiteColor];
@@ -196,7 +196,7 @@
     }
     _topBar = [[TopNavBar alloc]initWithFrame:CGRectMake(0, topY, self.view.lsqGetSizeWidth, 44)];
     [_topBar addTopBarInfoWithTitle:nil
-                     leftButtonInfo:@[[NSString stringWithFormat:@"video_style_default_btn_back.png+%@",NSLocalizedString(@"lsq_go_back", @"返回")]]
+                     leftButtonInfo:@[[NSString stringWithFormat:@"video_style_default_btn_back.png"]]
                     rightButtonInfo:@[@"video_style_default_btn_switch.png",@"video_style_default_btn_flash_off.png"]];
     _topBar.topBarDelegate = self;
     _topBar.backgroundColor = [UIColor whiteColor];
@@ -906,6 +906,9 @@
 // 后台到前台
 - (void)enterFrontFromBack
 {
+    if (_camera) {
+        [_camera startCameraCapture];
+    }
     // 恢复UI界面
     [self resetRecordUI];
 }

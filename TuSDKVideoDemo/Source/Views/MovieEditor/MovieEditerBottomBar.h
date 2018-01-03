@@ -11,6 +11,8 @@
 #import "FilterView.h"
 #import "MVScrollView.h"
 #import "DubScrollView.h"
+#import "MovieEditorClipView.h"
+#import "EffectsView.h"
 
 // 编辑页面 底部按钮类型枚举
 typedef NS_ENUM (NSUInteger,MovieEditorBottomButtonType)
@@ -41,15 +43,6 @@ typedef NS_ENUM (NSUInteger,MovieEditorBottomButtonType)
 - (void)movieEditorBottom_filterViewSwitchFilterWithCode:(NSString *)filterCode;
 
 /**
- 调整了bottom的整体的frame
-
- @param mvViewDisplayed MV视图展示
- @param lastFrame lastFrame description
- @param newFrame newFrame description
- */
-- (void)movieEditorBottom_adjustFrameWithMVDisplayed:(BOOL)mvViewDisplayed lastFrame:(CGRect)lastFrame newFrame:(CGRect)newFrame;
-
-/**
  切换MV
 
  @param mvData MV 数据
@@ -72,6 +65,49 @@ typedef NS_ENUM (NSUInteger,MovieEditorBottomButtonType)
  */
 - (void)movieEditorBottom_changeVolumeLevel:(CGFloat)volume  index:(NSInteger)index;
 
+/**
+ mv、配音缩略图 拖动到某位置处
+ 
+ @param time 拖动的当前位置所代表的时间节点
+ @param isStartStatus 当前拖动的是否为开始按钮 true:开始按钮  false:拖动结束按钮
+ */
+- (void)movieEditorBottom_slipThumbnailViewWith:(CGFloat)time withState:(lsqClipViewStyle)isStartStatus;
+
+/**
+ mv、配音缩略图 拖动结束的事件方法
+ */
+- (void)movieEditorBottom_slipThumbnailViewSlipEndEvent;
+
+/**
+ mv、配音缩略图 拖动开始的事件方法
+ */
+- (void)movieEditorBottom_slipThumbnailViewSlipBeginEvent;
+
+/**
+选中特效
+ */
+- (void)movieEditorBottom_effectsSelectedWithCode:(NSString *)effectCode;
+
+/**
+ 结束选中的特效
+ */
+- (void)movieEditorBottom_effectsEndWithCode:(NSString *)effectCode;
+
+/**
+ 显示特效栏
+ */
+- (void)movieEditorBottom_effectsViewDisplay;
+
+/**
+ 回删添加的特效
+ */
+- (void)movieEditorBottom_effectsBackEvent;
+
+/**
+ 移动视频的播放进度条
+ */
+- (void)movieEditorBottom_effectsMoveVideoProgress:(CGFloat)newProgress;
+
 @end
 
 
@@ -87,12 +123,18 @@ typedef NS_ENUM (NSUInteger,MovieEditorBottomButtonType)
 @property (nonatomic, strong) NSArray<NSString *> *videoFilters;
 // 底部栏代理
 @property (nonatomic, assign) id<MovieEditorBottomBarDelegate> bottomBarDelegate;
+// 视频URL
+@property (nonatomic, strong) NSURL *videoURL;
 // 滤镜view
 @property (nonatomic, retain) FilterView *filterView;
 // MV View
 @property (nonatomic, retain) MVScrollView *mvView;
 // 配音View
 @property (nonatomic, retain) DubScrollView *dubView;
+// 当切换为 MV、配音 显示时，顶部的缩略图View
+@property (nonatomic, strong) MovieEditorClipView *topThumbnailView;
+// 特效View
+@property (nonatomic, retain) EffectsView *effectsView;
 // 视频时长
 @property (nonatomic, assign) CGFloat videoDuration;
 // 底部 滤镜栏、贴纸栏、配音栏 的 背景view

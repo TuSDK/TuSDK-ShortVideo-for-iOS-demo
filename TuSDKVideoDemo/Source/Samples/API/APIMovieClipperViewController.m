@@ -140,9 +140,8 @@
     _configBar = [[TopNavBar alloc]initWithFrame:CGRectMake(0, topYDistance, rect.size.width, 44)];
     [_configBar setBackgroundColor:[UIColor whiteColor]];
     _configBar.topBarDelegate = self;
-    NSString *backBtnTitle = [NSString stringWithFormat:@"video_style_default_btn_back.png+%@",NSLocalizedString(@"lsq_go_back", @"返回")];
     [_configBar addTopBarInfoWithTitle:NSLocalizedString(@"lsq_video_timecut_save", @"视频时间裁剪")
-                        leftButtonInfo:@[backBtnTitle]
+                        leftButtonInfo:@[@"video_style_default_btn_back.png"]
                        rightButtonInfo:@[NSLocalizedString(@"lsq_clip_video", @"裁剪")]];
     
     [_configBar.centerTitleLabel lsqSetSizeWidth:self.view.lsqGetSizeWidth/2];

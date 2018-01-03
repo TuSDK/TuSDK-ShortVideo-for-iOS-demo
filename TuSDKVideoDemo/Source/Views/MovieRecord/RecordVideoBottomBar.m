@@ -12,20 +12,18 @@
 
 @interface RecordVideoBottomBar ()
 {
+    // 长按是否开始
+    BOOL _touchBegin;
+    // 手势view
     UIView *_touchView;
-    
     // 滤镜 label
     UILabel *_filterLabel;
-    
     // 贴纸 label
     UILabel *_stickerLabel;
-    
-    // 贴纸 label
+    // 相册 label
     UILabel *_albumLabel;
-    
     // 确认 label
     UILabel *_completeLabel;
-    
     // 撤销 label
     UILabel *_cancelLabel;
 }
@@ -182,7 +180,8 @@
     UITouch *touch = [touches anyObject];
     CGPoint point = [touch locationInView:self];
     if (CGRectContainsPoint(_touchView.frame, point)) {
-        // 此时被按下；开始录制
+        // 此时被按下 开始录制
+        _touchBegin = YES;
         _recordButton.selected = YES;
         if ([self.bottomBarDelegate respondsToSelector:@selector(onRecordBtnPressStart:)]) {
             [self.bottomBarDelegate onRecordBtnPressStart:_recordButton];
@@ -190,39 +189,20 @@
     }
 }
 
-- (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
-{
-    if (self.recordMode == lsqRecordModeNormal) return;
-
-    UITouch *touch = [touches anyObject];
-    CGPoint point = [touch locationInView:self];
-    if (!CGRectContainsPoint(_touchView.frame, point)) {
-        // 此时手指滑动移开按钮范围； 暂停录制
-        if (_recordButton.selected) {
-            _recordButton.selected = NO;
-            if ([self.bottomBarDelegate respondsToSelector:@selector(onRecordBtnPressEnd:)]) {
-                [self.bottomBarDelegate onRecordBtnPressEnd:_recordButton];
-            }
-        }
-    }
-}
-
-
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
     if (self.recordMode == lsqRecordModeNormal) return;
 
     UITouch *touch = [touches anyObject];
     CGPoint point = [touch locationInView:self];
-    if (CGRectContainsPoint(_touchView.frame, point)) {
-        // 手指移开； 暂停录制
+    if (_touchBegin) {
+        // 手指移开 暂停录制
         _recordButton.selected = NO;
         if ([self.bottomBarDelegate respondsToSelector:@selector(onRecordBtnPressEnd:)]) {
             [self.bottomBarDelegate onRecordBtnPressEnd:_recordButton];
         }
     }
 }
-
 
 // 按钮点击事件
 - (void)clickBtn:(UIButton*)sender

@@ -37,12 +37,14 @@
 
 "lsq_reset" = "重置";
 "lsq_filter_set_smoothing" = "润滑";
+"lsq_filter_set_vignette" = "图案";
 "lsq_filter_set_whitening" = "白皙";
 "lsq_filter_set_blurSize" = "强度";
 "lsq_filter_set_mixied" = "效果";
 "lsq_filter_set_distanceFactor" = "半径";
 "lsq_filter_set_eyeSize" = "大眼";
 "lsq_filter_set_chinSize" = "瘦脸";
+"lsq_filter_set_animation" = "动画";
 
 // 滤镜 17种
 "lsq_filter_SkinSugar" = "糖水色";
@@ -107,6 +109,26 @@
 "lsq_filter_Pink011" = "淡雅";
 "lsq_filter_Forest011" = "小森林";
 
+// effect
+"lsq_filter_LiveShake01" = "抖动";
+"lsq_filter_LiveMegrim01" = "幻觉";
+"lsq_filter_EdgeMagic01" = "魔法";
+"lsq_filter_LiveFancy01_1" = "70s";
+"lsq_filter_LiveSoulOut01" = "灵魂出窍";
+"lsq_filter_LiveSignal01" = "信号";
+
+// edit
+"lsq_filter_Olympus_1" = "奥林巴斯";
+"lsq_filter_Leica_1" = "莱卡";
+"lsq_filter_Gold_1" = "金黄";
+"lsq_filter_Cheerful_1" = "愉悦";
+"lsq_filter_White_1" = "纯白";
+"lsq_filter_s1950_1" = "1950s";
+"lsq_filter_Blurred_1" = "迷离";
+"lsq_filter_Newborn_1" = "新生";
+"lsq_filter_Fade_1" = "褪色";
+"lsq_filter_NewYork_1" = "纽约";
+
 // audio
 "lsq_audio_lively" = "欢快";
 "lsq_audio_oldmovie" = "老电影";
@@ -114,7 +136,7 @@
 
 //video
 "lsq_record_preview_editor"= "断点续拍 + 裁剪 + 编辑";
-"lsq_video_preview_editor" = "相册导入 + 裁剪 + 编辑";
+"lsq_video_preview_editor" = "相册导入 + 裁剪 + 编辑,新增场景特效";
 "lsq_capture_record_camera" = "拍照录制相机";
 "lsq_record_camera" = "断点续拍相机";
 "lsq_normal_record_camera" = "正常录制相机";
@@ -140,6 +162,7 @@
 "lsq_api_usage_cancel_recording" = "取消录音";
 "lsq_api_usage_play_result_audio" = "播放录音";
 
+"lsq_video_mainVC_edit" = "编辑视频";
 "lsq_video_mainVC_record" = "录制视频";
 "lsq_video_componentlist" = "功能列表";
 "lsq_video_mainVC_import" = "导入视频";
@@ -161,12 +184,14 @@
 "lsq_deleteBtn_title" = "无效果";
 "lsq_record_title" = "自己录音";
 "lsq_movieEditor_filterBtn" = "滤镜";
+"lsq_movieEditor_effect" = "特效";
 "lsq_movieEditor_MVBtn" = "MV";
 "lsq_movieEditor_dubBtn" = "配音";
 "lsq_movieEditor_orignVolume_title" = "原音强度";
 "lsq_movieEditor_dubVolume_title" = "配音强度";
 "lsq_movieEditor_remainSecond_text" = "剩余%ld秒";
 "lsq_movieEditor_reminder_text" = "长按进行录制";
+"lsq_movieEditor_effect_back" = "撤销";
 
 // API example
 "lsq_api_origin_audio" = "原音";

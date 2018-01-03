@@ -36,12 +36,14 @@
 
 "lsq_reset" = "重置";
 "lsq_filter_set_smoothing" = "潤滑";
+"lsq_filter_set_vignette" = "圖案";
 "lsq_filter_set_whitening" = "白皙";
 "lsq_filter_set_blurSize" = "強度";
 "lsq_filter_set_mixied" = "效果";
 "lsq_filter_set_distanceFactor" = "半徑";
 "lsq_filter_set_eyeSize" = "大眼";
 "lsq_filter_set_chinSize" = "瘦臉";
+"lsq_filter_set_animation" = "動畫";
 
 // 滤镜 17种
 "lsq_filter_SkinSugar" = "糖水色";
@@ -106,6 +108,26 @@
 "lsq_filter_whitening" = "美白";
 "lsq_filter_porcelain" = "青花瓷";
 
+// effect
+"lsq_filter_LiveShake01" = "抖動";
+"lsq_filter_LiveMegrim01" = "幻覺";
+"lsq_filter_EdgeMagic01" = "魔法";
+"lsq_filter_LiveFancy01_1" = "70s";
+"lsq_filter_LiveSoulOut01" = "靈魂出竅";
+"lsq_filter_LiveSignal01" = "信號";
+
+// edit
+"lsq_filter_Olympus_1" = "奧林巴斯";
+"lsq_filter_Leica_1" = "萊卡";
+"lsq_filter_Gold_1" = "金黃";
+"lsq_filter_Cheerful_1" = "愉悅";
+"lsq_filter_White_1" = "純白";
+"lsq_filter_s1950_1" = "1950s";
+"lsq_filter_Blurred_1" = "迷離";
+"lsq_filter_Newborn_1" = "新生";
+"lsq_filter_Fade_1" = "褪色";
+"lsq_filter_NewYork_1" = "紐約";
+
 // audio
 "lsq_audio_lively" = "歡快";
 "lsq_audio_oldmovie" = "老電影";
@@ -113,7 +135,7 @@
 
 //video
 "lsq_record_preview_editor"= "斷點續拍 + 裁剪 + 編輯";
-"lsq_video_preview_editor" = "相冊導入 + 裁剪 + 编辑";
+"lsq_video_preview_editor" = "相冊導入 + 裁剪 + 编辑，新增場景特效";
 "lsq_capture_record_camera" = "拍照錄製相機";
 "lsq_record_camera" = "斷點續拍相機";
 "lsq_normal_record_camera" = "正常录制相机";
@@ -132,6 +154,7 @@
 "lsq_custom_components" = "自定义组件示例";
 "lsq_api_usage_example" = "API 示例";
 "lsq_api_usage_record_audio" = "錄製音頻";
+"lsq_video_mainVC_edit" = "編輯視頻";
 "lsq_video_mainVC_record" = "錄製視頻";
 "lsq_video_mainVC_import" = "導入視頻";
 "lsq_video_componentlist" = "功能列表";
@@ -153,12 +176,14 @@
 "lsq_deleteBtn_title" = "無效果";
 "lsq_record_title" = "自己錄音";
 "lsq_movieEditor_filterBtn" = "濾鏡";
+"lsq_movieEditor_effect" = "特效";
 "lsq_movieEditor_MVBtn" = "MV";
 "lsq_movieEditor_dubBtn" = "配音";
 "lsq_movieEditor_orignVolume_title" = "原音強度";
 "lsq_movieEditor_dubVolume_title" = "配音強度";
 "lsq_movieEditor_remainSecond_text" = "剩餘%ld秒";
 "lsq_movieEditor_reminder_text" = "長按進行錄製";
+"lsq_movieEditor_effect_back" = "撤銷";
 
 "lsq_api_usage_start_recording" = "開始錄音";
 "lsq_api_usage_pause_recording" = "暫停錄音";

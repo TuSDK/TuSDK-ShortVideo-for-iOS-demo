@@ -454,7 +454,6 @@
         vc.inputURL = url;
         [self.navigationController pushViewController:vc animated:YES];
     }
-
 }
 
 @end

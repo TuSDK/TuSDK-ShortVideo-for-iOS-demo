@@ -4,14 +4,15 @@
             "file":"lsq_filter_teamwork_115.gfilter",
             "name":"lsq_filter_group_teamwork",
             "default_filter_id":764,
+            "type":0,
             "filters":[
                 {
                     "id":764,
                     "name":"lsq_filter_nature",
                     "color":"#E9807E",
                     "args":{
-                        "smoothing":1,
-                        "mixied":1,
+                        "smoothing":0.6,
+                        "mixied":0.7,
                         "whitening":0
                     }
                 },
@@ -20,8 +21,8 @@
                     "name":"lsq_filter_pink",
                     "color":"#E9807E",
                     "args":{
-                        "smoothing":1,
-                        "mixied":1,
+                        "smoothing":0.6,
+                        "mixied":0.7,
                         "whitening":0.3
                     }
                 },
@@ -30,8 +31,8 @@
                     "name":"lsq_filter_jelly",
                     "color":"#E9807E",
                     "args":{
-                        "smoothing":1,
-                        "mixied":0.8,
+                        "smoothing":0.6,
+                        "mixied":0.7,
                         "whitening":0
                     }
                 },
@@ -40,8 +41,8 @@
                     "name":"lsq_filter_ruddy",
                     "color":"#E9807E",
                     "args":{
-                        "smoothing":1,
-                        "mixied":1,
+                        "smoothing":0.6,
+                        "mixied":0.7,
                         "whitening":0
                     }
                 },
@@ -50,8 +51,8 @@
                     "name":"lsq_filter_sugar",
                     "color":"#E9807E",
                     "args":{
-                        "smoothing":1,
-                        "mixied":0.75,
+                        "smoothing":0.6,
+                        "mixied":0.7,
                         "whitening":0
                     }
                 },
@@ -60,8 +61,8 @@
                     "name":"lsq_filter_honey",
                     "color":"#E9807E",
                     "args":{
-                        "smoothing":1,
-                        "mixied":1,
+                        "smoothing":0.6,
+                        "mixied":0.6,
                         "whitening":0.24
                     }
                 },
@@ -70,8 +71,8 @@
                     "name":"lsq_filter_clear",
                     "color":"#dfaea7",
                     "args":{
-                        "smoothing":1,
-                        "mixied":1,
+                        "smoothing":0.6,
+                        "mixied":0.6,
                         "whitening":0.8
                     }
                 },
@@ -101,6 +102,155 @@
                         "smoothing":0.7,
                         "mixied":0.5
                     }
+                }
+            ]
+        },
+        {
+            "file":"lsq_filter_LiveShake_153.gfilter",
+            "name":"lsq_filter_group_LiveShake",
+            "default_filter_id":913,
+            "type":1,
+            "filters":[
+                {
+                    "id":913,
+                    "name":"lsq_filter_LiveShake01",
+                    "color":"#FFFFFF"
+                }
+            ]
+        },
+        {
+            "file":"lsq_filter_LiveMegrim_154.gfilter",
+            "name":"lsq_filter_group_LiveMegrim",
+            "default_filter_id":914,
+            "type":1,
+            "filters":[
+                {
+                    "id":914,
+                    "name":"lsq_filter_LiveMegrim01",
+                    "color":"#FFFFFF"
+                }
+            ]
+        },
+        {
+            "file":"lsq_filter_EdgeMagic_155.gfilter",
+            "name":"lsq_filter_group_EdgeMagic",
+            "default_filter_id":915,
+            "type":1,
+            "filters":[
+                {
+                    "id":915,
+                    "name":"lsq_filter_EdgeMagic01",
+                    "color":"#FFFFFF"
+                }
+            ]
+        },
+        {
+            "file":"lsq_filter_LiveFancy01_156.gfilter",
+            "name":"lsq_filter_group_LiveFancy01",
+            "default_filter_id":916,
+            "type":1,
+            "filters":[
+                {
+                    "id":916,
+                    "name":"lsq_filter_LiveFancy01_1",
+                    "color":"#FFFFFF"
+                }
+            ]
+        },
+        {
+            "file":"lsq_filter_LiveSoulOut_157.gfilter",
+            "name":"lsq_filter_group_LiveSoulOut",
+            "default_filter_id":917,
+            "type":1,
+            "filters":[
+                {
+                    "id":917,
+                    "name":"lsq_filter_LiveSoulOut01",
+                    "color":"#FFFFFF"
+                }
+            ]
+        },
+        {
+            "file":"lsq_filter_LiveSignal_158.gfilter",
+            "name":"lsq_filter_group_LiveSignal",
+            "default_filter_id":918,
+            "type":1,
+            "filters":[
+                {
+                    "id":918,
+                    "name":"lsq_filter_LiveSignal01",
+                    "color":"#FFFFFF"
+                }
+            ]
+        },
+        {
+            "file":"lsq_filter_ShortVideoEditFilter_159.gfilter",
+            "name":"lsq_filter_group_ShortVideoEditFilter",
+            "default_filter_id":919,
+            "type":0,
+            "filters":[
+                {
+                    "id":919,
+                    "name":"lsq_filter_Olympus_1",
+                    "color":"#b28850"
+                },
+                {
+                    "id":920,
+                    "name":"lsq_filter_Leica_1",
+                    "color":"#E74C3C",
+                    "args":{
+                        "mixied":0.6
+                    }
+                },
+                {
+                    "id":921,
+                    "name":"lsq_filter_Gold_1",
+                    "color":"#18BC9C",
+                    "args":{
+                        "mixied":1,
+                        "vignette":0.6
+                    }
+                },
+                {
+                    "id":922,
+                    "name":"lsq_filter_Cheerful_1",
+                    "color":"#7E6B5A",
+                    "args":{
+                        "mixied":0.75
+                    }
+                },
+                {
+                    "id":924,
+                    "name":"lsq_filter_White_1",
+                    "color":"#8091c2"
+                },
+                {
+                    "id":925,
+                    "name":"lsq_filter_s1950_1",
+                    "color":"#d2d2d4"
+                },
+                {
+                    "id":926,
+                    "name":"lsq_filter_Blurred_1",
+                    "color":"#0091ff"
+                },
+                {
+                    "id":927,
+                    "name":"lsq_filter_Newborn_1",
+                    "color":"#0091FF",
+                    "args":{
+                        "mixied":0.7
+                    }
+                },
+                {
+                    "id":928,
+                    "name":"lsq_filter_Fade_1",
+                    "color":"#8fc31f"
+                },
+                {
+                    "id":929,
+                    "name":"lsq_filter_NewYork_1",
+                    "color":"#18bc9c"
                 }
             ]
         }
@@ -166,6 +316,27 @@
             ]
         },
         {
+            "file":"lsq_sticker_0_1425.gsce",
+            "name":"\u9a86\u9a7c",
+            "stickers":[
+                {
+                    "id":10361
+                },
+                {
+                    "id":10362
+                }
+            ]
+        },
+        {
+            "file":"lsq_sticker_0_1427.gsce",
+            "name":"\u65e0\u8bed\u4e4c\u9e26",
+            "stickers":[
+                {
+                    "id":10365
+                }
+            ]
+        },
+        {
             "file":"lsq_sticker_0_1446.gsce",
             "name":"\u513f\u7ae5\u8282",
             "stickers":[
@@ -174,6 +345,18 @@
                 },
                 {
                     "id":10462
+                }
+            ]
+        },
+        {
+            "file":"lsq_sticker_0_1455.gsce",
+            "name":"\u8367\u5149\u732b\u8033",
+            "stickers":[
+                {
+                    "id":10484
+                },
+                {
+                    "id":10485
                 }
             ]
         },
@@ -196,6 +379,27 @@
             ]
         },
         {
+            "file":"lsq_sticker_0_1469.gsce",
+            "name":"\u6d41\u5149",
+            "stickers":[
+                {
+                    "id":10525
+                }
+            ]
+        },
+        {
+            "file":"lsq_sticker_0_1468.gsce",
+            "name":"\u8367\u5149\u5154\u8033",
+            "stickers":[
+                {
+                    "id":10496
+                },
+                {
+                    "id":10497
+                }
+            ]
+        },
+        {
             "file":"lsq_sticker_0_1474.gsce",
             "name":"\u9ed1\u732b\u8033",
             "stickers":[
@@ -211,20 +415,35 @@
             ]
         },
         {
-            "file":"lsq_sticker_0_1477.gsce",
-            "name":"\u95ea\u5149\u5154\u8033",
+            "file":"lsq_sticker_0_1475.gsce",
+            "name":"\u7c89\u7ea2\u516c\u4e3b",
             "stickers":[
                 {
-                    "id":10589
+                    "id":10587
                 },
                 {
-                    "id":10590
+                    "id":10588
+                }
+            ]
+        },
+        {
+            "file":"lsq_sticker_0_1503.gsce",
+            "name":"\u9ed1\u8272\u732b",
+            "stickers":[
+                {
+                    "id":10681
                 },
                 {
-                    "id":10591
+                    "id":10682
                 },
                 {
-                    "id":10592
+                    "id":10683
+                },
+                {
+                    "id":10684
+                },
+                {
+                    "id":10685
                 }
             ]
         }
@@ -261,5 +480,5 @@
             ]
         }
     ],
-    "master":"f6Dp9Q4wjbTkrsEVK\/RFaR\/W0y2l9Aa62rb0uoNrVPFi6Kp61TvbL8auRuxVsd\/RGYJMOZoaDmaJiiNZeIrSqsBfEQSTh1pOXUyQ9sxLBGROCVl6wWKRmK9FO\/4AeKTm\/0AII+Vpa6NDOKs8\/z2KWeILxsAp0hrFxZ7ByHxyRg1gfUBhB8Q5xoqHnjXsuPWHBknH3CcleZgdh8mAiplSBnkruNEHbFktQ2rmmv2N74veJzSXbAzKMnIlrnmeaZeLmv\/s7v2iL3UOT20\/FPlntGKTERWBAPL48yDoseKQKVarhOgZoSRi9V+OoeAliAF0cfzLOMySFXLaMTnHJYboUnonhVRSvI67ruHbzcFob4kDteYRHYqCXtfXhOP1d1jYI\/5b6vkSaIwGum3Uymblkp8K3eYJTngXvgBGNrWYbV2u+hZ+dInYjw9aE9Ud97Q30vY5FqYmJAanbtKgQDHz+0pGzYwAOdysYsPqXn57oHJ7gHPUasjLo2C2+xbLRd13XYP7ifG4DHO3JcRWLTCFYN+0qYWIVcROlgm7JBnpaners1mCNWZHnkye4Jw0KU3Tc6MIlZ2lJEZ2gC6GO+UENd3pmqzVlJ\/2XKSL5JdBj7O3oiX\/Z+UTXJ71LZXz+K3GdZviLKYR2TmmzXMv+RgnBOQhw3GtUX4v+D9c1a\/MQK11MOq61MJQfcGJ9l7WeJHBnjUtzz2uC8RxFZw6kgi17T+HZfl5ek2XZIUsPfIBSZ4W+HDZvPbMGflTbP1jUHPmJ+zHKe3+IIwy1aZK2Bc+g0beqModR4xlaCTZb+edg7DxH9\/oiuQKesKthtWxikU8JDqqAPUrvGgZO7feSJEveS0iixzMojKtvIjOUbpUIx9ZenHyeTXOjM5yvCG6bhf4Q0LE0fu87jk1Mnexk22r+M0Y72V1VUFKjg9p6V1wR93iQqO6ae5VgCE0mewUDNTYIZuGrrbvDw+92XTYMoIl1F5b8rErWJVjPhbNa3sv0pwnLzmaxt3pP5YNCK3Ekd0Q8JHT1ClNGLQiFvA8HZgGvuSb0gotS4GdGwSgGd7\/JzvmBr2KWwhFniN6oCAX13L5bTuMNUub7pqr5BuhTzFT7CicHlOct9bhgwr4R189bgpF7Aqj9qFWvX5b5vdbuo0rT+6xUVhm\/WEBdJ7\/tKfhMjauBU4ii50V7anDpjITGHKOTDJwfE6hGspgJd7t8H+ApkpDGTC0rXpJr4eXs1M43zZD3TLm8e1aVrXBew1sbbTqach\/ZOrekeRAz\/Ppw0N\/uB5+g3nEzXAaMENHGhZZXbrdR1xper2ivr\/uDOrOQeFPRKpb5RDCOY09WfQQJtb5ca20bYqi6JuHEohNiyqGmDyoBoykFgn\/7QO5JMKdCnPGC6T7SzeftPT2aqbNFoWIqr0JCvGx\/WaA4U4SuuMQpCFp6L3wj9kwK0wH2OYHEjtbiJXyKVEwxMV6HPznZktID5ZvEmw8RBzTqHvWbp8Z5BoefST3rP1YZZmL+8im+5YXWIKq9sUF+wJXlbCDRx5F1HrMosQ3ZBzS4x+HqdF1VaHoNcdJfhdx9gSkAFl642Q=D91B1C7A04"
+    "master":"WMc+592w30X3\/ognqoUxG+wWEEenYAqV7Yzai02IxXVpAuLzAu0x00EdOaf\/M4tlCe3yZNeumTM+1n9POMKjcIo1PeSxZsOBAvC6hUtce3REOgGRTtv7k\/GIeD7aEZxfSR4H+9448EEEZSKbP\/ZtHjrPK4PkQurpRPjLTCC23Sf4KUCojw0mdEsoP1mwJNgavVkF5HhXh4UFeLXzvxUAQ6Hsa\/GGEdqhZEKn1868osl0yFJysQM5CRF5N\/RuMPyMvvogBt2wLxN27uCAS\/pkAa0uG3SKO8SOnFwP2LE7IR+KsCtja4yi1zQ21NSMd8sbKfOm0NQl98lDNNSjz3Cz7OIxWxbiM6isRFaVtUd\/2HVmNNCB0uallQrNqOTjDJ9PdBPhQHXwI4zUxIn6jPs\/aP\/LWocq+f5Qt5w\/yt+RvgPhXO3y0pPMnxa5GfAnqz+1hC5xbc7r\/qZjKjzvfMA32dOqfgKFSjHHwDKeCfQgBKbyu+Srq44cLlkvMR1I\/5JSEgPP73UtCpJzoYpLf7DSlF8aMkwQ9LmBPEX832Y6TFj3zlbM0fnMULnj+rw+BsMqZ\/YbDw5GtkIw17iumNiWBzrXBQSEpnhHkojAl6diAlVX9KjMTYLlyW8SODpklqTzOIIknl3v8CRgpo0+NyLR0wKNhwh9Scwp9c725Vy\/hbVwXSMG\/m5WlCZJimOj66vtrq2tjZ2i0rsfeOltcZ5G7xbBwRZV3w7p8rAwCK3muEEdMaypJb\/2M7ZJ2bvBgzV+Qbz0pfWLMyEf+CUx6UlAXxeqBt7Dxju6XhU4I7M4wxAPKd+1keE61WD766IEcGQ8yvNeB8NG7iSAU4fiXlhZl8lbTvmtnt6A\/nrjLui1yzkpovTVmxppnEO7pCxZf2okd2w+3R2B\/x\/hTBnJSgBGxfj4nthB1szqFFVtYg6a99deZXsC4bsn5h5vTNinWWaYrB8+CERgQCyCv2Hpz1RWOxxc33Co0x6MlQuU2DywPmBuPvBO1L2++JjZol0Qg0lkqpN1xH3bQcf8HdmXAcWdgH+NdhsaC27Lxi+AzKVmizUhe0gn+uyHniwgHsAp4QxD8zsjT\/5\/my3gtqppMzY4NufULytdz7saDERUCyDw\/RzrhKE6O38fGe+B7Yk3YEd9Acj0oPVcgX6gF6sih+USi4ouLMEEACal6xlvWb1hVV8J7GFO+ylPnoVAPHDVOKHzqBDTRmtjGBuYRWmXs+G2ynuFQj\/lKbKsUuAlo\/jJnj0\/bKqXDVZIyjbwmAGivLMAqW69IyEWtT41aW5W07zdPLTtHkLYaz635GIl6oIZ0n6jbaqSCXI9tEydNBINsI1bFbXMFVTqMbgpQNXnXAXKdXSBlkR5DgPpIj7cfFgXBC8vTA9FiFxnrUkEQFy2J\/wwF+ee9ncxE5huccwmLdC2XqBWRPuS3Ys8sTH2PDDcECCR5aLQtn0HSWsiYwcYLE94rSYkvSYbjcSdlVB35+ua9N2osTDIz6msmkEmzXg\/id5AdEofhj9hIeEvvZaQuP2vigrcgK9T+BWjzmisDB5GT0MoJZ2Zecvwyk5VZ1Z6czboybZ9FCEWlzdnYgZ\/OpM4w0li4d1vti7tfB+JUPtGFSvcaM2RtHIoPiC\/\/srCRIXuB0q0h38qQioKFeqFASo9+5slxe7LctkGs7hSI9PKiqIvJeL5tVwb40RT85WyY1JtwTxM2cmNlj9ftW7AHXkiIl3jbbYp+\/vAplWAThG1OCesqmOVvt8iskVjw+vLIdarJmhjB0QZw+2DJNmUD8rFOyPbW5Aoll99ojHiLSYowiyzdQnROYp1FCRhKwHMXh\/t6R7dv\/GJzt1yyj+cKwF6KW241R+7nnK+KWFMd5BHApTLCQiZ3pgRB6WOuOuOZFzzlX5MHXOmg\/NfLNpjHWgTHKl\/D9zeCyMwqd1FuOpnTH0bjfLfCcfi4pW5VALuRVASx8x9YoEIAw22IJ+mUGL+lpmVwP\/raIaXr\/hSknESDW\/qAln9QA2e9iqy4DCXgUmQTHHGOGWrbXBx9gj8JIMqmq3eq7iU5gXTxmeAYRFmpzMzA7eYkbzogSFHaLgQ7HvQfi8Viw0w0lZIY4eG9qnUoYygD+Vx6edlwZW3qg47eiGownKnx8deVjdM4\/aX+61n59934DTbQWlJ65p84ExumKLGNqdAW75kca09edNzvkV5vEYNrqZOJXMuQ8j7BD6oNxF0jaATFZa4V63BB0aH3FIEV7E7tTF59bpOrODDQt29TAPlMO+os2\/YWoteL1px0whGIoPQgIAzwRBm579RkS7v+G4WHqly1+yxld\/fBUoW5gY+awEFwKaGNpjPQOo=F820C3B34D"
 }

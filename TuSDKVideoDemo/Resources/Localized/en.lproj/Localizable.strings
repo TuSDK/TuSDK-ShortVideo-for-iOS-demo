@@ -36,13 +36,14 @@
 
 "lsq_reset" = "Reset";
 "lsq_filter_set_smoothing" = "Smoothing";
+"lsq_filter_set_vignette" = "Vignette";
 "lsq_filter_set_whitening" = "Whitening";
 "lsq_filter_set_blurSize" = "Blur Size";
 "lsq_filter_set_mixied" = "Mixed";
 "lsq_filter_set_distanceFactor" = "Radius";
 "lsq_filter_set_eyeSize" = "Eye";
 "lsq_filter_set_chinSize" = "Chin";
-
+"lsq_filter_set_animation" = "Animation";
 
 // 滤镜 17种
 "lsq_filter_SkinSugar" = "SkinSugar";
@@ -108,6 +109,26 @@
 "lsq_filter_Pink011" = "Elegant";
 "lsq_filter_Forest011" = "Forest";
 
+// effect
+"lsq_filter_LiveShake01" = "Shake";
+"lsq_filter_LiveMegrim01" = "Megrim";
+"lsq_filter_EdgeMagic01" = "Magic";
+"lsq_filter_LiveFancy01_1" = "70s";
+"lsq_filter_LiveSoulOut01" = "Soul";
+"lsq_filter_LiveSignal01" = "Signal";
+
+// edit
+"lsq_filter_Olympus_1" = "奥林巴斯";
+"lsq_filter_Leica_1" = "莱卡";
+"lsq_filter_Gold_1" = "金黄";
+"lsq_filter_Cheerful_1" = "愉悦";
+"lsq_filter_White_1" = "纯白";
+"lsq_filter_s1950_1" = "1950s";
+"lsq_filter_Blurred_1" = "迷离";
+"lsq_filter_Newborn_1" = "新生";
+"lsq_filter_Fade_1" = "褪色";
+"lsq_filter_NewYork_1" = "纽约";
+
 // audio
 "lsq_audio_lively" = "lively";
 "lsq_audio_oldmovie" = "oldmovie";
@@ -115,7 +136,7 @@
 
 // video
 "lsq_record_preview_editor"= "Record & Edit Video Compenent";
-"lsq_video_preview_editor" = "Edit Video Compenent";
+"lsq_video_preview_editor" = "Edit Video Compenent，New，Scene Effect";
 "lsq_capture_record_camera" = "Record Camera Component";
 "lsq_record_camera" = "Record Video Camera Component";
 "lsq_normal_record_camera" = "Normal Record Camera Component";
@@ -135,6 +156,7 @@
 "lsq_api_usage_example" = "API Usage Examples";
 "lsq_api_usage_record_audio" = "Record Audio";
 "lsq_video_mainVC_record" = "Record Video";
+"lsq_video_mainVC_edit" = "Edit Video";
 "lsq_video_componentlist" = "Component List";
 "lsq_video_mainVC_import" = "Import Video";
 "lsq_video_mainVC_clickPress" = "Capture Record";
@@ -155,12 +177,14 @@
 "lsq_deleteBtn_title" = "No Effect";
 "lsq_record_title" = "Record";
 "lsq_movieEditor_filterBtn" = "Filter";
+"lsq_movieEditor_effect" = "Effect";
 "lsq_movieEditor_MVBtn" = "MV";
 "lsq_movieEditor_dubBtn" = "Dub";
 "lsq_movieEditor_orignVolume_title" = "Audio";
 "lsq_movieEditor_dubVolume_title" = "Dub";
 "lsq_movieEditor_remainSecond_text" = "rest %ld seconds";
 "lsq_movieEditor_reminder_text" = "Long press for recording";
+"lsq_movieEditor_effect_back" = "Back";
 
 "lsq_api_usage_start_recording" = "StartRecord";
 "lsq_api_usage_pause_recording" = "PauseRecord";

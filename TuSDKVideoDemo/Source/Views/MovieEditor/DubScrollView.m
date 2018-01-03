@@ -11,6 +11,19 @@
 
 @interface DubScrollView ()<UICollectionViewDelegate,UICollectionViewDataSource>
 {
+    
+    // 视图布局
+    // collection 对象
+    UICollectionView *_collectionView;
+    // 无效果图片展示IV
+    UIImageView *_noEffectIV;
+    // 无效果title
+    UILabel *_noEffectLabel;
+    // 录音图片展示IV
+    UIImageView *_recordIV;
+    // 录音title
+    UILabel *_recordLabel;
+
     // 数据源
     // 音乐图片数组
     NSArray *_audioImageArr;
@@ -18,8 +31,6 @@
     NSArray *_audioNameArr;
     // 音乐URL数组
     NSArray *_audioURLArr;
-    // collection 对象
-    UICollectionView *_collectionView;
     
     // 记录上一次点击的时间
     CGFloat _lastTapTime;
@@ -47,9 +58,9 @@
     UICollectionViewFlowLayout *layout = [UICollectionViewFlowLayout new];
     CGFloat itemHeight = self.lsqGetSizeHeight;
     layout.itemSize = CGSizeMake(itemHeight*13/18, itemHeight);
-    layout.minimumLineSpacing = 11;
-    layout.minimumInteritemSpacing = 11;
-    layout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 5);
+    layout.minimumLineSpacing = 12;
+    layout.minimumInteritemSpacing = 12;
+    layout.sectionInset = UIEdgeInsetsMake(0, 12, 0, 5);
     layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     
     // 创建collection
@@ -60,7 +71,6 @@
     [_collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"cell"];
     _collectionView.delegate = self;
     _collectionView.dataSource = self;
-    _collectionView.bounces = NO;
     [self addSubview:_collectionView];
     
     // 设置音乐数据源
@@ -124,6 +134,22 @@
     cell.layer.borderWidth = 2;
     cell.layer.borderColor = lsqRGB(244, 161, 24).CGColor;
     _currentSelectIndexPath = indexPath;
+    
+    if (indexPath.row == 0) {
+        _noEffectIV.image = [UIImage imageNamed:@"style_default_1.11_btn_effect_select"];
+        _noEffectLabel.textColor = lsqRGB(244, 161, 24);
+    }else{
+        _noEffectIV.image = [UIImage imageNamed:@"style_default_1.11_btn_effect_unselect"];
+        _noEffectLabel.textColor = [UIColor lsqClorWithHex:@"#CCCCCC"];
+    }
+
+    if (indexPath.row == 1) {
+        _recordIV.image = [UIImage imageNamed:@"style_default_1.11_btn_edit_recordSound_select"];
+        _recordLabel.textColor = lsqRGB(244, 161, 24);
+    }else{
+        _recordIV.image = [UIImage imageNamed:@"style_default_1.11_btn_edit_recordSound_unselect"];
+        _recordLabel.textColor = [UIColor lsqClorWithHex:@"#CCCCCC"];
+    }
 
 }
 
@@ -183,35 +209,41 @@
     
     if (indexPath.row == 0) {
         // 无效果
-        iv.image = [UIImage imageNamed:@"style_default_1.7.0_nosound_selected"];
-        UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(0, cell.lsqGetSizeHeight - 30, cell.lsqGetSizeWidth, 30)];
+        iv.image = [UIImage imageNamed:@"style_default_1.11_btn_effect_unselect"];
+        UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(0, iv.lsqGetOriginY + iv.lsqGetSizeHeight + 3, cell.lsqGetSizeWidth, 30)];
         label.text = NSLocalizedString(@"lsq_deleteBtn_title", @"无效果");
         label.textAlignment = NSTextAlignmentCenter;
-        label.textColor = [UIColor lsqClorWithHex:@"#9B9B9B"];
-        label.font = [UIFont systemFontOfSize:12];
+        label.textColor = [UIColor lsqClorWithHex:@"#CCCCCC"];
+        label.font = [UIFont systemFontOfSize:11];
         label.adjustsFontSizeToFitWidth = YES;
+        _noEffectIV = iv;
+        _noEffectLabel = label;
         [cell addSubview:iv];
         [cell addSubview:label];
         cell.backgroundColor = [UIColor lsqClorWithHex:@"#EFEFEF"];
+        
     }else if (indexPath.row == 1){
         // 录音
-        iv.image = [UIImage imageNamed:@"style_default_1.7.0_soundreco_selected"];
-        UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(0, cell.lsqGetSizeHeight - 30, cell.lsqGetSizeWidth, 30)];
+        iv.image = [UIImage imageNamed:@"style_default_1.11_btn_edit_recordSound_unselect"];
+        UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(0, iv.lsqGetOriginY + iv.lsqGetSizeHeight + 3, cell.lsqGetSizeWidth, 30)];
         label.text = NSLocalizedString(@"lsq_record_title", @"自己录音");
         label.textAlignment = NSTextAlignmentCenter;
-        label.textColor = [UIColor lsqClorWithHex:@"#9B9B9B"];
-        label.font = [UIFont systemFontOfSize:12];
+        label.textColor = [UIColor lsqClorWithHex:@"#CCCCCC"];
+        label.font = [UIFont systemFontOfSize:11];
         label.adjustsFontSizeToFitWidth = YES;
+        _recordIV = iv;
+        _recordLabel = label;
         [cell addSubview:iv];
         [cell addSubview:label];
         cell.backgroundColor = [UIColor lsqClorWithHex:@"#EFEFEF"];
+        
     }else{
         UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, cell.lsqGetSizeWidth, 20)];
         label.text = _audioNameArr[indexPath.row - 2];
         label.backgroundColor = [UIColor colorWithWhite:0 alpha:0.4];
         label.textAlignment = NSTextAlignmentCenter;
         label.textColor = [UIColor whiteColor];
-        label.font = [UIFont systemFontOfSize:12];
+        label.font = [UIFont systemFontOfSize:11];
         label.adjustsFontSizeToFitWidth = YES;
         
         // 获取对应贴纸的缩略图
