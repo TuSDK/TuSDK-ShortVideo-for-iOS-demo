@@ -61,8 +61,7 @@
     
     // 获取相机的权限并启动相机
     [self requireCameraPermission];
-    // 设置全屏
-    self.wantsFullScreenLayout = YES;
+
     [self setNavigationBarHidden:YES animated:NO];
     if (![UIDevice lsqIsDeviceiPhoneX]) {
         [self setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
@@ -138,8 +137,8 @@
     }
     _configBar = [[TopNavBar alloc]initWithFrame:CGRectMake(0, topY, self.view.lsqGetSizeWidth, 54)];
     [_configBar addTopBarInfoWithTitle:nil
-                        leftButtonInfo:@[@"style_default_1.6.0_back_default.png"]
-                       rightButtonInfo:@[@"style_default_1.6.0_lens_overturn.png",@"style_default_1.6.0_flash_closed.png"]];
+                        leftButtonInfo:@[@"style_default_2.0_back_default.png"]
+                       rightButtonInfo:@[@"style_default_2.0_lens_overturn.png",@"style_default_2.0_flash_closed.png"]];
     _configBar.topBarDelegate = self;
     [self.view addSubview:_configBar];
     
@@ -246,14 +245,16 @@
     _camera.waterMarkImage = [UIImage imageNamed:@"sample_watermark.png"];
     // 设置水印图片的位置
     _camera.waterMarkPosition = lsqWaterMarkBottomRight;
-    // 最大录制时长 10s
+    // 最大录制时长 5s
     _camera.maxRecordingTime = 5;
     // 最小录制时长 0s 在点击拍照、长按录制的UI交互下最小时长设为0
     _camera.minRecordingTime = 0;
     // 正常模式/续拍模式  - 注：Demo中点击拍照、长按录制的UI交互仅适用于正常模式，若需要点击拍照、长按进行续拍，可自行更改
     _camera.recordMode = lsqRecordModeNormal;
-    //  设置使用录制相机最小空间限制,开发者可根据需要自行设置（单位：字节 默认：50M）
+    // 设置使用录制相机最小空间限制,开发者可根据需要自行设置（单位：字节 默认：50M）
     _camera.minAvailableSpaceBytes  = 1024.f*1024.f*50.f;
+    // 设置变速录制的速率  默认：标准   包含：标准、慢速、极慢、快速、极快    注：快慢速录制同样支持断点续拍，可结合具体UI进行调用，示例代码请参考 MovieRecordFullScreenController
+//    _camera.speedMode = lsqSpeedMode_Slow2;
     // 启动相机
     [_camera tryStartCameraCapture];
     
@@ -279,9 +280,9 @@
     NSString *imageName = @"";
     
     if(_flashModeIndex == 1){
-        imageName = @"style_default_1.6.0_flash_open.png";
+        imageName = @"style_default_2.0_flash_open.png";
     }else{
-        imageName = @"style_default_1.6.0_flash_closed.png";
+        imageName = @"style_default_2.0_flash_closed.png";
     }
     UIImage *image = [UIImage imageNamed:imageName];
     [_configBar changeBtnStateWithIndex:1 isLeftbtn:NO withImage:image withEnabled:enabled];

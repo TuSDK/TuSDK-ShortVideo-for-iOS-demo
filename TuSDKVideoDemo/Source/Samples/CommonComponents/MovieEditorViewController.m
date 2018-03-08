@@ -15,8 +15,6 @@
     NSString *_currentEffectCode;
     // 场景特效对应的颜色数组
     NSArray<UIColor *> *_effectColors;
-    // 场景特效工具对消
-    SceneEffectTools *_effectTools;
 }
 @end
 
@@ -100,8 +98,6 @@
     _videoEffectCodes = @[@"LiveShake01",@"LiveMegrim01",@"EdgeMagic01",@"LiveFancy01_1",@"LiveSoulOut01",@"LiveSignal01"];
     // 特效颜色数组
     _effectColors = @[lsqRGBA(250, 118, 82, 0.7), lsqRGBA(244, 161, 26, 0.7), lsqRGBA(255, 253, 80, 0.7),lsqRGBA(91, 242, 84, 0.7), lsqRGBA(22, 206, 252, 0.7), lsqRGBA(110, 160, 242, 0.7)];
-    _effectTools = [SceneEffectTools new];
-    _effectTools.videoDuration = _endTime - _startTime;
 }
 
 - (void)lsqInitView
@@ -191,6 +187,8 @@
     _movieEditor.waterMarkPosition = lsqWaterMarkTopRight;
     // 视频播放音量设置，0 ~ 1.0 仅在 enableVideoSound 为 YES 时有效
     _movieEditor.videoSoundVolume = 0.5;
+    // 设置当前生效的特效(滤镜、场景特效、粒子特效)  注：滤镜、场景特效、粒子特效不能同时添加，当 EfficientEffectMode 为Default时 以后添加的特效为准，当Mode进行限定时，则以限定的模式为准
+    _movieEditor.efficientEffectMode = lsqMovieEditorEfficientEffectModeDefault;
     // 设置默认镜
     [_movieEditor switchFilterWithCode:_videoFilterCodes[0]];
     // 加载视频，显示第一帧
@@ -225,20 +223,11 @@
 
 #pragma mark - 预览时场景特效处理
 /**
- 注：该Demo中逻辑只对应一种，接口本身可支持完成多种添加逻辑，不同的逻辑需要在应用中进行自定义逻辑控制
+ 注：切换场景特效
 */
 - (void)switchSceneEffectWithCode:(NSString *)effectCode;
 {
-    if (!_movieEditor) return;
-    if (effectCode){
-        TuSDKTimeRange *timeRange = [TuSDKTimeRange makeTimeRangeWithStartSeconds:_startTime endSeconds:_endTime];
-        TuSDKMediaSceneEffectData *newSceneEffect = [[TuSDKMediaSceneEffectData alloc]initEffectInfoWithTimeRange:timeRange];
-        newSceneEffect.effectsCode = effectCode;
-        
-        _movieEditor.sceneEffects = @[newSceneEffect];
-    }else{
-        _movieEditor.sceneEffects = nil;
-    }
+    //...  切换时可做其他操作
 }
 
 #pragma mark - TopNavBarDelegate
@@ -271,7 +260,6 @@
     }else{
         // 设置场景特效
         // 注： demo 中实现的交互逻辑仅一种，接口本身可支持多种，同样预览时设定该参数，预览画面也同样生效
-        _movieEditor.sceneEffects = [_effectTools getResultArr];
         [[TuSDK shared].messageHub setStatus:NSLocalizedString(@"lsq_movie_saving", @"正在保存...")];
         [_movieEditor startRecording];
     }
@@ -288,19 +276,18 @@
 - (void)onMovieEditor:(TuSDKMovieEditor *)editor progress:(CGFloat)progress
 {
     // 注意：UI相关修改需要确认在主线程中进行
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if (_movieEditorStatus == lsqMovieEditorStatusPreviewing) {
-            // 预览时
+    if (_movieEditorStatus == lsqMovieEditorStatusPreviewing) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            // 预览时 更新UI
             _videoProgress = progress;
             _bottomBar.topThumbnailView.currentTime = progress*(_endTime-_startTime);
             if (!_bottomBar.effectsView.hidden)
                 _bottomBar.effectsView.progress = progress;
             if (_currentEffectCode)
                 [_bottomBar.effectsView.displayView addSegmentViewMoveToLocation:progress];
-            if ([_effectTools needSwitchEffectWithProgress:progress])
-                [self switchSceneEffectWithCode:[_effectTools currentEffectCode]];
-        }
-    });
+        });
+    }
+
 }
 
 /**
@@ -342,8 +329,8 @@
         // 重置播放进度记录
         _videoProgress = 0;
         // 若此时在添加特效，则结束当前的添加，该操作方式只针对Demo中的逻辑，若需要其他交互逻辑，可根据要实现的操作进行修改
-        if (_movieEditor.sceneEffects.count > 0)
-            [_effectTools addEffectEnd:_movieEditor.sceneEffects[0].effectsCode withProgress:1];
+        if (_bottomBar.effectsView.displayView.segmentCount > 0)
+            [_movieEditor addEndEffectWithMode:lsqMovieEditorEffectMode_Scene];
     }else if (status == lsqMovieEditorStatusPreviewingPause){
         // 注：此处进行是否正在预览判断，防止stopPreview后立即startPreview,造成按钮显示错乱
         if (![_movieEditor isPreviewing]) {
@@ -425,13 +412,14 @@
 - (void)movieEditorBottom_clickStickerMVWith:(TuSDKMVStickerAudioEffectData *)mvData;
 {
     if (!mvData) {
-        // 为nil时 不添加贴纸 且移除已有贴纸组
-        [_movieEditor removeAllEffect];
+        // 为nil时 不添加贴纸 且移除已有贴纸组  注：removeAllEffect 方法更改为 removeAllMediaEffect
+//        [_movieEditor removeAllEffect];
+        [_movieEditor removeAllMediaEffect];
         return;
     }
     
-    // 移除已有贴纸组
-    [_movieEditor removeAllEffect];
+    // 移除已有贴纸组  注：removeAllEffect 方法更改为 removeAllMediaEffect
+    [_movieEditor removeAllMediaEffect];
     mvData.audioVolume = _dubAudioVolume;
     _currentMediaEffect = mvData;
     _currentMediaEffect.atTimeRange = _mediaEffectTimeRange;
@@ -456,12 +444,12 @@
 - (void)movieEditorBottom_clickAudioWith:(TuSDKMediaAudioEffectData *)mvData;
 {
     if (!mvData) {
-        // 为nil时 移除已有 音乐特效
-        [_movieEditor removeAllEffect];
+        // 为nil时 移除已有 音乐特效  注：removeAllEffect 方法更改为 removeAllMediaEffect
+        [_movieEditor removeAllMediaEffect];
         return;
     }
     
-    [_movieEditor removeAllEffect];
+    [_movieEditor removeAllMediaEffect];
     mvData.audioVolume = _dubAudioVolume;
     _currentMediaEffect = mvData;
     _currentMediaEffect.atTimeRange = _mediaEffectTimeRange;
@@ -514,8 +502,8 @@
     [self startPreview];
     [self switchSceneEffectWithCode:effectCode];
     [_bottomBar.effectsView.displayView addSegmentViewBeginWithStartLocation:_videoProgress WithColor:_effectColors[[_videoEffectCodes indexOfObject:effectCode]]];
-    // begin 和 end 成对调用
-    [_effectTools addEffectBegin:effectCode withProgress:_videoProgress];
+    // 添加场景特效 begin 和 end 成对调用
+    [_movieEditor addEffectWithCode:effectCode withMode:lsqMovieEditorEffectMode_Scene];
 }
 
 /**
@@ -527,10 +515,9 @@
     [self stopPreview];
     [self switchSceneEffectWithCode:nil];
     [_bottomBar.effectsView.displayView addSegmentViewEnd];
-    // begin 和 end 成对调用
-    [_effectTools addEffectEnd:effectCode withProgress:_videoProgress];
-    [_effectTools getResultArr];
-    if (_effectTools.historyArr.count > 0) {
+    // 结束当前添加的场景特效 begin 和 end 成对调用
+    [_movieEditor addEndEffectWithMode:lsqMovieEditorEffectMode_Scene];
+    if (_bottomBar.effectsView.displayView.segmentCount > 0) {
         [_bottomBar.effectsView backBtnEnabled:YES];
     }
 }
@@ -565,9 +552,9 @@
 {
     if ([_movieEditor isPreviewing])
         [_movieEditor stopPreview];
-    [_effectTools removeLastEffect];
+    [_movieEditor removeLastEffectWithMode:lsqMovieEditorEffectMode_Scene];
     
-    if (_effectTools.historyArr.count == 0) {
+    if (_bottomBar.effectsView.displayView.segmentCount == 0) {
         [_bottomBar.effectsView backBtnEnabled:NO];
     }
 }

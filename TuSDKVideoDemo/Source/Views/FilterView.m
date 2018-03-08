@@ -23,12 +23,10 @@
     UIScrollView *_filterScroll;
     // 参数栏背景view
     UIView *_paramBackView;
-    
     // 美颜按钮
     UIButton *_clearFilterBtn;
     // 美颜的边框view
     UIView *_clearFilterBorderView;
-    
     // 记录参数栏数据源信息
     NSString *_filterDescription;
     NSArray *_args;

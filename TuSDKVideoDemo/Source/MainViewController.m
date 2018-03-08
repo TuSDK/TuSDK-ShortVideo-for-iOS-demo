@@ -13,6 +13,7 @@
 #import "MoviePreviewAndCutRatioAdaptedController.h"
 #import "TuAssetManager.h"
 #import "TuAlbumViewController.h"
+#import "MoviePreviewAndCutFullScreenController.h"
 
 @interface MainViewController ()<TuSDKFilterManagerDelegate,TuVideoSelectedDelegate>
 
@@ -51,8 +52,6 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
-    //设置全屏
-    self.wantsFullScreenLayout = YES;
     [self setNavigationBarHidden:YES animated:NO];
     [self setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
 }
@@ -216,7 +215,7 @@
 - (void)selectedModel:(TuVideoModel *)model;
 {
     NSURL *url = model.url;
-    MoviePreviewAndCutRatioAdaptedController *vc = [MoviePreviewAndCutRatioAdaptedController new];
+    MoviePreviewAndCutFullScreenController *vc = [MoviePreviewAndCutFullScreenController new];
     vc.inputURL = url;
     [self.navigationController pushViewController:vc animated:YES];
     

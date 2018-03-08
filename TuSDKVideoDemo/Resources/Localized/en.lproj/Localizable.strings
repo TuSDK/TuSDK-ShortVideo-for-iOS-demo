@@ -117,6 +117,20 @@
 "lsq_filter_LiveSoulOut01" = "Soul";
 "lsq_filter_LiveSignal01" = "Signal";
 
+// ParticleEffect
+
+"lsq_filter_snow01" = "Snow";
+"lsq_filter_Love" = "Love";
+"lsq_filter_Bubbles" = "Bubbles";
+"lsq_filter_Music" = "Music";
+"lsq_filter_Star" = "Star";
+"lsq_filter_Surprise" = "Surprise";
+"lsq_filter_Flower" = "Flower";
+"lsq_filter_Magic" = "Magic";
+"lsq_filter_Money" = "Money";
+"lsq_filter_Burning" = "Burning";
+"lsq_filter_Fireball" = "Fireball";
+
 // edit
 "lsq_filter_Olympus_1" = "奥林巴斯";
 "lsq_filter_Leica_1" = "莱卡";
@@ -176,6 +190,7 @@
 "lsq_filter_beautyArg" = "Beauty";
 "lsq_deleteBtn_title" = "No Effect";
 "lsq_record_title" = "Record";
+"lsq_movieEditor_magicBtn" = "Magic";
 "lsq_movieEditor_filterBtn" = "Filter";
 "lsq_movieEditor_effect" = "Effect";
 "lsq_movieEditor_MVBtn" = "MV";
@@ -185,6 +200,8 @@
 "lsq_movieEditor_remainSecond_text" = "rest %ld seconds";
 "lsq_movieEditor_reminder_text" = "Long press for recording";
 "lsq_movieEditor_effect_back" = "Back";
+"lsq_movieEditor_effect_sizeTitle" = "Size";
+"lsq_movieEditor_effect_colorTitle" = "Color";
 
 "lsq_api_usage_start_recording" = "StartRecord";
 "lsq_api_usage_pause_recording" = "PauseRecord";

@@ -62,8 +62,6 @@
     // 获取相机的权限并启动相机
     [self requireCameraPermission];
 
-    // 设置全屏
-    self.wantsFullScreenLayout = YES;
     [self setNavigationBarHidden:YES animated:NO];
     if (![UIDevice lsqIsDeviceiPhoneX]) {
         [self setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
@@ -380,7 +378,9 @@
     _camera.recordMode = _inputRecordMode;
     //  设置使用录制相机最小空间限制,开发者可根据需要自行设置（单位：字节 默认：50M）
      _camera.minAvailableSpaceBytes  = 1024.f*1024.f*50.f;
-    
+    // 设置变速录制的速率  默认：标准   包含：标准、慢速、极慢、快速、极快    注：快慢速录制同样支持断点续拍，可结合具体UI进行调用，示例代码请参考 MovieRecordFullScreenController
+//    _camera.speedMode = lsqSpeedMode_Slow2;
+
     // 启动相机
     [_camera tryStartCameraCapture];
     

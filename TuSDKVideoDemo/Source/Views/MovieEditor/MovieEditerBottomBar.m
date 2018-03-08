@@ -7,8 +7,6 @@
 //
 
 #import "MovieEditerBottomBar.h"
-#import "RecorderView.h"
-#import "BottomButtonView.h"
 
 @interface MovieEditerBottomBar ()<FilterViewEventDelegate, MVViewClickDelegate, DubViewClickDelegate, TuSDKICSeekBarDelegate, BottomButtonViewDelegate, VideoClipViewDelegate, EffectsViewEventDelegate>{
 
@@ -16,9 +14,6 @@
     UIView *_bottomDisplayView;
     // 底部按钮View
     BottomButtonView *_bottomButtonView;
-    
-    // 音量调节 View
-    UIView *_volumeBackView;
     // 原音音量 数值显示 UILabel
     UILabel * _oringinArgLabel;
     // 配音音量 数值显示 UILabel
@@ -71,27 +66,67 @@
     return self;
 }
 
-// 初始化底部按钮视图
+/**
+ 初始化底部按钮normal状态下图片数组
+ */
+- (NSArray *)getBottomNormalImages;
+{
+    NSMutableArray *normalImages = [NSMutableArray arrayWithArray:@[@"style_default_1.11_btn_filter_unselected",
+                                                             @"style_default_1.11_edit_effect_default",
+                                                             @"style_default_1.11_btn_mv_unselected",
+                                                             @"style_default_1.11_sound_default"]];
+    // iPad 中不显示滤镜栏
+    if ([UIDevice lsqDevicePlatform] == TuSDKDevicePlatform_other) [normalImages removeObjectAtIndex:0];
+        
+
+    return normalImages;
+}
+
+/**
+ 初始化底部按钮normal状态下图片数组
+ */
+- (NSArray *)getBottomSelectImages;
+{
+    NSMutableArray *selectImages = [NSMutableArray arrayWithArray:@[@"style_default_1.11_btn_filter",
+                                                                    @"style_default_1.11_edit_effect_select",
+                                                                    @"style_default_1.11_btn_mv",
+                                                                    @"style_default_1.11_sound_selected"]];
+    // iPad 中不显示滤镜栏
+    if ([UIDevice lsqDevicePlatform] == TuSDKDevicePlatform_other) [selectImages removeObjectAtIndex:0];
+
+    return selectImages;
+}
+
+/**
+ 初始化底部按钮显示title
+ */
+- (NSArray *)getBottomTitles;
+{
+    NSMutableArray *titles = [NSMutableArray arrayWithArray:@[NSLocalizedString(@"lsq_movieEditor_filterBtn", @"滤镜"),
+                                                              NSLocalizedString(@"lsq_movieEditor_effect", @"特效"),
+                                                              NSLocalizedString(@"lsq_movieEditor_MVBtn", @"MV"),
+                                                              NSLocalizedString(@"lsq_movieEditor_dubBtn", @"配音")]];
+    // iPad 中不显示滤镜栏
+    if ([UIDevice lsqDevicePlatform] == TuSDKDevicePlatform_other) [titles removeObjectAtIndex:0];
+
+    return titles;
+}
+
+
 - (void)initBottomButton;
 {
     // 底部按钮 + 线条 背景View
     _bottomDisplayView = [[UIView alloc]initWithFrame:CGRectMake(0, self.lsqGetSizeHeight - 60, self.lsqGetSizeWidth, 60)];
     [self addSubview:_bottomDisplayView];
     
-    UIView *line = [[UIView alloc]initWithFrame:CGRectMake(0, 0 , self.lsqGetSizeWidth, 1)];
-    line.backgroundColor = lsqRGB(230, 230, 230);
+    UIView *line = [[UIView alloc]initWithFrame:CGRectMake(0, 0 , self.lsqGetSizeWidth, 0.5)];
+    line.backgroundColor = lsqRGBA(230, 230, 230, 0.6);
     [_bottomDisplayView addSubview:line];
     
     // 底部按钮
-    NSMutableArray *normalImageNames = [NSMutableArray arrayWithArray:@[@"style_default_1.11_btn_filter_unselected",@"style_default_1.11_edit_effect_default", @"style_default_1.11_btn_mv_unselected",@"style_default_1.11_sound_default"]];
-    NSMutableArray *selectImageNames = [NSMutableArray arrayWithArray:@[@"style_default_1.11_btn_filter", @"style_default_1.11_edit_effect_select", @"style_default_1.11_btn_mv", @"style_default_1.11_sound_selected"]];
-    NSMutableArray *titles = [NSMutableArray arrayWithArray:@[NSLocalizedString(@"lsq_movieEditor_filterBtn", @"滤镜"), NSLocalizedString(@"lsq_movieEditor_effect", @"特效"), NSLocalizedString(@"lsq_movieEditor_MVBtn", @"MV"), NSLocalizedString(@"lsq_movieEditor_dubBtn", @"配音")]];
-    
-    if ([UIDevice lsqDevicePlatform] == TuSDKDevicePlatform_other) {
-        [normalImageNames removeObjectAtIndex:1];
-        [selectImageNames removeObjectAtIndex:1];
-        [titles removeObjectAtIndex:1];
-    };
+    NSArray *normalImageNames = [self getBottomNormalImages];
+    NSArray *selectImageNames = [self getBottomSelectImages];
+    NSArray *titles = [self getBottomTitles];
 
     _bottomButtonView = [[BottomButtonView alloc]initWithFrame:CGRectMake(0, 7, _bottomDisplayView.lsqGetSizeWidth, 50)];
     _bottomButtonView.clickDelegate = self;
@@ -102,16 +137,17 @@
     [_bottomDisplayView addSubview:_bottomButtonView];
 }
 
-// 初始化视图调节内容
+/**
+ 初始化视图调节内容
+ */
 - (void)initContentView;
 {
     // 调节内容 背景view
     _contentBackView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, _bottomDisplayView.lsqGetSizeWidth, _bottomDisplayView.lsqGetOriginY)];
-    _contentBackView.backgroundColor = [UIColor whiteColor];
     [self addSubview:_contentBackView];
     
     // 滤镜显示 View
-    _filterView = [[FilterView alloc]initWithFrame:CGRectMake(0, 0, _bottomDisplayView.lsqGetSizeWidth , _bottomDisplayView.lsqGetOriginY )];
+    _filterView = [[FilterView alloc]initWithFrame:CGRectMake(0, 0, _bottomDisplayView.lsqGetSizeWidth , _bottomDisplayView.lsqGetOriginY)];
     _filterView.filterEventDelegate = self;
     _filterView.isHiddenEyeChinParam = YES;
     _filterView.isHiddenSmoothingParamSingleAdjust = YES;
@@ -244,10 +280,13 @@
 }
 
 #pragma mark - BottomButtonViewDelegate
-// 底部按钮点击事件
+/**
+ 底部按钮点击事件
+ */
 - (void)bottomButton:(BottomButtonView *)bottomButtonView clickIndex:(NSInteger)index;
 {
     if ([UIDevice lsqDevicePlatform] == TuSDKDevicePlatform_other && index > 0) {
+        // iPad 中不显示滤镜栏
         index++;
     }
    

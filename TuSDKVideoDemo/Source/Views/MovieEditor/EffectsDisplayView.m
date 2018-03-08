@@ -60,6 +60,11 @@
     }
 }
 
+- (NSInteger)segmentCount;
+{
+    return _lastViewTag - _basicTag;
+}
+
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -86,6 +91,8 @@
     // 缩略图遮罩层
     UIView *shadeView = [[UIView alloc]initWithFrame:_backView.frame];
     shadeView.backgroundColor = lsqRGBA(255, 255, 255, 0.6);
+    shadeView.layer.borderWidth = 2;
+    shadeView.layer.borderColor = lsqRGB(244, 161, 24).CGColor;
     [self addSubview:shadeView];
     
     // 顶部阴影View
@@ -171,6 +178,7 @@
 - (BOOL)addSegmentViewBeginWithStartLocation:(CGFloat)startLocation WithColor:(UIColor *)color;
 {
     if (startLocation>=1 || startLocation < 0) return NO;
+    _isAdding = YES;
     _lastViewTag ++;
     UIView *view = [[UIView alloc]initWithFrame:CGRectMake((_shadowBackView.lsqGetSizeWidth)*startLocation, 0, 1, _shadowBackView.lsqGetSizeHeight)];
     view.tag = _lastViewTag;
@@ -185,6 +193,7 @@
  */
 - (void)addSegmentViewEnd;
 {
+    _isAdding = NO;
     _lastView = nil;
 }
 
@@ -218,7 +227,7 @@
  */
 - (void)removeLastSegment;
 {
-    if (_lastViewTag == _basicTag) return;
+    if (_lastViewTag <= _basicTag) return;
     [_shadowBackView.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if (obj.tag == _lastViewTag) {
             [obj removeFromSuperview];

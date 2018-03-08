@@ -117,6 +117,20 @@
 "lsq_filter_LiveSoulOut01" = "灵魂出窍";
 "lsq_filter_LiveSignal01" = "信号";
 
+// ParticleEffect
+
+"lsq_filter_snow01" = "雪花";
+"lsq_filter_Love" = "甜心";
+"lsq_filter_Bubbles" = "泡泡";
+"lsq_filter_Music" = "音符";
+"lsq_filter_Star" = "星星";
+"lsq_filter_Surprise" = "惊喜";
+"lsq_filter_Flower" = "花瓣";
+"lsq_filter_Magic" = "鬼火";
+"lsq_filter_Money" = "金币";
+"lsq_filter_Burning" = "燃烧";
+"lsq_filter_Fireball" = "火球";
+
 // edit
 "lsq_filter_Olympus_1" = "奥林巴斯";
 "lsq_filter_Leica_1" = "莱卡";
@@ -183,6 +197,7 @@
 "lsq_filter_beautyArg" = "美颜";
 "lsq_deleteBtn_title" = "无效果";
 "lsq_record_title" = "自己录音";
+"lsq_movieEditor_magicBtn" = "魔法";
 "lsq_movieEditor_filterBtn" = "滤镜";
 "lsq_movieEditor_effect" = "特效";
 "lsq_movieEditor_MVBtn" = "MV";
@@ -192,6 +207,9 @@
 "lsq_movieEditor_remainSecond_text" = "剩余%ld秒";
 "lsq_movieEditor_reminder_text" = "长按进行录制";
 "lsq_movieEditor_effect_back" = "撤销";
+"lsq_movieEditor_effect_sizeTitle" = "大小";
+"lsq_movieEditor_effect_colorTitle" = "颜色";
+
 
 // API example
 "lsq_api_origin_audio" = "原音";

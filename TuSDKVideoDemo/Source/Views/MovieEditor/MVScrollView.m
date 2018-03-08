@@ -133,6 +133,11 @@
         _noEffectIV.image = [UIImage imageNamed:@"style_default_1.11_btn_effect_unselect"];
         _noEffectLabel.textColor = [UIColor lsqClorWithHex:@"#CCCCCC"];
     }
+    for (UIView *view in cell.subviews) {
+        if (view.tag == 103) {
+            view.backgroundColor = lsqRGB(244, 161, 24);
+        }
+    }
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath
@@ -142,6 +147,11 @@
     if (cell) {
         cell.layer.borderWidth = 2;
         cell.layer.borderColor = [UIColor clearColor].CGColor;
+        for (UIView *view in cell.subviews) {
+            if (view.tag == 103) {
+                view.backgroundColor =  [UIColor colorWithWhite:0 alpha:0.4];
+            }
+        }
     }
 }
 
@@ -160,9 +170,19 @@
     if (![indexPath isEqual:_currentSelectIndexPath]) {
         cell.layer.borderWidth = 2;
         cell.layer.borderColor = [UIColor clearColor].CGColor;
+        for (UIView *view in cell.subviews) {
+            if (view.tag == 103) {
+                view.backgroundColor =  [UIColor colorWithWhite:0 alpha:0.4];
+            }
+        }
     }else{
         cell.layer.borderWidth = 2;
         cell.layer.borderColor = lsqRGB(244, 161, 24).CGColor;
+        for (UIView *view in cell.subviews) {
+            if (view.tag == 103) {
+                view.backgroundColor =  lsqRGB(244, 161, 24);
+            }
+        }
     }
 }
 
@@ -215,6 +235,7 @@
         label.textColor = [UIColor whiteColor];
         label.font = [UIFont systemFontOfSize:11];
         label.adjustsFontSizeToFitWidth = YES;
+        label.tag = 103;
         // 获取对应贴纸的缩略图
         [[TuSDKPFStickerLocalPackage package] loadThumbWithStickerGroup:_mvArr[indexPath.row-1].stickerGroup imageView:iv];
         [cell addSubview:iv];

@@ -11,7 +11,6 @@
 #import "TopNavBar.h"
 #import "MovieEditerBottomBar.h"
 #import "MovieEditorClipView.h"
-#import "SceneEffectTools.h"
 
 /**
  视频编辑示例：对视频进行裁剪，添加滤镜，添加MV效果
@@ -70,5 +69,8 @@
 
 // 点击 播放/暂停 按钮事件
 - (void)clickPlayerBtn:(UIButton *)sender;
-
+// 暂停预览
+- (void)stopPreview;
+// 开始预览
+- (void)startPreview;
 @end

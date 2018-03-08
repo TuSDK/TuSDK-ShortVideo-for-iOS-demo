@@ -7,7 +7,6 @@
 //
 
 #import "RecordVideoBottomBar.h"
-#import "TuSDKFramework.h"
 #import "TopNavBar.h"
 
 @interface RecordVideoBottomBar ()

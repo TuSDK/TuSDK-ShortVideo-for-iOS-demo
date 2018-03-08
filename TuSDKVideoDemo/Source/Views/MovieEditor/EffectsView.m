@@ -61,13 +61,13 @@
     CGRect effectsScrollFrame = CGRectMake(offsetX, self.lsqGetSizeHeight - effectItemHeight - bottom, self.bounds.size.width - offsetX, effectItemHeight);
     
     // 顶部缩略图展示栏
-    _displayView = [[EffectsDisplayView alloc]initWithFrame:CGRectMake(0, 0, self.lsqGetSizeWidth, 48)];
-    _displayView.center = CGPointMake(self.lsqGetSizeWidth/2, effectsScrollFrame.origin.y/2 - 2);
+    _displayView = [[EffectsDisplayView alloc]initWithFrame:CGRectMake(0, 0, self.lsqGetSizeWidth, 38)];
+    _displayView.center = CGPointMake(self.lsqGetSizeWidth/2, 40);
     _displayView.eventDelegate = self;
     [self addSubview:_displayView];
     
     // 撤销特效按钮
-    UIImage *btnImage = [UIImage imageNamed:@"style_default_1.11_edit_effect_back"];
+    UIImage *btnImage = [UIImage imageNamed:@"style_default_2.0_edit_effect_back"];
     _backBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, effectItemWidth, effectItemHeight)];
     _backBtn.center = CGPointMake(10 + effectItemWidth/2, effectsScrollFrame.origin.y + effectsScrollFrame.size.height/2);
     [_backBtn addTarget:self action:@selector(clickBackEffectsBtn:) forControlEvents:UIControlEventTouchUpInside];

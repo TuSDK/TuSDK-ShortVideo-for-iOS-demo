@@ -79,8 +79,6 @@
 {
     [super viewWillAppear:animated];
     
-    // 页面设置
-    self.wantsFullScreenLayout = YES;
     [self setNavigationBarHidden:YES animated:NO];
     if (![UIDevice lsqIsDeviceiPhoneX]) {
         [self setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];

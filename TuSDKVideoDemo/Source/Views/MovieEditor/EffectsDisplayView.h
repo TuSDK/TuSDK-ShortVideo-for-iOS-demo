@@ -30,6 +30,10 @@
 @property (nonatomic, assign) CGFloat currentLocation;
 // 视频路径URL
 @property (nonatomic, strong) NSURL *videoURL;
+// 添加的片段个数
+@property (nonatomic, assign, readonly) NSInteger segmentCount;
+// 是否正在添加片段
+@property (nonatomic, assign, readonly) BOOL isAdding;
 // 缩略图事件代理
 @property (nonatomic, assign) id<EffectsDisplayViewEventDelegate> eventDelegate;
 

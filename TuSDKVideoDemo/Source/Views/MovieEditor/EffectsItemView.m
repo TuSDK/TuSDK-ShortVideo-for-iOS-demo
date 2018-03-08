@@ -36,7 +36,7 @@
     // 图片
     _imageView = [UIImageView new];
     _imageView.layer.cornerRadius = 3;
-    NSString *imagePath = [[NSBundle mainBundle]pathForResource:imageName ofType:@"png"];
+    NSString *imagePath = [[NSBundle mainBundle]pathForResource:imageName ofType:@"jpg"];
     _imageView.image = [UIImage imageWithContentsOfFile:imagePath];
     _imageView.clipsToBounds = YES;
     _imageView.contentMode = UIViewContentModeScaleAspectFit;
@@ -107,7 +107,5 @@
 {
     [self touchEndEvent];
 }
-
-
 
 @end

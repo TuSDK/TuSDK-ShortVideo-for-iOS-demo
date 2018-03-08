@@ -30,15 +30,14 @@
 + (NSArray<TuSDKFaceAligment *> *)markFaceWithImage:(UIImage *)image;
 
 /**
- *  根据人脸特征点获取三维角度
- *
- *  @param faceAligment 人脸特征
- *  @param previewSize  视图大小
- *
- *  @return 返回三维角度
+ 对GPU的帧数据检测人脸并识别
+
+ @param width 宽度
+ @param height 高度
+ @param radian 设备旋转弧度
+ @return 返回查找到的人脸
  */
-+ (NSDictionary *)calcFaceAngle:(TuSDKFaceAligment *)faceAligment
-                           previewSize:(CGSize)previewSize;
++ (NSArray<TuSDKFaceAligment *> *)markFaceGL2WithWidth:(int)width height:(int)height radian:(float)radian;
 
 /**
  对相机采集的帧数据检测人脸并识别
@@ -47,7 +46,7 @@
  @param width 宽度
  @param height 高度
  @param ori 朝向
- @param angle 设备旋转角度
+ @param radian 设备旋转弧度
  @param flip 是否水平翻转
  
  @return 返回查找到的人脸
@@ -57,17 +56,17 @@
                                                   height:(int)height
                                                   stride:(int)stride
                                                      ori:(float)ori
-                                                   angle:(float)angle
+                                                  radian:(float)radian
                                                     flip:(BOOL)flip;
 
 /**
  对灰度图数据检测人脸并识别
-
+ 
  @param buffer 灰度
  @param width 宽度
  @param height 高度
  @param ori 朝向
- @param angle 设备旋转角度
+ @param radian 设备旋转弧度
  @param flip 是否水平翻转
  
  @return 返回查找到的人脸
@@ -77,6 +76,6 @@
                                                   height:(int)height
                                                   stride:(int)stride
                                                      ori:(float)ori
-                                                   angle:(float)angle
+                                                  radian:(float)radian
                                                     flip:(BOOL)flip;
 @end

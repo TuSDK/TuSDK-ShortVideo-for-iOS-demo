@@ -150,6 +150,12 @@
         _recordIV.image = [UIImage imageNamed:@"style_default_1.11_btn_edit_recordSound_unselect"];
         _recordLabel.textColor = [UIColor lsqClorWithHex:@"#CCCCCC"];
     }
+    
+    for (UIView *view in cell.subviews) {
+        if (view.tag == 103) {
+            view.backgroundColor = lsqRGB(244, 161, 24);
+        }
+    }
 
 }
 
@@ -160,6 +166,11 @@
     if (cell) {
         cell.layer.borderWidth = 2;
         cell.layer.borderColor = [UIColor clearColor].CGColor;
+        for (UIView *view in cell.subviews) {
+            if (view.tag == 103) {
+                view.backgroundColor = [UIColor colorWithWhite:0 alpha:0.4];
+            }
+        }
     }
 }
 
@@ -178,9 +189,20 @@
     if (![indexPath isEqual:_currentSelectIndexPath]) {
         cell.layer.borderWidth = 2;
         cell.layer.borderColor = [UIColor clearColor].CGColor;
+        for (UIView *view in cell.subviews) {
+            if (view.tag == 103) {
+                view.backgroundColor = [UIColor colorWithWhite:0 alpha:0.4];
+            }
+        }
     }else{
         cell.layer.borderWidth = 2;
         cell.layer.borderColor = lsqRGB(244, 161, 24).CGColor;
+        for (UIView *view in cell.subviews) {
+            if (view.tag == 103) {
+                view.backgroundColor = lsqRGB(244, 161, 24);
+            }
+        }
+
     }
 }
 
@@ -245,7 +267,7 @@
         label.textColor = [UIColor whiteColor];
         label.font = [UIFont systemFontOfSize:11];
         label.adjustsFontSizeToFitWidth = YES;
-        
+        label.tag = 103;
         // 获取对应贴纸的缩略图
         iv.image = [UIImage imageNamed:_audioImageArr[indexPath.row - 2]];
         [cell addSubview:iv];

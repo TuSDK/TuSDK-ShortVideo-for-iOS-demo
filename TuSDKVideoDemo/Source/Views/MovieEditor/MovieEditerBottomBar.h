@@ -13,6 +13,8 @@
 #import "DubScrollView.h"
 #import "MovieEditorClipView.h"
 #import "EffectsView.h"
+#import "RecorderView.h"
+#import "BottomButtonView.h"
 
 // 编辑页面 底部按钮类型枚举
 typedef NS_ENUM (NSUInteger,MovieEditorBottomButtonType)
@@ -131,6 +133,8 @@ typedef NS_ENUM (NSUInteger,MovieEditorBottomButtonType)
 @property (nonatomic, retain) MVScrollView *mvView;
 // 配音View
 @property (nonatomic, retain) DubScrollView *dubView;
+// 音量调节 View
+@property (nonatomic, retain) UIView *volumeBackView;
 // 当切换为 MV、配音 显示时，顶部的缩略图View
 @property (nonatomic, strong) MovieEditorClipView *topThumbnailView;
 // 特效View
@@ -143,5 +147,38 @@ typedef NS_ENUM (NSUInteger,MovieEditorBottomButtonType)
 
 // 更新对应的参数列表
 - (void)refreshFilterParameterViewWith:(NSString *)filterDescription filterArgs:(NSArray *)args;
+
+
+// 子类中需要重写的方法 与外部调用功能无关
+/**
+ 初始化底部按钮normal状态下图片数组
+*/
+- (NSArray *)getBottomNormalImages;
+
+/**
+ 初始化底部按钮normal状态下图片数组
+ */
+- (NSArray *)getBottomSelectImages;
+
+/**
+ 初始化底部按钮显示title
+*/
+- (NSArray *)getBottomTitles;
+
+/**
+ 底部按钮点击事件
+*/
+- (void)bottomButton:(BottomButtonView *)bottomButtonView clickIndex:(NSInteger)index;
+
+/**
+ 初始化视图调节内容
+*/
+- (void)initContentView;
+
+/**
+ 切换底部按钮时 调整底部栏整体布局
+*/
+- (void)adjustLayout;
+
 
 @end
