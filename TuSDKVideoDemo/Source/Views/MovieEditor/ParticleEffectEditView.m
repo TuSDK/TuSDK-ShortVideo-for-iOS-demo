@@ -102,8 +102,12 @@
     [_playBtn setImage:[UIImage imageNamed:@"style_default_2.0_moviEditor_startPreview"] forState:UIControlStateSelected];
     [_contentBackView addSubview:_playBtn];
     
+    CGFloat topY = 0;
+    if ([UIDevice lsqIsDeviceiPhoneX]) {
+        topY = 44;
+    }
     // 返回按钮
-    _backBtn = [[UIButton alloc]initWithFrame:CGRectMake(5, 02, 40, 40)];
+    _backBtn = [[UIButton alloc]initWithFrame:CGRectMake(5, 2 + topY, 40, 40)];
     [_backBtn setImage:[UIImage imageNamed:@"style_default_2.0_back_default"] forState:UIControlStateNormal];
     [_backBtn addTarget:self action:@selector(clickBackBtnEvent:) forControlEvents:UIControlEventTouchUpInside];
     [_contentBackView addSubview:_backBtn];
