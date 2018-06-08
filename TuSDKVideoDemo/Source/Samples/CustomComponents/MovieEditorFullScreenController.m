@@ -10,6 +10,8 @@
 #import "MovieEditerFullScreenBottomBar.h"
 #import "ParticleEffectEditView.h"
 
+#import "Constants.h"
+
 @interface MovieEditorFullScreenController()<MovieEditorFullScreenBottomBarDelegate, ParticleEffectEditViewDelegate>{
     // 粒子特效编辑View
     ParticleEffectEditView *_particleEditView;
@@ -17,6 +19,8 @@
     NSString *_selectedParticleCode;
     // 粒子特效 [Code:Color] 对应的字典对象
     NSDictionary *_colorDic;
+    
+    TuSDKMediaParticleEffectData *_editingParticleEffect;
 }
 
 @end
@@ -71,26 +75,22 @@
     self.bottomBar = [[MovieEditerFullScreenBottomBar alloc]initWithFrame:CGRectMake(0, rect.size.width + 44, rect.size.width , bottomHeight)];
     self.bottomBar.backgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
     self.bottomBar.bottomBarDelegate = self;
-    self.bottomBar.videoFilters = self.videoFilterCodes;
+    self.bottomBar.videoFilters = kVideoFilterCodes;
     self.bottomBar.filterView.currentFilterTag = 200;
     self.bottomBar.videoURL = self.inputURL;
     self.bottomBar.topThumbnailView.timeInterval = self.endTime - self.startTime;
-    self.bottomBar.effectsView.effectsCode = self.videoEffectCodes;
+    self.bottomBar.effectsView.effectsCode = kVideoEffectCodes;
     self.bottomBar.videoDuration = self.endTime - self.startTime;
     
     MovieEditerFullScreenBottomBar *bottomBar = (MovieEditerFullScreenBottomBar *)self.bottomBar;
     bottomBar.fullScreenBottomBarDelegate = self;
     [self.view addSubview:bottomBar];
     
-    NSArray *particleCods = @[@"snow01", @"Love", @"Bubbles", @"Music", @"Star", @"Surprise", @"Flower", @"Magic", @"Money", @"Burning", @"Fireball"];
-    NSArray *colorArr = @[lsqRGBA(255, 255, 255, 0.7), lsqRGBA(254, 15, 15, 0.7), lsqRGBA(170, 170, 170, 0.7), lsqRGBA(54, 101, 255, 0.7),
-                          lsqRGBA(95, 250, 197, 0.7), lsqRGBA(148, 123, 255, 0.7), lsqRGBA(255, 155, 190, 0.7), lsqRGBA(100, 253, 253, 0.7),
-                          lsqRGBA(252, 231, 123, 0.7), lsqRGBA(255, 145, 91, 0.7), lsqRGBA(255, 203, 91, 0.7)];
-    _colorDic = [NSDictionary dictionaryWithObjects:colorArr forKeys:particleCods];
+    _colorDic = [NSDictionary dictionaryWithObjects:kVideoPaticleColors forKeys:kVideoParticleCodes];
     // 根据不同需求可创建不同的对应颜色  或者使用随机色
 //    _colorDic = [self getDicWithParticleCode:particleCods];
 
-    [bottomBar.particleView createParticleEffectsWith:particleCods];
+    [bottomBar.particleView createParticleEffectsWith:kVideoParticleCodes];
     [self initParticleEditView];
 }
 
@@ -152,7 +152,10 @@
 
     self.movieEditor = [[TuSDKMovieEditor alloc]initWithPreview:self.videoView options:options];
     self.movieEditor.delegate = self;
-    
+    // 监听特效数据信息改变事件
+    self.movieEditor.mediaEffectsDelegate = self;
+    // 设置播放模式 : lsqMovieEditorPlayModeSequence 正序播放， lsqMovieEditorPlayModeReverse 倒序播放
+    // self.movieEditor.playMode = lsqMovieEditorPlayModeReverse;
     // 保存到系统相册 默认为YES
     self.movieEditor.saveToAlbum = YES;
     // 设置录制文件格式(默认：lsqFileTypeQuickTimeMovie)
@@ -163,10 +166,10 @@
     self.movieEditor.waterMarkPosition = lsqWaterMarkTopRight;
     // 视频播放音量设置，0 ~ 1.0 仅在 enableVideoSound 为 YES 时有效
     self.movieEditor.videoSoundVolume = 0.5;
-    // 设置当前生效的特效(滤镜、场景特效、粒子特效)  注：滤镜、场景特效、粒子特效不能同时添加，当 EfficientEffectMode 为Default时 以后添加的特效为准，当Mode进行限定时，则以限定的模式为准
-    self.movieEditor.efficientEffectMode = lsqMovieEditorEfficientEffectModeDefault;
     // 设置默认镜
-    [self.movieEditor switchFilterWithCode:self.videoFilterCodes[0]];
+    [self.movieEditor switchFilterWithCode:kVideoFilterCodes[0]];
+    
+  
     // 加载视频，显示第一帧
     [self.movieEditor loadVideo];
 }
@@ -180,13 +183,14 @@
  */
 - (void)movieEditorFullScreenBottom_particleViewSwitchEffectWithCode:(NSString *)particleEffectCode;
 {
+    // 暂停预览
+    [self pausePreview];
+    
     _selectedParticleCode = particleEffectCode;
     // 隐藏底部栏 顶部栏
     self.bottomBar.hidden = YES;
     self.topBar.hidden = YES;
-    // 视频跳转至progress == 0
-    [self.movieEditor seekToPreviewWithTime:kCMTimeZero];
-    [self stopPreview];
+    
     
     // 点击后 particleEditView 进入编辑模式
     _particleEditView.isEditStatus = YES;
@@ -198,7 +202,9 @@
  */
 - (void)movieEditorFullScreenBottom_removeLastParticleEffect;
 {
-    [self.movieEditor removeLastEffectWithMode:lsqMovieEditorEffectMode_Particle];
+    TuSDKMediaEffectData *mediaEffect = [[self.movieEditor mediaEffectsWithType:TuSDKMediaEffectDataTypeParticle] lastObject];
+    [self.movieEditor removeMediaEffect:mediaEffect];
+    
     [_particleEditView removeLastParticleEffect];
     [self updateRemoveBtnEnableState];
 }
@@ -219,10 +225,14 @@
  */
 - (void)particleEffectEditView_startParticleEffect;
 {
-    if (![self.movieEditor isPreviewing]) {
-        [self startPreview];
-    }
-    [self.movieEditor addEffectWithCode:_selectedParticleCode withMode:lsqMovieEditorEffectMode_Particle];
+    if (![self.movieEditor isPreviewing])  [self startPreview];
+    
+    _editingParticleEffect = [[TuSDKMediaParticleEffectData alloc] initWithEffectsCode:_selectedParticleCode];
+    _editingParticleEffect.particleSize = _particleEditView.particleSize;
+    _editingParticleEffect.particleColor = _particleEditView.particleColor;
+    
+    [self.movieEditor applyMediaEffect:_editingParticleEffect];
+    
 }
 
 /**
@@ -230,8 +240,13 @@
  */
 - (void)particleEffectEditView_endParticleEffect;
 {
-    [self stopPreview];
-    [self.movieEditor addEndEffectWithMode:lsqMovieEditorEffectMode_Particle];
+    if (_editingParticleEffect)
+    {
+        [self.movieEditor unApplyMediaEffect:_editingParticleEffect];
+        _editingParticleEffect = nil;
+    }
+    
+    [self pausePreview];
 }
 
 /**
@@ -239,7 +254,10 @@
  */
 - (void)particleEffectEditView_cancleParticleEffect;
 {
-    [self.movieEditor cancleAddingEffectWithMode:lsqMovieEditorEffectMode_Particle];
+    if (_editingParticleEffect)
+        [self.movieEditor removeMediaEffect:_editingParticleEffect];
+    
+    _editingParticleEffect = nil;
 }
 
 /**
@@ -277,7 +295,8 @@
  */
 - (void)particleEffectEditView_removeLastParticleEffect;
 {
-    [self.movieEditor removeLastEffectWithMode:lsqMovieEditorEffectMode_Particle];
+    TuSDKMediaEffectData *mediaEffect = [[self.movieEditor mediaEffectsWithType:TuSDKMediaEffectDataTypeParticle] lastObject];
+    [self.movieEditor removeMediaEffect:mediaEffect];
 }
 
 /**
@@ -290,7 +309,7 @@
     if (isStartPreview) {
         [self startPreview];
     }else{
-        [self stopPreview];
+        [self pausePreview];
     }
 }
 
@@ -300,6 +319,7 @@
 - (void)particleEffectEditView_backViewEvent;
 {
     _particleEditView.isEditStatus = NO;
+    self.playBtn.hidden = ([self movieEditor].status == lsqMovieEditorStatusPreviewing);
     self.bottomBar.hidden = NO;
     self.topBar.hidden = NO;
     [self updateRemoveBtnEnableState];
@@ -313,13 +333,35 @@
 - (void)particleEffectEditView_moveLocationWithProgress:(CGFloat)progress;
 {
     if ([self.movieEditor isPreviewing]) {
-        [self.movieEditor stopPreview];
+        [self pausePreview];
     }
+    
     CMTime newTime = CMTimeMakeWithSeconds(progress * (self.endTime - self.startTime), 1*USEC_PER_SEC);
     [self.movieEditor seekToPreviewWithTime:newTime];
 }
 
 #pragma mark - TuSDKMovieEditorDelegate
+- (void)onMovieEditor:(TuSDKMovieEditor *)editor statusChanged:(lsqMovieEditorStatus)status
+{
+    [super onMovieEditor:editor statusChanged:status];
+    
+    switch (status)
+    {
+        // 取消录制
+        case lsqMovieEditorStatusRecordingCancelled:
+        {
+             [_particleEditView setVideoProgress:0 playModel:self.movieEditor.playMode];
+            break;
+        }
+        default:
+            break;
+    }
+    
+    if (_particleEditView.isEditStatus)
+        self.playBtn.hidden = YES;
+
+    _particleEditView.playBtn.hidden = (status == lsqMovieEditorStatusPreviewing);
+}
 
 /**
  播放进度通知
@@ -333,9 +375,51 @@
     if (self.movieEditorStatus == lsqMovieEditorStatusPreviewing) {
         // 注意：UI相关修改需要确认在主线程中进行
         dispatch_async(dispatch_get_main_queue(), ^{
-            _particleEditView.videoProgress = progress;
+            [_particleEditView setVideoProgress:progress playModel:self.movieEditor.playMode];
         });
     }
+}
+
+#pragma mark - TuSDKMediaEffectsManagerDelegate
+
+/**
+ 特效信息改变通知
+ 当添加特效时或者移除特效时该回调将被调用
+ 
+ @param editor TuSDKMovieEditor
+ @param effectTypes NSArray
+ */
+-(void)onMovieEditor:(TuSDKMovieEditor *)editor didChangedForMediaEffectTypes:(NSArray<NSNumber *> *)effectTypes
+{
+    [super onMovieEditor:editor didChangedForMediaEffectTypes:effectTypes];
+    
+    [effectTypes enumerateObjectsUsingBlock:^(NSNumber * _Nonnull mediaEffectType, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        if (mediaEffectType.integerValue == TuSDKMediaEffectDataTypeParticle)
+        {
+            if ([editor mediaEffectsWithType:TuSDKMediaEffectDataTypeParticle].count == 0)
+                [_particleEditView.displayView removeAllSegment];
+            
+        }else if(mediaEffectType.integerValue == TuSDKMediaEffectDataTypeScene)
+        {
+            if ([editor mediaEffectsWithType:TuSDKMediaEffectDataTypeScene].count == 0)
+                [self.bottomBar.effectsView.displayView removeAllSegment];
+        }
+        
+    }];
+}
+
+#pragma mark - TimeEffectsViewDelegate
+
+/**
+ 播放模式改变
+ 
+ @param effectsView 时间特效视图
+ @param playMode 当前播放模式
+ */
+-(void)timeEffectView:(TimeEffectsView *)effectsView playModeChanged:(lsqMovieEditorPlayMode)playMode
+{
+    [super timeEffectView:effectsView playModeChanged:playMode];
 }
 
 @end

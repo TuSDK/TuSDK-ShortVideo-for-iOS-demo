@@ -9,7 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "TuSDKVideoImport.h"
 #import "TuSDKMediaEffectData.h"
-
+#import "TuSDKMediaStickerEffectData.h"
+#import "TuSDKMediaAudioEffectData.h"
 
 /**
  video MV 特效
@@ -19,12 +20,12 @@
 /**
  本地音频地址
 */
-@property (nonatomic,readonly,copy) NSURL *audioURL;
+@property (nonatomic,readonly) TuSDKMediaAudioEffectData *audioEffect;
 
 /**
  贴纸数据
  */
-@property (nonatomic,readonly,strong) TuSDKPFStickerGroup *stickerGroup;
+@property (nonatomic,strong,readonly) TuSDKMediaStickerEffectData *stickerEffect;
 
 /**
  音频音量
@@ -36,6 +37,5 @@
  初始化方法
  */
 - (instancetype)initWithAudioURL:(NSURL *)audioURL stickerGroup:(TuSDKPFStickerGroup *)stickerGroup;
-
 
 @end

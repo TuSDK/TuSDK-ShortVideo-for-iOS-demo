@@ -229,7 +229,7 @@
         [cell addSubview:backIV];
 
         UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, cell.lsqGetSizeWidth, 20)];
-        label.text = _mvArr[indexPath.row-1].stickerGroup.name;
+        label.text = _mvArr[indexPath.row-1].stickerEffect.stickerGroup.name;
         label.backgroundColor = [UIColor colorWithWhite:0 alpha:0.4];
         label.textAlignment = NSTextAlignmentCenter;
         label.textColor = [UIColor whiteColor];
@@ -237,7 +237,7 @@
         label.adjustsFontSizeToFitWidth = YES;
         label.tag = 103;
         // 获取对应贴纸的缩略图
-        [[TuSDKPFStickerLocalPackage package] loadThumbWithStickerGroup:_mvArr[indexPath.row-1].stickerGroup imageView:iv];
+        [[TuSDKPFStickerLocalPackage package] loadThumbWithStickerGroup:_mvArr[indexPath.row-1].stickerEffect.stickerGroup imageView:iv];
         [cell addSubview:iv];
         label.center = CGPointMake(iv.lsqGetSizeWidth/2, cell.lsqGetSizeHeight-10);
         [cell addSubview:label];

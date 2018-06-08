@@ -14,6 +14,8 @@
 #import "TuSDKMVStickerAudioEffectData.h"
 #import "TuSDKMediaSceneEffectData.h"
 #import "TuSDKMovieEditorMode.h"
+#import "TuSDKMediaEffectsManager.h"
+
 /**
  *  视频编辑基类
  */
@@ -86,6 +88,16 @@
 @property (readonly,assign) lsqMovieEditorStatus status;
 
 /**
+ * 设置播放模式，默认正序播放
+ */
+@property (nonatomic,assign) lsqMovieEditorPlayMode playMode;
+
+/**
+ * 当前设置的时间特效 默认： lsqMovieEditorTimeEffectModeNone
+ */
+@property (nonatomic,readonly) lsqMovieEditorTimeEffectMode timeEffectMode;
+
+/**
  *  导出视频的文件格式（默认:lsqFileTypeMPEG4）
  */
 @property (nonatomic, assign) lsqFileType fileType;
@@ -94,16 +106,6 @@
  *  预览时视频原音音量， 默认 1.0  注：仅在 option 中的 enableSound 为 YES 时有效
  */
 @property (nonatomic, assign) CGFloat videoSoundVolume;
-
-/**
- *  场景特效设置数组  注：处理一个视频时，只能单独使用滤镜，或单独使用场景特效，或单独使用粒子特效    例如：添加场景特效后，设置滤镜，则场景特效不生效
- */
-@property (nonatomic, strong) NSArray<TuSDKMediaSceneEffectData *> *sceneEffects __attribute__((deprecated("即将过期, 用addEffectWithCode: withMode:替换")));
-
-/**
- *  设置生效的特效模式  注：滤镜、场景特效、粒子特效不能同时添加，当 EfficientEffectMode 为Default时 以后添加的特效为准，当Mode进行限定时，则以限定的模式为准
- */
-@property (nonatomic, assign) lsqMovieEditorEfficientEffectMode efficientEffectMode;
 
 #pragma mark - waterMark
 
@@ -145,11 +147,29 @@
 - (void) stopPreview;
 
 /**
+ * 停止并重新开始预览
+ * 如果你需要 stopPreView 紧接着使用 startPreView 再次启动预览，你首选的方案应为 rePreview，rePreview会根据内部状态在合适的时间启动预览
+ */
+- (void) rePreview;
+
+/**
+ * 暂停预览
+ */
+- (void) pausePreView;
+
+/**
  *  是否正在预览视频
  *
  *  @return true/false
  */
 - (BOOL) isPreviewing;
+
+/**
+ 获取当前视频帧时间
+
+ @return CMTime
+ */
+- (CMTime) getCurrentSampleTime;
 
 /**
  跳转至某一时间节点
@@ -212,48 +232,19 @@
  */
 - (BOOL)switchFilterWithCode:(NSString *)code;
 
-#pragma mark - media effect
+#pragma mark - time effect
 
 /**
- 添加一个多媒体特效 (MV、配音中使用)
-
- @param effect 特效对象，需使用 MV 或 配音 对应的 TuSDKMediaEffectData 的子类
+ 设置时间特效模式
+ @since      v2.1
+ @param timeEffectMode 时间特效模式
+ @param atTimeRange 特效生效时间
+ @param times 特效次数
  */
-- (void)addMediaEffect:(TuSDKMediaEffectData *)effect;
+- (void)setTimeEffectMode:(lsqMovieEditorTimeEffectMode)timeEffectMode atTimeRange:(TuSDKTimeRange *)timeRange times:(NSUInteger)times;
 
-/**
- 移除所有特效 (MV、配音中使用)
- */
-- (void)removeAllEffect  __attribute__((deprecated("已过期, 用removeAllMediaEffect替换")));
-
-/**
- 移除所有特效 (MV、配音中使用)
- */
-- (void)removeAllMediaEffect;
 
 #pragma mark - particle scene
-
-/**
- 开始添加特效  包含：场景特效、粒子特效  使用effectMode 进行区分
-
- @param particleCode 粒子特效code
- @param effectMode 特效类型
- @since      v2.0
- */
-- (void)addEffectWithCode:(NSString *)particleCode withMode:(lsqMovieEditorEffectMode)effectMode;
-
-/**
- 结束正在添加的特效  包含：场景特效、粒子特效
- @param effectMode 特效类型
- @since      v2.0
- */
-- (void)addEndEffectWithMode:(lsqMovieEditorEffectMode)effectMode;
-
-/**
- 取消正在添加的粒子特效
- @param effectMode 特效类型
- */
-- (void)cancleAddingEffectWithMode:(lsqMovieEditorEffectMode)effectMode;
 
 /**
  更新粒子特效的发射器位置
@@ -279,25 +270,83 @@
  */
 - (void)updateParticleEmitColor:(UIColor *)color;
 
-/**
- 移除上一个添加的特效  包含：场景特效、粒子特效  使用effectMode 进行区分
- @param effectMode 特效类型
- @since      v2.0
- */
-- (void)removeLastEffectWithMode:(lsqMovieEditorEffectMode)effectMode;
-
-/**
- 移除所有添加的特效  包含：场景特效、粒子特效  使用effectMode 进行区分
- @param effectMode 特效类型
- @since      v2.0
- */
-- (void)removeAllEffectWithMode:(lsqMovieEditorEffectMode)effectMode;
-
 #pragma mark - destroy
 
 /**
  *  销毁
  */
 - (void)destroy;
+
+@end
+
+#pragma mark - TuSDKMovieEditorBase (MediaEffectManager)
+
+/**
+ * 特效管理
+ */
+@interface TuSDKMovieEditorBase (MediaEffectManager)
+
+/**
+ 添加一个多媒体特效。该方法不会自动设置触发时间.
+ @since      v2.0
+ @param mediaEffect
+ @discussion 如果已有特效和该特效不能同时共存，已有旧特效将被移除.
+ */
+- (BOOL)addMediaEffect:(TuSDKMediaEffectData *)mediaEffect;
+
+/**
+ 移除特效数据
+ @since      v2.1
+ 
+ @param mediaEffect TuSDKMediaEffectData
+ @return true/false
+ */
+- (void)removeMediaEffect:(TuSDKMediaEffectData *)mediaEffect;
+
+/**
+ 移除指定类型的特效信息
+ @since      v2.1
+ @param effectType 特效类型
+ */
+- (void)removeMediaEffectsWithType:(TuSDKMediaEffectDataType)effectType;
+
+/**
+  @since      v2.0
+  @discussion 移除所有特效
+ */
+- (void)removeAllMediaEffect;
+
+/**
+ 开始编辑并预览特效.
+ @since      v2.1
+ @param mediaEffect TuSDKMediaEffectData
+ @discussion  当调用该方法时SDK内部将会设置特效开始时间为当前视频时间。
+ */
+- (void)applyMediaEffect:(TuSDKMediaEffectData *)mediaEffect;
+
+/**
+ 停止编辑特效.
+ @since      v2.1
+ @param mediaEffect TuSDKMediaEffectData
+ @discussion 当调用该方法时SDK内部将会设置特效结束时间为当前视频时间。
+ */
+- (void)unApplyMediaEffect:(TuSDKMediaEffectData *)mediaEffect;
+
+/**
+ 获取指定类型的特效信息
+ @since      v2.1
+ @param type 特效数据类型
+ @return 特效列表
+ */
+- (NSArray<TuSDKMediaEffectData *> *)mediaEffectsWithType:(TuSDKMediaEffectDataType)effectType;
+
+/**
+ 特效状态信息改变.
+ @since      v2.1
+ @param mediaEffectsManager TuSDKMediaEffectsManager
+ @param effectTypes 改变的特效类型数组. 当添加特效时如果已有特效不能同时使用，该冲突特效将被移除，该回调同样会被调用.
+ @discussion 当开发者调用添加或者移除方法时该回调将被调用.
+ */
+-(void)mediaEffectsManager:(TuSDKMediaEffectsManager *)mediaEffectsManager didChangedForMediaEffectTypes:(NSArray<NSNumber *> *)effectTypes;
 
 @end

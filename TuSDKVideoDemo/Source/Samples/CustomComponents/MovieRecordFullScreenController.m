@@ -234,7 +234,8 @@
     self.camera.minAvailableSpaceBytes  = 1024.f*1024.f*50.f;
     // 设置视频速率 默认：标准  包含：标准、慢速、极慢、快速、极快
     self.camera.speedMode = lsqSpeedMode_Normal;
-
+    /** 设置检测框最小倍数 [取值范围: 0.1 < x < 0.5, 默认: 0.2] 值越大性能越高距离越近 */
+    [self.camera setDetectScale:0.2f];
     // 启动相机
     [self.camera tryStartCameraCapture];
 

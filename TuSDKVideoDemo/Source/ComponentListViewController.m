@@ -24,6 +24,7 @@
 #import "APIMovieClipperViewController.h"
 #import "APIVideoThumbnailsViewController.h"
 #import "APIAudioRecorderViewController.h"
+#import "APIMovieCompresserViewController.h"
 #import "TuAssetManager.h"
 #import "TuAlbumViewController.h"
 
@@ -81,7 +82,7 @@
                    @[NSLocalizedString(@"lsq_video_mainVC_record" , @"录制视频"),NSLocalizedString(@"lsq_video_preview_editor", @"给定视频 + 视频编辑")],
                    @[NSLocalizedString(@"lsq_normal_record_camera", @"正常录制相机"),NSLocalizedString(@"lsq_record_camera", @"断点续拍相机"),NSLocalizedString(@"lsq_capture_record_camera", @"拍照录制相机"),NSLocalizedString(@"lsq_album_video_editor", @"选择视频+添加滤镜保存")],
                    @[NSLocalizedString(@"lsq_full_screen_record_preview_editor", @"全屏展示：断点续拍"),NSLocalizedString(@"lsq_full_screen_album_video_timecut_editor", @"全屏展示：相册导入 + 时间裁剪 + 视频编辑"),NSLocalizedString(@"lsq_full_screen_record_preview_ratio_editor", @"全屏展示：拍照录制+视频编辑（视频自适应比例）")],
-                   @[NSLocalizedString(@"lsq_audio_mixed", @"音频混合"),NSLocalizedString(@"lsq_video_bgm", @"视频 + 背景音乐"),NSLocalizedString(@"lsq_gain_thumbnail", @"获取缩略图"),NSLocalizedString(@"lsq_video_mixed", @"视频拼接"),NSLocalizedString(@"lsq_video_timecut_save", @"时间裁剪保存"),NSLocalizedString(@"lsq_record_audio_save", @"录制音频")],
+                   @[NSLocalizedString(@"lsq_audio_mixed", @"音频混合"),NSLocalizedString(@"lsq_video_bgm", @"视频 + 背景音乐"),NSLocalizedString(@"lsq_gain_thumbnail", @"获取缩略图"),NSLocalizedString(@"lsq_video_mixed", @"视频拼接"),NSLocalizedString(@"lsq_video_timecut_save", @"时间裁剪保存"),NSLocalizedString(@"lsq_record_audio_save", @"录制音频"),NSLocalizedString(@"lsq_api_video_compress", @"视频压缩")],
                    ];
     
     // 表格视图
@@ -312,6 +313,10 @@
                 // 录制音频
                 [self openAudioRecorder];
                 break;
+            case 6:
+                // 压缩视频
+                [self openMovieCompresser];
+                break;
             default:
                 break;
         }
@@ -404,6 +409,13 @@
 - (void)openGetThumbnail;
 {
     APIVideoThumbnailsViewController *vc = [APIVideoThumbnailsViewController new];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+// 压缩视频
+- (void)openMovieCompresser;
+{
+    APIMovieCompresserViewController *vc = [APIMovieCompresserViewController new];
     [self.navigationController pushViewController:vc animated:YES];
 }
 

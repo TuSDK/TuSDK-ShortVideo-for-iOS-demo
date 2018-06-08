@@ -15,7 +15,7 @@
 /**
  视频编辑示例：对视频进行裁剪，添加滤镜，添加MV效果
  */
-@interface MovieEditorViewController : UIViewController<TuSDKMovieEditorDelegate, TopNavBarDelegate, MovieEditorBottomBarDelegate>
+@interface MovieEditorViewController : UIViewController<TuSDKMovieEditorDelegate, TopNavBarDelegate, MovieEditorBottomBarDelegate,TuSDKMovieEditorMediaEffectsDelegate>
 
 // 开启编辑器控制器需要传入的参数
 // 视频路径
@@ -30,10 +30,6 @@
 // 以下参数供继承调用
 // 视频编辑对象
 @property (nonatomic, strong) TuSDKMovieEditor *movieEditor;
-// 滤镜数组
-@property (nonatomic, strong) NSArray<NSString *> *videoFilterCodes;
-// 特效数组
-@property (nonatomic, strong) NSArray<NSString *> *videoEffectCodes;
 
 // 当前的滤镜
 @property (nonatomic, strong) TuSDKFilterWrap *currentFilter;
@@ -54,7 +50,7 @@
 
 // MV 相关
 // 此时movieEditor的状态(预览、裁剪)
-@property (nonatomic, assign) lsqMovieEditorStatus movieEditorStatus;
+@property (nonatomic, readonly) lsqMovieEditorStatus movieEditorStatus;
 // 记录MV的开始时间，基于已时长裁剪后的视频长度
 @property (nonatomic, assign) CGFloat mvStartTime;
 // 记录MV的结束时间，基于已时长裁剪后的视频长度
@@ -69,8 +65,10 @@
 
 // 点击 播放/暂停 按钮事件
 - (void)clickPlayerBtn:(UIButton *)sender;
-// 暂停预览
+// 停止预览
 - (void)stopPreview;
+// 暂停预览
+- (void)pausePreview;
 // 开始预览
 - (void)startPreview;
 @end

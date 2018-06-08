@@ -15,6 +15,23 @@
 @interface TuSDKMediaParticleEffectData : TuSDKMediaEffectData
 
 /**
+ 构建粒子特效实例
+ 
+ @param effectCode 粒子特效code
+ @param timeRange 生效时间
+ @return TuSDKMediaParticleEffectData
+ */
+-(instancetype)initWithEffectsCode:(NSString *)effectsCode atTimeRange:(TuSDKTimeRange *)timeRange;
+
+/**
+ 构建粒子特效实例
+ 
+ @param effectCode 粒子特效code
+ @return TuSDKMediaParticleEffectData
+ */
+- (instancetype)initWithEffectsCode:(NSString *)effectsCode;
+
+/**
  特效code
  */
 @property (nonatomic, copy) NSString * effectsCode;
@@ -37,8 +54,7 @@
 /**
  轨迹记录数组
  */
-@property (nonatomic, strong) NSMutableDictionary<NSValue *,NSValue *> *recordPathDic;
-
+@property (nonatomic,strong) NSMutableDictionary<NSValue *,NSValue *> *recordPathDic;
 
 /**
  更新当前正在添加的粒子特效的发射器位置
@@ -62,12 +78,5 @@
  @return 时间对应的点
  */
 - (CGPoint)getPointWithTime:(CMTime)time;
-
-/**
- 克隆一个新的粒子特效对象
- 
- @return 返回新的相同内容的粒子特效对象
- */
-- (TuSDKMediaParticleEffectData *)clone;
 
 @end

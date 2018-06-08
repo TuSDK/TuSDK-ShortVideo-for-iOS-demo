@@ -14,6 +14,7 @@
 #pragma mark - TuSDKMovieEditorDelegate
 
 @class TuSDKMovieEditor;
+
 /**
  *  视频编辑器事件委托
  */
@@ -64,6 +65,23 @@
 
 @end
 
+/**
+ * 特效事件委托
+ */
+@protocol TuSDKMovieEditorMediaEffectsDelegate <NSObject>
+
+@optional
+
+/**
+ *  TuSDKMovieEditor 特效信息改变时间
+ *
+ *  @param editor TuSDKMovieEditor
+ *  @param effectTypes 改变的特效类型数组 @see NSNumber -> TuSDKMediaEffectDataType
+ */
+- (void)onMovieEditor:(TuSDKMovieEditor *)editor didChangedForMediaEffectTypes:(NSArray<NSNumber *> *)effectTypes;
+
+@end
+
 
 #pragma mark - TuSDKMovieEditor
 
@@ -76,6 +94,12 @@
  *  编辑器事件委托
  */
 @property (nonatomic, weak) id<TuSDKMovieEditorDelegate> delegate;
+
+/**
+ *  特效事件委托
+ */
+@property (nonatomic, weak) id<TuSDKMovieEditorMediaEffectsDelegate> mediaEffectsDelegate;
+
 
 /**
  *  初始化

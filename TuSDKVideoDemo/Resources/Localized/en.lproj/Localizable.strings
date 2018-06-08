@@ -190,6 +190,7 @@
 "lsq_filter_beautyArg" = "Beauty";
 "lsq_deleteBtn_title" = "No Effect";
 "lsq_record_title" = "Record";
+"lsq_movieEditor_timeEffectBtn" = "Time Effect";
 "lsq_movieEditor_magicBtn" = "Magic";
 "lsq_movieEditor_filterBtn" = "Filter";
 "lsq_movieEditor_effect" = "Effect";
@@ -225,7 +226,6 @@
 "lsq_api_pause_material_audios_playing" = "Pause Sample";
 "lsq_record_audio_save" = "Record Audio";
 "lsq_api_Splice_movie" = "Splice Videos";
-
 "lsq_api_delete_mixed_audio" = "Delete Audio";
 "lsq_api_play_mixed_audio" = "Play Audio";
 "lsq_api_start_mix_audio" = "Start Mix";
@@ -240,6 +240,9 @@
 "lsq_api_reset_volume_mix_again" = "Please reset the volume and mix the audio";
 "lsq_api_start_mixing_audio" = "Audio start mixing";
 "lsq_api_status_play_mixed_audio" = "Operation is done，please click「Play Audio」to play the mixed audio";
+"lsq_api_video_compress" = "Video Compression";
+"lsq_api_usage_video_start_compress" = "Start Video Compress";
+"lsq_api_compress_movie_compressing" = "Compressing...";
 
 // reminder
 "lsq_movie_saving" = "Saving...";

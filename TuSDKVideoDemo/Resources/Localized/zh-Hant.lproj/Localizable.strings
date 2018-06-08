@@ -189,6 +189,7 @@
 "lsq_filter_beautyArg" = "美颜";
 "lsq_deleteBtn_title" = "無效果";
 "lsq_record_title" = "自己錄音";
+"lsq_movieEditor_timeEffectBtn" = "時間特效";
 "lsq_movieEditor_magicBtn" = "魔法";
 "lsq_movieEditor_filterBtn" = "濾鏡";
 "lsq_movieEditor_effect" = "特效";
@@ -239,7 +240,9 @@
 "lsq_api_reset_volume_mix_again" = "請重新調節音量，進行音頻混合";
 "lsq_api_start_mixing_audio" = "音頻開始混合";
 "lsq_api_status_play_mixed_audio" = "操作完成，请點擊「播放」，播放混合好的音频";
-
+"lsq_api_video_compress" = "視頻壓縮";
+"lsq_api_usage_video_start_compress" = "開始壓縮視頻";
+"lsq_api_compress_movie_compressing" = "壓縮處理中...";
 // reminder
 "lsq_cut_durationTime" = "建議選擇大於3秒，小於60秒的視頻";
 "lsq_movie_saving" = "正在保存";

@@ -71,12 +71,13 @@
  */
 - (NSArray *)getBottomNormalImages;
 {
-    NSMutableArray *normalImages = [NSMutableArray arrayWithArray:@[@"style_default_1.11_btn_filter_unselected",
+    NSMutableArray *normalImages = [NSMutableArray arrayWithArray:@[@"tab_ic_time_g",
+                                                                    @"style_default_1.11_btn_filter_unselected",
                                                              @"style_default_1.11_edit_effect_default",
                                                              @"style_default_1.11_btn_mv_unselected",
                                                              @"style_default_1.11_sound_default"]];
     // iPad 中不显示滤镜栏
-    if ([UIDevice lsqDevicePlatform] == TuSDKDevicePlatform_other) [normalImages removeObjectAtIndex:0];
+    if ([UIDevice lsqDevicePlatform] == TuSDKDevicePlatform_other) [normalImages removeObjectAtIndex:1];
         
 
     return normalImages;
@@ -87,12 +88,13 @@
  */
 - (NSArray *)getBottomSelectImages;
 {
-    NSMutableArray *selectImages = [NSMutableArray arrayWithArray:@[@"style_default_1.11_btn_filter",
+    NSMutableArray *selectImages = [NSMutableArray arrayWithArray:@[@"tab_ic_time_y",
+                                                                    @"style_default_1.11_btn_filter",
                                                                     @"style_default_1.11_edit_effect_select",
                                                                     @"style_default_1.11_btn_mv",
                                                                     @"style_default_1.11_sound_selected"]];
     // iPad 中不显示滤镜栏
-    if ([UIDevice lsqDevicePlatform] == TuSDKDevicePlatform_other) [selectImages removeObjectAtIndex:0];
+    if ([UIDevice lsqDevicePlatform] == TuSDKDevicePlatform_other) [selectImages removeObjectAtIndex:1];
 
     return selectImages;
 }
@@ -102,12 +104,14 @@
  */
 - (NSArray *)getBottomTitles;
 {
-    NSMutableArray *titles = [NSMutableArray arrayWithArray:@[NSLocalizedString(@"lsq_movieEditor_filterBtn", @"滤镜"),
+    NSMutableArray *titles = [NSMutableArray arrayWithArray:@[
+                                                              NSLocalizedString(@"lsq_movieEditor_timeEffectBtn", @"时间特效"),
+                                                              NSLocalizedString(@"lsq_movieEditor_filterBtn", @"滤镜"),
                                                               NSLocalizedString(@"lsq_movieEditor_effect", @"特效"),
                                                               NSLocalizedString(@"lsq_movieEditor_MVBtn", @"MV"),
                                                               NSLocalizedString(@"lsq_movieEditor_dubBtn", @"配音")]];
     // iPad 中不显示滤镜栏
-    if ([UIDevice lsqDevicePlatform] == TuSDKDevicePlatform_other) [titles removeObjectAtIndex:0];
+    if ([UIDevice lsqDevicePlatform] == TuSDKDevicePlatform_other) [titles removeObjectAtIndex:1];
 
     return titles;
 }
@@ -137,6 +141,13 @@
     [_bottomDisplayView addSubview:_bottomButtonView];
 }
 
+-(void)setBottomBarDelegate:(id<MovieEditorBottomBarDelegate>)bottomBarDelegate;
+{
+    _bottomBarDelegate = bottomBarDelegate;
+    
+    _timeEffectsView.delegate = bottomBarDelegate;
+}
+
 /**
  初始化视图调节内容
  */
@@ -145,6 +156,10 @@
     // 调节内容 背景view
     _contentBackView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, _bottomDisplayView.lsqGetSizeWidth, _bottomDisplayView.lsqGetOriginY)];
     [self addSubview:_contentBackView];
+    
+    _timeEffectsView = [[TimeEffectsView alloc]initWithFrame:CGRectMake(0, 0, _bottomDisplayView.lsqGetSizeWidth , _bottomDisplayView.lsqGetOriginY)];
+    _timeEffectsView.hidden = YES;
+    [_contentBackView addSubview:_timeEffectsView];
     
     // 滤镜显示 View
     _filterView = [[FilterView alloc]initWithFrame:CGRectMake(0, 0, _bottomDisplayView.lsqGetSizeWidth , _bottomDisplayView.lsqGetOriginY)];
@@ -290,8 +305,22 @@
         index++;
     }
    
-    if (index == 0) {
+
+    if (index == 0)
+    {
+        // 点击 配音
+        _timeEffectsView.hidden = NO;
+        _dubView.hidden = YES;
+        _volumeBackView.hidden = YES;
+        _topThumbnailView.hidden = YES;
+        _mvView.hidden = YES;
+        _filterView.hidden = YES;
+        _effectsView.hidden = YES;
+        
+    }else if (index == 1)
+    {
         // 点击滤镜
+        _timeEffectsView.hidden = YES;
         _filterView.hidden = NO;
         _mvView.hidden = YES;
         _dubView.hidden = YES;
@@ -302,8 +331,9 @@
         _filterView.beautyParamView.hidden = YES;
         _filterView.filterChooseView.hidden = NO;
 
-    }else if (index == 1){
+    }else if (index == 2){
         // 点击 特效
+        _timeEffectsView.hidden = YES;
         _effectsView.hidden = NO;
         _filterView.hidden = YES;
         _dubView.hidden = YES;
@@ -315,8 +345,9 @@
             [self.bottomBarDelegate movieEditorBottom_effectsViewDisplay];
         }
         
-    }else if (index == 2){
+    }else if (index == 3){
         // 点击 MV
+        _timeEffectsView.hidden = YES;
         _mvView.hidden = NO;
         _volumeBackView.hidden = NO;
         _topThumbnailView.hidden = NO;
@@ -324,8 +355,9 @@
         _dubView.hidden = YES;
         _effectsView.hidden = YES;
         
-    }else if (index == 3){
+    }else if (index == 4){
         // 点击 配音
+        _timeEffectsView.hidden = YES;
         _dubView.hidden = NO;
         _volumeBackView.hidden = NO;
         _topThumbnailView.hidden = NO;

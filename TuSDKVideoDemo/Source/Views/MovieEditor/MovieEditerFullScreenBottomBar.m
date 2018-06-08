@@ -20,13 +20,14 @@
  */
 - (NSMutableArray *)getBottomNormalImages;
 {
-    NSMutableArray *normalImages = [NSMutableArray arrayWithArray:@[@"style_default_2.0_btn_magic_unselected",
+    NSMutableArray *normalImages = [NSMutableArray arrayWithArray:@[@"tab_ic_time_g",
+                                                                    @"style_default_2.0_btn_magic_unselected",
                                                                     @"style_default_1.11_btn_filter_unselected",
                                                                     @"style_default_1.11_edit_effect_default",
                                                                     @"style_default_1.11_btn_mv_unselected",
                                                                     @"style_default_1.11_sound_default"]];
     // iPad 中不显示滤镜栏
-    if ([UIDevice lsqDevicePlatform] == TuSDKDevicePlatform_other) [normalImages removeObjectAtIndex:1];
+    if ([UIDevice lsqDevicePlatform] == TuSDKDevicePlatform_other) [normalImages removeObjectAtIndex:2];
     return normalImages;
 }
 
@@ -35,7 +36,8 @@
  */
 - (NSMutableArray *)getBottomSelectImages;
 {
-    NSMutableArray *selectImages = [NSMutableArray arrayWithArray:@[@"style_default_2.0_btn_magic",
+    NSMutableArray *selectImages = [NSMutableArray arrayWithArray:@[@"tab_ic_time_y",
+                                                                    @"style_default_2.0_btn_magic",
                                                                     @"style_default_1.11_btn_filter",
                                                                     @"style_default_1.11_edit_effect_select",
                                                                     @"style_default_1.11_btn_mv",
@@ -51,13 +53,15 @@
  */
 - (NSMutableArray *)getBottomTitles;
 {
-    NSMutableArray *titles = [NSMutableArray arrayWithArray:@[NSLocalizedString(@"lsq_movieEditor_magicBtn", @"魔法"),
+    NSMutableArray *titles = [NSMutableArray arrayWithArray:@[
+                                                              NSLocalizedString(@"lsq_movieEditor_timeEffectBtn", @"时间特效"),
+                                                              NSLocalizedString(@"lsq_movieEditor_magicBtn", @"魔法"),
                                                               NSLocalizedString(@"lsq_movieEditor_filterBtn", @"滤镜"),
                                                               NSLocalizedString(@"lsq_movieEditor_effect", @"特效"),
                                                               NSLocalizedString(@"lsq_movieEditor_MVBtn", @"MV"),
                                                               NSLocalizedString(@"lsq_movieEditor_dubBtn", @"配音")]];
     // iPad 中不显示滤镜栏
-    if ([UIDevice lsqDevicePlatform] == TuSDKDevicePlatform_other) [titles removeObjectAtIndex:1];
+    if ([UIDevice lsqDevicePlatform] == TuSDKDevicePlatform_other) [titles removeObjectAtIndex:2];
     return titles;
 }
 
@@ -67,13 +71,13 @@
 - (void)initContentView;
 {
     [super initContentView];
-    // 默认不显示滤镜栏
-    self.filterView.hidden = YES;
 
     _particleView = [[ParticleEffectView alloc]initWithFrame:self.filterView.frame];
     _particleView.currentParticleTag = 200;
     _particleView.particleEventDelegate = self;
     [self.contentBackView addSubview:_particleView];
+    
+    [self bottomButton:nil clickIndex:0];
 }
 
 /**
@@ -81,9 +85,10 @@
  */
 - (void)bottomButton:(BottomButtonView *)bottomButtonView clickIndex:(NSInteger)index;
 {
-    if (index == 0) {
+    if (index == 1) {
         // 点击魔法
-        _particleView.hidden = NO;
+        self.particleView.hidden = NO;
+        self.timeEffectsView.hidden = YES;
         self.effectsView.hidden = YES;
         self.filterView.hidden = YES;
         self.dubView.hidden = YES;
@@ -97,8 +102,8 @@
         [self adjustLayout];
 
     }else{
-        _particleView.hidden = YES;
-        [super bottomButton:bottomButtonView clickIndex:index - 1];
+        self.particleView.hidden = YES;
+        [super bottomButton:bottomButtonView clickIndex:MAX(index - 1,0)];
         if ([self.fullScreenBottomBarDelegate respondsToSelector:@selector(movieEditorFullScreenBottom_selectParticleView:)]) {
             [self.fullScreenBottomBarDelegate movieEditorFullScreenBottom_selectParticleView:NO];
         }

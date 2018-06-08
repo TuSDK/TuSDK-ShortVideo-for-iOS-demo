@@ -15,6 +15,7 @@
 #import "EffectsView.h"
 #import "RecorderView.h"
 #import "BottomButtonView.h"
+#import "TimeEffectsView.h"
 
 // 编辑页面 底部按钮类型枚举
 typedef NS_ENUM (NSUInteger,MovieEditorBottomButtonType)
@@ -30,7 +31,7 @@ typedef NS_ENUM (NSUInteger,MovieEditorBottomButtonType)
 /**
  编辑页面，底部栏控件代理
  */
-@protocol MovieEditorBottomBarDelegate <NSObject>
+@protocol MovieEditorBottomBarDelegate <TimeEffectsViewDelegate>
 
 /**
  滤镜栏参数改变
@@ -127,6 +128,8 @@ typedef NS_ENUM (NSUInteger,MovieEditorBottomButtonType)
 @property (nonatomic, assign) id<MovieEditorBottomBarDelegate> bottomBarDelegate;
 // 视频URL
 @property (nonatomic, strong) NSURL *videoURL;
+// 时间特效view
+@property (nonatomic, readonly) TimeEffectsView *timeEffectsView;
 // 滤镜view
 @property (nonatomic, retain) FilterView *filterView;
 // MV View

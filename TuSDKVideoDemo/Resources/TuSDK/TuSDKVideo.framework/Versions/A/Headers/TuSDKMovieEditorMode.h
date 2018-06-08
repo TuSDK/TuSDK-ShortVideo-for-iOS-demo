@@ -62,5 +62,29 @@ typedef NS_ENUM(NSInteger,lsqMovieEditorEffectMode)
     lsqMovieEditorEffectMode_Particle,
 };
 
+/**
+ * MovieEditor 播放模式
+ */
+typedef NS_ENUM(NSInteger,lsqMovieEditorPlayMode)
+{
+    // 顺序读取
+    lsqMovieEditorPlayModeSequence,
+    
+    // 倒序读取
+    lsqMovieEditorPlayModeReverse
+};
 
-
+/**
+ * 时间特效模式
+ */
+typedef NS_ENUM(NSInteger,lsqMovieEditorTimeEffectMode)
+{
+    // 无特效
+    lsqMovieEditorTimeEffectModeNone,
+    
+    // 反复特效
+    lsqMovieEditorTimeEffectModeRepeat,
+    
+    // 慢动作特效
+    lsqMovieEditorTimeEffectModeSlow
+};
