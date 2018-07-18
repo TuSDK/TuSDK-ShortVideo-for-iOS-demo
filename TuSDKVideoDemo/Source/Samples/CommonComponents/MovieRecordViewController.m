@@ -282,7 +282,7 @@
     // 设置后退和确认按钮
     [_bottomBar enabledBtnWithCancle: (_nodesLocation.count>0 ? YES : NO)];
     [_bottomBar enabledBtnWithComplete: ([_aboveView lsqGetSizeWidth]>_minSecondView.center.x ? YES : NO)];
-
+    
 }
 
 #pragma mark - TuSDK Camera
@@ -735,12 +735,15 @@
     
     if (state == lsqRecordStateRecordingCompleted) {
         // 录制完成
-        [[TuSDK shared].messageHub showSuccess:NSLocalizedString(@"lsq_record_complete", @"录制完成")];
-    }else if (state == lsqRecordStateRecording){
+        [[TuSDK shared].messageHub showSuccess:NSLocalizedString(@"lsq_record_complete", @"录制完成,请保存视频")];
+    }else if (state == lsqRecordStateRecording)
+    {
         // 正在录制
-    }else if (state == lsqRecordStatePaused){
+    }else if (state == lsqRecordStatePaused)
+    {
         // 暂停录制
-    }else if (state == lsqRecordStateMerging){
+    }else if (state == lsqRecordStateMerging)
+    {
         // 正在合成视频
     }else if (state == lsqRecordStateCanceled){
         // 取消录制 同时 重置UI

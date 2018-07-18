@@ -44,7 +44,7 @@
    self.movieEditor.videoSoundVolume = 0.5;
 
     // 设置默认镜
-    [self.movieEditor switchFilterWithCode:kVideoFilterCodes[0]];
+//    [self.movieEditor switchFilterWithCode:kVideoFilterCodes[0]];
     // 加载视频，显示第一帧
     [self.movieEditor loadVideo];
 }

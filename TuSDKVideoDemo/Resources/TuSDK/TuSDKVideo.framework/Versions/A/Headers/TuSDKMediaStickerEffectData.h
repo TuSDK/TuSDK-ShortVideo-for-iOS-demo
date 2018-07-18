@@ -20,10 +20,16 @@
  */
 @property (nonatomic,readonly,strong) TuSDKPFStickerGroup *stickerGroup;
 
+/**
+  设置是否开启大眼瘦脸 默认：NO
+  @since      v3.0
+ */
+@property (nonatomic) BOOL enablePlastic;
 
 /**
  初始化方法
  */
 - (instancetype)initWithStickerGroup:(TuSDKPFStickerGroup *)stickerGroup;
+
 
 @end

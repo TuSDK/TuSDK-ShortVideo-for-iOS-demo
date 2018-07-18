@@ -51,7 +51,7 @@
  
  @param progress 当前进度
  */
--(void)updateLastSegmentViewWithProgress:(CGFloat)progress playMode:(lsqMovieEditorPlayMode)playMode;
+-(void)updateLastSegmentViewWithProgress:(CGFloat)progress;
 
 /**
  结束正在添加的位置

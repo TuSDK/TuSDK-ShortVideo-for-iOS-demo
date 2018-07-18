@@ -11,17 +11,15 @@
 #import "TuSDKMovieEditorOptions.h"
 #import "TuSDKMediaEffectData.h"
 #import "TuSDKTimeRange.h"
-#import "TuSDKMVStickerAudioEffectData.h"
-#import "TuSDKMediaSceneEffectData.h"
 #import "TuSDKMovieEditorMode.h"
-#import "TuSDKMediaEffectsManager.h"
-
+#import "TuSDKMediaEffectsTimeline.h"
+#import "TuSDKMediaEffectsComposition.h"
 /**
  *  视频编辑基类
  */
 @interface TuSDKMovieEditorBase : NSObject
 {
-    @protected
+@protected
     
     // 视频视图
     TuSDKICFilterMovieViewWrap *_cameraView;
@@ -88,16 +86,6 @@
 @property (readonly,assign) lsqMovieEditorStatus status;
 
 /**
- * 设置播放模式，默认正序播放
- */
-@property (nonatomic,assign) lsqMovieEditorPlayMode playMode;
-
-/**
- * 当前设置的时间特效 默认： lsqMovieEditorTimeEffectModeNone
- */
-@property (nonatomic,readonly) lsqMovieEditorTimeEffectMode timeEffectMode;
-
-/**
  *  导出视频的文件格式（默认:lsqFileTypeMPEG4）
  */
 @property (nonatomic, assign) lsqFileType fileType;
@@ -134,6 +122,15 @@
  */
 - (void)loadVideo;
 
+/**
+ 更新预览View
+
+ @param frame 设定的frame
+ @since 2.2.0
+ */
+- (void)updatePreViewFrame:(CGRect)frame;
+
+
 #pragma mark - Preview
 
 /**
@@ -166,14 +163,14 @@
 
 /**
  获取当前视频帧时间
-
+ 
  @return CMTime
  */
 - (CMTime) getCurrentSampleTime;
 
 /**
  跳转至某一时间节点
-
+ 
  @param time 当前视频的时间节点(若以设置过裁剪时间段，该时间表示裁剪后时间表示)
  */
 - (void) seekToPreviewWithTime:(CMTime)time;
@@ -216,59 +213,10 @@
  *
  *  @param result TuSDKVideoResult 对象
  *  @param error  错误信息
- *  
+ *
  *  @return
  */
 - (void)notifyResult:(TuSDKVideoResult *)result error:(NSError *)error;
-
-#pragma mark - switch filter
-
-/**
- *  切换滤镜
- *
- *  @param code 滤镜代号
- *
- *  @return BOOL 是否成功切换滤镜
- */
-- (BOOL)switchFilterWithCode:(NSString *)code;
-
-#pragma mark - time effect
-
-/**
- 设置时间特效模式
- @since      v2.1
- @param timeEffectMode 时间特效模式
- @param atTimeRange 特效生效时间
- @param times 特效次数
- */
-- (void)setTimeEffectMode:(lsqMovieEditorTimeEffectMode)timeEffectMode atTimeRange:(TuSDKTimeRange *)timeRange times:(NSUInteger)times;
-
-
-#pragma mark - particle scene
-
-/**
- 更新粒子特效的发射器位置
- 
- @param point 粒子发射器位置  左上角为(0,0)  右下角为(1,1)
- @since      v2.0
- */
-- (void)updateParticleEmitPosition:(CGPoint)point;
-
-/**
- 更新 下一次添加的 粒子特效材质大小  0~1  注：对当前正在添加或已添加的粒子不生效
-
- @param size 粒子特效材质大小
- @since      v2.0
- */
-- (void)updateParticleEmitSize:(CGFloat)size;
-
-/**
- 更新 下一次添加的 粒子特效颜色  注：对当前正在添加或已添加的粒子不生效
- 
- @param color 粒子特效颜色
- @since      v2.0
- */
-- (void)updateParticleEmitColor:(UIColor *)color;
 
 #pragma mark - destroy
 
@@ -279,12 +227,22 @@
 
 @end
 
+
 #pragma mark - TuSDKMovieEditorBase (MediaEffectManager)
 
 /**
  * 特效管理
  */
-@interface TuSDKMovieEditorBase (MediaEffectManager)
+@interface TuSDKMovieEditorBase  (MediaEffectManager) <TuSDKMediaEffectsCompositionDelegate>
+
+/**
+ *  切换滤镜
+ *
+ *  @param code 滤镜代号
+ *
+ *  @return BOOL 是否成功切换滤镜
+ */
+- (BOOL)switchFilterWithCode:(NSString *)code DEPRECATED_MSG_ATTRIBUTE("Please call addMediaEffect:");
 
 /**
  添加一个多媒体特效。该方法不会自动设置触发时间.
@@ -311,8 +269,8 @@
 - (void)removeMediaEffectsWithType:(TuSDKMediaEffectDataType)effectType;
 
 /**
-  @since      v2.0
-  @discussion 移除所有特效
+ @since      v2.0
+ @discussion 移除所有特效
  */
 - (void)removeAllMediaEffect;
 
@@ -340,13 +298,35 @@
  */
 - (NSArray<TuSDKMediaEffectData *> *)mediaEffectsWithType:(TuSDKMediaEffectDataType)effectType;
 
+@end
+
+#pragma mark - Particle Effect
+
+@interface TuSDKMovieEditorBase (ParticleEffect)
+
 /**
- 特效状态信息改变.
- @since      v2.1
- @param mediaEffectsManager TuSDKMediaEffectsManager
- @param effectTypes 改变的特效类型数组. 当添加特效时如果已有特效不能同时使用，该冲突特效将被移除，该回调同样会被调用.
- @discussion 当开发者调用添加或者移除方法时该回调将被调用.
+ 更新粒子特效的发射器位置
+ 
+ @param point 粒子发射器位置  左上角为(0,0)  右下角为(1,1)
+ @since      v2.0
  */
--(void)mediaEffectsManager:(TuSDKMediaEffectsManager *)mediaEffectsManager didChangedForMediaEffectTypes:(NSArray<NSNumber *> *)effectTypes;
+- (void)updateParticleEmitPosition:(CGPoint)point;
+
+/**
+ 更新 下一次添加的 粒子特效材质大小  0~1  注：对当前正在添加或已添加的粒子不生效
+ 
+ @param size 粒子特效材质大小
+ @since      v2.0
+ */
+- (void)updateParticleEmitSize:(CGFloat)size;
+
+/**
+ 更新 下一次添加的 粒子特效颜色  注：对当前正在添加或已添加的粒子不生效
+ 
+ @param color 粒子特效颜色
+ @since      v2.0
+ */
+- (void)updateParticleEmitColor:(UIColor *)color;
 
 @end
+

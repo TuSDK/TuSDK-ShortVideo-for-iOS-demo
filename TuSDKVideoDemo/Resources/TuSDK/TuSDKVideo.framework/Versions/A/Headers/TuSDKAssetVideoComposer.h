@@ -2,6 +2,8 @@
 //  TuSDKAssetVideoComposer.h
 //  TuSDKVideo
 //
+//  视频合并转码压缩
+//
 //  Created by sprint on 04/05/2018.
 //  Copyright © 2018 TuSDK. All rights reserved.
 //
@@ -14,7 +16,7 @@
 #import "TuSDKVideoResult.h"
 #import "TuSDKGPUVideoPixelBufferForTexture.h"
 
-@class TuSDKAssetVideoComposer;
+@protocol TuSDKAssetVideoComposerDelegate;
 
 #pragma mark - TuSDKAssetVideoComposerStatus
 
@@ -27,52 +29,12 @@ typedef NS_ENUM(NSInteger, TuSDKAssetVideoComposerStatus){
     TuSDKAssetVideoComposerStatusFailed,
 };
 
-#pragma mark - TuSDKAssetVideoComposerDelegate
-
-/**
- * TuSDKAssetVideoComposerDelegate
- */
-@protocol TuSDKAssetVideoComposerDelegate <NSObject>
-
-@required
-
-/**
- 视频合成完毕
-
- @param composer TuSDKAssetVideoComposer
- @param result TuSDKVideoResult
- */
-- (void)assetVideoComposter:(TuSDKAssetVideoComposer *_Nonnull)composer saveResult:(TuSDKVideoResult *_Nullable)result;
-
-
-@optional
-
-/**
- 合成进度
- 
- @param composer TuSDKAssetVideoComposer
- @param progress 处理进度
- @param index 当前正在处理的视频索引
- */
-- (void)assetVideoComposter:(TuSDKAssetVideoComposer *_Nonnull)composer processChanged:(float)progress assetIndex:(NSUInteger)index;
-
-/**
- 合成状态改变事件
- 
- @param composer TuSDKAssetVideoComposer
- @param status lsqAssetVideoComposerStatus 当前状态
- */
-- (void)assetVideoComposter:(TuSDKAssetVideoComposer *_Nonnull)composer statusChanged:(TuSDKAssetVideoComposerStatus)status;
-
-@end
-
-
 #pragma mark - TuSDKAssetVideoComposer
-
 
 /**
  * 多视频拼接
  * 支持不同分辨率不同格式的视频进行拼接
+ * @since 2.1.0
  */
 @interface TuSDKAssetVideoComposer : TuSDKGPUVideoPixelBufferForTexture
 
@@ -85,12 +47,12 @@ typedef NS_ENUM(NSInteger, TuSDKAssetVideoComposerStatus){
 - (instancetype _Nonnull)initWithAsset:(NSArray<AVAsset *> *_Nullable)assets;
 
 /**
- * 当前转码器状态
+  当前转码器状态
  */
 @property (nonatomic,readonly) TuSDKAssetVideoComposerStatus status;
 
 /**
- * 当前进度 （0 - 1）
+当前进度 （0 - 1）
  */
 @property (nonatomic,assign,readonly) CGFloat progress;
 
@@ -98,6 +60,12 @@ typedef NS_ENUM(NSInteger, TuSDKAssetVideoComposerStatus){
  输出的视频画质
  */
 @property (nonatomic) TuSDKVideoQuality * _Nullable outputVideoQuality;
+
+/**
+ 输出视频压缩比例 (0 - 1) 优先使用 outputVideoQuality
+ @since 2.2.0
+ */
+@property (nonatomic, assign) CGFloat outputCompressionScale;
 
 /**
  指定输出的文件类型
@@ -147,5 +115,45 @@ typedef NS_ENUM(NSInteger, TuSDKAssetVideoComposerStatus){
  取消合成并且当前合成的视频将被丢弃
  */
 - (void)cancelComposing;
+
+@end
+
+
+#pragma mark - TuSDKAssetVideoComposerDelegate
+
+/**
+ * TuSDKAssetVideoComposerDelegate
+ */
+@protocol TuSDKAssetVideoComposerDelegate <NSObject>
+
+@required
+
+/**
+ 视频合成完毕
+ 
+ @param composer TuSDKAssetVideoComposer
+ @param result TuSDKVideoResult
+ */
+- (void)assetVideoComposer:(TuSDKAssetVideoComposer *_Nonnull)composer saveResult:(TuSDKVideoResult *_Nullable)result;
+
+
+@optional
+
+/**
+ 合成进度
+ 
+ @param composer TuSDKAssetVideoComposer
+ @param progress 处理进度
+ @param index 当前正在处理的视频索引
+ */
+- (void)assetVideoComposer:(TuSDKAssetVideoComposer *_Nonnull)composer processChanged:(float)progress assetIndex:(NSUInteger)index;
+
+/**
+ 合成状态改变事件
+ 
+ @param composer TuSDKAssetVideoComposer
+ @param status lsqAssetVideoComposerStatus 当前状态
+ */
+- (void)assetVideoComposer:(TuSDKAssetVideoComposer *_Nonnull)composer statusChanged:(TuSDKAssetVideoComposerStatus)status;
 
 @end

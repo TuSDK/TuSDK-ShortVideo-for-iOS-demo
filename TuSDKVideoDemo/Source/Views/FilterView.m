@@ -128,6 +128,7 @@
         i++;
     }
     _filterScroll.contentSize = CGSizeMake(centerX - filterItemWidth/2, _filterScroll.bounds.size.height);
+    [self clickClearFilterBtn:nil];
 }
 
 // 选择某个滤镜后创建上面的参数调节view

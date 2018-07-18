@@ -111,6 +111,11 @@ typedef NS_ENUM (NSUInteger,MovieEditorBottomButtonType)
  */
 - (void)movieEditorBottom_effectsMoveVideoProgress:(CGFloat)newProgress;
 
+/**
+ 添加文字特效
+ */
+-(void)movieEditorBottom_addTextEffect;
+
 @end
 
 
@@ -146,7 +151,8 @@ typedef NS_ENUM (NSUInteger,MovieEditorBottomButtonType)
 @property (nonatomic, assign) CGFloat videoDuration;
 // 底部 滤镜栏、贴纸栏、配音栏 的 背景view
 @property (nonatomic, strong) UIView *contentBackView;
-
+// 底部按钮以及分割线的父视图
+@property (nonatomic, strong) UIView *bottomDisplayView;
 
 // 更新对应的参数列表
 - (void)refreshFilterParameterViewWith:(NSString *)filterDescription filterArgs:(NSArray *)args;

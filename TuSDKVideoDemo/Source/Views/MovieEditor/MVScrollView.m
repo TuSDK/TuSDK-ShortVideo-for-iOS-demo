@@ -33,7 +33,7 @@
 #pragma mark - 视图布局方法
 - (instancetype)initWithFrame:(CGRect)frame
 {
-    if ([super initWithFrame:frame]) {
+    if (self = [super initWithFrame:frame]) {
         [self createStickerCollection];
     }
     return self;
@@ -78,7 +78,9 @@
     NSDictionary *fileNameDic = @{@(1420):@"sound_cat",
                                   @(1427):@"sound_crow",
                                   @(1432):@"sound_tangyuan",
-                                  @(1446):@"sound_children"};
+                                  @(1470):@"sound_oldmovie",
+                                  @(1469) : @"sound_relieve",
+                                  };
     
     NSString *audioFileName = fileNameDic[@(stickerIdt)];
     NSURL *audioURL = !audioFileName ? nil : [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:audioFileName ofType:@"mp3"]];

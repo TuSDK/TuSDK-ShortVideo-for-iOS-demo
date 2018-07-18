@@ -8,22 +8,15 @@
 
 #import <Foundation/Foundation.h>
 
-/** Indicates the current data type.  */
-typedef NSUInteger TuSDKSampleBufferInputType;
-/** Video */
-static const TuSDKSampleBufferInputType TuSDKSampleBufferInputTypeVideo = 0;
-/** Audio */
-static const TuSDKSampleBufferInputType TuSDKSampleBufferInputTypeAudio = 1;
-
 /** CMSampleBufferRef input */
 @protocol TuSDKSampleBufferInput
 
 /**
  新的数据可用
  @param sampleBufferRef CMSampleBufferRef
- @param type TuSDKSampleBufferInputTypeVideo / TuSDKSampleBufferInputTypeAudio
+ @param type AVMediaTypeVideo / AVMediaTypeAudio
  @param sampleTime
  */
-- (void)newSampleBufferRef:(CMSampleBufferRef)sampleBufferRef sampleBufferInputType:(TuSDKSampleBufferInputType)type withSampleTime:(CMTime)sampleTime;
+- (void)newSampleBufferRef:(CMSampleBufferRef)sampleBufferRef mediaType:(AVMediaType)type withSampleTime:(CMTime)sampleTime;
 
 @end

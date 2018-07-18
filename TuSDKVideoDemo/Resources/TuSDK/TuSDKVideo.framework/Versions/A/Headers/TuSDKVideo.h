@@ -27,6 +27,8 @@
 #import "TuSDKMVStickerAudioEffectData.h"
 #import "TuSDKMediaParticleEffectData.h"
 #import "TuSDKMediaSceneEffectData.h"
+#import "TuSDKMediaTextEffectData.h"
+#import "TuSDK2DTextFilterWrap.h"
 
 // API
 
@@ -38,7 +40,6 @@
 #import "TuSDKTSAudioRecorder.h"
 #import "TuSDKTSMovieCompresser.h"
 #import "TuSDKVideoImageExtractor.h"
-
 
 /** Video版本号 */
 extern NSString * const lsqVideoVersion;

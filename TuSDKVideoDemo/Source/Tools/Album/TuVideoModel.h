@@ -27,6 +27,8 @@
 @property (strong, nonatomic) NSURL *url;
 // 图片的唯一标示符
 @property (copy, nonatomic) NSString *uti;
+// 视频时长
+@property (nonatomic, assign) CGFloat duration;
 
 @end
 

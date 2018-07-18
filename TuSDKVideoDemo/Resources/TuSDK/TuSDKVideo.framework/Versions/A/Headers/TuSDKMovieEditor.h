@@ -73,12 +73,22 @@
 @optional
 
 /**
- *  TuSDKMovieEditor 特效信息改变时间
- *
- *  @param editor TuSDKMovieEditor
- *  @param effectTypes 改变的特效类型数组 @see NSNumber -> TuSDKMediaEffectDataType
+ 当前正在应用的特效
+ 
+ @param editor TuSDKMovieEditor
+ @param mediaEffectData 正在预览特效
+ @since 2.2.0
  */
-- (void)onMovieEditor:(TuSDKMovieEditor *)editor didChangedForMediaEffectTypes:(NSArray<NSNumber *> *)effectTypes;
+- (void)onMovieEditor:(TuSDKMovieEditor *)editor didApplyingMediaEffect:(TuSDKMediaEffectData *)mediaEffectData;
+
+/**
+ 特效被移除通知
+ 
+ @param editor TuSDKMovieEditor
+ @param mediaEffects 被移除的特效列表
+ @since      v2.2.0
+ */
+- (void)onMovieEditor:(TuSDKMovieEditor *)editor didRemoveMediaEffects:(NSArray<TuSDKMediaEffectData *> *)mediaEffects;
 
 @end
 

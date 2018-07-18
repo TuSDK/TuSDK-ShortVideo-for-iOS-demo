@@ -178,6 +178,12 @@
         _videoScroll.contentOffset = CGPointMake(0, offset);
     }
     
+    // 监听status
+    [_item addObserver:self forKeyPath:@"status" options:NSKeyValueObservingOptionNew context:nil];
+    
+    // 设置通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:_item];
+    
     // 初始化player对象
     self.player = [[AVPlayer alloc]initWithPlayerItem:_item];
     // 设置播放页面
@@ -191,12 +197,6 @@
     [_videoView.layer addSublayer:_layer];
     // 播放设置
     self.player.volume = 1.0;
-    
-    // 监听status
-    [_item addObserver:self forKeyPath:@"status" options:NSKeyValueObservingOptionNew context:nil];
-    
-    // 设置通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:_item];
 }
 
 
@@ -327,10 +327,10 @@
                 
                 // 检测播放进度
                 __weak MoviePreviewAndCutViewController * wSelf = self;
-                [self.player addPeriodicTimeObserverForInterval:CMTimeMake(1, _item.duration.timescale) queue:NULL usingBlock:^(CMTime time) {
+                [self.player addPeriodicTimeObserverForInterval:CMTimeMake(1, wSelf.item.duration.timescale) queue:NULL usingBlock:^(CMTime time) {
                     CGFloat currentSecond = playerItem.currentTime.value*1.0/playerItem.currentTime.timescale;
                     wSelf.currentTime = currentSecond;
-                    if (_currentTime>_endTime) {
+                    if (wSelf.currentTime>wSelf.endTime) {
                         [wSelf pauseTheVideo];
                         int32_t timescale = wSelf.item.duration.timescale;
                         CMTime time = CMTimeMake(wSelf.startTime*timescale, timescale);
@@ -349,17 +349,13 @@
     if (!_player) {
         return;
     }
-    [_player cancelPendingPrerolls];
+    
     // 销毁KVO
     [_item removeObserver:self forKeyPath:@"status" context:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [_item cancelPendingSeeks];
-    [_item.asset cancelLoading];
-    [_player pause];
-    _item = [[AVPlayerItem alloc]initWithURL:[NSURL URLWithString:@""]];
-    // 初始化player对象
-    self.player = [[AVPlayer alloc]initWithPlayerItem:_item];
-    
+   
+    [_layer removeFromSuperlayer];
+    _layer = nil;
     _player = nil;
     _item = nil;
 }

@@ -11,6 +11,8 @@
 #import "ParticleEffectEditView.h"
 
 #import "Constants.h"
+#import "StickerTextEditor.h"
+
 
 @interface MovieEditorFullScreenController()<MovieEditorFullScreenBottomBarDelegate, ParticleEffectEditViewDelegate>{
     // 粒子特效编辑View
@@ -21,6 +23,9 @@
     NSDictionary *_colorDic;
     
     TuSDKMediaParticleEffectData *_editingParticleEffect;
+    //文字特效编辑View
+    StickerTextEditor * _stickerTextEditor;
+    
 }
 
 @end
@@ -33,7 +38,6 @@
 {
     self.view.backgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
     CGRect rect = [UIScreen mainScreen].bounds;
-
     // 视频播放view，将 frame 修改为全屏
     self.previewView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, rect.size.width, rect.size.height)];
     self.previewView.backgroundColor = [UIColor blackColor];
@@ -42,7 +46,7 @@
     [self.previewView addSubview:self.videoView];
     
     // 播放按钮,  以 self.previewView.frame 进行初始化，如设置全屏，请修改 frame 避免 屏幕视图层级的遮挡
-    self.playBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, self.topBar.lsqGetSizeHeight, rect.size.width, rect.size.width)];
+    self.playBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, self.topBar.lsqGetSizeHeight, rect.size.width, rect.size.height)];
     [self.playBtn addTarget:self action:@selector(clickPlayerBtn:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.playBtn];
     
@@ -68,19 +72,21 @@
     
     // 底部栏控件
     CGFloat bottomHeight = rect.size.height - rect.size.width - 44;
+    CGFloat bottomOrignY = rect.size.width + 44;
+    
     if ([UIDevice lsqIsDeviceiPhoneX]) {
-        bottomHeight -= 34;
+        bottomOrignY += 34;
+        bottomHeight -= 34 * 2;
     }
     
-    self.bottomBar = [[MovieEditerFullScreenBottomBar alloc]initWithFrame:CGRectMake(0, rect.size.width + 44, rect.size.width , bottomHeight)];
-    self.bottomBar.backgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
+    self.bottomBar = [[MovieEditerFullScreenBottomBar alloc]initWithFrame:CGRectMake(0, bottomOrignY, rect.size.width , bottomHeight)];
     self.bottomBar.bottomBarDelegate = self;
     self.bottomBar.videoFilters = kVideoFilterCodes;
-    self.bottomBar.filterView.currentFilterTag = 200;
     self.bottomBar.videoURL = self.inputURL;
-    self.bottomBar.topThumbnailView.timeInterval = self.endTime - self.startTime;
+    self.bottomBar.topThumbnailView.totalDuration = self.endTime - self.startTime;
     self.bottomBar.effectsView.effectsCode = kVideoEffectCodes;
     self.bottomBar.videoDuration = self.endTime - self.startTime;
+    
     
     MovieEditerFullScreenBottomBar *bottomBar = (MovieEditerFullScreenBottomBar *)self.bottomBar;
     bottomBar.fullScreenBottomBarDelegate = self;
@@ -100,6 +106,51 @@
     _particleEditView.displayView.videoURL = self.inputURL;
     _particleEditView.particleDelegate = self;
     [self.view addSubview:_particleEditView];
+}
+
+#pragma mark - TextEffectEdit method
+
+/**
+ 文字贴纸特效: 初始化
+ @since     v2.2.0
+ */
+-(void)initTextEditView
+{
+    _stickerTextEditor = [[StickerTextEditor alloc] initWithFrame:CGRectZero WithMovieEditor:self];
+    _stickerTextEditor.bottomThumbnailView.videoURL     = self.inputURL;
+    _stickerTextEditor.bottomThumbnailView.totalDuration = self.endTime-self.startTime;
+    
+    [self.view addSubview:_stickerTextEditor];
+}
+
+/**
+ 文字贴纸特效：添加文字效果
+ @since      v2.2.0
+ */
+-(void)movieEditorBottom_addTextEffect
+{
+    if (!_stickerTextEditor) {
+        // 文字编辑界面初始化
+        [self initTextEditView];
+    }
+    
+    self.bottomBar.hidden = YES;
+    self.topBar.hidden = YES;
+    _particleEditView.hidden = YES;
+    
+    // 进入后移除文字贴纸效果重新编辑
+    [self.movieEditor removeMediaEffectsWithType:TuSDKMediaEffectDataTypeStickerText];
+    
+    // 重新设置preView大小
+    [self.movieEditor updatePreViewFrame:_stickerTextEditor.preViewFrame];
+    
+    // 暂停预览
+    [self pausePreview];
+    [self.movieEditor seekToPreviewWithTime:kCMTimeZero];
+    
+    // 重置缩略栏当前时间
+    _stickerTextEditor.bottomThumbnailView.currentTime = 0;
+    _stickerTextEditor.isEditTextStatus = YES;
 }
 
 #pragma mark - private method
@@ -166,10 +217,7 @@
     self.movieEditor.waterMarkPosition = lsqWaterMarkTopRight;
     // 视频播放音量设置，0 ~ 1.0 仅在 enableVideoSound 为 YES 时有效
     self.movieEditor.videoSoundVolume = 0.5;
-    // 设置默认镜
-    [self.movieEditor switchFilterWithCode:kVideoFilterCodes[0]];
     
-  
     // 加载视频，显示第一帧
     [self.movieEditor loadVideo];
 }
@@ -190,7 +238,6 @@
     // 隐藏底部栏 顶部栏
     self.bottomBar.hidden = YES;
     self.topBar.hidden = YES;
-    
     
     // 点击后 particleEditView 进入编辑模式
     _particleEditView.isEditStatus = YES;
@@ -314,7 +361,7 @@
 }
 
 /**
- 点击返回按钮
+ 粒子效果界面点击返回按钮
  */
 - (void)particleEffectEditView_backViewEvent;
 {
@@ -350,7 +397,7 @@
         // 取消录制
         case lsqMovieEditorStatusRecordingCancelled:
         {
-             [_particleEditView setVideoProgress:0 playModel:self.movieEditor.playMode];
+             [_particleEditView setVideoProgress:0];
             break;
         }
         default:
@@ -359,7 +406,8 @@
     
     if (_particleEditView.isEditStatus)
         self.playBtn.hidden = YES;
-
+    
+    _stickerTextEditor.isVideoPlay = (status == lsqMovieEditorStatusPreviewing);
     _particleEditView.playBtn.hidden = (status == lsqMovieEditorStatusPreviewing);
 }
 
@@ -372,10 +420,21 @@
 - (void)onMovieEditor:(TuSDKMovieEditor *)editor progress:(CGFloat)progress
 {
     [super onMovieEditor:editor progress:progress];
+    
+    CGFloat time = progress*(self.endTime-self.startTime);
     if (self.movieEditorStatus == lsqMovieEditorStatusPreviewing) {
         // 注意：UI相关修改需要确认在主线程中进行
         dispatch_async(dispatch_get_main_queue(), ^{
-            [_particleEditView setVideoProgress:progress playModel:self.movieEditor.playMode];
+            if (self.movieEditorStatus != lsqMovieEditorStatusPreviewing) {
+                return;
+            }
+            
+            [_particleEditView setVideoProgress:progress];
+            
+            // 更新文字贴纸编辑界面时间条位置
+            _stickerTextEditor.bottomThumbnailView.currentTime = time;
+            // 显示对应时间的文字贴纸
+            [_stickerTextEditor.editorPanel disPlayTextItemViewAtTime:time];
         });
     }
 }
@@ -383,30 +442,38 @@
 #pragma mark - TuSDKMediaEffectsManagerDelegate
 
 /**
- 特效信息改变通知
- 当添加特效时或者移除特效时该回调将被调用
+ 特效被移除通知
  
  @param editor TuSDKMovieEditor
- @param effectTypes NSArray
+ @param mediaEffects 被移除的特效列表
+ @since      v2.2.0
  */
--(void)onMovieEditor:(TuSDKMovieEditor *)editor didChangedForMediaEffectTypes:(NSArray<NSNumber *> *)effectTypes
+- (void)onMovieEditor:(TuSDKMovieEditor *)editor didRemoveMediaEffects:(NSArray<TuSDKMediaEffectData *> *)mediaEffects;
 {
-    [super onMovieEditor:editor didChangedForMediaEffectTypes:effectTypes];
+    [super onMovieEditor:editor didRemoveMediaEffects:mediaEffects];
     
-    [effectTypes enumerateObjectsUsingBlock:^(NSNumber * _Nonnull mediaEffectType, NSUInteger idx, BOOL * _Nonnull stop) {
+    // 当特效数据被移除时触发该回调，以下情况将会触发：
+    
+    // 1. 当特效不支持添加多个时 SDK 内部会自动移除不可叠加的特效
+    // 2. 当开发者调用 removeMediaEffect / removeMediaEffectsWithType: / removeAllMediaEffects 移除指定特效时
+    
+    [mediaEffects enumerateObjectsUsingBlock:^(TuSDKMediaEffectData * _Nonnull mediaEffect, NSUInteger idx, BOOL * _Nonnull stop) {
         
-        if (mediaEffectType.integerValue == TuSDKMediaEffectDataTypeParticle)
-        {
-            if ([editor mediaEffectsWithType:TuSDKMediaEffectDataTypeParticle].count == 0)
-                [_particleEditView.displayView removeAllSegment];
-            
-        }else if(mediaEffectType.integerValue == TuSDKMediaEffectDataTypeScene)
-        {
-            if ([editor mediaEffectsWithType:TuSDKMediaEffectDataTypeScene].count == 0)
-                [self.bottomBar.effectsView.displayView removeAllSegment];
+        switch (mediaEffect.effectType) {
+            case TuSDKMediaEffectDataTypeParticle:
+                if ([editor mediaEffectsWithType:TuSDKMediaEffectDataTypeParticle].count == 0)
+                    [_particleEditView.displayView removeAllSegment];
+                
+                break;
+            case TuSDKMediaEffectDataTypeScene:
+                if ([editor mediaEffectsWithType:TuSDKMediaEffectDataTypeScene].count == 0)
+                    [self.bottomBar.effectsView.displayView removeAllSegment];
+                break;
+            default:
+                break;
         }
-        
     }];
+    
 }
 
 #pragma mark - TimeEffectsViewDelegate

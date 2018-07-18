@@ -45,38 +45,38 @@ static GLfloat lsqImageVertices[] = {
  * @param rotationMode 方向
  * @return 坐标信息
  */
-static GLfloat* textureCoordinatesFromOrientation(UIImageOrientation rotationMode)
+static GLfloat* textureCoordinatesFromOrientation(GPUImageRotationMode rotationMode)
 {
     
     switch (rotationMode) {
-        case UIImageOrientationLeft:
+        case kGPUImageRotateLeft:
             return lsqRotateLeftTextureCoordinates;
-        case UIImageOrientationRight:
+        case kGPUImageRotateRight:
             return lsqRotateRightTextureCoordinates;
-        case UIImageOrientationDownMirrored:
+        case kGPUImageFlipVertical:
             return lsqVerticalFlipTextureCoordinates;
-        case UIImageOrientationUpMirrored:
+        case kGPUImageFlipHorizonal:
             return lsqHorizontalFlipTextureCoordinates;
-        case UIImageOrientationRightMirrored:
+        case kGPUImageRotateRightFlipVertical:
             return lsqRotateRightVerticalFlipTextureCoordinates;
-        case UIImageOrientationLeftMirrored:
+        case kGPUImageRotateRightFlipHorizontal:
             return lsqRotateRightHorizontalFlipTextureCoordinates;
-        case UIImageOrientationDown:
+        case kGPUImageRotate180:
             return lsqRotate180TextureCoordinates;
-        case UIImageOrientationUp:
+        case kGPUImageNoRotation:
         default:
             return lsqNoRotationTextureCoordinates;
     }
 }
 
 /** 计算旋转坐标*/
-static void rotateCoordinates(UIImageOrientation rotation, GLfloat* textureCoordinates)
+static void rotateCoordinates(GPUImageRotationMode rotation, GLfloat* textureCoordinates)
 {
     GLfloat t[] = {textureCoordinates[0], textureCoordinates[1], textureCoordinates[2], textureCoordinates[3], textureCoordinates[4],textureCoordinates[5], textureCoordinates[6], textureCoordinates[7]};
     
     switch (rotation)
     {
-        case UIImageOrientationUpMirrored:
+        case kGPUImageFlipHorizonal:
             textureCoordinates[0] = t[2];
             textureCoordinates[1] = t[3];
             textureCoordinates[2] = t[0];
@@ -86,7 +86,7 @@ static void rotateCoordinates(UIImageOrientation rotation, GLfloat* textureCoord
             textureCoordinates[6] = t[4];
             textureCoordinates[7] = t[5];
             break;
-        case UIImageOrientationDownMirrored:
+        case kGPUImageFlipVertical:
             
             textureCoordinates[0] = t[4];
             textureCoordinates[1] = t[5];
@@ -98,7 +98,7 @@ static void rotateCoordinates(UIImageOrientation rotation, GLfloat* textureCoord
             textureCoordinates[7] = t[3];
             
             break;
-        case UIImageOrientationLeft:
+        case kGPUImageRotateLeft:
             
             textureCoordinates[0] = t[2];
             textureCoordinates[1] = t[3];
@@ -111,7 +111,7 @@ static void rotateCoordinates(UIImageOrientation rotation, GLfloat* textureCoord
             
             
             break;
-        case UIImageOrientationRight:
+        case kGPUImageRotateRight:
             
             textureCoordinates[0] = t[4];
             textureCoordinates[1] = t[5];
@@ -124,7 +124,7 @@ static void rotateCoordinates(UIImageOrientation rotation, GLfloat* textureCoord
             
             
             break;
-        case UIImageOrientationRightMirrored:
+        case kGPUImageRotateRightFlipVertical:
             
             textureCoordinates[0] = t[0];
             textureCoordinates[1] = t[1];
@@ -136,7 +136,7 @@ static void rotateCoordinates(UIImageOrientation rotation, GLfloat* textureCoord
             textureCoordinates[7] = t[7];
             
             break;
-        case UIImageOrientationLeftMirrored:
+        case kGPUImageRotateRightFlipHorizontal:
             
             textureCoordinates[0] = t[6];
             textureCoordinates[1] = t[7];
@@ -149,7 +149,7 @@ static void rotateCoordinates(UIImageOrientation rotation, GLfloat* textureCoord
             
             
             break;
-        case UIImageOrientationDown:
+        case kGPUImageRotate180:
             
             textureCoordinates[0] = t[6];
             textureCoordinates[1] = t[7];
@@ -161,7 +161,7 @@ static void rotateCoordinates(UIImageOrientation rotation, GLfloat* textureCoord
             textureCoordinates[7] = t[1];
             
             break;
-        case UIImageOrientationUp:
+        case kGPUImageNoRotation:
         default:
             break;
     }

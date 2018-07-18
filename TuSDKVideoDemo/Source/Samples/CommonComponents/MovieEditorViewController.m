@@ -109,10 +109,9 @@
     _bottomBar = [[MovieEditerBottomBar alloc]initWithFrame:CGRectMake(0, topY, rect.size.width , height)];
     _bottomBar.bottomBarDelegate = self;
     _bottomBar.videoDuration = self.endTime - self.startTime;
+    _bottomBar.topThumbnailView.totalDuration = self.endTime - self.startTime;
     _bottomBar.videoFilters = kVideoFilterCodes;
-    _bottomBar.filterView.currentFilterTag = 200;
     _bottomBar.videoURL = _inputURL;
-    _bottomBar.topThumbnailView.timeInterval = _endTime - _startTime;
     _bottomBar.effectsView.effectsCode = kVideoEffectCodes;
     
     [self.view addSubview:_bottomBar];
@@ -159,8 +158,6 @@
     _movieEditor.waterMarkPosition = lsqWaterMarkTopRight;
     // 视频播放音量设置，0 ~ 1.0 仅在 enableVideoSound 为 YES 时有效
     _movieEditor.videoSoundVolume = 0.5;
-    // 设置默认镜
-    [_movieEditor switchFilterWithCode:kVideoFilterCodes[0]];
     // 加载视频，显示第一帧
     [_movieEditor loadVideo];
 }
@@ -256,11 +253,12 @@
 - (void)onMovieEditor:(TuSDKMovieEditor *)editor progress:(CGFloat)progress
 {
     // 注意：UI相关修改需要确认在主线程中进行
+     _videoProgress = progress;
     if ([self movieEditorStatus] == lsqMovieEditorStatusPreviewing) {
         
         dispatch_async(dispatch_get_main_queue(), ^{
             // 预览时 更新UI
-            _videoProgress = progress;
+//            _videoProgress = progress;
 
             _bottomBar.topThumbnailView.currentTime = progress*(_endTime-_startTime);
            
@@ -269,7 +267,7 @@
            
             /** 当前是否正在添加场景特效 */
             if (_bottomBar.effectsView.displayView.isAdding)
-                [_bottomBar.effectsView.displayView updateLastSegmentViewWithProgress:progress playMode:self.movieEditor.playMode];
+                [_bottomBar.effectsView.displayView updateLastSegmentViewWithProgress:progress];
         });
     }
 
@@ -288,15 +286,11 @@
     if (result.videoPath) {
         // 进行自定义操作，例如保存到相册
         UISaveVideoAtPathToSavedPhotosAlbum(result.videoPath, nil, nil, nil);
-        [[TuSDK shared].messageHub dismiss];
         [[TuSDK shared].messageHub showSuccess:NSLocalizedString(@"lsq_save_saveToAlbum_succeed", @"保存成功")];
     }else{
         // _movieEditor.saveToAlbum = YES; （默认为 ：YES）将自动保存到相册
-        [[TuSDK shared].messageHub dismiss];
         [[TuSDK shared].messageHub showSuccess:NSLocalizedString(@"lsq_save_saveToAlbum_succeed", @"保存成功")];
     }
-    
-    [self popToRootViewControllerAnimated:true];
 }
 
 /**
@@ -322,12 +316,15 @@
         NSLog(@"加载失败");
     }else if (status == lsqMovieEditorStatusRecordingCompleted){
         NSLog(@"录制完成");
+        
+        [self popToRootViewControllerAnimated:true];
     }else if (status == lsqMovieEditorStatusRecordingFailed){
         NSLog(@"录制失败");
         [[TuSDK shared].messageHub dismiss];
         [[TuSDK shared].messageHub showError:NSLocalizedString(@"lsq_record_failed", @"录制失败")];
     }else if (status == lsqMovieEditorStatusRecordingCancelled){
         NSLog(@"取消录制");
+        
         [[TuSDK shared].messageHub dismiss];
         [[TuSDK shared].messageHub showError:NSLocalizedString(@"lsq_record_cancelled", @"取消录制")];
         
@@ -362,31 +359,54 @@
  */
 - (void)onMovieEditor:(TuSDKMovieEditor *)editor filterChanged:(TuSDKFilterWrap *)newFilter;
 {
-    _currentFilter = newFilter;
-    [_bottomBar refreshFilterParameterViewWith:newFilter.code filterArgs:newFilter.filterParameter.args];
+  // 推荐实现 TuSDKMediaEffectsManagerDelegate - > onMovieEditor:didApplyingMediaEffect： 
 }
 
 #pragma mark - TuSDKMediaEffectsManagerDelegate
 
 /**
- 特效信息改变通知
- 当添加特效时或者移除特效时该回调将被调用
+ 当前正在应用的特效
  
  @param editor TuSDKMovieEditor
- @param effectTypes NSArray
+ @param mediaEffectData 正在预览特效
+ @since 2.2.0
  */
-
--(void)onMovieEditor:(TuSDKMovieEditor *)editor didChangedForMediaEffectTypes:(NSArray<NSNumber *> *)effectTypes
+- (void)onMovieEditor:(TuSDKMovieEditor *)editor didApplyingMediaEffect:(TuSDKMediaEffectData *)mediaEffectData;
 {
-    [effectTypes enumerateObjectsUsingBlock:^(NSNumber * _Nonnull mediaEffectType, NSUInteger idx, BOOL * _Nonnull stop) {
+    if (mediaEffectData.effectType == TuSDKMediaEffectDataTypeFilter) {
+        TuSDKMediaFilterEffectData *filterMedaiEffectData = (TuSDKMediaFilterEffectData *)mediaEffectData;
+        [_bottomBar refreshFilterParameterViewWith:filterMedaiEffectData.effectCode filterArgs:filterMedaiEffectData.filterArgs];
+    }
+}
+
+/**
+ 特效被移除通知
+ 
+ @param editor TuSDKMovieEditor
+ @param mediaEffects 被移除的特效列表
+ @since      v2.2.0
+ */
+- (void)onMovieEditor:(TuSDKMovieEditor *)editor didRemoveMediaEffects:(NSArray<TuSDKMediaEffectData *> *)mediaEffects;
+{
+    // 当特效数据被移除时触发该回调，以下情况将会触发：
+    
+    // 1. 当特效不支持添加多个时 SDK 内部会自动移除不可叠加的特效
+    // 2. 当开发者调用 removeMediaEffect / removeMediaEffectsWithType: / removeAllMediaEffects 移除指定特效时
+    
+    [mediaEffects enumerateObjectsUsingBlock:^(TuSDKMediaEffectData * _Nonnull mediaEffect, NSUInteger idx, BOOL * _Nonnull stop) {
         
-        if (mediaEffectType.integerValue == TuSDKMediaEffectDataTypeScene)
-        {
-          if ([editor mediaEffectsWithType:TuSDKMediaEffectDataTypeScene].count == 0)
-              [_bottomBar.effectsView.displayView removeAllSegment];
+        switch (mediaEffect.effectType) {
+            case TuSDKMediaEffectDataTypeScene:
+                if ([editor mediaEffectsWithType:TuSDKMediaEffectDataTypeScene].count == 0)
+                    [_bottomBar.effectsView.displayView removeAllSegment];
+                break;
+                
+            default:
+                break;
         }
         
     }];
+    
 }
 
 #pragma mark - MovieEditorBottomBarDelegate
@@ -399,14 +419,20 @@
  */
 - (void)movieEditorBottom_filterViewParamChanged
 {
-    [_currentFilter submitParameter];
+  
+    TuSDKMediaFilterEffectData *filterEffectData = (TuSDKMediaFilterEffectData *)[self.movieEditor mediaEffectsWithType:TuSDKMediaEffectDataTypeFilter].firstObject;
+    
+    [filterEffectData submitParameters];
 }
 
 // 切换滤镜
 - (void)movieEditorBottom_filterViewSwitchFilterWithCode:(NSString *)filterCode
 {
-    // 更换滤镜
-    [_movieEditor switchFilterWithCode:filterCode];
+    // 更换滤镜 (滤镜不可以添加多个 SDK内部会自动移除旧的滤镜)
+    TuSDKMediaFilterEffectData *filterEffectData = [[TuSDKMediaFilterEffectData alloc] initWithEffectCode:filterCode];
+    [_movieEditor addMediaEffect:filterEffectData];
+    
+    [_bottomBar refreshFilterParameterViewWith:filterEffectData.effectCode filterArgs:filterEffectData.filterArgs];
 }
 
 #pragma mark -- mv
@@ -419,7 +445,7 @@
 {
     if (!mvData) {
         // 为nil时 不添加贴纸 且移除已有贴纸组
-        [_movieEditor removeMediaEffectsWithType:TuSDKMediaEffectDataTypeSticketAudio];
+        [_movieEditor removeMediaEffectsWithType:TuSDKMediaEffectDataTypeStickerAudio];
         return;
     }
     
@@ -608,31 +634,6 @@
     if ([_movieEditor isPreviewing]) {
         [_movieEditor pausePreView];
     }
-}
-
-#pragma mark - TimeEffectsViewDelegate
-
-/**
- 设置时间特效模式i
-
- @param effectsView TimeEffectsView
- @param timeEffectMode 时间特效模式
- @param timeRange
- */
--(void)timeEffectView:(TimeEffectsView *)effectsView timeEffectModeChanged:(lsqMovieEditorTimeEffectMode)timeEffectMode timeRange:(TuSDKTimeRange *)timeRange
-{
-    [[self movieEditor] setTimeEffectMode:timeEffectMode atTimeRange:timeRange times:1];
-}
-
-/**
- 播放模式改变
-
- @param effectsView 时间特效视图
- @param playMode 当前播放模式
- */
--(void)timeEffectView:(TimeEffectsView *)effectsView playModeChanged:(lsqMovieEditorPlayMode)playMode
-{
-    self.movieEditor.playMode = playMode;
 }
 
 #pragma mark - 后台前台切换

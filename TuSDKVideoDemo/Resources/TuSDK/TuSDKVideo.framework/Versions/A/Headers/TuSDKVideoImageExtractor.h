@@ -44,9 +44,15 @@ typedef void(^TuSDKVideoImageExtractorBlock)(NSArray<UIImage *> *);
 @property (nonatomic) CGFloat extractFrameTimeInterval;
 
 /**
- * 输出的图片尺寸 默认（80*80）
+ * 输出的图片尺寸，不设置则按视频宽高比例计算
  */
 @property (nonatomic) CGSize outputMaxImageSize;
+
+/**
+ 是否需要精确时间帧获取图片, 默认NO
+ @since 2.2.0
+ */
+@property (nonatomic, assign) BOOL isAccurate;
 
 /**
  提取视频帧

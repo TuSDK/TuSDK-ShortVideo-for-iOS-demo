@@ -103,7 +103,7 @@ static BOOL ifOne = YES;
                             NSTimeInterval duration = [[result valueForProperty:ALAssetPropertyDuration] integerValue];
                             NSString *timeLength = [NSString stringWithFormat:@"%0.0f",duration];
                             model.videoTime = [self getNewTimeFromDurationSecond:timeLength.integerValue];
-                            
+                            model.duration = timeLength.integerValue;
                             model.asset = result;
                             
                             [ay addObject:model];

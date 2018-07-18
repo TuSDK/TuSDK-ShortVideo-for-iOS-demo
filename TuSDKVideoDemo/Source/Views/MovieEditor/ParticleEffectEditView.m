@@ -49,13 +49,13 @@
 }
 
 
-- (void)setVideoProgress:(CGFloat)videoProgress playModel:(lsqMovieEditorPlayMode)playMode;
+- (void)setVideoProgress:(CGFloat)videoProgress
 {
     _videoProgress = videoProgress;
     _displayView.currentLocation = videoProgress;
     
     if (_isAddingParticle)
-        [_displayView updateLastSegmentViewWithProgress:videoProgress playMode:playMode];
+        [_displayView updateLastSegmentViewWithProgress:videoProgress];
 }
 
 #pragma mark - init method

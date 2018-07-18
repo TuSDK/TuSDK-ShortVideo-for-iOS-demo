@@ -10,8 +10,6 @@
 
 @interface MovieEditerBottomBar ()<FilterViewEventDelegate, MVViewClickDelegate, DubViewClickDelegate, TuSDKICSeekBarDelegate, BottomButtonViewDelegate, VideoClipViewDelegate, EffectsViewEventDelegate>{
 
-    // 底部按钮以及分割线的父视图
-    UIView *_bottomDisplayView;
     // 底部按钮View
     BottomButtonView *_bottomButtonView;
     // 原音音量 数值显示 UILabel
@@ -25,6 +23,8 @@
     CGFloat _originVolume;
     // 配音音量
     CGFloat _audioVolume;
+    //文字特效
+    UIButton * _addText;
 }
 
 // 录音View
@@ -71,13 +71,12 @@
  */
 - (NSArray *)getBottomNormalImages;
 {
-    NSMutableArray *normalImages = [NSMutableArray arrayWithArray:@[@"tab_ic_time_g",
-                                                                    @"style_default_1.11_btn_filter_unselected",
+    NSMutableArray *normalImages = [NSMutableArray arrayWithArray:@[@"style_default_1.11_btn_filter_unselected",
                                                              @"style_default_1.11_edit_effect_default",
                                                              @"style_default_1.11_btn_mv_unselected",
                                                              @"style_default_1.11_sound_default"]];
     // iPad 中不显示滤镜栏
-    if ([UIDevice lsqDevicePlatform] == TuSDKDevicePlatform_other) [normalImages removeObjectAtIndex:1];
+    if ([UIDevice lsqDevicePlatform] == TuSDKDevicePlatform_other) [normalImages removeObjectAtIndex:0];
         
 
     return normalImages;
@@ -88,13 +87,12 @@
  */
 - (NSArray *)getBottomSelectImages;
 {
-    NSMutableArray *selectImages = [NSMutableArray arrayWithArray:@[@"tab_ic_time_y",
-                                                                    @"style_default_1.11_btn_filter",
+    NSMutableArray *selectImages = [NSMutableArray arrayWithArray:@[@"style_default_1.11_btn_filter",
                                                                     @"style_default_1.11_edit_effect_select",
                                                                     @"style_default_1.11_btn_mv",
                                                                     @"style_default_1.11_sound_selected"]];
     // iPad 中不显示滤镜栏
-    if ([UIDevice lsqDevicePlatform] == TuSDKDevicePlatform_other) [selectImages removeObjectAtIndex:1];
+    if ([UIDevice lsqDevicePlatform] == TuSDKDevicePlatform_other) [selectImages removeObjectAtIndex:0];
 
     return selectImages;
 }
@@ -105,13 +103,12 @@
 - (NSArray *)getBottomTitles;
 {
     NSMutableArray *titles = [NSMutableArray arrayWithArray:@[
-                                                              NSLocalizedString(@"lsq_movieEditor_timeEffectBtn", @"时间特效"),
                                                               NSLocalizedString(@"lsq_movieEditor_filterBtn", @"滤镜"),
                                                               NSLocalizedString(@"lsq_movieEditor_effect", @"特效"),
                                                               NSLocalizedString(@"lsq_movieEditor_MVBtn", @"MV"),
                                                               NSLocalizedString(@"lsq_movieEditor_dubBtn", @"配音")]];
     // iPad 中不显示滤镜栏
-    if ([UIDevice lsqDevicePlatform] == TuSDKDevicePlatform_other) [titles removeObjectAtIndex:1];
+    if ([UIDevice lsqDevicePlatform] == TuSDKDevicePlatform_other) [titles removeObjectAtIndex:0];
 
     return titles;
 }
@@ -148,6 +145,12 @@
     _timeEffectsView.delegate = bottomBarDelegate;
 }
 
+-(void)setVideoDuration:(CGFloat)videoDuration
+{
+    _videoDuration = videoDuration;
+    self.topThumbnailView.totalDuration = videoDuration;
+}
+
 /**
  初始化视图调节内容
  */
@@ -167,7 +170,7 @@
     _filterView.isHiddenEyeChinParam = YES;
     _filterView.isHiddenSmoothingParamSingleAdjust = YES;
     // 注： currentFilterTag 基于200 即： = 200 + 滤镜列表中某滤镜的对应下标
-    _filterView.currentFilterTag = 200;
+//    _filterView.currentFilterTag = 200;
     [_contentBackView addSubview:_filterView];
     
     // MV View
@@ -305,19 +308,7 @@
         index++;
     }
    
-
     if (index == 0)
-    {
-        // 点击 配音
-        _timeEffectsView.hidden = NO;
-        _dubView.hidden = YES;
-        _volumeBackView.hidden = YES;
-        _topThumbnailView.hidden = YES;
-        _mvView.hidden = YES;
-        _filterView.hidden = YES;
-        _effectsView.hidden = YES;
-        
-    }else if (index == 1)
     {
         // 点击滤镜
         _timeEffectsView.hidden = YES;
@@ -331,7 +322,7 @@
         _filterView.beautyParamView.hidden = YES;
         _filterView.filterChooseView.hidden = NO;
 
-    }else if (index == 2){
+    }else if (index == 1){
         // 点击 特效
         _timeEffectsView.hidden = YES;
         _effectsView.hidden = NO;
@@ -345,7 +336,7 @@
             [self.bottomBarDelegate movieEditorBottom_effectsViewDisplay];
         }
         
-    }else if (index == 3){
+    }else if (index == 2){
         // 点击 MV
         _timeEffectsView.hidden = YES;
         _mvView.hidden = NO;
@@ -354,8 +345,8 @@
         _filterView.hidden = YES;
         _dubView.hidden = YES;
         _effectsView.hidden = YES;
-        
-    }else if (index == 4){
+    }
+    else if (index == 3){
         // 点击 配音
         _timeEffectsView.hidden = YES;
         _dubView.hidden = NO;
@@ -489,6 +480,19 @@
     if ([self.bottomBarDelegate respondsToSelector:@selector(movieEditorBottom_slipThumbnailViewSlipBeginEvent)]) {
         [self.bottomBarDelegate movieEditorBottom_slipThumbnailViewSlipBeginEvent];
     }
+}
+
+#pragma mark - TextViewEventDelegate
+/**
+ 添加文字特效:选择栏文字、颜色、样式
+ */
+-(void)onOptionSeleedAction:(UIButton *)btn
+{
+    if ([self.bottomBarDelegate respondsToSelector:@selector(movieEditorBottom_addTextEffect)]) {
+        
+        [self.bottomBarDelegate movieEditorBottom_addTextEffect];
+    }
+         
 }
     
 #pragma mark - EffectsViewEventDelegate

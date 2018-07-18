@@ -94,12 +94,17 @@
 {
     // 设置全屏，需要修改以下两个 view 的 frame
     self.videoView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.lsqGetSizeWidth, self.view.lsqGetSizeHeight)];
-    self.videoView.backgroundColor = [UIColor greenColor];
     [self.view addSubview:self.videoView];
     [self.view sendSubviewToBack:self.videoView];
     
     // 设置播放项目
     self.item = [[AVPlayerItem alloc]initWithURL:self.inputURL];
+    
+    // 监听status
+    [self.item addObserver:self forKeyPath:@"status" options:NSKeyValueObservingOptionNew context:nil];
+    
+    // 设置通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:self.item];
     
     // 初始化player对象
     self.player = [[AVPlayer alloc]initWithPlayerItem:self.item];
@@ -114,12 +119,6 @@
     [self.videoView.layer addSublayer:self.layer];
     // 播放设置
     self.player.volume = 1.0;
-    
-    // 监听status
-    [self.item addObserver:self forKeyPath:@"status" options:NSKeyValueObservingOptionNew context:nil];
-    
-    // 设置通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:self.item];
 }
 
 /**

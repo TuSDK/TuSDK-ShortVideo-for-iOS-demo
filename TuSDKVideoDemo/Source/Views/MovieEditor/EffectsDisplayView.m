@@ -203,22 +203,11 @@
  
  @param progress 截止位置
  */
--(void)updateLastSegmentViewWithProgress:(CGFloat)progress playMode:(lsqMovieEditorPlayMode)playMode;
+-(void)updateLastSegmentViewWithProgress:(CGFloat)progress
 {
     if (!_lastView) return;
  
-    if (playMode == lsqMovieEditorPlayModeSequence)
-    {
-        [_lastView lsqSetSizeWidth:progress*_backView.lsqGetSizeWidth - _lastView.lsqGetOriginX];
-        
-    }else
-    {
-        CGFloat endPosProgress = CGRectGetMaxX(_lastView.frame) / _shadowBackView.lsqGetSizeWidth;
-        CGFloat beginPosProgress = progress;
-        
-        _lastView.frame = CGRectMake( beginPosProgress * _shadowBackView.lsqGetSizeWidth, 0, (endPosProgress - beginPosProgress) * _shadowBackView.lsqGetSizeWidth, _shadowBackView.lsqGetSizeHeight);
-    }
-
+    [_lastView lsqSetSizeWidth:progress*_backView.lsqGetSizeWidth - _lastView.lsqGetOriginX];
 }
 
 /**

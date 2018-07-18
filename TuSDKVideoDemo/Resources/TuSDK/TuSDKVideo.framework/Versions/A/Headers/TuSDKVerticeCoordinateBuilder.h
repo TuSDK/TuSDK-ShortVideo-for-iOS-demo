@@ -16,6 +16,6 @@
 
 - (void)setOutputSize:(CGSize)outputSize;
 
-- (BOOL)calculate:(CGSize) size orientation:(UIImageOrientation) orientation verticesCoordinates:(GLfloat[]) verticesCoordinates textureCoorinates:(GLfloat[])textureBuffer;
+- (BOOL)calculate:(CGSize) size orientation:(GPUImageRotationMode) orientation verticesCoordinates:(GLfloat[]) verticesCoordinates textureCoorinates:(GLfloat[])textureBuffer;
 
 @end

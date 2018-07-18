@@ -116,6 +116,12 @@
 "lsq_filter_LiveFancy01_1" = "70s";
 "lsq_filter_LiveSoulOut01" = "灵魂出窍";
 "lsq_filter_LiveSignal01" = "信号";
+"lsq_filter_LiveLightning01" = "闪电";
+"lsq_filter_LiveXRay01" = "X光";
+"lsq_filter_LiveHeartbeat01" = "心跳";
+"lsq_filter_LiveMirrorImage01" = "镜像";
+"lsq_filter_LiveSlosh01" = "晃动";
+"lsq_filter_LiveOldTV01" = "旧电视";
 
 // ParticleEffect
 
@@ -160,6 +166,7 @@
 "lsq_full_screen_record_preview_ratio_editor" = "比例自适应：相册选择 + 时间裁剪 + 视频编辑";
 "lsq_full_screen_album_video_timecut_editor" = "全屏展示：相册导入 + 时间裁剪 + 视频编辑";
 "lsq_audio_mixed" = "多音轨混合";
+"lsq_audio_speedmixed" = "多音轨变速混合";
 "lsq_video_bgm" = "音视频混合";
 "lsq_gain_thumbnail" = "获取缩略图";
 "lsq_video_mixed" = "多视频拼接";
@@ -201,6 +208,7 @@
 "lsq_movieEditor_magicBtn" = "魔法";
 "lsq_movieEditor_filterBtn" = "滤镜";
 "lsq_movieEditor_effect" = "特效";
+"lsq_movieEditor_text"   = "文字";
 "lsq_movieEditor_MVBtn" = "MV";
 "lsq_movieEditor_dubBtn" = "配音";
 "lsq_movieEditor_orignVolume_title" = "原音强度";
@@ -232,7 +240,7 @@
 "lsq_api_start_mix_audio" = "开始音频混合";
 "lsq_api_pause_mixed_music" = "暂停";
 "lsq_api_mixed_audio_explaination" = "请分别调节以下音乐音量大小，调节完毕后，点击生成音频即可生成一段新的混合音乐。记得要打开系统音量哟~";
-"lsq_api_splice_movie_explaination"  = "点击「视频拼接」按钮，将两段视频合为一段视频，保存成功后请去相册查看视频";
+"lsq_api_splice_movie_explaination"  = "点击「视频拼接」按钮，将多段视频合为一段视频，保存成功后请去相册查看视频";
 "lsq_api_splice_movie_success" = "操作完成，请去相册查看视频";
 "lsq_api_splice_movie_failed" = "操作失败，无法生成视频文件";
 "lsq_api_splice_movie_cancelled" = "出现问题，操作被取消";
@@ -250,7 +258,7 @@
 "lsq_save_error_too_short" = "不能低于最小时间";
 "lsq_save_error_failed" = "保存到相册失败";
 "lsq_record_moreMaxDuration" = "大于最大时长，请保存视频后继续录制";
-"lsq_record_complete" = "录制完成";
+"lsq_record_complete" = "录制完成，请保存视频";
 "lsq_record_failed" = "录制失败";
 "lsq_record_cancelled" = "取消录制";
 "lsq_record_dealing" = "正在处理...";

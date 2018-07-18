@@ -31,9 +31,6 @@
 // 视频编辑对象
 @property (nonatomic, strong) TuSDKMovieEditor *movieEditor;
 
-// 当前的滤镜
-@property (nonatomic, strong) TuSDKFilterWrap *currentFilter;
-
 // 视图布局
 // 视频预览的背景scroll
 @property (nonatomic, strong) UIView *previewView;

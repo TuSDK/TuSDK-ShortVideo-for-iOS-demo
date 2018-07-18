@@ -23,7 +23,18 @@
 /**
  * 输入的画面方向
  */
-@property (nonatomic) UIImageOrientation inputOrientation;
+@property (nonatomic) GPUImageRotationMode inputRotation;
+
+/**
+ * 输出的画面方向
+ */
+@property (nonatomic) GPUImageRotationMode outputRotation;
+
+/**
+ * 输入的采样数据类型
+ * 支持： kCVPixelFormatType_420YpCbCr8BiPlanarFullRange | kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange kCVPixelFormatType_32BGRA
+ */
+@property (nonatomic) OSType inputPixelFormatType;
 
 /**
  期望输出的视频宽高

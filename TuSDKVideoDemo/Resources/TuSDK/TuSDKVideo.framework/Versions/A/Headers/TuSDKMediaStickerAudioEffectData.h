@@ -32,7 +32,6 @@
  */
 @property (nonatomic, assign) CGFloat audioVolume;
 
-
 /**
  初始化方法
  */

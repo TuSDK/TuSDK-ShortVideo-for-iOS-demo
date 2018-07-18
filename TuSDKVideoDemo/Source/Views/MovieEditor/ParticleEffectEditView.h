@@ -114,7 +114,7 @@
  @param videoProgress 视频进度
  @param playMode 当前播放模式
  */
--(void)setVideoProgress:(CGFloat)videoProgress playModel:(lsqMovieEditorPlayMode)playMode;
+-(void)setVideoProgress:(CGFloat)videoProgress;
 
 /**
  移除上一个添加的粒子特效

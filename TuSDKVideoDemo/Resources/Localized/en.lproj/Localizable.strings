@@ -116,6 +116,12 @@
 "lsq_filter_LiveFancy01_1" = "70s";
 "lsq_filter_LiveSoulOut01" = "Soul";
 "lsq_filter_LiveSignal01" = "Signal";
+"lsq_filter_LiveLightning01" = "Lightning";
+"lsq_filter_LiveXRay01" = "XRay";
+"lsq_filter_LiveHeartbeat01" = "Heartbeat";
+"lsq_filter_LiveMirrorImage01" = "LiveMirrorImage";
+"lsq_filter_LiveSlosh01" = "LiveSlosh";
+"lsq_filter_LiveOldTV01" = "LiveOldTV";
 
 // ParticleEffect
 
@@ -160,6 +166,7 @@
 "lsq_full_screen_record_preview_ratio_editor" = "Full Screen：Album & Edit Video Compenent（Ratio Adapted)";
 "lsq_full_screen_album_video_timecut_editor" = "Full Screen：Video Cut Time Editor";
 "lsq_audio_mixed" = "Mix Two Audio";
+"lsq_audio_speedmixed" = "Mix Two Audio IN Speed";
 "lsq_video_bgm" = "Add BGM To Video";
 "lsq_gain_thumbnail" = "Get Thumbnais From Video";
 "lsq_video_mixed" = "Contact Two Video";
@@ -194,6 +201,7 @@
 "lsq_movieEditor_magicBtn" = "Magic";
 "lsq_movieEditor_filterBtn" = "Filter";
 "lsq_movieEditor_effect" = "Effect";
+"lsq_movieEditor_text"  = "Text";
 "lsq_movieEditor_MVBtn" = "MV";
 "lsq_movieEditor_dubBtn" = "Dub";
 "lsq_movieEditor_orignVolume_title" = "Audio";

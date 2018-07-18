@@ -195,6 +195,7 @@
     NSURL *url = model.url;
     MoviePreviewAndCutFullScreenController *vc = [MoviePreviewAndCutFullScreenController new];
     vc.inputURL = url;
+    vc.endTime = model.duration;
     [self.navigationController pushViewController:vc animated:YES];
     
 }

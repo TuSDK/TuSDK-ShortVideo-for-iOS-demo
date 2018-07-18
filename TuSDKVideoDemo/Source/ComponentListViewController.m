@@ -27,6 +27,8 @@
 #import "APIMovieCompresserViewController.h"
 #import "TuAssetManager.h"
 #import "TuAlbumViewController.h"
+#import "MultiVideoPicker.h"
+
 
 #pragma mark - ComponentListView
 /**
@@ -58,6 +60,7 @@
  * 演示选择
  */
 @property (nonatomic, assign) id<DemoChooseDelegate> delegate;
+
 
 @end
 
@@ -167,7 +170,6 @@
  *  直接进入视频编辑
  */
 @property (nonatomic,assign) int enableOpenVCType;
-
 
 @end
 
@@ -299,6 +301,7 @@
                 break;
             case 2:
                 // 获取缩略图
+                _enableOpenVCType = 4;
                 [self openGetThumbnail];
                 break;
             case 3:
@@ -307,6 +310,7 @@
                 break;
             case 4:
                 // 相册选择 + 时间裁剪保存视频
+                 _enableOpenVCType = 5;
                 [self openMovieClipper];
                 break;
             case 5:
@@ -315,6 +319,7 @@
                 break;
             case 6:
                 // 压缩视频
+                _enableOpenVCType = 6;
                 [self openMovieCompresser];
                 break;
             default:
@@ -408,29 +413,27 @@
 // 获取缩略图
 - (void)openGetThumbnail;
 {
-    APIVideoThumbnailsViewController *vc = [APIVideoThumbnailsViewController new];
-    [self.navigationController pushViewController:vc animated:YES];
+    [self openImportVideo];
 }
 
-// 压缩视频
-- (void)openMovieCompresser;
-{
-    APIMovieCompresserViewController *vc = [APIMovieCompresserViewController new];
-    [self.navigationController pushViewController:vc animated:YES];
-}
-
-// 视频合成
+// 多视频拼接
 - (void)openMovieSplicer;
 {
-    APIMovieSplicerViewController *vc = [APIMovieSplicerViewController new];
-    [self.navigationController pushViewController:vc animated:YES];
+    MultiVideoPicker *picker = [[MultiVideoPicker alloc] init];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:picker];
+    [self presentViewController:nav animated:YES completion:nil];
 }
 
 // 相册选择 + 时间裁剪保存视频
 - (void)openMovieClipper;
 {
-    APIMovieClipperViewController *vc = [APIMovieClipperViewController new];
-    [self.navigationController pushViewController:vc animated:YES];
+    [self openImportVideo];
+}
+
+// 压缩视频
+- (void)openMovieCompresser;
+{
+    [self openImportVideo];
 }
 
 #pragma mark - TuVideoSelectedDelegate
@@ -441,29 +444,52 @@
     NSURL *url = model.url;
     
     if (_enableOpenVCType == 0) {
-        // 相册导入 + 裁剪 + 视频编辑
+        
+        //  裁剪 + 视频编辑
         MoviePreviewAndCutViewController *vc = [MoviePreviewAndCutViewController new];
         vc.inputURL = url;
         [wSelf.navigationController pushViewController:vc animated:YES];
     }else if (_enableOpenVCType == 1)
     {
-        // 相册导入 + 视频编辑
+        // 视频编辑
         AVAsset *avasset = [AVAsset assetWithURL:url];
         MovieEditorRatioAdaptedController *vc = [MovieEditorRatioAdaptedController new];
         vc.inputURL = url;
         vc.startTime = 0;
         vc.endTime = CMTimeGetSeconds(avasset.duration);
         [wSelf.navigationController pushViewController:vc animated:YES];
-    } else if (_enableOpenVCType == 2) {
-        // 全屏显示，相册导入 + 时间裁剪 + 视频编辑
+    }else if (_enableOpenVCType == 2) {
+        
+        // 全屏显示，时间裁剪 + 视频编辑
         MoviePreviewAndCutFullScreenController *vc = [MoviePreviewAndCutFullScreenController new];
         vc.inputURL = url;
         [wSelf.navigationController pushViewController:vc animated:YES];
     }else if (_enableOpenVCType == 3){
+        
+        // 成比例显示，时间裁剪 + 视频编辑
         MoviePreviewAndCutRatioAdaptedController *vc = [MoviePreviewAndCutRatioAdaptedController new];
         vc.inputURL = url;
         [self.navigationController pushViewController:vc animated:YES];
+    }else if (_enableOpenVCType == 4){
+        
+        // 获取视频缩略图
+        APIVideoThumbnailsViewController *vc = [APIVideoThumbnailsViewController new];
+        vc.inputURL = url;
+        [self.navigationController pushViewController:vc animated:YES];
+    }else if (_enableOpenVCType == 5){
+        
+        // 视频裁剪
+        APIMovieClipperViewController *vc = [APIMovieClipperViewController new];
+        vc.inputURL = url;
+        [self.navigationController pushViewController:vc animated:YES];
+    }else if (_enableOpenVCType == 6){
+        
+        // 视频压缩
+        APIMovieCompresserViewController *vc = [APIMovieCompresserViewController new];
+        vc.inputURL = url;
+        [self.navigationController pushViewController:vc animated:YES];
     }
+    
 }
 
 @end

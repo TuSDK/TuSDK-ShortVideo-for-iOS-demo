@@ -23,6 +23,12 @@
     
     // 设置播放项目
     self.item = [[AVPlayerItem alloc]initWithURL:self.inputURL];
+    // 监听status
+    [self.item addObserver:self forKeyPath:@"status" options:NSKeyValueObservingOptionNew context:nil];
+    
+    // 设置通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:self.item];
+    
     // 初始化player对象
     self.player = [[AVPlayer alloc]initWithPlayerItem:self.item];
     // 设置播放页面
@@ -36,12 +42,6 @@
     [self.videoView.layer addSublayer:self.layer];
     // 播放设置
     self.player.volume = 1.0;
-    
-    // 监听status
-    [self.item addObserver:self forKeyPath:@"status" options:NSKeyValueObservingOptionNew context:nil];
-    
-    // 设置通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:self.item];
 }
 
 /**

@@ -12,4 +12,10 @@
 /** Live Megrim Filter*/
 @interface TuSDKGPULiveMegrimFilter : GPUImageFilterGroup
 
+/**
+ 启用隔离滤镜
+ @since 2.2.0
+ */
+- (void)enableSeprarate;
+
 @end

@@ -115,6 +115,12 @@
 "lsq_filter_LiveFancy01_1" = "70s";
 "lsq_filter_LiveSoulOut01" = "靈魂出竅";
 "lsq_filter_LiveSignal01" = "信號";
+"lsq_filter_LiveLightning01" = "閃電";
+"lsq_filter_LiveXRay01" = "X光";
+"lsq_filter_LiveHeartbeat01" = "心跳";
+"lsq_filter_LiveMirrorImage01" = "鏡像";
+"lsq_filter_LiveSlosh01" = "晃動";
+"lsq_filter_LiveOldTV01" = "舊電視";
 
 // ParticleEffect
 
@@ -159,6 +165,7 @@
 "lsq_full_screen_record_preview_ratio_editor" = "比例自适应：相冊導入 + 時間裁剪 + 視頻編輯";
 "lsq_full_screen_album_video_timecut_editor" = "全屏展示：相冊導入 + 時間裁剪 + 視頻編輯";
 "lsq_audio_mixed" = "多音軌混合";
+"lsq_audio_speedmixed" = "多音軌变速混合";
 "lsq_video_bgm" = "音视频混合";
 "lsq_gain_thumbnail" = "獲取視頻縮略圖";
 "lsq_video_mixed" = "多視頻拼接";
@@ -193,6 +200,7 @@
 "lsq_movieEditor_magicBtn" = "魔法";
 "lsq_movieEditor_filterBtn" = "濾鏡";
 "lsq_movieEditor_effect" = "特效";
+"lsq_movieEditor_text"  = "文字";
 "lsq_movieEditor_MVBtn" = "MV";
 "lsq_movieEditor_dubBtn" = "配音";
 "lsq_movieEditor_orignVolume_title" = "原音強度";
