@@ -9,6 +9,5 @@
 //#import "TuSDKICGuideRegionView.h"
 #import <TuSDK/TuSDKICGuideRegionView.h>
 
-//#import "TuSDKFace.h"
-#import <TuSDKFace/TuSDKFace.h>
+#import <TuSDK/TuSDK.h>
 
