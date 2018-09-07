@@ -29,6 +29,7 @@
 @property (nonatomic, strong) AVPlayerItem *playerItem;
 @property (nonatomic, assign) CGFloat progress;
 @property (nonatomic, strong) CADisplayLink *displayLink;
+@property (nonatomic, weak) UIView *playerView;
 
 @end
 
@@ -182,6 +183,8 @@
  */
 - (void)startCompress;
 {
+    [self destroyPlayer];
+    
     if (!_movieCompresser) {
         _movieCompresser = [[TuSDKAssetVideoComposer alloc] initWithAsset:nil];
         _movieCompresser.delegate = self;
@@ -194,7 +197,7 @@
     }
     
     // 指定输出文件的码率
-     _movieCompresser.outputVideoQuality = [TuSDKVideoQuality makeQualityWith:TuSDKRecordVideoQuality_Low1];
+//     _movieCompresser.outputVideoQuality = [TuSDKVideoQuality makeQualityWith:TuSDKRecordVideoQuality_High2];
     
     // 指定压缩比 outputVideoQuality 和 outputCompressionScale 可二选一。
     // 同时设置时优先使用 outputVideoQuality。
@@ -237,6 +240,7 @@
     UIView *playerView = [[UIView alloc]initWithFrame:CGRectMake(0, topYDistance/2 + _topBar.lsqGetSizeHeight, self.view.lsqGetSizeWidth, self.view.lsqGetSizeWidth*9/16)];
     [playerView setBackgroundColor:[UIColor clearColor]];
     playerView.multipleTouchEnabled = NO;
+    _playerView = playerView;
     [self.view addSubview:playerView];
     
     // 添加视频资源
@@ -312,13 +316,16 @@
         case TuSDKAssetVideoComposerStatusCompleted:
         {
             [[TuSDK shared].messageHub showSuccess:NSLocalizedString(@"lsq_api_splice_movie_success", @"操作完成，请去相册查看视频")];
+            [self initWithVideoPlayer];
             break;
         }
         case TuSDKAssetVideoComposerStatusFailed:
             [[TuSDK shared].messageHub showError:NSLocalizedString(@"lsq_api_splice_movie_failed", @"操作失败，无法生成视频文件")];
+            [self initWithVideoPlayer];
             break;
         case TuSDKAssetVideoComposerStatusCancelled:
             [[TuSDK shared].messageHub showError:NSLocalizedString(@"lsq_api_splice_movie_cancelled", @"出现问题，操作被取消")];
+            [self initWithVideoPlayer];
             break;
         default:
             break;
@@ -381,12 +388,11 @@
     [_playerItem cancelPendingSeeks];
     [_playerItem.asset cancelLoading];
     [_player pause];
-    _playerItem = [[AVPlayerItem alloc]initWithURL:[NSURL URLWithString:@""]];
-    // 初始化player对象
-    self.player = [[AVPlayer alloc]initWithPlayerItem:_playerItem];
-    
+    [_player replaceCurrentItemWithPlayerItem:nil];
     _player = nil;
     _playerItem = nil;
+    [_playerView removeFromSuperview];
+    _playerView = nil;
 }
 
 @end

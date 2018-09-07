@@ -69,24 +69,20 @@
                     rightButtonInfo:@[NSLocalizedString(@"lsq_save_video", @"保存")]];
     self.topBar.centerTitleLabel.textColor = [UIColor whiteColor];
     [self.view addSubview:self.topBar];
-    
-    // 底部栏控件
-    CGFloat bottomHeight = rect.size.height - rect.size.width - 44;
-    CGFloat bottomOrignY = rect.size.width + 44;
+
+    CGFloat bottomHeight = rect.size.width == 320 ? rect.size.height - rect.size.width - 44 : 240;
+    CGFloat bottomOrignY = rect.size.height - bottomHeight;
     
     if ([UIDevice lsqIsDeviceiPhoneX]) {
-        bottomOrignY += 34;
-        bottomHeight -= 34 * 2;
+        bottomOrignY -= 34;
     }
     
     self.bottomBar = [[MovieEditerFullScreenBottomBar alloc]initWithFrame:CGRectMake(0, bottomOrignY, rect.size.width , bottomHeight)];
     self.bottomBar.bottomBarDelegate = self;
     self.bottomBar.videoFilters = kVideoFilterCodes;
     self.bottomBar.videoURL = self.inputURL;
-    self.bottomBar.topThumbnailView.totalDuration = self.endTime - self.startTime;
     self.bottomBar.effectsView.effectsCode = kVideoEffectCodes;
-    self.bottomBar.videoDuration = self.endTime - self.startTime;
-    
+    [self.bottomBar bottomButton:nil clickIndex:0];
     
     MovieEditerFullScreenBottomBar *bottomBar = (MovieEditerFullScreenBottomBar *)self.bottomBar;
     bottomBar.fullScreenBottomBarDelegate = self;
@@ -106,9 +102,10 @@
     _particleEditView.displayView.videoURL = self.inputURL;
     _particleEditView.particleDelegate = self;
     [self.view addSubview:_particleEditView];
+    _particleEditView.hidden = YES;
 }
 
-#pragma mark - TextEffectEdit method
+#pragma mark - TextEffectEdit 文字贴纸特效
 
 /**
  文字贴纸特效: 初始化
@@ -117,9 +114,8 @@
 -(void)initTextEditView
 {
     _stickerTextEditor = [[StickerTextEditor alloc] initWithFrame:CGRectZero WithMovieEditor:self];
-    _stickerTextEditor.bottomThumbnailView.videoURL     = self.inputURL;
-    _stickerTextEditor.bottomThumbnailView.totalDuration = self.endTime-self.startTime;
-    
+    _stickerTextEditor.bottomThumbnailView.videoURL  = self.inputURL;
+    _stickerTextEditor.bottomThumbnailView.duration = CMTimeGetSeconds(self.movieEditor.timelineOutputDuraiton);
     [self.view addSubview:_stickerTextEditor];
 }
 
@@ -127,7 +123,7 @@
  文字贴纸特效：添加文字效果
  @since      v2.2.0
  */
--(void)movieEditorBottom_addTextEffect
+-(void)movieEditorFullScreenBottom_addTextEffect
 {
     if (!_stickerTextEditor) {
         // 文字编辑界面初始化
@@ -146,7 +142,7 @@
     
     // 暂停预览
     [self pausePreview];
-    [self.movieEditor seekToPreviewWithTime:kCMTimeZero];
+    [self.movieEditor seekToTime:kCMTimeZero];
     
     // 重置缩略栏当前时间
     _stickerTextEditor.bottomThumbnailView.currentTime = 0;
@@ -189,32 +185,35 @@
     // 设置视频地址
     options.inputURL = self.inputURL;
     // 设置视频截取范围
-    options.cutTimeRange = [TuSDKTimeRange makeTimeRangeWithStartSeconds:self.startTime endSeconds:self.endTime];
-    // 是否按照时间播放
-    options.playAtActualSpeed = YES;
+    options.cutTimeRange = [TuSDKTimeRange makeTimeRangeWithStart:self.cutTimeRange.start duration:self.cutTimeRange.duration];
     // 设置裁剪范围 注：该参数对应的值均为比例值，即：若视频展示View总高度800，此时截取时y从200开始，则cropRect的 originY = 偏移位置/总高度， 应为 0.25, 其余三个值同理
     // 如需全屏展示，可以注释 options.cropRect = _cropRect; 该行设置，配合 view 的 frame 的更改，即可全屏展示
     // 可以直接设置 options.cropRect = CGRectMake(0, 0, 0, 0);
     options.cropRect = self.cropRect;
     // 设置编码视频的画质
-    options.encodeVideoQuality = [TuSDKVideoQuality makeQualityWith:TuSDKRecordVideoQuality_High1];
+    options.encodeVideoQuality = [TuSDKVideoQuality makeQualityWith:TuSDKRecordVideoQuality_Medium1];
     // 是否保留原音
     options.enableVideoSound = YES;
-
+    // 保存到系统相册 默认为YES
+    options.saveToAlbum = YES;
+    // 设置录制文件格式(默认：lsqFileTypeQuickTimeMovie)
+    options.fileType = lsqFileTypeMPEG4;
+    // 设置水印，默认为空
+    options.waterMarkImage = [UIImage imageNamed:@"sample_watermark.png"];
+    // 设置水印图片的位置
+    options.waterMarkPosition = lsqWaterMarkTopRight;
+    
     self.movieEditor = [[TuSDKMovieEditor alloc]initWithPreview:self.videoView options:options];
-    self.movieEditor.delegate = self;
+
     // 监听特效数据信息改变事件
     self.movieEditor.mediaEffectsDelegate = self;
-    // 设置播放模式 : lsqMovieEditorPlayModeSequence 正序播放， lsqMovieEditorPlayModeReverse 倒序播放
-    // self.movieEditor.playMode = lsqMovieEditorPlayModeReverse;
-    // 保存到系统相册 默认为YES
-    self.movieEditor.saveToAlbum = YES;
-    // 设置录制文件格式(默认：lsqFileTypeQuickTimeMovie)
-    self.movieEditor.fileType = lsqFileTypeMPEG4;
-    // 设置水印，默认为空
-    self.movieEditor.waterMarkImage = [UIImage imageNamed:@"sample_watermark.png"];
-    // 设置水印图片的位置
-    self.movieEditor.waterMarkPosition = lsqWaterMarkTopRight;
+    // 视频加载事件监听
+    self.movieEditor.loadDelegate = self;
+    // 视频保存事件委托
+    self.movieEditor.saveDelegate = self;
+    // 视频播放进度监听. 可获取监听播放进度及正在播放的切片信息
+    self.movieEditor.playerDelegate = self;
+    
     // 视频播放音量设置，0 ~ 1.0 仅在 enableVideoSound 为 YES 时有效
     self.movieEditor.videoSoundVolume = 0.5;
     
@@ -222,7 +221,7 @@
     [self.movieEditor loadVideo];
 }
 
-#pragma mark - MovieEditorFullScreenBottomBarDelegate
+#pragma mark - MovieEditorFullScreenBottomBarDelegate 粒子特效
 
 /**
  切换粒子特效
@@ -272,14 +271,15 @@
  */
 - (void)particleEffectEditView_startParticleEffect;
 {
-    if (![self.movieEditor isPreviewing])  [self startPreview];
-    
     _editingParticleEffect = [[TuSDKMediaParticleEffectData alloc] initWithEffectsCode:_selectedParticleCode];
     _editingParticleEffect.particleSize = _particleEditView.particleSize;
     _editingParticleEffect.particleColor = _particleEditView.particleColor;
-    
+        
     [self.movieEditor applyMediaEffect:_editingParticleEffect];
     
+    if (![self.movieEditor isPreviewing])
+        [self startPreview];
+
 }
 
 /**
@@ -287,12 +287,6 @@
  */
 - (void)particleEffectEditView_endParticleEffect;
 {
-    if (_editingParticleEffect)
-    {
-        [self.movieEditor unApplyMediaEffect:_editingParticleEffect];
-        _editingParticleEffect = nil;
-    }
-    
     [self pausePreview];
 }
 
@@ -353,10 +347,12 @@
  */
 - (void)particleEffectEditView_playVideoEvent:(BOOL)isStartPreview;
 {
-    if (isStartPreview) {
-        [self startPreview];
-    }else{
+    if ([self.movieEditor isPreviewing]) {
+        // 暂停播放
         [self pausePreview];
+    }else{
+        // 开始播放
+        [self startPreview];
     }
 }
 
@@ -383,59 +379,110 @@
         [self pausePreview];
     }
     
-    CMTime newTime = CMTimeMakeWithSeconds(progress * (self.endTime - self.startTime), 1*USEC_PER_SEC);
-    [self.movieEditor seekToPreviewWithTime:newTime];
+    CMTime outputTime = CMTimeMultiplyByFloat64(self.movieEditor.timelineOutputDuraiton, progress);
+    [self.movieEditor seekToTime:outputTime];
 }
 
-#pragma mark - TuSDKMovieEditorDelegate
-- (void)onMovieEditor:(TuSDKMovieEditor *)editor statusChanged:(lsqMovieEditorStatus)status
+
+#pragma mark - TuSDKMovieEditorLoadDelegate 视频加载事件委托
+
+/**
+ 视频加载完成
+ 
+ @param editor TuSDKMovieEditor
+ @param movieInfo 视频信息
+ */
+- (void)mediaMovieEditor:(TuSDKMovieEditorBase *)editor assetInfoReady:(TuSDKMediaAssetInfo *)movieInfo error:(NSError *)error;
 {
-    [super onMovieEditor:editor statusChanged:status];
+    [super mediaMovieEditor:editor assetInfoReady:movieInfo error:error];
+    self.bottomBar.videoDuration = editor.duration;
+}
+
+#pragma mark - TuSDKMovieEditorPlayerDelegate
+
+/**
+ 播放进度改变事件
+ 
+ @param player 当前播放器
+ @param percent (0 - 1)
+ @param outputTime 导出文件后所在输出时间
+ @since      v3.0
+ */
+- (void)mediaMovieEditor:(TuSDKMovieEditorBase *)editor progressChanged:(CGFloat)percent outputTime:(CMTime)outputTime;
+{
+    [super mediaMovieEditor:editor progressChanged:percent outputTime:outputTime];
+    
+    [_particleEditView setVideoProgress:percent];
+    
+    if (self.movieEditorStatus == lsqMovieEditorStatusPreviewing)
+    {
+        // 更新文字贴纸编辑界面时间条位置
+        _stickerTextEditor.bottomThumbnailView.currentTime = CMTimeGetSeconds(outputTime);;
+        // 显示对应时间的文字贴纸
+        [_stickerTextEditor.editorPanel disPlayTextItemViewAtTime:CMTimeGetSeconds(outputTime)];
+        
+    }
+}
+
+/**
+ 播放进度改变事件
+ 
+ @param editor MovieEditor
+ @param status 当前播放状态
+ 
+ @since      v3.0
+ */
+- (void)mediaMovieEditor:(TuSDKMovieEditorBase *)editor playerStatusChanged:(lsqMovieEditorStatus)status;
+{
+    [super mediaMovieEditor:editor playerStatusChanged:status];
+    
+    self.playBtn.hidden = (status == lsqMovieEditorStatusPreviewing);
+    _stickerTextEditor.isVideoPlay = (status == lsqMovieEditorStatusPreviewing);
+    _particleEditView.playBtn.hidden = (status == lsqMovieEditorStatusPreviewing);
     
     switch (status)
     {
-        // 取消录制
-        case lsqMovieEditorStatusRecordingCancelled:
+            // 暂停预览
+        case lsqMovieEditorStatusPreviewingPause:
+        case lsqMovieEditorStatusPreviewingCompleted:
         {
-             [_particleEditView setVideoProgress:0];
+            // 视频暂停后更改粒子视图状态
+            [_particleEditView makeFinish];
+            [self.movieEditor unApplyMediaEffect:_editingParticleEffect];
+            _editingParticleEffect = nil;
+            
             break;
         }
         default:
             break;
+            
     }
-    
-    if (_particleEditView.isEditStatus)
-        self.playBtn.hidden = YES;
-    
-    _stickerTextEditor.isVideoPlay = (status == lsqMovieEditorStatusPreviewing);
-    _particleEditView.playBtn.hidden = (status == lsqMovieEditorStatusPreviewing);
 }
+#pragma mark - TuSDKMovieEditorSaveDelegate 视频保存时间委托
 
 /**
- 播放进度通知
+ 保存状态改变事件
  
- @param editor editor TuSDKMovieEditor
- @param progress progress description
+ @param editor MovieEditor
+ @param status 当前保存状态
+ 
+ @since      v3.0
  */
-- (void)onMovieEditor:(TuSDKMovieEditor *)editor progress:(CGFloat)progress
+- (void)mediaMovieEditor:(TuSDKMovieEditorBase *)editor saveStatusChanged:(lsqMovieEditorStatus)status;
 {
-    [super onMovieEditor:editor progress:progress];
+    [super mediaMovieEditor:editor saveStatusChanged:status];
     
-    CGFloat time = progress*(self.endTime-self.startTime);
-    if (self.movieEditorStatus == lsqMovieEditorStatusPreviewing) {
-        // 注意：UI相关修改需要确认在主线程中进行
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if (self.movieEditorStatus != lsqMovieEditorStatusPreviewing) {
-                return;
-            }
+    switch (status)
+    {
+            // 取消录制
+        case lsqMovieEditorStatusRecordingCancelled:
+        {
+            [_particleEditView setVideoProgress:0];
+            break;
+        }
             
-            [_particleEditView setVideoProgress:progress];
-            
-            // 更新文字贴纸编辑界面时间条位置
-            _stickerTextEditor.bottomThumbnailView.currentTime = time;
-            // 显示对应时间的文字贴纸
-            [_stickerTextEditor.editorPanel disPlayTextItemViewAtTime:time];
-        });
+        default:
+            break;
     }
 }
 
@@ -474,19 +521,6 @@
         }
     }];
     
-}
-
-#pragma mark - TimeEffectsViewDelegate
-
-/**
- 播放模式改变
- 
- @param effectsView 时间特效视图
- @param playMode 当前播放模式
- */
--(void)timeEffectView:(TimeEffectsView *)effectsView playModeChanged:(lsqMovieEditorPlayMode)playMode
-{
-    [super timeEffectView:effectsView playModeChanged:playMode];
 }
 
 @end

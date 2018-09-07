@@ -27,6 +27,13 @@
 @property(nonatomic, readonly)CMTime duration;
 
 /**
+ 是否为4k视频
+ 
+ @since v3.0
+ */
+@property(nonatomic, readonly)BOOL is4K;
+
+/**
  异步加载视频信息
  
  @param asset AVAsset
@@ -79,6 +86,21 @@
  */
 @property (nonatomic,readonly) CGSize presentSize;
 
+/*!
+ @property        nominalFrameRate
+ @abstract        For tracks that carry a full frame per media sample, indicates the frame rate of the track in units of frames per second.
+ @discussion        For field-based video tracks that carry one field per media sample, the value of this property is the field rate, not the frame rate.
+ */
+@property (nonatomic,readonly) CGFloat nominalFrameRate;
+
+/* indicates the minimum duration of the track's frames; the value will be kCMTimeInvalid if the minimum frame duration is not known or cannot be calculated */
+@property (nonatomic, readonly) CMTime minFrameDuration;
+
+/**
+   视频宽高是否需要交换
+ */
+@property(nonatomic, readonly) BOOL isTransposedSize;
+
 /**
  The transform specified in the track’s storage container as the preferred transformation of the visual media data for display purposes.
  */
@@ -87,10 +109,11 @@
 /* indicates the estimated data rate of the media data referenced by the track, in units of bits per second */
 @property (nonatomic, readonly) float estimatedDataRate;
 
-
 /**
  rotation
  */
 @property(nonatomic, readonly) GPUImageRotationMode orientation;
+
+
 
 @end

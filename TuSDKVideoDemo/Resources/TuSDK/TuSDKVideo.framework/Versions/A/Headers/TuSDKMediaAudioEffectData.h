@@ -17,6 +17,24 @@ typedef void(^TuSDKMediaAudioEffectVolumeChangedBlock)(CGFloat);
  */
 @interface TuSDKMediaAudioEffectData : TuSDKMediaEffectData
 
+
+/**
+ 初始化 TuSDKMediaAudioEffectData
+ 
+ @param audioURL 音效地址
+ @return TuSDKMediaAudioEffectData
+ */
+- (instancetype)initWithAudioURL:(NSURL *)audioURL;
+
+/**
+ 初始化 TuSDKMediaAudioEffectData
+ 
+ @param audioURL 音效地址
+ @param timeRange 时间区间
+ @return TuSDKMediaAudioEffectData
+ */
+- (instancetype)initWithAudioURL:(NSURL *)audioURL atTimeRange:(TuSDKTimeRange *)timeRange;
+
 /**
  本地音频地址
 */
@@ -33,13 +51,5 @@ typedef void(^TuSDKMediaAudioEffectVolumeChangedBlock)(CGFloat);
   @discussion 开发者不应使用该属性
  */
 @property (nonatomic,strong) TuSDKMediaAudioEffectVolumeChangedBlock volumeChangedBlock;
-
-/**
- 初始化 TuSDKMediaAudioEffectData
-
- @param audioURL 音效地址
- @return TuSDKMediaAudioEffectData
- */
-- (instancetype)initWithAudioURL:(NSURL *)audioURL;
 
 @end

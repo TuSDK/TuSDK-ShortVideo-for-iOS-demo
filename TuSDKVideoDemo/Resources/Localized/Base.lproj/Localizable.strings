@@ -15,6 +15,10 @@
 "record_camera_square_sample" = "视频录制示例 - 正方画幅";
 "edit_camera_sample" = "视频编辑示例";
 
+// time
+"lsq_filter_repeat" = "反复";
+"lsq_filter_slow" = "慢动作";
+"lsq_filter_reverse" = "逆转时光";
 
 "beauty_on" = "美颜已开启";
 "beauty_off" = "美颜已关闭";
@@ -44,7 +48,12 @@
 "lsq_filter_set_distanceFactor" = "半径";
 "lsq_filter_set_eyeSize" = "大眼";
 "lsq_filter_set_chinSize" = "瘦脸";
-"lsq_filter_set_animation" = "动画";
+"lsq_filter_set_noseSize" = "瘦鼻";
+"lsq_filter_set_mouthWidth" = "嘴型";
+"lsq_filter_set_eyeDis" = "眼距";
+"lsq_filter_set_eyeAngle" = "眼角";
+"lsq_filter_set_archEyebrow" = "细眉";
+"lsq_filter_set_jawSize" = "下巴";
 
 // 滤镜 17种
 "lsq_filter_SkinSugar" = "糖水色";
@@ -211,6 +220,7 @@
 "lsq_movieEditor_text"   = "文字";
 "lsq_movieEditor_MVBtn" = "MV";
 "lsq_movieEditor_dubBtn" = "配音";
+"lsq_movieEditor_timeBtn" = "时光";
 "lsq_movieEditor_orignVolume_title" = "原音强度";
 "lsq_movieEditor_dubVolume_title" = "配音强度";
 "lsq_movieEditor_remainSecond_text" = "剩余%ld秒";
@@ -254,6 +264,7 @@
 "lsq_api_compress_movie_compressing" = "压缩处理中...";
 // reminder
 "lsq_movie_saving" = "正在保存...";
+"lsq_movie_load_failed" = "视频加载失败";
 "lsq_cut_durationTime" = "建议选择大于3秒，小于60秒的视频";
 "lsq_save_error_too_short" = "不能低于最小时间";
 "lsq_save_error_failed" = "保存到相册失败";
@@ -262,6 +273,7 @@
 "lsq_record_failed" = "录制失败";
 "lsq_record_cancelled" = "取消录制";
 "lsq_record_dealing" = "正在处理...";
+
 
 "lsq_record_audio_started" = "录音已经开始";
 "lsq_record_audio_finished" = "录音已经完成，请播放录音";

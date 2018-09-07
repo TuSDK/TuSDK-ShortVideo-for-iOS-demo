@@ -29,6 +29,9 @@
 @property (nonatomic, strong) AVPlayerItem *firstPlayerItem;
 @property (strong, nonatomic) AVPlayer *secondPlayer;
 @property (nonatomic, strong) AVPlayerItem *secondPlayerItem;
+@property (nonatomic, weak) UIView *firstPlayerView;
+@property (nonatomic, weak) UIView *secondPlayerView;
+
 @end
 
 @implementation APIMovieSplicerViewController
@@ -152,6 +155,7 @@
     UIView *firstPlayerView = [[UIView alloc]initWithFrame:CGRectMake(0, _topBar.lsqGetSizeHeight + topYDistance, self.view.lsqGetSizeWidth, self.view.lsqGetSizeWidth*9/16)];
     [firstPlayerView setBackgroundColor:[UIColor clearColor]];
     firstPlayerView.multipleTouchEnabled = NO;
+    _firstPlayerView = firstPlayerView;
     [self.view addSubview:firstPlayerView];
     // 添加视频资源
     _firstPlayerItem = [[AVPlayerItem alloc]initWithURL:_urlArray[0]];
@@ -165,11 +169,12 @@
     // 循环播放的通知
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(playSampleOneVideoCycling) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
     [_firstPlayer play];
-    
+
     // 视频素材二播放器
     UIView *secondPlayerView = [[UIView alloc]initWithFrame:CGRectMake(0, firstPlayerView.lsqGetOriginY + firstPlayerView.lsqGetSizeHeight + 10, self.view.lsqGetSizeWidth, self.view.lsqGetSizeWidth*9/16)];
     [secondPlayerView setBackgroundColor:[UIColor clearColor]];
     secondPlayerView.multipleTouchEnabled = NO;
+    _secondPlayerView = secondPlayerView;
     [self.view addSubview:secondPlayerView];
     // 添加视频资源
     _secondPlayerItem = [[AVPlayerItem alloc]initWithURL:_urlArray[1]];
@@ -215,8 +220,7 @@
         [_urlArray addObject:url];
     }
     
-    [_firstPlayer pause];
-    [_secondPlayer pause];
+    [self destroyPlayer];
     
     if (!_movieComposer)
     {
@@ -267,13 +271,22 @@
              [[TuSDK shared].messageHub setStatus:NSLocalizedString(@"正在合并...", @"正在合并...")];
             break;
         case TuSDKAssetVideoComposerStatusCompleted:
-              [[TuSDK shared].messageHub showSuccess:NSLocalizedString(@"lsq_api_splice_movie_success", @"操作完成，请去相册查看视频")];
+        {
+            [[TuSDK shared].messageHub showSuccess:NSLocalizedString(@"lsq_api_splice_movie_success", @"操作完成，请去相册查看视频")];
+            [self initWithVideoPlayer];
+        }
             break;
         case TuSDKAssetVideoComposerStatusFailed:
-              [[TuSDK shared].messageHub showError:NSLocalizedString(@"lsq_api_splice_movie_failed", @"操作失败，无法生成视频文件")];
+        {
+            [[TuSDK shared].messageHub showError:NSLocalizedString(@"lsq_api_splice_movie_failed", @"操作失败，无法生成视频文件")];
+            [self initWithVideoPlayer];
+        }
             break;
         case TuSDKAssetVideoComposerStatusCancelled:
-             [[TuSDK shared].messageHub showError:NSLocalizedString(@"lsq_api_splice_movie_cancelled", @"出现问题，操作被取消")];
+        {
+            [[TuSDK shared].messageHub showError:NSLocalizedString(@"lsq_api_splice_movie_cancelled", @"出现问题，操作被取消")];
+            [self initWithVideoPlayer];
+        }
             break;
         default:
             break;
@@ -350,30 +363,25 @@
     if (!_firstPlayer) {
         return;
     }
-    [_firstPlayer cancelPendingPrerolls];
-    [_firstPlayerItem cancelPendingSeeks];
-    [_firstPlayerItem.asset cancelLoading];
+   
     [_firstPlayer pause];
-    _firstPlayerItem = [[AVPlayerItem alloc]initWithURL:[NSURL URLWithString:@""]];
-    // 初始化player对象
-    self.firstPlayer = [[AVPlayer alloc]initWithPlayerItem:_firstPlayerItem];
-    
+    [_firstPlayer replaceCurrentItemWithPlayerItem:nil];
     _firstPlayer = nil;
     _firstPlayerItem = nil;
     
     if (!_secondPlayer) {
         return;
     }
-    [_secondPlayer cancelPendingPrerolls];
-    [_secondPlayerItem cancelPendingSeeks];
-    [_firstPlayerItem.asset cancelLoading];
+   
     [_secondPlayer pause];
-    _secondPlayerItem = [[AVPlayerItem alloc]initWithURL:[NSURL URLWithString:@""]];
-    // 初始化player对象
-    self.secondPlayer = [[AVPlayer alloc]initWithPlayerItem:_secondPlayerItem];
-    
+    [_secondPlayer replaceCurrentItemWithPlayerItem:nil];
     _secondPlayer = nil;
     _secondPlayerItem = nil;
+    
+    [_firstPlayerView removeFromSuperview];
+    [_secondPlayerView removeFromSuperview];
+    _firstPlayerView = nil;
+    _secondPlayerView = nil;
 }
 
 @end

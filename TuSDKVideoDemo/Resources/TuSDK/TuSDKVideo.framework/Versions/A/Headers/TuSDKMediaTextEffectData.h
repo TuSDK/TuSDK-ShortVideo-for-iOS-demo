@@ -32,27 +32,17 @@
 - (instancetype)initWithStickerImage:(UIImage *)stickerImage center:(CGRect)center degree:(CGFloat)degree designSize:(CGSize)designSize;
 
 /**
+ 初始化方法
+ @param stickerImage UIImage
+ @return TuSDKMediaTextEffectData
+ @since v2.2.0
+ */
+- (instancetype)initWithTextStickerImage:(TuSDKTextStickerImage *)stickerImage;
+
+/**
  文字贴纸数据
  @since v2.2.0
  */
 @property (nonatomic,strong,readonly) TuSDKTextStickerImage *textStickerImage;
-
-/**
- 编辑文字贴纸时设计图大小
- @since v2.2.0
- */
-@property (nonatomic,assign) CGSize designSize;
-
-/**
- 编辑文字贴纸时旋转角度
- @since v2.2.0
- */
-@property (nonatomic,assign) float  degree;
-
-/**
- 编辑文字贴纸时中心点坐标
- @since v2.2.0
- */
-@property (nonatomic,assign) CGRect center;
 
 @end

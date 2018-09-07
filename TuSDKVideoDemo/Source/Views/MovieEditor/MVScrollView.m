@@ -19,9 +19,9 @@
     
     // 数据源
     // 贴纸组的数组
-    NSMutableArray<TuSDKMVStickerAudioEffectData *> *_mvArr;
+    NSMutableArray<TuSDKMediaStickerAudioEffectData *> *_mvArr;
     // 记录上一次点击的时间
-    CGFloat _lastTapTime;
+    NSTimeInterval _lastTapTime;
     // 记录当前选中MV的index
     NSIndexPath *_currentSelectIndexPath;
 }
@@ -67,7 +67,7 @@
     int i = 0;
     for (TuSDKPFStickerGroup *sticker in stickers) {
         NSURL *audioURL = [self getAudioURLWithStickerIdt:sticker.idt];
-        TuSDKMVStickerAudioEffectData *mvData =  [[TuSDKMVStickerAudioEffectData alloc] initWithAudioURL:audioURL stickerGroup:sticker];
+        TuSDKMediaStickerAudioEffectData *mvData =  [[TuSDKMediaStickerAudioEffectData alloc] initWithAudioURL:audioURL stickerGroup:sticker];
         [_mvArr addObject:mvData];
         i++;
     }
@@ -103,7 +103,7 @@
 
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath;
 {
-    CGFloat currentTime = [[NSDate date] timeIntervalSince1970];
+    NSTimeInterval currentTime = [[NSDate date] timeIntervalSince1970];
     
     if ([_collectionView.indexPathsForSelectedItems isEqual:indexPath] || (currentTime - _lastTapTime) <= 0.5) {
         return NO;

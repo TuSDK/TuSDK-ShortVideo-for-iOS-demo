@@ -33,6 +33,6 @@
 /**
  特效code
  */
-@property (nonatomic, copy) NSString * effectsCode;
+@property (nonatomic, copy,readonly) NSString * effectsCode;
 
 @end

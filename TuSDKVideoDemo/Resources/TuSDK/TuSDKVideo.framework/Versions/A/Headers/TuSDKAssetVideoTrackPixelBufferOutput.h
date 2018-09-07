@@ -55,4 +55,23 @@ typedef NSDictionary<NSString *, id> TuSDKAssetVideoTrackPixelBufferOutputSettin
 
 - (void)copyPixelBufferForItemTime:(CMTime)seekTime itemTimeForDisplay:(nullable CMTime *)outItemTimeForDisplay completionHandler:(void (^_Nullable)(CVPixelBufferRef _Nullable ))completionHandler;
 
+
+/*!
+ @method            copyPixelBufferForItemTime:itemTimeForDisplay:
+ @abstract        Retrieves an image that is appropriate for display at the specified item time, and marks the image as acquired.
+ @discussion
+ The client is responsible for calling CVBufferRelease on the returned CVPixelBuffer when finished with it.
+ 
+ Typically you would call this method in response to a CVDisplayLink callback or CADisplayLink delegate invocation and if hasNewPixelBufferForItemTime: also returns YES.
+ 
+ The buffer reference retrieved from copyPixelBufferForItemTime:itemTimeForDisplay: may itself be NULL. A reference to a NULL pixel buffer communicates that nothing should be displayed for the supplied item time.
+ @param            itemTime
+ A CMTime that expresses a desired item time.
+ @param            itemTimeForDisplay
+ A CMTime pointer whose value will contain the true display deadline for the copied pixel buffer. Can be NULL.
+ */
+
+- (CVPixelBufferRef)copyPixelBufferForItemTime:(CMTime)seekTime itemTimeForDisplay:(nullable CMTime *)outItemTimeForDisplay;
+
+
 @end

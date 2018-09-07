@@ -6,9 +6,10 @@
 //  Copyright © 2018 TuSDK. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 #import <AVFoundation/AVFoundation.h>
 #import "TuSDKVideoImport.h"
+#import "TuSDKMediaSettings.h"
+#import "TuSDKMediaStatus.h"
 
 @protocol TuSDKMediaExtractorSync;
 
@@ -17,6 +18,71 @@
  @since      v3.0
  */
 @protocol TuSDKMediaExtractor <NSObject>
+
+/*!
+ @property asset
+ 
+ @discussion
+ 输入 _Nullable 的视频源
+ @since      v3.0
+ */
+@property (nonatomic,readonly)AVAsset * _Nonnull asset;
+
+/*!
+ 获取设置信息
+ @since      v3.0
+ */
+@property (nonatomic,readonly)TuSDKMediaAssetExtractorSettings * _Nullable outputSettings;
+
+/**
+ 分离的轨道数据类型
+ @since      v3.0
+ */
+@property (nonatomic,readonly) AVMediaType _Nonnull outputTrackMediaType;
+
+/*!
+ @property status
+ 解码器当前状态
+ @since      v3.0
+ */
+@property (nonatomic,readonly) TuSDKMediaAssetExtractorStatus status;
+
+/*!
+ @property processQueue
+ @abstract
+ 
+ @discussion
+ Decoding run queue
+ @since      v3.0
+ */
+@property (nonatomic) dispatch_queue_t _Nullable processQueue;
+
+/**
+ 媒体的真实时长
+ @since      v3.0
+ */
+@property (nonatomic,readonly) CMTime inputDuration;
+
+/**
+ 分离数据的总时长
+ @since      v3.0
+ */
+@property (nonatomic,readonly) CMTime outputDuration;
+
+/**
+ 获取实时帧间隔时间
+ 
+ @return 视频帧间隔
+ @since      v3.0
+ */
+@property (nonatomic,readonly)CMTime frameInterval;
+
+/**
+ 获取当前视频帧原始时间
+ @return 视频帧时间
+ @since      v3.0
+ */
+@property (nonatomic,readonly) CMTime samplePresentationTime;
 
 /**
  开始读取
@@ -42,31 +108,14 @@
  @return 已解码的媒体数据
  @since      v3.0
  */
-- (const CMSampleBufferRef)copySampleBuffer;
+- (const CMSampleBufferRef _Nullable )peekSampleBuffer;
 
 /**
- 获取当前时间戳
-
- @return
+ 移动视频到下一帧
+ @return true/false
  @since      v3.0
  */
-- (CMTime)getSampleTime;
-
-/**
- 获取实时帧间隔时间
-
- @return 视频帧间隔
- @since      v3.0
- */
-- (CMTime)frameInterval;
-
-/**
- 获取精确的持续时间
- 
- @return 视频帧间隔
- @since      v3.0
- */
-- (CMTime)realDuration;
+- (BOOL)advance;
 
 /**
  移动读取光标
@@ -77,34 +126,9 @@
 - (void)seekTo:(CMTime)time;
 
 /**
- 移动视频到下一帧
- @return true/false
- @since      v3.0
+ 销毁分离器
+ @since v3.0
  */
-- (BOOL)advance;
-
-/**
- 验证当前分离器是否支持倒序输出
-
- @return true/false
- @since      v3.0
- */
-- (BOOL)canSupportedReverse;
-
-/**
- 请求反转顺序
- 
- @return true/false
- @since      v3.0
- */
-- (BOOL)requestReverse;
-
-/**
- 设置分离器同步器
-
- @param mediaSync TuSDKMediaExtractorSync
- @since      v3.0
- */
-- (void)setMediaSync:(id<TuSDKMediaExtractorSync>)mediaSync;
+- (void)destory;
 
 @end

@@ -25,7 +25,7 @@ typedef NS_ENUM(NSUInteger,TuSDKMediaEffectDataType) {
 /**
  特效数据模型继承类
  */
-@interface TuSDKMediaEffectData : NSObject
+@interface TuSDKMediaEffectData : NSObject <NSCopying>
 {
     @protected
     /** 特效类型 */
@@ -68,7 +68,7 @@ typedef NS_ENUM(NSUInteger,TuSDKMediaEffectDataType) {
 /**
  初始化方法
  */
-- (instancetype)initEffectInfoWithTimeRange:(TuSDKTimeRange *)timeRange;
+- (instancetype)initWithTimeRange:(TuSDKTimeRange *)timeRange effectType:(TuSDKMediaEffectDataType)type;
 
 /**
  销毁特效数据

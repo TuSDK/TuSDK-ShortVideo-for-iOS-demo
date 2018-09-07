@@ -56,7 +56,7 @@
  */
 - (void) startBugly;
 {
-    [Bugly startWithAppId:@"55e5fe120e"];
+    [Bugly startWithAppId:@"c9b99c99f6"];
 }
 
 -(void)applicationDidReceiveMemoryWarning:(UIApplication *)application;

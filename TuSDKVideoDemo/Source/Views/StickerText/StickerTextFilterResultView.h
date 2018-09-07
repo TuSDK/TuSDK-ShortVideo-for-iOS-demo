@@ -39,11 +39,9 @@
  *  @since     v2.2.0
  */
 @property (nonatomic, readonly) UILabel *titleView;
-
 @end
 
 #pragma mark - TuSDKCPFilterResultView
-
 /**
  *  滤镜处理结果控制器视图
  *  @since     v2.2.0

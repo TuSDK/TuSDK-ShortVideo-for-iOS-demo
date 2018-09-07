@@ -18,4 +18,12 @@
  */
 - (void)enableSeprarate;
 
+/**
+ *  初始化
+ *
+ *  @param option TuSDKFilterOption
+ *
+ *  @return instancetype
+ */
+- (instancetype)initWithOption:(TuSDKFilterOption *)option;
 @end

@@ -86,7 +86,9 @@ static NSString *cellFooterId = @"photoCellFooterId";
         NSIndexPath *indexPt = [collectionView indexPathForCell:cell];
         TuVideoModel *model = weakSelf.allPhotosArray[indexPt.row];
         
+//         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             if (weakSelf.isPreviewVideo) {
+                
                 TuVideoContainerViewController *vc = [[TuVideoContainerViewController alloc] init];
                 vc.model = model;
                 vc.didSelectedBlock = ^(TuVideoModel *selectedModel) {
@@ -102,6 +104,8 @@ static NSString *cellFooterId = @"photoCellFooterId";
                 }
                 [weakSelf closeAlbum];
             }
+//        });
+        
     }];
     
     return cell;

@@ -108,6 +108,10 @@
 @property (nonatomic, strong,readonly) UIColor *particleColor;
 
 
+/**
+ 停止编辑
+ */
+- (void)makeFinish;
 
 /**
  设置当前进度

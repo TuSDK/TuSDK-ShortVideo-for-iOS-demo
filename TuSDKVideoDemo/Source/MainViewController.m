@@ -10,7 +10,6 @@
 #import "TuSDKFramework.h"
 #import "ComponentListViewController.h"
 #import "MovieRecordFullScreenController.h"
-#import "MoviePreviewAndCutRatioAdaptedController.h"
 #import "TuAssetManager.h"
 #import "TuAlbumViewController.h"
 #import "MoviePreviewAndCutFullScreenController.h"
@@ -40,7 +39,7 @@
     [super viewDidLoad];
     [self lsqInitView];
     // 启动GPS
-    [[TuSDKTKLocation shared] requireAuthorWithController:self];
+//    [[TuSDKTKLocation shared] requireAuthorWithController:self];
     
     // sdk统计代码，请不要加入您的应用
     [TuSDKTKStatistics appendWithComponentIdt:tkc_sdkComponent];
@@ -197,7 +196,6 @@
     vc.inputURL = url;
     vc.endTime = model.duration;
     [self.navigationController pushViewController:vc animated:YES];
-    
 }
 // 打开功能展示列表
 - (void)openComponentListView;

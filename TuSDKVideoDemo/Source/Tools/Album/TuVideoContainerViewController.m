@@ -188,7 +188,13 @@
     if (!_player) {
         return;
     }
+//    [_player cancelPendingPrerolls];
+//    [_item cancelPendingSeeks];
+//    [_item.asset cancelLoading];
     [_player pause];
+//    _item = [[AVPlayerItem alloc]initWithURL:[NSURL URLWithString:@""]];
+//    // 初始化player对象
+//    self.player = [[AVPlayer alloc]initWithPlayerItem:_item];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     

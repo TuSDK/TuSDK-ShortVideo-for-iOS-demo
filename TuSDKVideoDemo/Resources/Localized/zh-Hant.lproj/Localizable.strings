@@ -15,6 +15,11 @@
 "record_camera_square_sample" = "視頻錄製示例 - 正方畫幅";
 "edit_camera_sample" = "視頻編輯示例";
 
+// time
+"lsq_filter_repeat" = "反覆";
+"lsq_filter_slow" = "慢動作";
+"lsq_filter_reverse" = "逆轉時光";
+
 "beauty_on" = "美顏已開啟";
 "beauty_off" = "美顏已關閉";
 
@@ -203,6 +208,7 @@
 "lsq_movieEditor_text"  = "文字";
 "lsq_movieEditor_MVBtn" = "MV";
 "lsq_movieEditor_dubBtn" = "配音";
+"lsq_movieEditor_timeBtn" = "時光";
 "lsq_movieEditor_orignVolume_title" = "原音強度";
 "lsq_movieEditor_dubVolume_title" = "配音強度";
 "lsq_movieEditor_remainSecond_text" = "剩餘%ld秒";
@@ -253,6 +259,7 @@
 "lsq_api_compress_movie_compressing" = "壓縮處理中...";
 // reminder
 "lsq_cut_durationTime" = "建議選擇大於3秒，小於60秒的視頻";
+"lsq_movie_load_failed" = "視頻加載失敗";
 "lsq_movie_saving" = "正在保存";
 "lsq_save_error_too_short" = "不能低於最小時間";
 "lsq_save_saveToAlbum_succeed" = "保存成功";

@@ -54,8 +54,10 @@
     _videoProgress = videoProgress;
     _displayView.currentLocation = videoProgress;
     
-    if (_isAddingParticle)
+    if (_isAddingParticle) {
+         NSLog(@"setVideoProgress = %f",videoProgress);
         [_displayView updateLastSegmentViewWithProgress:videoProgress];
+    }
 }
 
 #pragma mark - init method
@@ -91,6 +93,7 @@
     
     // touchView 上面添加点击手势
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(clickTapGesture)];
+    tap.cancelsTouchesInView = NO;
     [_touchView addGestureRecognizer:tap];
     
     // 播放按钮
@@ -296,12 +299,20 @@
 - (void)endCurrentParticleEffect;
 {
     if (!_isAddingParticle) return;
-    
-    _playBtn.selected = NO;
+
     if ([self.particleDelegate respondsToSelector:@selector(particleEffectEditView_endParticleEffect)]) {
         [self.particleDelegate particleEffectEditView_endParticleEffect];
     }
+}
+
+/**
+ 停止编辑
+ */
+- (void)makeFinish;
+{
+    if (!_isAddingParticle) return;
     _isAddingParticle = NO;
+    _playBtn.selected = NO;
     [_displayView makeFinish];
     [self updateRemoveBtnEnableState];
 }
@@ -309,6 +320,8 @@
 // 取消添加
 - (void)cancleAddingParticleEffect;
 {
+ 
+    _isAddingParticle = NO;
     if (_displayView.isAdding) {
         [_displayView makeFinish];
         [_displayView removeLastSegment];
@@ -382,6 +395,9 @@
         CGPoint percentPosition = CGPointMake(point.x/self.lsqGetSizeWidth, point.y/self.lsqGetSizeHeight);
        
         if (!_isAddingParticle) {
+            if (_videoProgress == 1.0) {
+                _videoProgress = 0.0;
+            }
             [self startParticleEffect];
         }
         [self updatePoint:percentPosition];

@@ -17,6 +17,15 @@
 
 /**
  初级滤镜code初始化
+ 
+ @param effectCode 滤镜code
+ @return TuSDKMediaFilterEffectData
+ @since v3.0
+ */
+- (instancetype)initWithEffectCode:(NSString *)effectCode atTimeRange:(TuSDKTimeRange *)timeRange;
+
+/**
+ 初级滤镜code初始化
 
  @param effectCode 滤镜code
  @return TuSDKMediaFilterEffectData

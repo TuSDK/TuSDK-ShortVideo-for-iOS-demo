@@ -15,6 +15,11 @@
 "record_camera_square_sample" = "Record camera sample (Square)";
 "edit_camera_sample" = "Movie editor sample";
 
+// time
+"lsq_filter_repeat" = "Repeat";
+"lsq_filter_slow" = "Slow";
+"lsq_filter_reverse" = "Reverse";
+
 "beauty_on" = "Beauty Mode On";
 "beauty_off" = "Beauty Mode Off";
 
@@ -204,6 +209,7 @@
 "lsq_movieEditor_text"  = "Text";
 "lsq_movieEditor_MVBtn" = "MV";
 "lsq_movieEditor_dubBtn" = "Dub";
+"lsq_movieEditor_timeBtn" = "Time";
 "lsq_movieEditor_orignVolume_title" = "Audio";
 "lsq_movieEditor_dubVolume_title" = "Dub";
 "lsq_movieEditor_remainSecond_text" = "rest %ld seconds";
@@ -254,6 +260,7 @@
 
 // reminder
 "lsq_movie_saving" = "Saving...";
+"lsq_movie_load_failed" = "load failed";
 "lsq_cut_durationTime" = "Suggest select more than 3 seconds, less than 60 seconds of video";
 "lsq_save_error_too_short" = "should not be below the minimum time";
 "lsq_save_saveToAlbum_succeed" = "Saved successfully";

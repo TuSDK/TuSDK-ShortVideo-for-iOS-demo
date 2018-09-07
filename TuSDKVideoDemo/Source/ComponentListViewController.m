@@ -15,8 +15,6 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "MovieRecordFullScreenController.h"
 #import "MoviePreviewAndCutFullScreenController.h"
-#import "MoviePreviewAndCutRatioAdaptedController.h"
-#import "MovieEditorRatioAdaptedController.h"
 #import "RecordCameraViewController.h"
 #import "APIAudioMixViewController.h"
 #import "APIMovieMixViewController.h"
@@ -82,9 +80,9 @@
     _sectionTitle = @[NSLocalizedString(@"lsq_composite_components", @"功能组合展示"),NSLocalizedString(@"lsq_common_components", @"功能单个展示"),NSLocalizedString(@"lsq_custom_components", @"自定义组件示例"),NSLocalizedString(@"lsq_api_usage_example", @"功能 API 展示")];
     
     _cellTitles = @[
-                   @[NSLocalizedString(@"lsq_video_mainVC_record" , @"录制视频"),NSLocalizedString(@"lsq_video_preview_editor", @"给定视频 + 视频编辑")],
-                   @[NSLocalizedString(@"lsq_normal_record_camera", @"正常录制相机"),NSLocalizedString(@"lsq_record_camera", @"断点续拍相机"),NSLocalizedString(@"lsq_capture_record_camera", @"拍照录制相机"),NSLocalizedString(@"lsq_album_video_editor", @"选择视频+添加滤镜保存")],
-                   @[NSLocalizedString(@"lsq_full_screen_record_preview_editor", @"全屏展示：断点续拍"),NSLocalizedString(@"lsq_full_screen_album_video_timecut_editor", @"全屏展示：相册导入 + 时间裁剪 + 视频编辑"),NSLocalizedString(@"lsq_full_screen_record_preview_ratio_editor", @"全屏展示：拍照录制+视频编辑（视频自适应比例）")],
+                   @[NSLocalizedString(@"lsq_video_mainVC_record" , @"录制视频")],
+                   @[NSLocalizedString(@"lsq_normal_record_camera", @"正常录制相机"),NSLocalizedString(@"lsq_record_camera", @"断点续拍相机"),NSLocalizedString(@"lsq_capture_record_camera", @"拍照录制相机")],
+                   @[NSLocalizedString(@"lsq_full_screen_record_preview_editor", @"全屏展示：断点续拍"),NSLocalizedString(@"lsq_full_screen_album_video_timecut_editor", @"全屏展示：相册导入 + 时间裁剪 + 视频编辑")],
                    @[NSLocalizedString(@"lsq_audio_mixed", @"音频混合"),NSLocalizedString(@"lsq_video_bgm", @"视频 + 背景音乐"),NSLocalizedString(@"lsq_gain_thumbnail", @"获取缩略图"),NSLocalizedString(@"lsq_video_mixed", @"视频拼接"),NSLocalizedString(@"lsq_video_timecut_save", @"时间裁剪保存"),NSLocalizedString(@"lsq_record_audio_save", @"录制音频"),NSLocalizedString(@"lsq_api_video_compress", @"视频压缩")],
                    ];
     
@@ -231,11 +229,6 @@
                 // 首页录制视频
                 [self openVideoEditor];
                 break;
-            case 1:
-                // 相册导入 + 视频编辑
-                _enableOpenVCType = 0;
-                [self openImportVideo];
-                break;
             default:
                 break;
         }
@@ -256,11 +249,6 @@
                 // 拍照录制相机
                 [self openClickPressCamera];
                 break;
-            case 3:
-                // 选择视频 + 添加滤镜保存视频
-                _enableOpenVCType = 1;
-                [self openImportVideo];
-                break;
             default:
                 break;
         }
@@ -276,11 +264,6 @@
             case 1:
                 // 全屏展示：相册导入 + 时间裁剪 + 视频编辑
                 _enableOpenVCType = 2;
-                [self openImportVideo];
-                break;
-            case 2:
-                // 比例自适应：相册导入 + 时间裁剪 + 视频编辑（视频比例自适应）
-                _enableOpenVCType = 3;
                 [self openImportVideo];
                 break;
             default:
@@ -449,27 +432,13 @@
         MoviePreviewAndCutViewController *vc = [MoviePreviewAndCutViewController new];
         vc.inputURL = url;
         [wSelf.navigationController pushViewController:vc animated:YES];
-    }else if (_enableOpenVCType == 1)
-    {
-        // 视频编辑
-        AVAsset *avasset = [AVAsset assetWithURL:url];
-        MovieEditorRatioAdaptedController *vc = [MovieEditorRatioAdaptedController new];
-        vc.inputURL = url;
-        vc.startTime = 0;
-        vc.endTime = CMTimeGetSeconds(avasset.duration);
-        [wSelf.navigationController pushViewController:vc animated:YES];
     }else if (_enableOpenVCType == 2) {
         
         // 全屏显示，时间裁剪 + 视频编辑
         MoviePreviewAndCutFullScreenController *vc = [MoviePreviewAndCutFullScreenController new];
         vc.inputURL = url;
         [wSelf.navigationController pushViewController:vc animated:YES];
-    }else if (_enableOpenVCType == 3){
         
-        // 成比例显示，时间裁剪 + 视频编辑
-        MoviePreviewAndCutRatioAdaptedController *vc = [MoviePreviewAndCutRatioAdaptedController new];
-        vc.inputURL = url;
-        [self.navigationController pushViewController:vc animated:YES];
     }else if (_enableOpenVCType == 4){
         
         // 获取视频缩略图

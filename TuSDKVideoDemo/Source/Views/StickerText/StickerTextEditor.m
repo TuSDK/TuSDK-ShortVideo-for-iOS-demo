@@ -13,6 +13,7 @@
  * 文字贴纸视图类
  * @since   v2.2.0
  */
+
 @interface StickerTextEditor()<UITextViewDelegate,TopNavBarDelegate,StickerTextEditorPanelDelegate,StickerTextColorAdjustDelegate,StickerTextStyleAdjustDelegate,VideoClipViewDelegate>
 {
     // 底部视图
@@ -122,12 +123,16 @@
     }
     _bottomThumbnailView = [[MovieEditorClipView alloc]initWithFrame:CGRectMake(0,_contentBackView.lsqGetSizeHeight-height, _contentBackView.lsqGetSizeWidth, 36)];
     _bottomThumbnailView.clipDelegate = self;
-    _bottomThumbnailView.totalDuration = _movieEditorFullScreen.endTime - _movieEditorFullScreen.startTime;
+    _bottomThumbnailView.duration = _movieEditorFullScreen.movieEditor.duration;
     _bottomThumbnailView.clipsToBounds = YES;
-    if (_bottomThumbnailView.totalDuration < 2) {
-        _textEffectEndTime = _bottomThumbnailView.totalDuration;
+    if (_bottomThumbnailView.duration < 2) {
+        _textEffectEndTime = _bottomThumbnailView.duration;
     }
-    _bottomThumbnailView.clipTimeRange = [TuSDKTimeRange makeTimeRangeWithStartSeconds:_textEffectStartTime endSeconds:_textEffectEndTime];
+    
+    CMTime rangeStart = CMTimeMakeWithSeconds(_textEffectStartTime, USEC_PER_SEC);
+    CMTime rangeEnd = CMTimeMakeWithSeconds(_textEffectEndTime, USEC_PER_SEC);
+//    _bottomThumbnailView.clipTimeRange = [TuSDKTimeRange makeTimeRangeWithStartSeconds:_textEffectStartTime endSeconds:_textEffectEndTime];
+    _bottomThumbnailView.clipTimeRange = CMTimeRangeFromTimeToTime(rangeStart, rangeEnd);
     [_contentBackView addSubview:_bottomThumbnailView];
     
     // 旋转和裁剪 裁剪区域视图，可获取视图部分区域贴纸
@@ -180,6 +185,12 @@
     self.isVideoPlay = NO;
     // 监听键盘
     [self initEventMethod];
+}
+
+- (void)setTotalDuration:(CGFloat)totalDuration;
+{
+    _totalDuration = totalDuration;
+    _bottomThumbnailView.duration = totalDuration;
 }
 
 /**
@@ -518,7 +529,9 @@
     
     // 更新缩略栏时间范围
     dispatch_async(dispatch_get_main_queue(), ^{
-        _bottomThumbnailView.clipTimeRange = itemView.timeRange;
+//        _bottomThumbnailView.clipTimeRange = itemView.timeRange;
+        _bottomThumbnailView.clipTimeRange = CMTimeRangeMake(itemView.timeRange.start, itemView.timeRange.duration);
+        [_bottomThumbnailView hideLeftRightTouchView:NO];
     });
 }
 
@@ -732,13 +745,14 @@
     stickerTextItemView.timeRange = [TuSDKTimeRange makeTimeRangeWithStartSeconds:_bottomThumbnailView.currentTime durationSeconds:2];
     
     // 新添加的itemView初始时间范围校正,不能超过视频时长
-    if (_bottomThumbnailView.currentTime + 2 > _bottomThumbnailView.totalDuration) {
-        stickerTextItemView.timeRange = [TuSDKTimeRange makeTimeRangeWithStartSeconds:_bottomThumbnailView.currentTime endSeconds:_bottomThumbnailView.totalDuration];
+    if (_bottomThumbnailView.currentTime + 2 > _bottomThumbnailView.duration) {
+        stickerTextItemView.timeRange = [TuSDKTimeRange makeTimeRangeWithStartSeconds:_bottomThumbnailView.currentTime endSeconds:_bottomThumbnailView.duration];
     }
     
     // 更新缩略栏时间范围
     dispatch_async(dispatch_get_main_queue(), ^{
-        _bottomThumbnailView.clipTimeRange = stickerTextItemView.timeRange;
+        //_bottomThumbnailView.clipTimeRange = stickerTextItemView.timeRange;
+        _bottomThumbnailView.clipTimeRange = CMTimeRangeMake(stickerTextItemView.timeRange.start, stickerTextItemView.timeRange.duration);
     });
 }
 

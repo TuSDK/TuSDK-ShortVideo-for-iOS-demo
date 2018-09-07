@@ -9,10 +9,11 @@
 #import "MovieEditorViewController.h"
 #import "Constants.h"
 
-@interface MovieEditorViewController() {
-    // 视频当前预览进度
-    CGFloat _videoProgress;
-}
+@interface MovieEditorViewController()
+
+/** 反复慢动作时间特效应用的时间区间 */
+@property (nonatomic, assign) CMTimeRange lastTimeEffectRange;
+
 @end
 
 @implementation MovieEditorViewController
@@ -52,8 +53,8 @@
     // 设置默认数据
     // 设置默认的MV效果覆盖范围，此处应与UI保持一致
     _mvStartTime = 0;
-    _mvEndTime = _endTime - _startTime;
-    _mediaEffectTimeRange = [TuSDKTimeRange makeTimeRangeWithStartSeconds:_mvStartTime endSeconds:_endTime];
+    _mvEndTime = CGFLOAT_MAX;
+    _mediaEffectTimeRange = [TuSDKTimeRange makeTimeRangeWithStartSeconds:_mvStartTime endSeconds:_mvEndTime];
     _currentMediaEffect.atTimeRange = _mediaEffectTimeRange;
     
     _dubAudioVolume = 0.5;
@@ -108,10 +109,7 @@
     // 底部栏控件
     _bottomBar = [[MovieEditerBottomBar alloc]initWithFrame:CGRectMake(0, topY, rect.size.width , height)];
     _bottomBar.bottomBarDelegate = self;
-    _bottomBar.videoDuration = self.endTime - self.startTime;
-    _bottomBar.topThumbnailView.totalDuration = self.endTime - self.startTime;
     _bottomBar.videoFilters = kVideoFilterCodes;
-    _bottomBar.videoURL = _inputURL;
     _bottomBar.effectsView.effectsCode = kVideoEffectCodes;
     
     [self.view addSubview:_bottomBar];
@@ -130,34 +128,38 @@
     // 设置视频地址
     options.inputURL = self.inputURL;
     // 设置视频截取范围
-    options.cutTimeRange = [TuSDKTimeRange makeTimeRangeWithStartSeconds:_startTime endSeconds:_endTime];
-    // 是否按照时间播放
-    options.playAtActualSpeed = YES;
+    options.cutTimeRange = [TuSDKTimeRange makeTimeRangeWithStart:self.cutTimeRange.start duration:self.cutTimeRange.duration];
+    
     // 设置裁剪范围 注：该参数对应的值均为比例值，即：若视频展示View总高度800，此时截取时y从200开始，则cropRect的 originY = 偏移位置/总高度， 应为 0.25, 其余三个值同理
     options.cropRect = _cropRect;
     // 视频输出尺寸 注：当使用 cropRect 设置了裁剪范围后，该参数不再生效
     // options.outputSize = CGSizeMake(720, 720);
     // 设置编码视频的画质
-    options.encodeVideoQuality = [TuSDKVideoQuality makeQualityWith:TuSDKRecordVideoQuality_Low1];
+    options.encodeVideoQuality = [TuSDKVideoQuality makeQualityWith:TuSDKRecordVideoQuality_Medium1];
     // 是否保留原音
     options.enableVideoSound = YES;
+    // 保存到系统相册 默认为YES
+    options.saveToAlbum = NO;
+    // 设置录制文件格式(默认：lsqFileTypeQuickTimeMovie)
+    options.fileType = lsqFileTypeMPEG4;
+    // 设置水印，默认为空
+    options.waterMarkImage = [UIImage imageNamed:@"sample_watermark.png"];
+    // 设置水印图片的位置
+    options.waterMarkPosition = lsqWaterMarkTopRight;
 
     _movieEditor = [[TuSDKMovieEditor alloc]initWithPreview:_videoView options:options];
-    _movieEditor.delegate = self;
     // 监听特效数据信息改变事件 
     _movieEditor.mediaEffectsDelegate = self;
-    // 设置播放模式 : lsqMovieEditorPlayModeSequence 正序播放， lsqMovieEditorPlayModeReverse 倒序播放
-    // _movieEditor.playMode = lsqMovieEditorPlayModeReverse;
-    // 保存到系统相册 默认为YES
-    _movieEditor.saveToAlbum = NO;
-    // 设置录制文件格式(默认：lsqFileTypeQuickTimeMovie)
-    _movieEditor.fileType = lsqFileTypeMPEG4;
-    // 设置水印，默认为空
-    _movieEditor.waterMarkImage = [UIImage imageNamed:@"sample_watermark.png"];
-    // 设置水印图片的位置
-    _movieEditor.waterMarkPosition = lsqWaterMarkTopRight;
+    // 视频事件监听
+    _movieEditor.loadDelegate = self;
+    // 视频保存事件委托
+    _movieEditor.saveDelegate = self;
+    // 视频播放进度监听. 可获取监听播放进度及正在播放的切片信息
+    _movieEditor.playerDelegate = self;
+    
     // 视频播放音量设置，0 ~ 1.0 仅在 enableVideoSound 为 YES 时有效
     _movieEditor.videoSoundVolume = 0.5;
+    
     // 加载视频，显示第一帧
     [_movieEditor loadVideo];
 }
@@ -175,32 +177,35 @@
     }
 }
 
-- (void)stopPreview
-{
-    _playBtnIcon.hidden = NO;
-    [_movieEditor stopPreview];
-}
-
+/**
+ 开始预览
+ */
 - (void)startPreview
 {
-    _playBtnIcon.hidden = true;
+    // 预览视频时验证时间特效区间是否有变化
+    if (!CMTimeRangeEqual(_bottomBar.timeEffectThumbnailView.clipTimeRange, _lastTimeEffectRange))
+    {
+        _lastTimeEffectRange = _bottomBar.timeEffectThumbnailView.clipTimeRange;
+        [self updateTimeEffect];
+    }
+    
     [_movieEditor startPreview];
 }
 
+/**
+ 暂停预览
+ */
 - (void)pausePreview
 {
-    _playBtnIcon.hidden = NO;
     [_movieEditor pausePreView];
 }
 
-
-#pragma mark - 预览时场景特效处理
 /**
- 注：切换场景特效
-*/
-- (void)switchSceneEffectWithCode:(NSString *)effectCode;
+ 停止预览
+ */
+- (void)stopPreview
 {
-    //...  切换时可做其他操作
+    [_movieEditor stopPreview];
 }
 
 #pragma mark - TopNavBarDelegate
@@ -213,9 +218,8 @@
  */
 - (void)onLeftButtonClicked:(UIButton*)btn navBar:(TopNavBar *)navBar;
 {
-    // 必须停止预览
-    [self.movieEditor stopPreview];
- 
+    [self stopPreview];
+    
     __weak typeof(self) weakSelf = self;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         // 返回按钮
@@ -232,137 +236,232 @@
  */
 - (void)onRightButtonClicked:(UIButton*)btn navBar:(TopNavBar *)navBar;
 {
+    [_movieEditor startRecording];
+}
+
+/**
+ appendMediaTimeSlice / removeMediaTimeSlice 等操作切片的方法，会影响最终输出的时长，
+ 调用上述方法后需要修改界面上展示的所有进度
+ */
+- (void)resetAllProgressViews;
+{
+    _bottomBar.videoDuration = self.movieEditor.duration;
+}
+
+#pragma mark - TuSDKMovieEditorLoadDelegate 视频加载事件委托
+
+/**
+ 视频加载进度回调
+
+ @param editor 视频编辑器组件
+ @param percentage 加载进度百分比 （0-1）
+ */
+- (void)mediaMovieEditor:(TuSDKMovieEditorBase *)editor loadProgressChanged:(CGFloat)percentage;
+{
+    [TuSDKProgressHUD showMainThreadProgress:percentage withStatus:@"正在处理视频"];
+}
+
+/**
+ 视频加载完成
+
+ @param editor 视频编辑器组件
+ @param movieInfo 视频信息
+ @param error 错误信息
+ */
+- (void)mediaMovieEditor:(TuSDKMovieEditorBase *)editor assetInfoReady:(TuSDKMediaAssetInfo *)movieInfo error:(NSError *)error;
+{
+//    NSLog(@"[  movieInfo : %@]",movieInfo);
+    if (error)
+    {
+        [TuSDKProgressHUD showWithStatus:@"视频加载失败"];
+    }else
+    {
+        [TuSDKProgressHUD dismiss];
+        [self resetAllProgressViews];
+    }
+}
+
+/**
+ 加载状态回调
+ 
+ @param editor TuSDKMovieEditor
+ @param status 当前加载状态
+ */
+- (void)mediaMovieEditor:(TuSDKMovieEditorBase *)editor loadStatusChanged:(lsqMovieEditorStatus)status;
+{
+    NSLog(@"mediaMovieEditor loadStatusChanged : %ld ",status);
     
-    if ([_movieEditor isRecording]){
-        // do nothing
-    }else{
-        // 设置场景特效
-        // 注： demo 中实现的交互逻辑仅一种，接口本身可支持多种，同样预览时设定该参数，预览画面也同样生效
-        [_movieEditor startRecording];
-    }
-}
-
-#pragma mark - TuSDKMovieEditorDelegate
-
-/**
- 播放进度通知
-
- @param editor editor TuSDKMovieEditor
- @param progress progress description
- */
-- (void)onMovieEditor:(TuSDKMovieEditor *)editor progress:(CGFloat)progress
-{
-    // 注意：UI相关修改需要确认在主线程中进行
-     _videoProgress = progress;
-    if ([self movieEditorStatus] == lsqMovieEditorStatusPreviewing) {
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            // 预览时 更新UI
-//            _videoProgress = progress;
-
-            _bottomBar.topThumbnailView.currentTime = progress*(_endTime-_startTime);
-           
-            if (!_bottomBar.effectsView.hidden)
-                _bottomBar.effectsView.progress = progress;
-           
-            /** 当前是否正在添加场景特效 */
-            if (_bottomBar.effectsView.displayView.isAdding)
-                [_bottomBar.effectsView.displayView updateLastSegmentViewWithProgress:progress];
-        });
-    }
-
-}
-
-/**
- 视频保存时间
-
- @param editor editor TuSDKMovieEditor
- @param result result TuSDKVideoResult
- */
-- (void)onMovieEditor:(TuSDKMovieEditor *)editor result:(TuSDKVideoResult *)result
-{
-    //保存成功后取消提示框 同时返回到root
-    // 通过相机初始化设置  _movieEditor.saveToAlbum = NO;  result.videoPath 拿到视频的临时文件路径
-    if (result.videoPath) {
-        // 进行自定义操作，例如保存到相册
-        UISaveVideoAtPathToSavedPhotosAlbum(result.videoPath, nil, nil, nil);
-        [[TuSDK shared].messageHub showSuccess:NSLocalizedString(@"lsq_save_saveToAlbum_succeed", @"保存成功")];
-    }else{
-        // _movieEditor.saveToAlbum = YES; （默认为 ：YES）将自动保存到相册
-        [[TuSDK shared].messageHub showSuccess:NSLocalizedString(@"lsq_save_saveToAlbum_succeed", @"保存成功")];
-    }
-}
-
-/**
- 视频处理状态
-
- @param editor editor TuSDKMovieEditor
- @param status status lsqMovieEditorStatus
- */
-- (void)onMovieEditor:(TuSDKMovieEditor *)editor statusChanged:(lsqMovieEditorStatus)status
-{
     _playBtnIcon.hidden = (status == lsqMovieEditorStatusPreviewing);
     
-    if (status == lsqMovieEditorStatusPreviewingCompleted)
+    switch (status)
     {
-        [self stopPreview];
-        // 重置播放进度记录
-        _videoProgress = 0;
+        case lsqMovieEditorStatusLoading:
+        {
+            // 禁用所有事件
+            self.view.userInteractionEnabled = NO;
+            break;
+        }
+            
+        case lsqMovieEditorStatusLoaded:
+        {
+            self.view.userInteractionEnabled = YES;
+            break;
+        }
+            
+        case lsqMovieEditorStatusLoadFailed:
+        {
+              [[TuSDK shared].messageHub showError:NSLocalizedString(@"lsq_movie_load_failed", @"视频加载失败")];
+            break;
+        }
+            
+        default:
+            break;
+    }
+    
+}
 
-    }else if (status == lsqMovieEditorStatusLoaded){
-        NSLog(@"加载完成");
-        [self clickPlayerBtn:_playBtn];
-    }else if (status == lsqMovieEditorStatusLoadFailed) {
-        NSLog(@"加载失败");
-    }else if (status == lsqMovieEditorStatusRecordingCompleted){
-        NSLog(@"录制完成");
-        
+#pragma mark - TuSDKMovieEditorSaveDelegate 视频保存时间委托
+
+/**
+ 视频保存完成
+ 
+ @param editor TuSDKMovieEditor
+ @param result 保存结果
+ @param error 错误信息
+ */
+- (void)mediaMovieEditor:(TuSDKMovieEditorBase *_Nonnull)editor saveResult:(TuSDKVideoResult *_Nullable)result error:(NSError *_Nullable)error;
+{
+    // 保存失败
+    if (error)
+    {
+    
+        [[TuSDK shared].messageHub setStatus:NSLocalizedString(@"lsq_record_failed", @"录制失败")];
+    }else
+    {
+        //保存成功后取消提示框 同时返回到root
+        // 通过相机初始化设置  _movieEditor.saveToAlbum = NO;  result.videoPath 拿到视频的临时文件路径
+        if (result.videoPath) {
+            // 进行自定义操作，例如保存到相册
+            UISaveVideoAtPathToSavedPhotosAlbum(result.videoPath, nil, nil, nil);
+        }
+       
+        [[TuSDK shared].messageHub showSuccess:NSLocalizedString(@"lsq_save_saveToAlbum_succeed", @"保存成功")];
         [self popToRootViewControllerAnimated:true];
-    }else if (status == lsqMovieEditorStatusRecordingFailed){
-        NSLog(@"录制失败");
-        [[TuSDK shared].messageHub dismiss];
-        [[TuSDK shared].messageHub showError:NSLocalizedString(@"lsq_record_failed", @"录制失败")];
-    }else if (status == lsqMovieEditorStatusRecordingCancelled){
-        NSLog(@"取消录制");
         
-        [[TuSDK shared].messageHub dismiss];
-        [[TuSDK shared].messageHub showError:NSLocalizedString(@"lsq_record_cancelled", @"取消录制")];
-        
-        [_bottomBar.effectsView setProgress:0.f];
-        
-    }else if (status == lsqMovieEditorStatusPreviewing){
-        NSLog(@"正在播放");
-    }else if (status == lsqMovieEditorStatusRecording){
-        NSLog(@"正在录制");
-        [[TuSDK shared].messageHub setStatus:NSLocalizedString(@"lsq_movie_saving", @"正在保存...")];
     }
 }
 
 /**
- 视频处理出错
-
- @param editor editor TuSDKMovieEditor
- @param error error description
+ 保存进度改变事件
+ 
+ @param editor TuSDKMovieEditor
+ @param percentage 进度百分比 (0 - 1)
  */
-- (void)onMovieEditor:(TuSDKMovieEditor *)editor failedWithError:(NSError *)error;
+- (void)mediaMovieEditor:(TuSDKMovieEditorBase *_Nonnull)editor saveProgressChanged:(CGFloat)percentage;
 {
-    [[TuSDK shared].messageHub dismiss];
-    [[TuSDK shared].messageHub showError:NSLocalizedString(@"lsq_record_failed", @"录制失败")];
-    
+
+    [TuSDKProgressHUD showMainThreadProgress:percentage withStatus:@"正在保存视频"];
 }
 
 /**
- 滤镜改变方法
-
- @param editor editor TuSDKMovieEditor
- @param newFilter newFilter TuSDKFilterWrap
+ 保存状态改变事件
+ 
+ @param editor MovieEditor
+ @param status 当前保存状态
+ 
+ @since      v3.0
  */
-- (void)onMovieEditor:(TuSDKMovieEditor *)editor filterChanged:(TuSDKFilterWrap *)newFilter;
+- (void)mediaMovieEditor:(TuSDKMovieEditorBase *)editor saveStatusChanged:(lsqMovieEditorStatus)status;
 {
-  // 推荐实现 TuSDKMediaEffectsManagerDelegate - > onMovieEditor:didApplyingMediaEffect： 
+    NSLog(@"mediaMovieEditor saveStatusChanged : %ld ",status);
+    
+    switch (status)
+    {
+        // 正在录制
+        case lsqMovieEditorStatusRecording:
+        {
+            [[TuSDK shared].messageHub setStatus:NSLocalizedString(@"lsq_movie_saving", @"正在保存视频")];
+            break;
+        }
+            
+        // 取消录制
+        case lsqMovieEditorStatusRecordingCancelled:
+        {
+            [[TuSDK shared].messageHub dismiss];
+            [[TuSDK shared].messageHub showError:NSLocalizedString(@"lsq_record_cancelled", @"取消录制")];
+            
+            [_bottomBar.effectsView setProgress:0.f];
+            break;
+        }
+        default:
+            break;
+    }
 }
 
-#pragma mark - TuSDKMediaEffectsManagerDelegate
+#pragma mark - TuSDKMovieEditorPlayerDelegate 视频播放事件委托
+
+/**
+ 播放进度改变事件
+ 
+ @param player 当前播放器
+ @param percent (0 - 1)
+ @param outputTime 导出文件后所在输出时间
+ @since      v3.0
+ */
+- (void)mediaMovieEditor:(TuSDKMovieEditorBase *)editor progressChanged:(CGFloat)percent outputTime:(CMTime)outputTime;
+{
+    if ([self movieEditorStatus] == lsqMovieEditorStatusPreviewing)
+    {
+        _bottomBar.topThumbnailView.currentTime = CMTimeGetSeconds(outputTime);
+        _bottomBar.timeEffectThumbnailView.currentTime = CMTimeGetSeconds(outputTime);
+        
+        if (!_bottomBar.effectsView.hidden)
+            _bottomBar.effectsView.progress = percent;
+        
+        /** 当前是否正在添加场景特效 */
+        if (_bottomBar.effectsView.displayView.isAdding) {
+            [_bottomBar.effectsView.displayView updateLastSegmentViewWithProgress:percent];
+        }
+    }
+}
+
+/**
+ 播放进度改变事件
+ 
+ @param editor MovieEditor
+ @param status 当前播放状态
+ 
+ @since      v3.0
+ */
+- (void)mediaMovieEditor:(TuSDKMovieEditorBase *)editor playerStatusChanged:(lsqMovieEditorStatus)status;
+{
+    NSLog(@"mediaMovieEditor playerStatusChanged : %ld ",status);
+    
+    switch (status)
+    {
+            // 暂停预览
+        case lsqMovieEditorStatusPreviewingPause:
+        case lsqMovieEditorStatusPreviewingCompleted:
+        {
+            if (_bottomBar.effectsView.displayView.isAdding)
+            {
+                [_bottomBar.effectsView.displayView makeFinish];
+                [_bottomBar.effectsView backBtnEnabled:_bottomBar.effectsView.displayView.segmentCount > 0];
+                
+                TuSDKMediaEffectData *mediaEffect = [[_movieEditor mediaEffectsWithType:TuSDKMediaEffectDataTypeScene] lastObject];
+                
+                if (mediaEffect)
+                    [self.movieEditor unApplyMediaEffect:mediaEffect];
+            }
+            
+            break;
+        }
+        default:
+            break;
+    }
+}
+
+#pragma mark - TuSDKMediaEffectsManagerDelegate 滤镜特效、场景特效、粒子特效、 MV特效、配音特效、文字贴纸特效 相关事件
 
 /**
  当前正在应用的特效
@@ -409,8 +508,122 @@
     
 }
 
+
 #pragma mark - MovieEditorBottomBarDelegate
-#pragma mark -- filter
+#pragma mark - 时间特效 ( 反复、快慢速、倒序 ）
+
+/**
+ 时间特效选中回调
+ 
+ @param index 特效索引
+ */
+- (void)movieEditorBottom_timeEffectSelectedWithIndex:(NSInteger)index
+{
+    [self updateTimeEffect];
+    
+    // 播放视频
+    [self.movieEditor startPreview];
+}
+
+/**
+ 更新时间特效
+ */
+- (void)updateTimeEffect
+{
+    /**
+     * 时间特效相关
+     * 时间特效 可通过 TuSDKMediaTimelineSlice 对象控制。
+     * 每个 TuSDKMediaTimelineSlice 代表一个时间区间切片，可以对该切片指定倒序，快慢速配置。
+     *
+     */
+    NSInteger index = _bottomBar.timeView.selectedIndex;
+    switch (index)
+    {
+        case 0 : // 正常视频
+        {
+            //step1: 移除所有时间特效
+            [self.movieEditor removeAllMediaTimeEffect];
+            
+
+             // step2: 时间特效会影响视频输出时长，所以设置时间特效后一定要查下最新的视频输出时长，并更新相关UI
+            [_bottomBar.timeEffectThumbnailView setBlockTouchViewHidden:YES];
+            [self resetAllProgressViews];
+            
+            break;
+        }
+        case 1: // 反复
+        {
+            // step1: 获取时间特效触发时间范围
+            CMTimeRange timeRange = self.bottomBar.timeEffectThumbnailView.clipTimeRange;
+
+            // step2: 构建反复特效对象
+            TuSDKMediaRepeatTimeEffect *repeatTimeEffect = [[TuSDKMediaRepeatTimeEffect alloc] initWithTimeRange:timeRange];
+            
+            // 设置反复次数
+            repeatTimeEffect.repeatCount = 2;
+            
+            // 设置是否丢弃应用特效后累加的视频时长
+            repeatTimeEffect.dropOverTime = NO;
+            
+            // step3: 添加特效
+            [self.movieEditor addMediaTimeEffect:repeatTimeEffect];
+            
+             // step4: 时间特效会影响视频输出时长，所以设置时间特效后一定要查下最新的视频输出时长，并更新相关UI
+            [_bottomBar.timeEffectThumbnailView setBlockTouchViewHidden:NO];
+            [self resetAllProgressViews];
+            
+            break;
+        }
+            
+        case 2: // 慢动作
+        {
+             // step1: 获取时间特效触发时间范围
+            CMTimeRange timeRange = self.bottomBar.timeEffectThumbnailView.clipTimeRange;
+            
+            // step2: 构建速率特效对象
+            TuSDKMediaSpeedTimeEffect *speedTimeEffect = [[TuSDKMediaSpeedTimeEffect alloc] initWithTimeRange:timeRange];
+            
+            // 设置播放速率
+            speedTimeEffect.speedRate = 0.5f;
+            
+            // 设置是否丢弃应用特效后累加的视频时长
+            speedTimeEffect.dropOverTime = NO;
+            
+            // step3: 添加特效
+            [self.movieEditor addMediaTimeEffect:speedTimeEffect];
+
+            // step4: 时间特效会影响视频输出时长，所以设置时间特效后一定要查下最新的视频输出时长，并更新相关UI
+            [_bottomBar.timeEffectThumbnailView setBlockTouchViewHidden:NO];
+            [self resetAllProgressViews];
+            
+            break;
+        }
+            
+        case 3:// 倒序
+        {
+            // step1: 获取时间特效触发时间范围
+            CMTimeRange timeRange = CMTimeRangeMake(kCMTimeZero, self.movieEditor.inputDuration);
+            
+            // step2: 构建倒序特效对象
+            TuSDKMediaReverseTimeEffect *reverseTimeEffect = [[TuSDKMediaReverseTimeEffect alloc] initWithTimeRange:timeRange];
+            
+            // step3: 添加特效
+            [self.movieEditor addMediaTimeEffect:reverseTimeEffect];
+            
+             // step4: 时间特效会影响视频输出时长，所以设置时间特效后一定要查下最新的视频输出时长，并更新相关UI
+            [_bottomBar.timeEffectThumbnailView setBlockTouchViewHidden:YES];
+            [self resetAllProgressViews];
+            
+            break;
+        }
+            
+        default:
+            break;
+    }
+    
+}
+
+#pragma mark - 滤镜特效
 /**
  滤镜参数改变
 
@@ -435,13 +648,13 @@
     [_bottomBar refreshFilterParameterViewWith:filterEffectData.effectCode filterArgs:filterEffectData.filterArgs];
 }
 
-#pragma mark -- mv
+#pragma mark - 贴纸特效
 /**
  切换 MV
 
  @param mvData mvData TuSDKMVStickerAudioEffectData
  */
-- (void)movieEditorBottom_clickStickerMVWith:(TuSDKMVStickerAudioEffectData *)mvData;
+- (void)movieEditorBottom_clickStickerMVWith:(TuSDKMediaStickerAudioEffectData *)mvData;
 {
     if (!mvData) {
         // 为nil时 不添加贴纸 且移除已有贴纸组
@@ -464,7 +677,7 @@
     }
 }
 
-#pragma mark -- audio
+#pragma mark - 音频特效
 
 /**
  切换 配音音乐
@@ -513,14 +726,14 @@
             if ([_currentMediaEffect isMemberOfClass:[TuSDKMediaAudioEffectData class]]) {
                 ((TuSDKMediaAudioEffectData *)_currentMediaEffect).audioVolume = volume;
                 
-            }else if ([_currentMediaEffect isMemberOfClass:[TuSDKMVStickerAudioEffectData class]]){
-                ((TuSDKMVStickerAudioEffectData *)_currentMediaEffect).audioVolume = volume;
+            }else if ([_currentMediaEffect isMemberOfClass:[TuSDKMediaStickerAudioEffectData class]]){
+                ((TuSDKMediaStickerAudioEffectData *)_currentMediaEffect).audioVolume = volume;
             }
         }
     }
 }
 
-#pragma mark -- 场景特效
+#pragma mark - 场景特效
 
 /**
  按下特效场景特效
@@ -529,12 +742,15 @@
  */
 - (void)movieEditorBottom_effectsSelectedWithCode:(NSString *)effectsCode;
 {
-    [self startPreview];
-
-    [_bottomBar.effectsView.displayView addSegmentViewBeginWithProgress:_videoProgress WithColor:kVideoEffectColors[[kVideoEffectCodes indexOfObject:effectsCode]]];
+    
+    CGFloat currentProgress = CMTimeGetSeconds([_movieEditor outputTimeAtTimeline]) / CMTimeGetSeconds([_movieEditor timelineOutputDuraiton]);
+    [_bottomBar.effectsView.displayView addSegmentViewBeginWithProgress:currentProgress WithColor:kVideoEffectColors[[kVideoEffectCodes indexOfObject:effectsCode]]];
     
     TuSDKMediaSceneEffectData *sceneEffect = [[TuSDKMediaSceneEffectData alloc] initWithEffectsCode:effectsCode];
     [_movieEditor applyMediaEffect:sceneEffect];
+    
+    [self startPreview];
+
 }
 
 /**
@@ -542,15 +758,6 @@
  */
 - (void)movieEditorBottom_effectsEndWithCode:(NSString *)effectCode;
 {
-
-    [_bottomBar.effectsView.displayView makeFinish];
-    [_bottomBar.effectsView backBtnEnabled:_bottomBar.effectsView.displayView.segmentCount > 0];
-    
-   TuSDKMediaEffectData *mediaEffect = [[_movieEditor mediaEffectsWithType:TuSDKMediaEffectDataTypeScene] lastObject];
-    if (mediaEffect)
-        [self.movieEditor unApplyMediaEffect:mediaEffect];
-    
-    // unApplyMediaEffect 务必在 pausePreview 和 stopPreView 之前调用
     [self pausePreview];
 }
 
@@ -569,10 +776,9 @@
 - (void)movieEditorBottom_effectsMoveVideoProgress:(CGFloat)newProgress;
 {
     [self pausePreview];
-    _videoProgress = newProgress;
-    CMTime newTime = CMTimeMakeWithSeconds(newProgress * (_endTime - _startTime), 1*USEC_PER_SEC);
- 
-    [_movieEditor seekToPreviewWithTime:newTime];
+    
+    CMTime outputTime = CMTimeMultiplyByFloat64(self.movieEditor.timelineOutputDuraiton, newProgress);
+    [_movieEditor seekToTime:outputTime];
 }
 
 /**
@@ -590,7 +796,7 @@
     [_movieEditor removeMediaEffect:mediaEffect];
 }
 
- #pragma mark -- bottomThumbnail
+ #pragma mark - bottomThumbnail
 /**
  mv、配音缩略图 拖动到某位置处
  
@@ -609,7 +815,7 @@
         _mvEndTime = time;
     }
     
-    [_movieEditor seekToPreviewWithTime:CMTimeMakeWithSeconds(time, 1*NSEC_PER_SEC)];
+    [_movieEditor seekToTime:CMTimeMakeWithSeconds(time, 1*NSEC_PER_SEC)];
 }
 
 /**
@@ -623,7 +829,7 @@
         _currentMediaEffect.atTimeRange = _mediaEffectTimeRange;
     }
     // 恢复到开始的选择时间节点
-    [_movieEditor seekToPreviewWithTime:CMTimeMakeWithSeconds(_mvStartTime, 1*NSEC_PER_SEC)];
+    [_movieEditor seekToTime:CMTimeMakeWithSeconds(_mvStartTime, 1*NSEC_PER_SEC)];
 }
 
 /**
@@ -676,6 +882,7 @@
 
 - (void)dealloc
 {
+      [[TuSDK shared].messageHub dismiss];
     [self destroyMovieEditor];
 }
 

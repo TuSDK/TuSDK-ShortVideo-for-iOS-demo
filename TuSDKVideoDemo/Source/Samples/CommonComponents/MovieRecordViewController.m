@@ -327,7 +327,7 @@
     // _camera.outputSize = CGSizeMake(640, 640);
     
     // 输出视频的画质，主要包含码率、分辨率等参数 (默认为空，采用系统设置)
-    _camera.videoQuality = [TuSDKVideoQuality makeQualityWith:TuSDKRecordVideoQuality_Medium2];
+    _camera.videoQuality = [TuSDKVideoQuality makeQualityWith:TuSDKRecordVideoQuality_Medium1];
     // 禁止触摸聚焦功能 (默认: NO)
     _camera.disableTapFocus = NO;
     // 是否禁用持续自动对焦
@@ -349,7 +349,7 @@
     // 设置水印图片的位置
     _camera.waterMarkPosition = lsqWaterMarkBottomRight;
     // 最大录制时长 8s
-    _camera.maxRecordingTime = 8;
+    _camera.maxRecordingTime = 15;
     // 最小录制时长 2s
     _camera.minRecordingTime = 1;
     // 正常模式/续拍模式  - 注：该录制模式需和 _bottomBar 中的一致, 若不使用这套UI逻辑，可进行自定义交互操作

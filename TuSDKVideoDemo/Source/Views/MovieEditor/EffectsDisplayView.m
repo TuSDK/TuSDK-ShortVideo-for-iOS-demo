@@ -177,7 +177,10 @@
  */
 - (BOOL)addSegmentViewBeginWithProgress:(CGFloat)progress WithColor:(UIColor *)color;
 {
-    if (progress >= 1 || progress < 0) return NO;
+    if (progress >= 1 || progress < 0) {
+        lsqLError(@"addSegmentViewBeginWithProgress failed  progress : %f",progress);
+        return NO;
+    }
     
     _isAdding = YES;
     _lastViewTag ++;

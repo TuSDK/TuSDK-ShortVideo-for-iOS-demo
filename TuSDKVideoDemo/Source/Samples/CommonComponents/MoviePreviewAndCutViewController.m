@@ -14,12 +14,10 @@
 - (void)setCurrentTime:(CGFloat)currentTime
 {
     _currentTime = currentTime;
-    
     if (_cutVideoView) {
         _cutVideoView.currentTime = currentTime;
     }
 }
-
 
 #pragma mark - 基础配置方法
 // 隐藏状态栏 for IOS7
@@ -38,6 +36,8 @@
     if (![UIDevice lsqIsDeviceiPhoneX]) {
         [self setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
     }
+    
+    [self initPlayer];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -54,7 +54,6 @@
     [self lsqInitView];
     [self initPlayerView];
 }
-
 
 - (void)lsqInitView
 {
@@ -87,7 +86,7 @@
             int32_t timescale = wSelf.item.duration.timescale;
             CMTime time2 = CMTimeMake(time*timescale, timescale);
             [wSelf.item seekToTime:time2 toleranceBefore:CMTimeMake(0, timescale) toleranceAfter:CMTimeMake(0, timescale)];
-            
+
             if (isStartStatus == lsqClipViewStyleLeft) {
                 wSelf.startTime = time;
             }else if(isStartStatus == lsqClipViewStyleRight){
@@ -95,7 +94,7 @@
             }
         }
     };
-    
+
     // 拖动结束的block
     __weak MoviePreviewAndCutViewController * wSelf2 = self;
     self.cutVideoView.slipEndBlock = ^{
@@ -106,14 +105,14 @@
             [wSelf2.item seekToTime:time2 toleranceBefore:CMTimeMake(0, timescale) toleranceAfter:CMTimeMake(0, timescale)];
         }
     };
-    
+
     // 拖动开始的block 解决拖动和播放冲突
     self.cutVideoView.slipBeginBlock = ^(){
         // 拖动开始就暂定视频播放
         wSelf.playSelected = false;
         [wSelf pauseTheVideo];
     };
-    
+
     // 获取视频缩略图
     __weak MoviePreviewAndCutViewController * wSelf3 = self;
     TuSDKVideoImageExtractor *imageExtractor = [TuSDKVideoImageExtractor createExtractor];
@@ -178,14 +177,15 @@
         _videoScroll.contentOffset = CGPointMake(0, offset);
     }
     
-    // 监听status
-    [_item addObserver:self forKeyPath:@"status" options:NSKeyValueObservingOptionNew context:nil];
-    
-    // 设置通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:_item];
-    
+}
+
+- (void)initPlayer
+{
+    if (!_item) {
+         _item = [[AVPlayerItem alloc]initWithURL:_inputURL];
+    }
     // 初始化player对象
-    self.player = [[AVPlayer alloc]initWithPlayerItem:_item];
+    self.player = [[AVPlayer alloc] initWithPlayerItem:_item];
     // 设置播放页面
     _layer = [AVPlayerLayer playerLayerWithPlayer:_player];
     // 设置播放页面大小
@@ -197,8 +197,13 @@
     [_videoView.layer addSublayer:_layer];
     // 播放设置
     self.player.volume = 1.0;
+    
+    // 监听status
+    [_item addObserver:self forKeyPath:@"status" options:NSKeyValueObservingOptionNew context:nil];
+    
+    // 设置通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerEnd:) name:AVPlayerItemDidPlayToEndTimeNotification object:_item];
 }
-
 
 #pragma mark - 自定义点击事件
 // 点击屏幕中间的播放按钮
@@ -259,11 +264,11 @@
             // 下一步按钮
             self.playSelected = false;
             [self pauseTheVideo];
+            [self destroyPlayer];
             
             MovieEditorViewController *vc = [MovieEditorViewController new];
             vc.inputURL = _inputURL;
-            vc.startTime = _startTime;
-            vc.endTime = _endTime;
+            vc.cutTimeRange = CMTimeRangeMake(CMTimeMakeWithSeconds(_startTime, USEC_PER_SEC), CMTimeMakeWithSeconds(_endTime - _startTime, USEC_PER_SEC));
             vc.cropRect = CGRectMake(_videoScroll.contentOffset.x/_videoScroll.contentSize.width,
                                      _videoScroll.contentOffset.y/_videoScroll.contentSize.height,
                                      _videoScroll.lsqGetSizeWidth/_videoScroll.contentSize.width,
@@ -349,11 +354,10 @@
     if (!_player) {
         return;
     }
-    
     // 销毁KVO
     [_item removeObserver:self forKeyPath:@"status" context:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-   
+    [_player replaceCurrentItemWithPlayerItem:nil];
     [_layer removeFromSuperlayer];
     _layer = nil;
     _player = nil;

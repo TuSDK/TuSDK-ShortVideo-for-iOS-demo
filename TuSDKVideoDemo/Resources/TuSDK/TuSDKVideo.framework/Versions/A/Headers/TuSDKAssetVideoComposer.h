@@ -41,7 +41,7 @@ typedef NS_ENUM(NSInteger, TuSDKAssetVideoComposerStatus){
 /**
  根据 AVAsset 初始化解码器
  
- @param asset 视频数据源
+ @param assets 视频数据源
  @return AVAsset
  */
 - (instancetype _Nonnull)initWithAsset:(NSArray<AVAsset *> *_Nullable)assets;

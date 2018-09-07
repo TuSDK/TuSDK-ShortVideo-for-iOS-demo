@@ -8,7 +8,7 @@
 
 #import "TuSDKVideoImport.h"
 #import "TuSDKMediaDecoder.h"
-#import "TuSDKMovieInfo.h"
+#import "TuSDKMediaAssetInfo.h"
 
 /** TuSDKAssetVideoDecoderVideoSettings  */
 typedef NSDictionary<NSString *, id> TuSDKAssetVideoDecoderVideoSettings;
@@ -117,7 +117,7 @@ typedef NS_ENUM(NSInteger, TuSDKAssetVideoDecoderStatus) {
  @discussion
  获取视频信息
  */
-@property (nonatomic,readonly)TuSDKMovieInfo * _Nullable movieInfo;
+@property (nonatomic,readonly)TuSDKMediaAssetInfo * _Nullable movieInfo;
 
 /*!
   @property outputSettings

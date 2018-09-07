@@ -34,7 +34,7 @@
 /**
  特效code
  */
-@property (nonatomic, copy) NSString * effectsCode;
+@property (nonatomic,copy,readonly) NSString * effectsCode;
 
 /**
  特效的大小 0 ~ 1   0：原始默认大小  1：最大放大倍数后的大小

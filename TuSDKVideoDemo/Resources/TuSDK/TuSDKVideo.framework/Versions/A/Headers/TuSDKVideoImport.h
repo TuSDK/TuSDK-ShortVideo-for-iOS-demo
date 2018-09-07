@@ -6,8 +6,7 @@
 //  Copyright © 2016 TuSDK. All rights reserved.
 //
 
-//#import "TuSDKICGuideRegionView.h"
+
+
 #import <TuSDK/TuSDKICGuideRegionView.h>
-
-#import <TuSDK/TuSDK.h>
-
+#import <TuSDKFace/TuSDKFace.h>

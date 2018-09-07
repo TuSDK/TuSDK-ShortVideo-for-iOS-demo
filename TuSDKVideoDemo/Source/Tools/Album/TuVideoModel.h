@@ -19,7 +19,7 @@
 @property (strong, nonatomic) UIImage *image;
 // asset对象
 @property (strong, nonatomic) ALAsset *asset;
-// 视频的时长
+// 视频的时长分钟表示
 @property (copy, nonatomic) NSString *videoTime;
 // 原数据
 @property (strong, nonatomic) NSDictionary *imageDic;

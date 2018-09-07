@@ -7,29 +7,41 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreMedia/CoreMedia.h>
 #import "TuSDKFramework.h"
 #import "TopNavBar.h"
 #import "MovieEditerBottomBar.h"
 #import "MovieEditorClipView.h"
 
+
 /**
  视频编辑示例：对视频进行裁剪，添加滤镜，添加MV效果
  */
-@interface MovieEditorViewController : UIViewController<TuSDKMovieEditorDelegate, TopNavBarDelegate, MovieEditorBottomBarDelegate,TuSDKMovieEditorMediaEffectsDelegate>
+@interface MovieEditorViewController : UIViewController
+                                                <
+                                                    TuSDKMovieEditorLoadDelegate, // 加载委托
+                                                    TuSDKMovieEditorPlayerDelegate , // 播放委托
+                                                    TuSDKMovieEditorSaveDelegate, // 保存委托
+                                                    TuSDKMovieEditorMediaEffectsDelegate, // 特效委托
+
+                                                    TopNavBarDelegate,
+                                                    MovieEditorBottomBarDelegate
+                                                >
+
+// 视频编辑对象
+@property (nonatomic, strong) TuSDKMovieEditor *movieEditor;
 
 // 开启编辑器控制器需要传入的参数
 // 视频路径
 @property (nonatomic, strong) NSURL *inputURL;
-// 开始时间
-@property (nonatomic, assign) CGFloat startTime;
-// 结束时间
-@property (nonatomic, assign) CGFloat endTime;
+
+/**
+ 裁切时间区间
+ */
+@property (nonatomic)CMTimeRange cutTimeRange;
+
 // 视频裁剪区域
 @property (nonatomic, assign) CGRect cropRect;
-
-// 以下参数供继承调用
-// 视频编辑对象
-@property (nonatomic, strong) TuSDKMovieEditor *movieEditor;
 
 // 视图布局
 // 视频预览的背景scroll

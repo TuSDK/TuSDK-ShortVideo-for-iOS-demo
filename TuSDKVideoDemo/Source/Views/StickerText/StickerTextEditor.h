@@ -36,6 +36,9 @@
  */
 -(instancetype)initWithFrame:(CGRect)frame WithMovieEditor:(MovieEditorFullScreenController *)movieEditorFull;
 
+// 总时间，用来后续计算 单位：秒
+@property (nonatomic, assign) CGFloat totalDuration;
+
 /**
  *  设置是为编辑状态
  *  @since       v2.2.0

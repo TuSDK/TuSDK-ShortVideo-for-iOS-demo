@@ -21,8 +21,6 @@
     NSInteger _currentRatioIndex;
 }
 
-@property (nonatomic, assign) BOOL isCanRatioClick;
-
 @end
 
 
@@ -174,7 +172,6 @@
 - (void)startCamera
 {
     _cameraRatioArr = @[@(lsqRatioOrgin), @(lsqRatio_1_1), @(lsqRatio_3_4)];
-//    _isCanRatioClick = YES;
     
     if (!self.cameraView) {
         self.cameraView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.lsqGetSizeWidth, self.view.lsqGetSizeHeight)];
@@ -213,7 +210,7 @@
     // self.camera.outputSize = CGSizeMake(640, 640);
 
     // 输出视频的画质，主要包含码率、分辨率等参数 (默认为空，采用系统设置)
-    self.camera.videoQuality = [TuSDKVideoQuality makeQualityWith:TuSDKRecordVideoQuality_Medium2];
+    self.camera.videoQuality = [TuSDKVideoQuality makeQualityWith:TuSDKRecordVideoQuality_Medium1];
     // 禁止触摸聚焦功能 (默认: NO)
     self.camera.disableTapFocus = NO;
     // 是否禁用持续自动对焦
@@ -235,7 +232,7 @@
     // 设置水印图片的位置
     self.camera.waterMarkPosition = lsqWaterMarkBottomRight;
     // 最大录制时长 8s
-    self.camera.maxRecordingTime = 8;
+    self.camera.maxRecordingTime = 15;
     // 最小录制时长 2s
     self.camera.minRecordingTime = 1;
     // 正常模式/续拍模式  - 注：该录制模式需和 self.bottomBar 中的一致, 若不使用这套UI逻辑，可进行自定义交互操作
