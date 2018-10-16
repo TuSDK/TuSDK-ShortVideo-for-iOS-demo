@@ -6,4 +6,5 @@
 //  Copyright © 2016年 tusdk.com. All rights reserved.
 //
 
- #import <TuSDK/TuSDK.h>
+//#import "TuSDK.h"
+#import <TuSDK/TuSDK.h>

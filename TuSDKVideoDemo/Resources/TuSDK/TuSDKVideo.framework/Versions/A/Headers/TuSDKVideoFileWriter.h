@@ -72,6 +72,13 @@ extern NSString *const kTuVideoGPUImageColorSwizzlingFragmentShaderString;
 @property (nonatomic, assign) CGFloat videoSpeed;
 
 /**
+ 设置是否验证时间戳 默认：true
+ 
+ @since v3.0.1
+ */
+@property (nonatomic, assign) BOOL enableCheckSampleTime;
+
+/**
  是否使用 Context 队列 默认：true 所有任务都在 ContextQueue 队列中执行
  NO : 所有任务都在 VideoProcessingQueue 队列中执行
  @since v3.0
@@ -114,7 +121,5 @@ extern NSString *const kTuVideoGPUImageColorSwizzlingFragmentShaderString;
  *  销毁output
  */
 - (void)destroyMovieOutput;
-
-- (void)setQu:(dispatch_queue_t)q;
 
 @end

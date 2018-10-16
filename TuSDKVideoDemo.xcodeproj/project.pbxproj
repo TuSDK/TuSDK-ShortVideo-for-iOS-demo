@@ -2093,7 +2093,7 @@
 					"$(PROJECT_DIR)/TuSDKVideoDemo/Resources",
 					"$(PROJECT_DIR)/TuSDKVideoDemo/Resources/TuSDK",
 				);
-				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
+				GCC_INPUT_FILETYPE = automatic;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
@@ -2130,7 +2130,7 @@
 					"$(PROJECT_DIR)/TuSDKVideoDemo/Resources",
 					"$(PROJECT_DIR)/TuSDKVideoDemo/Resources/TuSDK",
 				);
-				GCC_INPUT_FILETYPE = sourcecode.cpp.objcpp;
+				GCC_INPUT_FILETYPE = automatic;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
