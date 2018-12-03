@@ -1,0 +1,7 @@
+"CFBundleDisplayName" = "TuSDK Video";
+"CFBundleName" = "TuSDK Video";
+"NSLocationWhenInUseUsageDescription" = "Recording video requires your location permission";
+"NSMicrophoneUsageDescription" = "Recording audio requires your microphone permission";
+"NSCameraUsageDescription" = "Recording video requires your camera permission";
+"NSPhotoLibraryAddUsageDescription" = "Saving videos requires your photo library permission";
+"NSPhotoLibraryUsageDescription" = "Saving videos requires your photo library permission";

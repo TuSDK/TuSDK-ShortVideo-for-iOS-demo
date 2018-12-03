@@ -1,0 +1,159 @@
+// Beauty
+"lsq_filter_Normal" = "Normal";
+"lsq_filter_SkinNature" = "Nature";
+"lsq_filter_SkinPink" = "Pink";
+"lsq_filter_SkinJelly" = "Jelly";
+"lsq_filter_SkinNoir" = "Noir";
+"lsq_filter_SkinRuddy" = "Ruddy";
+"lsq_filter_SkinPowder" = "Pink";
+"lsq_filter_SkinSugar" = "Sugar";
+
+// filter
+"lsq_filter_VideoFair" = "Nature";
+"lsq_filter_VideoYoungGirl" = "Pink";
+"lsq_filter_VideoWhiteSkin" = "WhiteSkin";
+"lsq_filter_VideoFaceu01" = "Faceu 01";
+"lsq_filter_VideoHuaJiao" = "HuaJiao";
+"lsq_filter_VideoJelly" = "Jelly";
+
+// 滤镜 17种
+"lsq_filter_SkinSugar" = "SkinSugar";
+"lsq_filter_DeepWhitening" = "DeepWhitening";
+"lsq_filter_ClearWhite" = "ClearWhite";
+"lsq_filter_WarmSunshine" = "WarmSunshine";
+"lsq_filter_Leica" = "Leica";
+"lsq_filter_Mamiya" = "Mamiya";
+"lsq_filter_1940s" = "1940s";
+"lsq_filter_Jingxiang" = "Jingxiang";
+"lsq_filter_Coloration" = "Coloration";
+"lsq_filter_Summersunshine" = "Summersunshine";
+"lsq_filter_SilentEra" = "SilentEra";
+"lsq_filter_AmericaPast" = "AmericaPast";
+"lsq_filter_T2" = "T2";
+"lsq_filter_J5" = "J5";
+"lsq_filter_Newborn" = "Newborn";
+"lsq_filter_Morning" = "Morning";
+"lsq_filter_Original" = "Normal";
+"lsq_filter_Glaze" = "Glaze";
+"lsq_filter_Snow" = "Snow";
+"lsq_filter_Agar" = "Agar";
+"lsq_filter_Firework" = "Firework";
+"lsq_filter_Fine" = "Fine";
+
+"lsq_filter_nature" = "Nature";
+"lsq_filter_pink" = "Pink";
+"lsq_filter_jelly" = "Jelly";
+"lsq_filter_ruddy" = "Ruddy";
+"lsq_filter_sugar" = "Sugar";
+"lsq_filter_honey" = "Honey";
+"lsq_filter_clear" = "Clear";
+"lsq_filter_timber" = "Timber";
+"lsq_filter_whitening" = "Whitening";
+"lsq_filter_porcelain" = "Porcelain";
+
+// new filter
+"lsq_filter_SkinPink010" = "Pink";
+"lsq_filter_SkinJelly010" = "Jelly";
+"lsq_filter_Fair010" = "Fair";
+"lsq_filter_Pink010" = "Elegant";
+"lsq_filter_Forest010" = "Forest";
+"lsq_filter_Sundown" = "Sundown";
+"lsq_filter_Sakura" = "Sakura";
+"lsq_filter_Paul01" = "Paul";
+"lsq_filter_Lavender" = "Lavender";
+"lsq_filter_Manhattan" = "Manhattan";
+"lsq_filter_Dusk" = "Dusk";
+"lsq_filter_TinyTimes" = "TinyTimes";
+"lsq_filter_Vivid01" = "Vivid";
+"lsq_filter_Year1950" = "1950";
+"lsq_filter_Missing01" = "MissingYou";
+"lsq_filter_Grapefruit01" = "Grapefruit";
+"lsq_filter_RoseCarmine001" = "RoseCarmine";
+"lsq_filter_Nude01" = "Nude";
+"lsq_filter_Orange01" = "Orange";
+"lsq_filter_BabyPink001" = "BabyPink";
+
+// 1.8.0
+"lsq_filter_SkinPink011" = "Pink";
+"lsq_filter_SkinJelly011" = "Jelly";
+"lsq_filter_Fair011" = "Fair";
+"lsq_filter_Pink011" = "Elegant";
+"lsq_filter_Forest011" = "Forest";
+
+// effect
+"lsq_filter_LiveShake01" = "Shake";
+"lsq_filter_LiveMegrim01" = "Megrim";
+"lsq_filter_EdgeMagic01" = "Magic";
+"lsq_filter_LiveFancy01_1" = "70s";
+"lsq_filter_LiveSoulOut01" = "Soul";
+"lsq_filter_LiveSignal01" = "Signal";
+"lsq_filter_LiveLightning01" = "Lightning";
+"lsq_filter_LiveXRay01" = "XRay";
+"lsq_filter_LiveHeartbeat01" = "Heartbeat";
+"lsq_filter_LiveMirrorImage01" = "LiveMirrorImage";
+"lsq_filter_LiveSlosh01" = "LiveSlosh";
+"lsq_filter_LiveOldTV01" = "LiveOldTV";
+
+// ParticleEffect
+"lsq_filter_snow01" = "Snow";
+"lsq_filter_Love" = "Love";
+"lsq_filter_Bubbles" = "Bubbles";
+"lsq_filter_Music" = "Music";
+"lsq_filter_Star" = "Star";
+"lsq_filter_Surprise" = "Surprise";
+"lsq_filter_Flower" = "Flower";
+"lsq_filter_Magic" = "Magic";
+"lsq_filter_Money" = "Money";
+"lsq_filter_Burning" = "Burning";
+"lsq_filter_Fireball" = "Fireball";
+
+// edit
+"lsq_filter_Olympus_1" = "Olympus";
+"lsq_filter_Leica_1" = "Leica";
+"lsq_filter_Gold_1" = "Gold";
+"lsq_filter_Cheerful_1" = "Cheerful";
+"lsq_filter_White_1" = "White";
+"lsq_filter_s1950_1" = "1950s";
+"lsq_filter_Blurred_1" = "Blurred";
+"lsq_filter_Newborn_1" = "Newborn";
+"lsq_filter_Fade_1" = "Fade";
+"lsq_filter_NewYork_1" = "NewYork";
+
+// audio
+"lsq_audio_lively" = "Lively";
+"lsq_audio_oldmovie" = "Old Movie";
+"lsq_audio_relieve" = "Relieve";
+
+// time
+"lsq_filter_repeat" = "Repeat";
+"lsq_filter_slow" = "Slow";
+"lsq_filter_reverse" = "Reverse";
+
+// 滤镜参数
+"lsq_filter_set_animation" = "Animation";
+"lsq_filter_set_vignette" = "Vignette";
+"lsq_filter_set_blurSize" = "Blur Size";
+"lsq_filter_set_mixied" = "Mixed";
+"lsq_filter_set_distanceFactor" = "Radius";
+
+// 美颜
+"lsq_filter_set_smoothing" = "Smoothing";
+"lsq_filter_set_whitening" = "Whitening";
+
+// 微整形
+"lsq_filter_set_chinSize" = "Chin";
+"lsq_filter_set_jawSize" = "Jaw";
+"lsq_filter_set_noseSize" = "Nose";
+"lsq_filter_set_mouthWidth" = "Mouth";
+"lsq_filter_set_eyeSize" = "Eye";
+"lsq_filter_set_eyeDis" = "Eye Distance";
+"lsq_filter_set_eyeAngle" = "Eye Angle";
+"lsq_filter_set_archEyebrow" = "Eyebrow";
+
+// 漫画滤镜
+"lsq_filter_CHComics_Video" = "CHComics";
+"lsq_filter_USComics_Video" = "USComics";
+"lsq_filter_JPComics_Video" = "JPComics";
+"lsq_filter_Lightcolor_Video" = "Lightcolor";
+"lsq_filter_Ink_Video" = "Ink";
+"lsq_filter_Monochrome_Video" = "Monochrome";

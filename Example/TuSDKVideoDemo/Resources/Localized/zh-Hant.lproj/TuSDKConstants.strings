@@ -1,0 +1,159 @@
+// Beauty
+"lsq_filter_Normal" = "正常";
+"lsq_filter_SkinNature" = "自然";
+"lsq_filter_SkinPink" = "粉嫩";
+"lsq_filter_SkinJelly" = "果凍";
+"lsq_filter_SkinNoir" = "黑白";
+"lsq_filter_SkinRuddy" = "紅潤";
+"lsq_filter_SkinPowder" = "蜜粉";
+"lsq_filter_SkinSugar" = "糖水色";
+
+// filter
+"lsq_filter_VideoFair" = "自然";
+"lsq_filter_VideoYoungGirl" = "粉嫩";
+"lsq_filter_VideoWhiteSkin" = "美白";
+"lsq_filter_VideoFaceu01" = "Faceu 01";
+"lsq_filter_VideoHuaJiao" = "仿花椒";
+"lsq_filter_VideoJelly" = "果凍";
+
+// 滤镜 17种
+"lsq_filter_SkinSugar" = "糖水色";
+"lsq_filter_DeepWhitening" = "深度美白";
+"lsq_filter_ClearWhite" = "清透亮白";
+"lsq_filter_WarmSunshine" = "暖暖陽光";
+"lsq_filter_Leica" = "萊卡";
+"lsq_filter_Mamiya" = "瑪米亞";
+"lsq_filter_1940s" = "1940s";
+"lsq_filter_Jingxiang" = "靜香";
+"lsq_filter_Coloration" = "著色";
+"lsq_filter_Summersunshine" = "夏日陽光";
+"lsq_filter_SilentEra" = "無聲時代";
+"lsq_filter_AmericaPast" = "美國往事";
+"lsq_filter_T2" = "T2";
+"lsq_filter_J5" = "J5";
+"lsq_filter_Newborn" = "新生";
+"lsq_filter_Morning" = "清晨";
+"lsq_filter_Original" = "原始";
+"lsq_filter_Glaze" = "琉璃";
+"lsq_filter_Snow" = "白雪";
+"lsq_filter_Agar" = "瓊脂";
+"lsq_filter_Firework" = "煙花";
+"lsq_filter_Fine" = "晴天";
+
+"lsq_filter_nature" = "自然";
+"lsq_filter_pink" = "粉嫩";
+"lsq_filter_jelly" = "果凍";
+"lsq_filter_ruddy" = "紅潤";
+"lsq_filter_sugar" = "糖水色";
+"lsq_filter_honey" = "蜜粉";
+"lsq_filter_clear" = "原麥";
+"lsq_filter_timber" = "小森林";
+"lsq_filter_whitening" = "美白";
+"lsq_filter_porcelain" = "青花瓷";
+
+// new filter
+"lsq_filter_SkinPink010" = "粉嫩";
+"lsq_filter_SkinJelly010" = "果冻";
+"lsq_filter_Fair010" = "白皙";
+"lsq_filter_Pink010" = "淡雅";
+"lsq_filter_Forest010" = "小森林";
+"lsq_filter_Sundown" = "日不落";
+"lsq_filter_Sakura" = "樱花草";
+"lsq_filter_Paul01" = "阿寶";
+"lsq_filter_Lavender" = "薰衣草";
+"lsq_filter_Manhattan" = "曼哈顿";
+"lsq_filter_Dusk" = "黄昏";
+"lsq_filter_TinyTimes" = "小時代";
+"lsq_filter_Vivid01" = "小清新";
+"lsq_filter_Year1950" = "1950";
+"lsq_filter_Missing01" = "想你色";
+"lsq_filter_Grapefruit01" = "西柚色";
+"lsq_filter_RoseCarmine001" = "玫紅色";
+"lsq_filter_Nude01" = "裸色";
+"lsq_filter_Orange01" = "橘色";
+"lsq_filter_BabyPink001" = "粉色";
+
+// 1.8.0
+"lsq_filter_SkinPink011" = "粉嫩";
+"lsq_filter_SkinJelly011" = "果冻";
+"lsq_filter_Fair011" = "白皙";
+"lsq_filter_Pink011" = "淡雅";
+"lsq_filter_Forest011" = "小森林";
+
+// effect
+"lsq_filter_LiveShake01" = "抖動";
+"lsq_filter_LiveMegrim01" = "幻覺";
+"lsq_filter_EdgeMagic01" = "魔法";
+"lsq_filter_LiveFancy01_1" = "70s";
+"lsq_filter_LiveSoulOut01" = "靈魂出竅";
+"lsq_filter_LiveSignal01" = "信號";
+"lsq_filter_LiveLightning01" = "閃電";
+"lsq_filter_LiveXRay01" = "X光";
+"lsq_filter_LiveHeartbeat01" = "心跳";
+"lsq_filter_LiveMirrorImage01" = "鏡像";
+"lsq_filter_LiveSlosh01" = "晃動";
+"lsq_filter_LiveOldTV01" = "舊電視";
+
+// ParticleEffect
+"lsq_filter_snow01" = "雪花";
+"lsq_filter_Love" = "甜心";
+"lsq_filter_Bubbles" = "泡泡";
+"lsq_filter_Music" = "音符";
+"lsq_filter_Star" = "星星";
+"lsq_filter_Surprise" = "驚喜";
+"lsq_filter_Flower" = "花瓣";
+"lsq_filter_Magic" = "鬼火";
+"lsq_filter_Money" = "金幣";
+"lsq_filter_Burning" = "燃燒";
+"lsq_filter_Fireball" = "火球";
+
+// edit
+"lsq_filter_Olympus_1" = "奧林巴斯";
+"lsq_filter_Leica_1" = "萊卡";
+"lsq_filter_Gold_1" = "金黃";
+"lsq_filter_Cheerful_1" = "愉悅";
+"lsq_filter_White_1" = "純白";
+"lsq_filter_s1950_1" = "1950s";
+"lsq_filter_Blurred_1" = "迷離";
+"lsq_filter_Newborn_1" = "新生";
+"lsq_filter_Fade_1" = "褪色";
+"lsq_filter_NewYork_1" = "紐約";
+
+// audio
+"lsq_audio_lively" = "歡快";
+"lsq_audio_oldmovie" = "老電影";
+"lsq_audio_relieve" = "舒緩";
+
+// time
+"lsq_filter_repeat" = "反覆";
+"lsq_filter_slow" = "慢動作";
+"lsq_filter_reverse" = "逆轉時光";
+
+// 濾鏡參數
+"lsq_filter_set_animation" = "動畫";
+"lsq_filter_set_vignette" = "圖案";
+"lsq_filter_set_blurSize" = "強度";
+"lsq_filter_set_mixied" = "效果";
+"lsq_filter_set_distanceFactor" = "半徑";
+
+// 美顏
+"lsq_filter_set_smoothing" = "潤滑";
+"lsq_filter_set_whitening" = "白皙";
+
+// 微整形
+"lsq_filter_set_chinSize" = "瘦臉";
+"lsq_filter_set_jawSize" = "下巴";
+"lsq_filter_set_noseSize" = "瘦鼻";
+"lsq_filter_set_mouthWidth" = "嘴型";
+"lsq_filter_set_eyeSize" = "大眼";
+"lsq_filter_set_eyeDis" = "眼距";
+"lsq_filter_set_eyeAngle" = "眼角";
+"lsq_filter_set_archEyebrow" = "細眉";
+
+// 漫画滤镜
+"lsq_filter_CHComics_Video" = "國漫";
+"lsq_filter_USComics_Video" = "美漫";
+"lsq_filter_JPComics_Video" = "日漫";
+"lsq_filter_Lightcolor_Video" = "淡彩";
+"lsq_filter_Ink_Video" = "墨水";
+"lsq_filter_Monochrome_Video" = "單色";

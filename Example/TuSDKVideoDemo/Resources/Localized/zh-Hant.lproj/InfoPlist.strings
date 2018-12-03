@@ -1,0 +1,7 @@
+"CFBundleDisplayName" = "塗圖短視頻";
+"CFBundleName" = "塗圖短視頻";
+"NSLocationWhenInUseUsageDescription" = "錄製需要獲取您的位置";
+"NSMicrophoneUsageDescription" = "錄音需要您的麥克風權限";
+"NSCameraUsageDescription" = "錄製視頻需要您的攝像頭權限";
+"NSPhotoLibraryAddUsageDescription" = "獲取視頻需要您的相冊權限";
+"NSPhotoLibraryUsageDescription" = "保存視頻需要您的相冊權限";
