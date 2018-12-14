@@ -10,6 +10,8 @@
 #import "TuSDKVideoImport.h"
 #import "TuSDKVideoResult.h"
 
+@protocol TuSDKVideoCameraFaceDetectionDelegate;
+
 /** 贴纸可以同时使用的的最大数量*/
 #define LSQ_SMART_STICKER_MAX_NUM 5
 
@@ -30,7 +32,16 @@ typedef NS_ENUM(NSInteger, lsqFrameFormatType)
     lsqFormatTypeRawData,
 };
 
-#pragma mark - SLGPUImageVideoCamera (lsqExt)
+/** 人脸信息检测结果类型 */
+typedef NS_ENUM(NSUInteger,lsqVideoCameraFaceDetectionResultType) {
+    /** No face is detected */
+    lsqVideoCameraFaceDetectionResultTypeNoFaceDetected,
+    /** Succeed */
+    lsqVideoCameraFaceDetectionResultTypeFaceDetected
+};
+
+
+#pragma mark - GPUImageVideoCamera (lsqExt)
 
 @interface SLGPUImageVideoCamera (lsqExt)
 
@@ -76,9 +87,21 @@ typedef NS_ENUM(NSInteger, lsqFrameFormatType)
 @property (nonatomic, weak) id<TuSDKVideoCameraSampleBufferDelegate> sampleBufferDelegate;
 
 /**
+ * 人脸检测结果委托
+ * @since v3.0.1
+ */
+@property (nonatomic, weak) id<TuSDKVideoCameraFaceDetectionDelegate> faceDetectionDelegate;
+
+/**
  *  相机状态
  */
 @property (nonatomic, readonly) lsqCameraState state;
+
+/**
+ 人脸检测结果
+ @since v3.0.1
+ */
+@property (nonatomic, readonly) lsqVideoCameraFaceDetectionResultType faceDetectionResultType;
 
 /**
  *  采集尺寸
@@ -350,5 +373,23 @@ typedef NS_ENUM(NSInteger, lsqFrameFormatType)
  *  销毁
  */
 - (void)destory;
+
+@end
+
+/**
+ * 人脸检测事件委托
+ * @since v3.0.1
+ */
+@protocol TuSDKVideoCameraFaceDetectionDelegate <NSObject>
+
+@optional
+/**
+ *  人脸检测事件委托 (如需操作UI线程， 请检查当前线程是否为主线程)
+ *
+ *  @param videoCamera 相机对象
+ *  @param type 人脸检测结果
+ *  @param count 检测到的人脸数量
+ */
+- (void)onVideoCamera:(TuSDKVideoCameraBase *)videoCamera faceDetectionResultType:(lsqVideoCameraFaceDetectionResultType)type faceCount:(NSUInteger)count;
 
 @end
