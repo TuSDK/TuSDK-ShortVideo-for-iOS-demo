@@ -41,10 +41,6 @@
 
 @implementation SceneEffectViewController
 
-- (void)dealloc {
-    NSLog(@"%s", __FUNCTION__);
-}
-
 /**
  完成按钮事件
 

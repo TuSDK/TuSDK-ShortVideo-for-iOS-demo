@@ -154,7 +154,7 @@
  @return TuSDKMediaTimeSliceEntity
  @since      v3.0
  */
-- (TuSDKMediaTimeSliceEntity *)findSliceEntityWithInputTime:(CMTime)inputTime;
+- (TuSDKMediaTimeSliceEntity *_Nonnull)findSliceEntityWithInputTime:(CMTime)inputTime;
 
 /**
  根据输出时间查找切片信息
@@ -163,7 +163,7 @@
  @return TuSDKMediaTimeSliceEntity
  @since      v3.0
  */
-- (TuSDKMediaTimeSliceEntity *)sliceEntityWithOutputTime:(CMTime)outputTime;
+- (TuSDKMediaTimeSliceEntity *_Nullable)sliceEntityWithOutputTime:(CMTime)outputTime;
 
 @end
 

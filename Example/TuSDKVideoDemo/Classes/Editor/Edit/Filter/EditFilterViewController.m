@@ -32,10 +32,6 @@
 
 @implementation EditFilterViewController
 
-- (void)dealloc {
-    NSLog(@"%s", __FUNCTION__);
-}
-
 + (CGFloat)bottomPreviewOffset {
     return 132;
 }

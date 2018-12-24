@@ -9,13 +9,14 @@
 #import "TuSDKVideoImport.h"
 #import "TuSDKMediaEffectTypes.h"
 #import "TuSDKTimeRange.h"
+#import "TuSDKMediaEffectParameterProtocol.h"
 
 /**
  特效数据接口
  
  @since v3.0.1
  */
-@protocol TuSDKMediaEffect <NSObject,NSCopying>
+@protocol TuSDKMediaEffect <NSObject,NSCopying,TuSDKMediaEffectParameterProtocol>
 
 /**
  * 时间范围

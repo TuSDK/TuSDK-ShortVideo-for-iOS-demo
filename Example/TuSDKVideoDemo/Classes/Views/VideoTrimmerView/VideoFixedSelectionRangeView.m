@@ -48,8 +48,6 @@ static const CGFloat kBorderWidth = 2;
 
 @implementation VideoFixedSelectionRangeView
 
-- (void)dealloc {}
-
 - (instancetype)initWithCoder:(NSCoder *)decoder {
     if (self = [super initWithCoder:decoder]) {
         [self commonInit];

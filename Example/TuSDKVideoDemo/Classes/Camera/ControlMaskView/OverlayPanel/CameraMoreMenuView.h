@@ -7,7 +7,7 @@
 //
 
 #import "VerticalMenuView.h"
-#import "OverlayViewPtotocol.h"
+#import "OverlayViewProtocol.h"
 #import "TuSDKFramework.h"
 
 @class CameraMoreMenuView;
@@ -49,7 +49,7 @@
 
 @end
 
-@interface CameraMoreMenuView : VerticalMenuView <OverlayViewPtotocol>
+@interface CameraMoreMenuView : VerticalMenuView <OverlayViewProtocol>
 
 /**
  触发者，外部赋值

@@ -7,43 +7,80 @@
 //
 
 #import "CameraBeautySkinListView.h"
+#import "Constants.h"
+#import "CameraBeautyFaceListItemView.h"
+
+@interface CameraBeautySkinListView ()
+
+@end
 
 @implementation CameraBeautySkinListView
+
++ (Class)listItemViewClass {
+    return [CameraBeautyFaceListItemView class];
+}
 
 - (void)commonInit {
     [super commonInit];
     
+    NSArray *faceFeatures = @[kBeautySkinKeys];
+    _useSkinNatural = YES;
     // 配置 UI
-    self.itemSize = CGSizeMake(52, 52);
-    self.itemSpacing = 8;
-    [self addItemViewsWithCount:kBeautyLevelCount config:^(HorizontalListView *listView, NSUInteger index, HorizontalListItemView *itemView) {
-        UILabel *indexLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        indexLabel.font = [UIFont systemFontOfSize:16];
-        indexLabel.textAlignment = NSTextAlignmentCenter;
-        indexLabel.textColor = [UIColor whiteColor];
-        indexLabel.text = @(index + 1).description;
-        itemView.thumbnailView = (UIImageView *)indexLabel;
-        [itemView.titleLabel removeFromSuperview];
-        itemView.layer.cornerRadius = listView.itemSize.width / 2.0;
-        itemView.maxTapCount = 2;
+    self.autoItemSize = YES;
+    [self addItemViewsWithCount:faceFeatures.count config:^(HorizontalListView *listView, NSUInteger index, HorizontalListItemView *_itemView) {
+        NSString *faceFeature = faceFeatures[index];
+        // 标题
+        NSString *title = [NSString stringWithFormat:@"lsq_filter_set_%@", faceFeature];
+        _itemView.titleLabel.text = NSLocalizedStringFromTable(title, @"TuSDKConstants", @"无需国际化");
+        // 缩略图
+        NSString *imageName = [NSString stringWithFormat:@"face_ic_%@", faceFeature];
+        UIImage *image = [[UIImage imageNamed:imageName] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        _itemView.thumbnailView.image = image;
     }];
-    HorizontalListItemView *disbaleItemView = [HorizontalListItemView disableItemView];
-    disbaleItemView.layer.cornerRadius = self.itemSize.width / 2.0;
-    [self insertItemView:disbaleItemView atIndex:0];
+    
+    // 重置按钮
+    HorizontalListItemView *resetItemView = [CameraBeautyFaceListItemView itemViewWithImage:[UIImage imageNamed:@"ic_nix"] title:nil];
+    resetItemView.disableSelect = YES;
+    resetItemView.titleLabel.text = @"  ";
+    [self insertItemView:resetItemView atIndex:0];
+    
+    // 白点分割按钮
+    CameraBeautyFaceListItemView *dotItemView = [CameraBeautyFaceListItemView new];
+    dotItemView.itemWidth = 4;
+    dotItemView.thumbnailView.backgroundColor = [UIColor grayColor];
+    dotItemView.disableSelect = YES;
+    dotItemView.titleLabel.text = @"  ";
+    [self insertItemView:dotItemView atIndex:2];
+    
+    [self setUseSkinNatural:_useSkinNatural];
 }
 
-- (void)setSelectedIndex:(NSInteger)selectedIndex {
-    [self itemViewAtIndex:self.selectedIndex].thumbnailView.hidden = NO;
-    [super setSelectedIndex:selectedIndex];
-    if (self.selectedIndex > 0) [self itemViewAtIndex:self.selectedIndex].thumbnailView.hidden = YES;
+/**
+ 设置是否使用自然美颜
+
+ @param useSkinNatural true/false
+ */
+- (void)setUseSkinNatural:(BOOL)useSkinNatural;
+{
+    HorizontalListItemView *itemView = [self itemViewAtIndex:1];
+    itemView.selected = NO;
+    NSString *code = useSkinNatural ? @"skin_precision" : @"skin_extreme";
+    // 标题
+    NSString *title = [NSString stringWithFormat:@"lsq_filter_set_%@", code];
+    itemView.titleLabel.text = NSLocalizedStringFromTable(title, @"TuSDKConstants", @"无需国际化");
+    // 缩略图
+    NSString *imageName = [NSString stringWithFormat:@"face_ic_%@", code];
+    UIImage *image = [[UIImage imageNamed:imageName] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    itemView.thumbnailView.image = image;
+    
+    _useSkinNatural = useSkinNatural;
 }
 
-- (void)setLevel:(int)level {
-    if (level > 5 || level < 0) {
-        return;
-    }
-    _level = level;
-    self.selectedIndex = level;
+- (NSString *)selectedSkinKey;
+{
+    if (self.selectedIndex > 2 && self.selectedIndex - 2 < @[kBeautySkinKeys].count)
+        return @[kBeautySkinKeys][self.selectedIndex - 2];
+    return nil;
 }
 
 #pragma mark HorizontalListItemViewDelegate
@@ -53,8 +90,19 @@
  */
 - (void)itemViewDidTap:(HorizontalListItemView *)tapedItemView {
     [super itemViewDidTap:tapedItemView];
-    _level = (int)self.selectedIndex;
-    if (self.itemViewTapActionHandler) self.itemViewTapActionHandler(self, tapedItemView, _level);
+  
+    switch (self.selectedIndex) {
+        case 0:
+            break;
+        case 1:// 切换美颜模类型
+            [self setUseSkinNatural:!_useSkinNatural];
+            break;
+        default:
+    
+            break;
+    }
+    
+    if (self.itemViewTapActionHandler) self.itemViewTapActionHandler(self, tapedItemView);
 }
 
 @end

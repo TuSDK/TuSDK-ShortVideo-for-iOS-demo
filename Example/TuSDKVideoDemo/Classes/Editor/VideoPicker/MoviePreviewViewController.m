@@ -45,10 +45,6 @@
 
 @implementation MoviePreviewViewController
 
-- (void)dealloc {
-    NSLog(@"%s", __FUNCTION__);
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     

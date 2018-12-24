@@ -12,7 +12,6 @@
 #import "PageTabbar.h"
 #import "ViewSlider.h"
 #import "Constants.h"
-#import "CameraBeautySkinListView.h"
 #import "CameraBeautyFaceListView.h"
 
 // 美颜列表高度
@@ -23,16 +22,16 @@ static const CGFloat kBeautyTabbarHeight = 30;
 static const CGFloat kBeautyListParamtersViewSpacing = 24;
 
 @interface CameraBeautyPanelView () <PageTabbarDelegate, ViewSliderDataSource, ViewSliderDelegate>
+/**
+ 微整形列表
+ */
+@property (nonatomic, strong) CameraBeautyFaceListView *beautyFaceListView;
 
 /**
  美颜列表
  */
 @property (nonatomic, strong) CameraBeautySkinListView *beautySkinListView;
 
-/**
- 微整形列表
- */
-@property (nonatomic, strong) CameraBeautyFaceListView *beautyFaceListView;
 
 /**
  参数调节视图
@@ -74,31 +73,57 @@ static const CGFloat kBeautyListParamtersViewSpacing = 24;
 - (void)commonInit {
     __weak typeof(self) weakSelf = self;
     
-    _beautySkinListView = [[CameraBeautySkinListView alloc] initWithFrame:CGRectZero];
-    _beautySkinListView.itemViewTapActionHandler = ^(CameraBeautySkinListView *listView, HorizontalListItemView *selectedItemView, int level) {
-        weakSelf.paramtersView.hidden = selectedItemView.tapCount < selectedItemView.maxTapCount;
-        [weakSelf reloadFilterParamters];
-    };
-    // 默认选中二级滤镜
-    _beautySkinListView.level = 1;
-    
-    _beautyFaceListView = [[CameraBeautyFaceListView alloc] initWithFrame:CGRectZero];
-    _beautyFaceListView.itemViewTapActionHandler = ^(CameraBeautyFaceListView *listView, HorizontalListItemView *selectedItemView, NSString *faceFeature) {
-        weakSelf.paramtersView.hidden = faceFeature == nil;
-        if (faceFeature) {
-            [weakSelf reloadFilterParamters];
-        } else {
-            [weakSelf resetBeautyFaceFilterParamters];
-        }
-    };
-    
     _paramtersView = [[ParametersAdjustView alloc] initWithFrame:CGRectZero];
     [self addSubview:_paramtersView];
     _paramtersView.hidden = YES;
     
+    _beautySkinListView = [[CameraBeautySkinListView alloc] initWithFrame:CGRectZero];
+    _beautySkinListView.itemViewTapActionHandler = ^(CameraBeautySkinListView *listView, HorizontalListItemView *selectedItemView) {
+      
+        // 重置参数
+        if (listView.selectedIndex == 0)
+        {
+            [weakSelf resetParamters];
+            
+        }else if([weakSelf.delegate respondsToSelector:@selector(filterPanel:didSelectedFilterCode:)])
+        {
+             // 切换美颜模式
+            NSUInteger index = MAX(listView.selectedIndex - 2, 0);
+            [weakSelf.delegate filterPanel:weakSelf didSelectedFilterCode:@[kBeautySkinKeys][index]];
+    
+            // 切换新的美颜时，默认切换到第一个滤镜参数
+            if (listView.selectedIndex < 3)
+                [listView setSelectedIndex:3];
+        }
+        
+        weakSelf.paramtersView.hidden = listView.selectedIndex == 0;
+        [weakSelf reloadFilterParamters];
+        
+    };
+
+    
     _effectBackgroundView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleDark]];
     [self addSubview:_effectBackgroundView];
     
+    _beautyFaceListView = [[CameraBeautyFaceListView alloc] initWithFrame:CGRectZero];
+    _beautyFaceListView.itemViewTapActionHandler = ^(CameraBeautyFaceListView *listView, HorizontalListItemView *selectedItemView, NSString *faceFeature) {
+        weakSelf.paramtersView.hidden = faceFeature == nil;
+        
+        // 重置参数
+        if (listView.selectedIndex == 0) {
+            [weakSelf resetParamters];
+        } else {
+          
+            if ([weakSelf.delegate respondsToSelector:@selector(filterPanel:didSelectedFilterCode:)]) {
+                [weakSelf.delegate filterPanel:weakSelf didSelectedFilterCode:@[kBeautyFaceKeys][listView.selectedIndex - 1]];
+            }
+            [weakSelf reloadBeautyFaceParamters];
+
+        }
+    };
+    
+  [self addSubview:_beautyFaceListView];
+
     PageTabbar *tabbar = [[PageTabbar alloc] initWithFrame:CGRectZero];
     [self addSubview:tabbar];
     _tabbar = tabbar;
@@ -107,7 +132,7 @@ static const CGFloat kBeautyListParamtersViewSpacing = 24;
     tabbar.itemSelectedColor = [UIColor whiteColor];
     tabbar.itemNormalColor = [UIColor colorWithWhite:1 alpha:.25];
     tabbar.delegate = self;
-    tabbar.itemTitles = @[NSLocalizedStringFromTable(@"tu_美颜", @"VideoDemo", @"美颜"), NSLocalizedStringFromTable(@"tu_微整形", @"VideoDemo", @"微整形")];
+    tabbar.itemTitles = @[NSLocalizedStringFromTable(@"tu_美肤", @"VideoDemo", @"美肤"), NSLocalizedStringFromTable(@"tu_微整形", @"VideoDemo", @"微整形")];
     tabbar.disableAnimation = YES;
     tabbar.itemTitleFont = [UIFont systemFontOfSize:13];
     
@@ -118,6 +143,7 @@ static const CGFloat kBeautyListParamtersViewSpacing = 24;
     pageSlider.delegate = self;
     pageSlider.selectedIndex = 0;
     pageSlider.disableSlide = YES;
+
 }
 
 - (void)layoutSubviews {
@@ -132,7 +158,7 @@ static const CGFloat kBeautyListParamtersViewSpacing = 24;
     _tabbar.frame = CGRectMake(CGRectGetMinX(safeBounds), tabbarY, CGRectGetWidth(safeBounds), kBeautyTabbarHeight);
     const CGFloat pageSliderHeight = kBeautyListHeight - kBeautyTabbarHeight;
     _pageSlider.frame = CGRectMake(CGRectGetMinX(safeBounds), CGRectGetMaxY(_tabbar.frame), CGRectGetWidth(safeBounds), pageSliderHeight);
-    
+
     const CGFloat paramtersViewAvailableHeight = CGRectGetMaxY(safeBounds) - kBeautyListHeight - kBeautyListParamtersViewSpacing;
     const CGFloat paramtersViewSideMargin = 15;
     const CGFloat paramtersViewHeight = _paramtersView.contentHeight;
@@ -150,13 +176,25 @@ static const CGFloat kBeautyListParamtersViewSpacing = 24;
     return self.alpha > 0.0;
 }
 
-- (NSInteger)selectedIndex {
-    return _tabbar.selectedIndex;
+-(BOOL)useSkinNatural;
+{
+    return _beautySkinListView.useSkinNatural;
+}
+
+-(NSString *)selectedSkinKey;
+{
+    return _beautySkinListView.selectedSkinKey;
+}
+
+
+- (NSInteger)selectedTabIndex;
+{
+    return _pageSlider.selectedIndex;
 }
 
 #pragma mark - private
 
-- (void)resetBeautyFaceFilterParamters {
+- (void)resetParamters {
     NSArray *beautyFaceKeys = @[kBeautyFaceKeys];
     if ([self.delegate respondsToSelector:@selector(filterPanel:resetParamterKeys:)]) {
         [self.delegate filterPanel:self resetParamterKeys:beautyFaceKeys];
@@ -166,47 +204,21 @@ static const CGFloat kBeautyListParamtersViewSpacing = 24;
 #pragma mark - public
 
 /**
- 重载、同步美颜参数
- */
-- (void)reloadBeautySkinParamters {
-    NSArray *beautySkinKeys = @[kBeautySkinKeys];
-    __weak typeof(self) weakSelf = self;
-    [_paramtersView setupWithParameterCount:self.dataSource.numberOfParamter config:^(NSUInteger index, ParameterAdjustItemView *itemView, void (^parameterItemConfig)(NSString *name, double percent)) {
-        // 参数名称
-        NSString *parameterName = [self.dataSource paramterNameAtIndex:index];
-        // 是否进行配置
-        BOOL shouldConfig = [beautySkinKeys containsObject:parameterName];
-        if (!shouldConfig) return;
-        
-        // 参数百分比值
-        double percentValue = (double)self.beautySkinListView.level / kBeautyLevelCount;
-        // 应用参数名称和参数值
-        parameterName = [NSString stringWithFormat:@"lsq_filter_set_%@", parameterName];
-        parameterItemConfig(NSLocalizedStringFromTable(parameterName, @"TuSDKConstants", @"无需国际化"), percentValue);
-        if ([self.delegate respondsToSelector:@selector(filterPanel:didChangeValue:paramterIndex:)]) {
-            [self.delegate filterPanel:self didChangeValue:percentValue paramterIndex:index];
-        }
-    } valueChange:^(NSUInteger index, double percent) {
-        if ([weakSelf.delegate respondsToSelector:@selector(filterPanel:didChangeValue:paramterIndex:)]) {
-            [weakSelf.delegate filterPanel:weakSelf didChangeValue:percent paramterIndex:index];
-        }
-    }];
-}
-
-/**
  更新显示微整形参数
  */
 - (void)reloadBeautyFaceParamters {
     __weak typeof(self) weakSelf = self;
-    [_paramtersView setupWithParameterCount:self.dataSource.numberOfParamter config:^(NSUInteger index, ParameterAdjustItemView *itemView, void (^parameterItemConfig)(NSString *name, double percent)) {
+    [_paramtersView setupWithParameterCount:[self.dataSource numberOfParamter:self] config:^(NSUInteger index, ParameterAdjustItemView *itemView, void (^parameterItemConfig)(NSString *name, double percent)) {
+    
         // 参数名称
-        NSString *parameterName = [self.dataSource paramterNameAtIndex:index];
+        NSString *parameterName = [self.dataSource filterPanel:weakSelf paramterNameAtIndex:index];
+
         // 是否进行配置，只更新选中项参数
-        BOOL shouldConfig = [self.beautyFaceListView.selectedFaceFeature isEqualToString:parameterName];
-        if (!shouldConfig) return;
+        BOOL shouldConfig =  self.selectedTabIndex == 1 && ![self.beautyFaceListView.selectedFaceFeature isEqualToString:parameterName];
+        if (shouldConfig) return;
         
         // 参数值为从数据源获取的值
-        double percentValue = [self.dataSource percentValueAtIndex:index];
+        double percentValue = [self.dataSource filterPanel:weakSelf percentValueAtIndex:index];
         
         // 显示偏移取值范围
         if ([parameterName isEqualToString:@"mouthWidth"] ||
@@ -227,30 +239,57 @@ static const CGFloat kBeautyListParamtersViewSpacing = 24;
     }];
 }
 
+
+/**
+ 更新显示美颜参数
+ */
+- (void)reloadSkinFaceParamters {
+    __weak typeof(self) weakSelf = self;
+    [_paramtersView setupWithParameterCount:[self.dataSource numberOfParamter:self] config:^(NSUInteger index, ParameterAdjustItemView *itemView, void (^parameterItemConfig)(NSString *name, double percent)) {
+        
+        // 参数名称
+        NSString *parameterName = [self.dataSource filterPanel:weakSelf paramterNameAtIndex:index];    
+        // 参数值为从数据源获取的值
+        double percentValue = [self.dataSource filterPanel:weakSelf percentValueAtIndex:index];
+
+        // 更新显示参数名称和参数值
+        parameterName = [NSString stringWithFormat:@"lsq_filter_set_%@", parameterName];
+        parameterItemConfig(NSLocalizedStringFromTable(parameterName, @"TuSDKConstants", @"无需国际化"), percentValue);
+    } valueChange:^(NSUInteger index, double percent) {
+        if ([weakSelf.delegate respondsToSelector:@selector(filterPanel:didChangeValue:paramterIndex:)]) {
+            [weakSelf.delegate filterPanel:weakSelf didChangeValue:percent paramterIndex:index];
+        }
+    }];
+}
+
+
 /**
  重载滤镜参数值
  */
 - (void)reloadFilterParamters {
     if (!self.display && self.paramtersView.hidden) return;
-    if (self.tabbar.selectedIndex == 0) { // 当前为美颜列表
-        [self reloadBeautySkinParamters];
-    } else if (self.tabbar.selectedIndex == 1) { // 当前为微整形列表
-        [self reloadBeautyFaceParamters];
+    
+    switch (self.selectedTabIndex) {
+        case 0:
+            [self reloadSkinFaceParamters];
+            break;
+        default:
+            [self reloadBeautyFaceParamters];
+            break;
     }
+    
 }
 
-#pragma mark - PageTabbarDelegate
-
 /**
- 标签项选中回调
- 
- @param tabbar 标签栏对象
- @param fromIndex 起始索引
- @param toIndex 目标索引
- */
+  - 标签项选中回调
+  -
+  - @param tabbar 标签栏对象
+  - @param fromIndex 起始索引
+  - @param toIndex 目标索引
+  - */
 - (void)tabbar:(PageTabbar *)tabbar didSwitchFromIndex:(NSInteger)fromIndex toIndex:(NSInteger)toIndex {
-    _pageSlider.selectedIndex = toIndex;
-    [self reloadFilterParamters];
+        _pageSlider.selectedIndex = toIndex;
+     [self reloadFilterParamters];
 }
 
 #pragma mark - ViewSliderDataSource
@@ -263,32 +302,35 @@ static const CGFloat kBeautyListParamtersViewSpacing = 24;
 }
 
 /**
- 各分页显示的视图
- */
+  各分页显示的视图
+   */
 - (UIView *)viewSlider:(ViewSlider *)slider viewAtIndex:(NSInteger)index {
     switch (index) {
-        case 0:{
-            return _beautySkinListView;
-        } break;
-        case 1:{
-            return _beautyFaceListView;
-        } break;
-        default:{
-            return nil;
-        } break;
-    }
+           case 0:{
+               return _beautySkinListView;
+          } break;
+             case 1:{
+                return _beautyFaceListView;
+            } break;
+            default:{
+                  return nil;
+
+                
+            } break;
+      }
 }
 
 #pragma mark - ViewSliderDelegate
 
 /**
- 切换分页回调
+   切换分页回调
  
- @param slider 分页控件
- @param index 目标页面索引
- */
-- (void)viewSlider:(ViewSlider *)slider didSwitchToIndex:(NSInteger)index {
-    _tabbar.selectedIndex = index;
+  @param slider 分页控件
+  @param index 目标页面索引
+  */
+-(void)viewSlider:(ViewSlider *)slider didSwitchToIndex:(NSInteger)index {
+      _tabbar.selectedIndex = index;
+       [self reloadBeautyFaceParamters];
 }
 
 #pragma mark - touch

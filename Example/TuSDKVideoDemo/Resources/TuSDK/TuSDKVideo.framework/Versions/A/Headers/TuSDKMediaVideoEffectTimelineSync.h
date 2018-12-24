@@ -8,10 +8,11 @@
 
 #import <Foundation/Foundation.h>
 #import "TuSDKMediaEffect.h"
-#import "TuSDKMediaPlasticEffectSync.h"
 #import "TuSDKComboFilterWrapChain.h"
+#import "TuSDKMediaEffectSync.h"
 
-@interface TuSDKMediaVideoEffectSync : NSObject <TuSDKMediaPlasticEffectSync>
+@interface TuSDKMediaVideoEffectTimelineSync : NSObject <TuSDKMediaEffectSync,TuSDKFilterFacePositionProtocol>
+
 {
     @protected
     TuSDKComboFilterWrapChain *_wrapChain;

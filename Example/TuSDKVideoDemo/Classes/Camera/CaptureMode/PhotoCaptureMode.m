@@ -11,12 +11,7 @@
 #import "RecordButton.h"
 #import "TuSDKFramework.h"
 
-@interface PhotoCaptureMode ()
-
-/**
- 录制按钮（拍照功能）
- */
-@property (nonatomic, strong) RecordButton *recordButton;
+@interface PhotoCaptureMode ()<RecordButtonDelegate>
 
 /**
  拍照结果
@@ -26,10 +21,6 @@
 @end
 
 @implementation PhotoCaptureMode
-
-- (void)dealloc {
-    NSLog(@"%s", __FUNCTION__);
-}
 
 /**
  初始化相机控制器
@@ -49,22 +40,18 @@
  创建按钮
  */
 - (void)commonInit {
-    RecordButton *recordButton = [RecordButton buttonWithType:UIButtonTypeSystem];
-    _recordButton = recordButton;
-    recordButton.contentSize = CGSizeMake(72, 72);
-    recordButton.dotColor = [UIColor whiteColor];
-    [recordButton addTarget:self action:@selector(recordButtonTapAction:) forControlEvents:UIControlEventTouchUpInside];
+    RecordButton *captureButton = _cameraController.controlMaskView.captureButton;
+    [captureButton addDelegate:self];
 }
 
 /**
  更新界面
  */
 - (void)updateModeUI {
-    for (UIView *view in _cameraController.controlMaskView.captureButtonStackView.arrangedSubviews) {
-        [_cameraController.controlMaskView.captureButtonStackView removeArrangedSubview:view];
-        [view removeFromSuperview];
-    }
-    [_cameraController.controlMaskView.captureButtonStackView addArrangedSubview:_recordButton];
+    RecordButton *captureButton = _cameraController.controlMaskView.captureButton;
+    [captureButton switchStyle:RecordButtonStylePhoto];
+    captureButton.panEnable = NO;
+    
     _cameraController.controlMaskView.moreMenuView.pitchHidden = YES;
     
     [UIView animateWithDuration:kAnimationDuration animations:^{
@@ -84,24 +71,7 @@
 #pragma mark - 按钮事件
 
 /**
- 拍照事件
-
- @param sender 录制按钮（拍照功能）
- */
-- (void)recordButtonTapAction:(UIButton *)sender {
-    UIImage *capturedImage = self.cameraController.captureImage;
-    _capturedImage = capturedImage;
-    CGFloat ratio = self.cameraController.ratio;
-    [_cameraController.controlMaskView showPhotoCaptureConfirmViewWithConfig:^(PhotoCaptureConfirmView *confirmView) {
-        confirmView.photoView.image = capturedImage;
-        [confirmView.doneButton addTarget:self action:@selector(doneButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-        [confirmView.backButton addTarget:self action:@selector(backButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-        confirmView.photoRatio = ratio;
-    }];
-}
-
-/**
- 点击拍照事件
+ 完成按钮事件
 
  @param sender 录制按钮（拍照功能）
  */
@@ -119,12 +89,37 @@
 }
 
 /**
- 返回主页面
+ 返回按钮事件
 
  @param sender 录制按钮（拍照功能）
  */
 - (void)backButtonAction:(UIButton *)sender {
     [_cameraController.controlMaskView hidePhotoCaptureConfirmView];
+}
+
+#pragma mark - RecordButtonDelegate
+
+/**
+ 录制按钮按下回调
+ */
+- (void)recordButtonDidTouchDown:(RecordButton *)sender {
+    sender.selected = YES;
+}
+
+/**
+ 录制按钮抬起或结束触摸回调
+ */
+- (void)recordButtonDidTouchEnd:(RecordButton *)sender {
+    sender.selected = NO;
+    UIImage *capturedImage = self.cameraController.captureImage;
+    _capturedImage = capturedImage;
+    CGFloat ratio = self.cameraController.ratio;
+    [_cameraController.controlMaskView showPhotoCaptureConfirmViewWithConfig:^(PhotoCaptureConfirmView *confirmView) {
+        confirmView.photoView.image = capturedImage;
+        [confirmView.doneButton addTarget:self action:@selector(doneButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+        [confirmView.backButton addTarget:self action:@selector(backButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+        confirmView.photoRatio = ratio;
+    }];
 }
 
 @end

@@ -70,10 +70,6 @@ static const NSTimeInterval kMinCutDuration = 3.0;
 
 @implementation MovieCutViewController
 
-- (void)dealloc {
-    NSLog(@"%s", __FUNCTION__);
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupUI];

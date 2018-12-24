@@ -8,8 +8,6 @@
 
 #import "HorizontalListView.h"
 
-// 滤镜等级数量
-static const int kBeautyLevelCount = 5;
 
 /**
  美颜滤镜列表
@@ -19,11 +17,16 @@ static const int kBeautyLevelCount = 5;
 /**
  点击回调
  */
-@property (nonatomic, copy) void (^itemViewTapActionHandler)(CameraBeautySkinListView *listView, HorizontalListItemView *selectedItemView, int level);
+@property (nonatomic, copy) void (^itemViewTapActionHandler)(CameraBeautySkinListView *listView, HorizontalListItemView *selectedItemView);
 
 /**
- 选中的美颜等级
+ 标记当前是否选择了自然美颜
  */
-@property (nonatomic, assign) int level;
+@property (nonatomic,readonly) BOOL useSkinNatural;
+
+/**
+ 当前选择的美颜参数 （润滑，磨皮，红润）
+ */
+@property (nonatomic,readonly) NSString* selectedSkinKey;
 
 @end

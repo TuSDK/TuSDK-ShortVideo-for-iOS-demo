@@ -211,12 +211,14 @@ static const CGFloat kFilterTabbarHeight = 30;
         return;
     }
     __weak typeof(self) weakSelf = self;
-    [_paramtersView setupWithParameterCount:self.dataSource.numberOfParamter config:^(NSUInteger index, ParameterAdjustItemView *itemView, void (^parameterItemConfig)(NSString *name, double percent)) {
-        NSString *parameterName = [self.dataSource paramterNameAtIndex:index];
+    
+    
+    [_paramtersView setupWithParameterCount:[self.dataSource numberOfParamter:self] config:^(NSUInteger index, ParameterAdjustItemView *itemView, void (^parameterItemConfig)(NSString *name, double percent)) {
+        NSString *parameterName = [self.dataSource filterPanel:weakSelf  paramterNameAtIndex:index];
         // 跳过美颜、美型滤镜参数
         BOOL shouldSkip = [self shouldSkipFilterKey:parameterName];
         if (!shouldSkip) {
-            double percentVale = [self.dataSource percentValueAtIndex:index];
+            double percentVale = [self.dataSource filterPanel:weakSelf percentValueAtIndex:index];
             parameterName = [NSString stringWithFormat:@"lsq_filter_set_%@", parameterName];
             parameterItemConfig(NSLocalizedStringFromTable(parameterName, @"TuSDKConstants", @"无需国际化"), percentVale);
         }

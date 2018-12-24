@@ -44,10 +44,6 @@
 
 @implementation EditEffectViewController
 
-- (void)dealloc {
-    NSLog(@"%s", __FUNCTION__);
-}
-
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     // 恢复到首帧

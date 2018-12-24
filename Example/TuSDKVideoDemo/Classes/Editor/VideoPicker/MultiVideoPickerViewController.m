@@ -26,10 +26,6 @@ static const NSTimeInterval kMinDuration = 3.0;
 
 @implementation MultiVideoPickerViewController
 
-- (void)dealloc {
-    NSLog(@"%s", __FUNCTION__);
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupUI];

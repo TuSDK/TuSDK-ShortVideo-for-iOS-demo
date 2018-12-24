@@ -55,6 +55,7 @@
 @end
 
 #pragma mark - TuSDKRecordVideoCamera
+
 /**
  *  视频录制相机 (采集 + 处理 + 录制)
  */
@@ -157,7 +158,7 @@
 /**
  *  是否正在录制
  *
- *  @return 
+ *  @return BOOL YES 正在录制
  */
 - (BOOL)isRecording;
 

@@ -62,7 +62,7 @@
 
  @return 参数数量
  */
-- (NSInteger)numberOfParamter;
+- (NSInteger)numberOfParamter:(id<CameraFilterPanelProtocol>)filterPanel;
 
 /**
  对应索引的参数名称
@@ -70,7 +70,7 @@
  @param index 滤镜参数的索引
  @return 滤镜参数的名称
  */
-- (NSString *)paramterNameAtIndex:(NSUInteger)index;
+- (NSString *)filterPanel:(id<CameraFilterPanelProtocol>)filterPanel  paramterNameAtIndex:(NSUInteger)index;
 
 /**
  滤镜参数对应索引的参数值
@@ -78,7 +78,7 @@
  @param index 滤镜参数的索引
  @return 对应参数的数值
  */
-- (double)percentValueAtIndex:(NSUInteger)index;
+- (double)filterPanel:(id<CameraFilterPanelProtocol>)filterPanel  percentValueAtIndex:(NSUInteger)index;
 
 @end
 

@@ -13,7 +13,7 @@
  滤镜特效
  @since v2.2.0
  */
-@interface TuSDKMediaFilterEffect : TuSDKMediaEffectCore 
+@interface TuSDKMediaFilterEffect : TuSDKMediaEffectCore <TuSDKMediaEffectParameterProtocol>
 
 /**
  初级滤镜code初始化
@@ -41,60 +41,9 @@
 
 /**
  设置是否开启大眼瘦脸 默认：NO
+ 该配置已废弃，在 v3.2.0 版本中已新增 TuSDKMediaPlasticFaceEffect 特效。
  @since v2.2.0
  */
-@property (nonatomic) BOOL enablePlastic;
-
-@end
-
-#pragma mark Filter Parameters
-
-/**
- 获取及设置滤镜参数
- @since v2.2.0
- */
-@interface TuSDKMediaFilterEffect (FilterParameters)
-
-/**
- 获取所有可调节的滤镜参数
-
- @return NSArray<TuSDKFilterArg *> *
- @since v2.2.0
- */
-- (NSArray<TuSDKFilterArg *> *)filterArgs;
-
-/**
- *  获取滤镜参数
- *
- *  @param key 参数键名
- *  @return 滤镜参数
- * @since v3.0.1
- */
-- (TuSDKFilterArg *)argWithKey:(NSString *)key;
-
-/**
- 改变滤镜参数
- 
- @param paramIndex 参数索引
- @param precent 参数值
- @since v2.2.0
- */
-- (void)submitParameter:(NSUInteger)paramIndex argPrecent:(CGFloat)precent;
-
-/**
- 改变滤镜参数
- 
- @param paramKey 参数 key
- @param precent 参数值
- @since v3.0.1
- */
-- (void)submitParameterWithKey:(NSString *)paramKey argPrecent:(CGFloat)precent;
-
-/**
- 提交滤镜参数
- 
- @since v2.2.0
- */
-- (void)submitParameters;
+@property (nonatomic) BOOL enablePlastic DEPRECATED_MSG_ATTRIBUTE("Pelease use TuSDKMediaPlasticFaceEffect");;
 
 @end

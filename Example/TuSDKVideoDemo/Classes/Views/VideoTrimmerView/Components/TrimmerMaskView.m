@@ -44,10 +44,6 @@
     CGRect _maskRect;
 }
 
-- (void)dealloc {
-    //NSLog(@"%s", __FUNCTION__);
-}
-
 - (instancetype)initWithCoder:(NSCoder *)decoder {
     if (self = [super initWithCoder:decoder]) {
         [self commonInit];

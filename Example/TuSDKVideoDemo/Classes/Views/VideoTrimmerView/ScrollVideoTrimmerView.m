@@ -60,10 +60,6 @@
     double _currentProgress;
 }
 
-- (void)dealloc {
-    //NSLog(@"%s", __FUNCTION__);
-}
-
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         [self commonInit];

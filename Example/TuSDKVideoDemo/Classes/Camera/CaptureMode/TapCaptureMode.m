@@ -10,7 +10,7 @@
 #import "CameraControllerProtocol.h"
 #import "RecordButton.h"
 
-@interface TapCaptureMode ()
+@interface TapCaptureMode ()<RecordButtonDelegate>
 
 /**
  录制按钮
@@ -20,10 +20,6 @@
 @end
 
 @implementation TapCaptureMode
-
-- (void)dealloc {
-    NSLog(@"%s", __FUNCTION__);
-}
 
 /**
  初始化相机控制器
@@ -43,11 +39,8 @@
  创建按钮
  */
 - (void)commonInit {
-    RecordButton *recordButton = [RecordButton buttonWithType:UIButtonTypeCustom];
-    _recordButton = recordButton;
-    recordButton.contentSize = CGSizeMake(72, 72);
-    [recordButton setImage:[UIImage imageNamed:@"video_ic_recording"] forState:UIControlStateNormal];
-    [recordButton addTarget:self action:@selector(recordButtonTapAction:) forControlEvents:UIControlEventTouchUpInside];
+    RecordButton *captureButton = _cameraController.controlMaskView.captureButton;
+    [captureButton addDelegate:self];
     
     [_cameraController.controlMaskView.doneButton addTarget:self action:@selector(doneButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     [_cameraController.controlMaskView.undoButton addTarget:self action:@selector(undoButtonAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -57,11 +50,10 @@
  更新界面
  */
 - (void)updateModeUI {
-    for (UIView *view in _cameraController.controlMaskView.captureButtonStackView.arrangedSubviews) {
-        [_cameraController.controlMaskView.captureButtonStackView removeArrangedSubview:view];
-        [view removeFromSuperview];
-    }
-    [_cameraController.controlMaskView.captureButtonStackView addArrangedSubview:_recordButton];
+    RecordButton *captureButton = _cameraController.controlMaskView.captureButton;
+    [captureButton switchStyle:RecordButtonStyleVideo2];
+    captureButton.panEnable = NO;
+    
     _cameraController.controlMaskView.moreMenuView.pitchHidden = NO;
     
     [UIView animateWithDuration:kAnimationDuration animations:^{
@@ -115,23 +107,6 @@
 #pragma mark - 按钮事件
 
 /**
- 开始录制事件
- 
- @param sender 录制按钮
- */
-- (void)recordButtonTapAction:(UIButton *)sender {
-    sender.selected = !sender.selected;
-    if (sender.selected) {
-        [_cameraController startRecording];
-        // 更新 UI
-        [_cameraController.controlMaskView hideViewsWhenRecording];
-    } else {
-        [_cameraController pauseRecording];
-    }
-    _cameraController.controlMaskView.moreMenuView.disableRatioSwitching = YES;
-}
-
-/**
  完成录制事件
  
  @param sender 录制按钮
@@ -160,6 +135,23 @@
 - (void)pauseRecordAction {
     [_cameraController.controlMaskView.markableProgressView pushMark];
     [_cameraController.controlMaskView showViewsWhenPauseRecording];
+}
+
+#pragma mark - RecordButtonDelegate
+
+/**
+ 录制按钮按下回调
+ */
+- (void)recordButtonDidTouchDown:(RecordButton *)sender {
+    sender.selected = !sender.selected;
+    if (sender.selected) {
+        [_cameraController startRecording];
+        // 更新 UI
+        [_cameraController.controlMaskView hideViewsWhenRecording];
+    } else {
+        [_cameraController pauseRecording];
+    }
+    _cameraController.controlMaskView.moreMenuView.disableRatioSwitching = YES;
 }
 
 @end

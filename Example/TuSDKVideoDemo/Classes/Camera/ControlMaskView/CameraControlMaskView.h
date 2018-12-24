@@ -16,6 +16,7 @@
 #import "CameraBeautyPanelView.h"
 #import "StickerPanelView.h"
 #import "CameraSpeedSegmentButton.h"
+#import "RecordButton.h"
 
 @class CameraControlMaskView;
 
@@ -30,6 +31,14 @@
  @param filterPanel 相机滤镜协议
  */
 - (void)controlMask:(CameraControlMaskView *)controlMask didShowFilterPanel:(id<CameraFilterPanelProtocol>)filterPanel;
+
+/**
+ 变焦操作回调，在该方法中实现对相机的变焦
+
+ @param controlMask 相机遮罩视图
+ @param zoomDelta 变焦倍数增量
+ */
+- (void)controlMask:(CameraControlMaskView *)controlMask didChangeZoomDelta:(CGFloat)zoomDelta;
 
 @end
 
@@ -52,11 +61,6 @@
  底部右侧工具栏
  */
 @property (nonatomic, weak) IBOutlet UIStackView *rightBottomToolBar;
-
-/**
- 录制按钮栈视图
- */
-@property (weak, nonatomic) IBOutlet UIStackView *captureButtonStackView;
 #pragma clang diagnostic pop
 
 /**
@@ -93,6 +97,11 @@
  滤镜按钮
  */
 @property (nonatomic, weak) IBOutlet UIButton *filterButton;
+
+/**
+ 录制按钮
+ */
+@property (nonatomic, weak) IBOutlet RecordButton *captureButton;
 
 /**
  完成按钮

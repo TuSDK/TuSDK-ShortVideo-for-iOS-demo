@@ -102,10 +102,6 @@ EditComponentNavigatorDelegate, FilterSwipeViewDelegate
 
 @implementation MovieEditViewController
 
-- (void)dealloc {
-    NSLog(@"%s", __FUNCTION__);
-}
-
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     // 设置屏幕常亮，默认是NO

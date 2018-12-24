@@ -7,7 +7,7 @@
 //
 
 #import "BaseStickerPanelView.h"
-#import "OverlayViewPtotocol.h"
+#import "OverlayViewProtocol.h"
 
 @class StickerPanelView, TuSDKPFStickerGroup;
 
@@ -27,7 +27,7 @@
 /**
  贴纸面板，处理了贴纸数据显示、下载与选中回调
  */
-@interface StickerPanelView : BaseStickerPanelView <OverlayViewPtotocol>
+@interface StickerPanelView : BaseStickerPanelView <OverlayViewProtocol>
 
 /**
  触发者

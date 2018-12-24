@@ -32,9 +32,6 @@ static const CGFloat kCursorWidth = 3.0;
 
 @implementation VideoTrimmerView
 
-- (void)dealloc {
-}
-
 - (instancetype)initWithCoder:(NSCoder *)decoder {
     if (self = [super initWithCoder:decoder]) {
         [self commonInit];

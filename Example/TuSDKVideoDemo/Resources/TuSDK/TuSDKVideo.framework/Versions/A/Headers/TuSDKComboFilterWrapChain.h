@@ -71,6 +71,14 @@
 - (void)removeAllFilterWrapNode;
 
 /**
+ 最后一个节点
+
+ @return TuSDKFilterWrap
+ @since v3.2.0
+ */
+- (TuSDKFilterWrap *)lastFilterWrapNode;
+
+/**
  旋转材质到图片方向
  
  @param imageOrientation 图片方向

@@ -48,10 +48,6 @@ static const NSTimeInterval kMinTimeEffectDuration = 1.0;
 
 @implementation TimeEffectViewController
 
-- (void)dealloc {
-    NSLog(@"%s", __FUNCTION__);
-}
-
 /**
  完成按钮事件
 

@@ -120,12 +120,6 @@
                                 <action selector="captureModeChangeAction:" destination="-1" eventType="valueChanged" id="r17-vr-Mkr"/>
                             </connections>
                         </view>
-                        <stackView opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="72" placeholderIntrinsicHeight="infinite" translatesAutoresizingMaskIntoConstraints="NO" id="F77-f1-dwt" userLabel="拍摄按钮栏">
-                            <rect key="frame" x="124" y="353" width="72" height="72"/>
-                            <constraints>
-                                <constraint firstAttribute="width" secondItem="F77-f1-dwt" secondAttribute="height" multiplier="1:1" id="bhZ-H3-Lru"/>
-                            </constraints>
-                        </stackView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="滤镜名称" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7aN-Oc-ulo">
                             <rect key="frame" x="119" y="116" width="82" height="24"/>
                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
@@ -144,6 +138,14 @@
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                         </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oO8-OH-WOo" customClass="RecordButton">
+                            <rect key="frame" x="124" y="353" width="72" height="72"/>
+                            <gestureRecognizers/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="oO8-OH-WOo" secondAttribute="height" multiplier="1:1" id="1ll-QH-jXY"/>
+                                <constraint firstAttribute="width" constant="72" id="VrL-BR-3ZO"/>
+                            </constraints>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <gestureRecognizers/>
@@ -155,14 +157,14 @@
                         <constraint firstAttribute="trailing" secondItem="MDl-Kv-o0L" secondAttribute="trailing" id="I6E-u4-xuZ"/>
                         <constraint firstItem="qIC-DO-fWX" firstAttribute="centerX" secondItem="fa0-nH-1hQ" secondAttribute="centerX" id="J5e-Th-t48"/>
                         <constraint firstAttribute="bottomMargin" secondItem="W3o-3h-1hc" secondAttribute="centerY" constant="83" id="Jbk-P9-mwb"/>
-                        <constraint firstItem="F77-f1-dwt" firstAttribute="centerX" secondItem="fa0-nH-1hQ" secondAttribute="centerX" id="JkO-1m-zih"/>
                         <constraint firstAttribute="bottomMargin" secondItem="MDl-Kv-o0L" secondAttribute="bottom" constant="-8" id="L32-3h-JUV"/>
                         <constraint firstItem="W3o-3h-1hc" firstAttribute="centerX" secondItem="fa0-nH-1hQ" secondAttribute="centerX" multiplier="1.5" constant="18" id="VRh-J9-hKn"/>
                         <constraint firstAttribute="bottomMargin" secondItem="QHQ-jb-gs1" secondAttribute="centerY" constant="83" id="acs-UP-clo"/>
                         <constraint firstItem="QHQ-jb-gs1" firstAttribute="leading" secondItem="fa0-nH-1hQ" secondAttribute="leading" constant="22" id="dfu-nf-0q3"/>
                         <constraint firstAttribute="bottomMargin" secondItem="qIC-DO-fWX" secondAttribute="centerY" constant="19.5" id="ivo-LE-ikY"/>
+                        <constraint firstAttribute="bottomMargin" secondItem="oO8-OH-WOo" secondAttribute="centerY" constant="83" id="l82-Or-neT"/>
                         <constraint firstItem="QHQ-jb-gs1" firstAttribute="centerX" secondItem="fa0-nH-1hQ" secondAttribute="centerX" multiplier="0.5" constant="-18" id="ldY-Qi-jkb"/>
-                        <constraint firstAttribute="bottomMargin" secondItem="F77-f1-dwt" secondAttribute="centerY" constant="83" id="nEJ-5H-BC7"/>
+                        <constraint firstItem="oO8-OH-WOo" firstAttribute="centerX" secondItem="fa0-nH-1hQ" secondAttribute="centerX" id="nLz-AF-T7o"/>
                         <constraint firstItem="7aN-Oc-ulo" firstAttribute="centerX" secondItem="fa0-nH-1hQ" secondAttribute="centerX" id="ovG-Fu-kIM"/>
                         <constraint firstAttribute="trailing" secondItem="W3o-3h-1hc" secondAttribute="trailing" constant="22" id="pqL-YA-TYN"/>
                         <constraint firstItem="MDl-Kv-o0L" firstAttribute="leading" secondItem="fa0-nH-1hQ" secondAttribute="leading" id="xig-Rt-0Gl"/>
@@ -170,7 +172,7 @@
                     <connections>
                         <outlet property="backButton" destination="8WK-wt-hHi" id="uaq-K8-jcg"/>
                         <outlet property="beautyButton" destination="9vW-GY-vYk" id="5Y3-s3-FLd"/>
-                        <outlet property="captureButtonStackView" destination="F77-f1-dwt" id="T98-TW-JGT"/>
+                        <outlet property="captureButton" destination="oO8-OH-WOo" id="htY-w6-vQO"/>
                         <outlet property="captureModeControl" destination="MDl-Kv-o0L" id="4Ch-65-BFi"/>
                         <outlet property="delegate" destination="-1" id="Pje-33-Zna"/>
                         <outlet property="doneButton" destination="IN5-uW-Ws8" id="slC-wd-B7Y"/>
@@ -216,6 +218,7 @@
             <connections>
                 <outletCollection property="gestureRecognizers" destination="xY8-cx-fYh" appends="YES" id="EcU-bF-QdW"/>
                 <outletCollection property="gestureRecognizers" destination="9Pr-0P-BIR" appends="YES" id="E5O-XU-mvU"/>
+                <outletCollection property="gestureRecognizers" destination="x1C-UK-V4f" appends="YES" id="Xeo-ZK-SBs"/>
             </connections>
             <point key="canvasLocation" x="-151" y="31"/>
         </view>
@@ -237,6 +240,11 @@
                 <outlet property="delegate" destination="-1" id="X4V-F2-b78"/>
             </connections>
         </swipeGestureRecognizer>
+        <pinchGestureRecognizer id="x1C-UK-V4f" userLabel="捏合">
+            <connections>
+                <action selector="pinchAction:" destination="fa0-nH-1hQ" id="K12-dn-mSe"/>
+            </connections>
+        </pinchGestureRecognizer>
     </objects>
     <resources>
         <image name="video_ic_filter" width="40" height="40"/>

@@ -139,6 +139,7 @@
 // 美颜
 "lsq_filter_set_smoothing" = "Smoothing";
 "lsq_filter_set_whitening" = "Whitening";
+"lsq_filter_set_ruddy" = "Rubby";
 
 // 微整形
 "lsq_filter_set_chinSize" = "Chin";
@@ -149,6 +150,8 @@
 "lsq_filter_set_eyeDis" = "Eye Distance";
 "lsq_filter_set_eyeAngle" = "Eye Angle";
 "lsq_filter_set_archEyebrow" = "Eyebrow";
+"lsq_filter_set_skin_precision" = "Precision";
+"lsq_filter_set_skin_extreme" = "Extreme";
 
 // 漫画滤镜
 "lsq_filter_CHComics_Video" = "CHComics";
@@ -157,3 +160,21 @@
 "lsq_filter_Lightcolor_Video" = "Lightcolor";
 "lsq_filter_Ink_Video" = "Ink";
 "lsq_filter_Monochrome_Video" = "Monochrome";
+
+// 3.2.0
+"lsq_filter_SkinNature10" = "Nature";
+"lsq_filter_SkinPink10" = "Pink";
+"lsq_filter_SkinJelly10" = "Jelly";
+"lsq_filter_SkinNoir10" = "Noir";
+"lsq_filter_SkinRuddy10" = "Ruddy";
+"lsq_filter_SkinSugar10" = "Sugar";
+"lsq_filter_SkinPowder10" = "Powder";
+"lsq_filter_SkinWheat10" = "Wheat";
+"lsq_filter_SkinSoft10" = "Soft";
+"lsq_filter_SkinPure10" = "Pure";
+"lsq_filter_SkinMoving10" = "Moving";
+"lsq_filter_SkinPast10" = "Past";
+"lsq_filter_SkinCookies10" = "Cookies";
+"lsq_filter_SkinRose10" = "Rose";
+
+

@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:/Users/tutu/tutu/TuSDK-ShortVideo-for-iOS-demo/Example/TuSDKVideoDemo.xcodeproj">
+      location = "self:/Users/tusdk/tusdkwork/ReleasePackage/TuSDK-ShortVideo-for-iOS-demo/Example/TuSDKVideoDemo.xcodeproj">
    </FileRef>
 </Workspace>

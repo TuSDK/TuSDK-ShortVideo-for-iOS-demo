@@ -14,7 +14,7 @@ static const CGFloat kTopBarHeight = 64.0;
 /**
  录制相机遮罩视图
  */
-@interface CameraControlMaskView () <UIGestureRecognizerDelegate>
+@interface CameraControlMaskView () <UIGestureRecognizerDelegate, RecordButtonDelegate>
 
 /**
  拍照模式中，确认照片视图
@@ -24,12 +24,12 @@ static const CGFloat kTopBarHeight = 64.0;
 /**
  当前的底部面板
  */
-@property (nonatomic, weak) UIView<OverlayViewPtotocol> *currentBottomPanelView;
+@property (nonatomic, weak) UIView<OverlayViewProtocol> *currentBottomPanelView;
 
 /**
  当前的顶部面板
  */
-@property (nonatomic, weak) UIView<OverlayViewPtotocol> *currentTopPanelView;
+@property (nonatomic, weak) UIView<OverlayViewProtocol> *currentTopPanelView;
 
 /**
  阻止 tap 手势响应的视图
@@ -45,6 +45,11 @@ static const CGFloat kTopBarHeight = 64.0;
  录制隐藏视图
  */
 @property (nonatomic, strong) NSArray *recordingHiddenViews;
+
+/**
+ 上次变焦倍数，用于计算变焦增量
+ */
+@property (nonatomic, assign) double lastScale;
 
 @end
 
@@ -87,11 +92,13 @@ static const CGFloat kTopBarHeight = 64.0;
     // 相机模式
     _captureModeControl.titles = @[NSLocalizedStringFromTable(@"tu_拍照", @"VideoDemo", @"拍照"), NSLocalizedStringFromTable(@"tu_长按拍摄", @"VideoDemo", @"长按拍摄"), NSLocalizedStringFromTable(@"tu_单击拍摄", @"VideoDemo", @"单击拍摄")];
     _captureModeControl.selectedIndex = 1;
-    
+    // 录制按钮
+    [_captureButton addDelegate:self];
+    // 滤镜标题
     _filterNameLabel.alpha = 0;
     // 容器视图
     _blockTapViews = @[_captureModeControl, _moreMenuView, _stickerPanelView, _filterPanelView, _beautyPanelView];
-    _bottomViews = @[_leftBottomToolBar, _rightBottomToolBar, _captureButtonStackView, _captureModeControl, _undoButton];
+    _bottomViews = @[_leftBottomToolBar, _rightBottomToolBar, _captureButton, _captureModeControl, _undoButton];
     
     _recordingHiddenViews = @[_topToolBar, _leftBottomToolBar, _rightBottomToolBar];
     
@@ -146,7 +153,7 @@ static const CGFloat kTopBarHeight = 64.0;
 
  @param currentTopPanelView 当前顶部显示的视图
  */
-- (void)setCurrentTopPanelView:(UIView<OverlayViewPtotocol> *)currentTopPanelView {
+- (void)setCurrentTopPanelView:(UIView<OverlayViewProtocol> *)currentTopPanelView {
     [self setTopPanel:_currentTopPanelView hidden:YES];
     
     _currentTopPanelView = currentTopPanelView;
@@ -160,7 +167,7 @@ static const CGFloat kTopBarHeight = 64.0;
 
  @param currentBottomPanelView 当前底部显示的视图
  */
-- (void)setCurrentBottomPanelView:(UIView<OverlayViewPtotocol> *)currentBottomPanelView {
+- (void)setCurrentBottomPanelView:(UIView<OverlayViewProtocol> *)currentBottomPanelView {
     [self setBottomPanel:_currentBottomPanelView hidden:YES];
     
     _currentBottomPanelView = currentBottomPanelView;
@@ -262,6 +269,19 @@ static const CGFloat kTopBarHeight = 64.0;
  */
 - (IBAction)tapAction:(UITapGestureRecognizer *)sender  {
     [self hideAllOverlayViews];
+}
+
+/**
+ 捏合手势事件
+ 
+ @param sender 手势
+ */
+- (IBAction)pinchAction:(UIPinchGestureRecognizer *)sender {
+    CGFloat scale = sender.scale - 1;
+    if ([self.delegate respondsToSelector:@selector(controlMask:didChangeZoomDelta:)]) {
+        [self.delegate controlMask:self didChangeZoomDelta:scale];
+    }
+    sender.scale = 1;
 }
 
 #pragma mark - private
@@ -396,6 +416,53 @@ static const CGFloat kTopBarHeight = 64.0;
     [_photoCaptureconfirmView hideWithCompletion:^{
         [self.photoCaptureconfirmView removeFromSuperview];
     }];
+}
+
+#pragma mark - RecordButtonDelegate
+
+/**
+ 录制按钮滑动事件回调
+ 
+ @param recordButton 录制按钮
+ @param sender 滑动手势
+ */
+- (void)recordButton:(RecordButton *)recordButton panningWithSender:(UIPanGestureRecognizer *)sender {
+    switch (sender.state) {
+        case UIGestureRecognizerStateBegan:{
+            _lastScale = 0;
+        } break;
+        case UIGestureRecognizerStateChanged:{
+            CGPoint captureButtonCenter = _captureButton.center;
+            
+            CGRect safeBounds = self.bounds;
+            if (@available(iOS 11.0, *)) {
+                safeBounds = UIEdgeInsetsInsetRect(safeBounds, self.safeAreaInsets);
+            }
+            // 滑动缩放最大 Y 范围
+            const CGFloat endZoomY = CGRectGetMinY(safeBounds);
+            // 滑动缩放最大范围长度
+            const CGFloat zoomLength = CGRectGetMaxY(safeBounds) - 119 - 20;
+            // 开始滑动缩放 Y 值
+            const CGFloat beginZoomY = zoomLength + endZoomY;
+            // Y 差值，用于计算缩放比率
+            CGFloat zoomYDiff = beginZoomY - captureButtonCenter.y;
+            if (zoomYDiff < 0) {
+                zoomYDiff = 0;
+            } else if (captureButtonCenter.y < endZoomY) {
+                // 当超出最大 Y 范围时的值处理
+            }
+            
+            // 当前缩放比率
+            double scale = 5 * zoomYDiff / zoomLength;
+            // 与上一次缩放比率做差值
+            double scaleDelta = scale - _lastScale;
+            if ([self.delegate respondsToSelector:@selector(controlMask:didChangeZoomDelta:)]) {
+                [self.delegate controlMask:self didChangeZoomDelta:scaleDelta];
+            }
+            _lastScale = scale;
+        } break;
+        default:{} break;
+    }
 }
 
 #pragma mark - UIGestureRecognizerDelegate

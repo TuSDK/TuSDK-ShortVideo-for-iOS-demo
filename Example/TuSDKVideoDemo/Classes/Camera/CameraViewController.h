@@ -31,4 +31,9 @@
  */
 + (instancetype)recordController;
 
+/**
+ 应用默认美颜特效
+ */
+- (void)applySkinFaceEffect;
+
 @end

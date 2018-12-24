@@ -40,7 +40,8 @@ UIGestureRecognizerDelegate
 @end
 @interface CameraViewController (Capture) <TuSDKVideoCameraDelegate>
 @end
-
+@interface CameraViewController (Effect) <TuSDKVideoCameraEffectDelegate>
+@end
 
 @interface CameraViewController ()
 
@@ -50,9 +51,9 @@ UIGestureRecognizerDelegate
 @property (nonatomic, strong) TuSDKRecordVideoCamera *camera;
 
 /**
- 当前获取的滤镜对象
+ 当前获取的滤镜对象索引
  */
-@property (nonatomic, weak) TuSDKFilterWrap *currentFilter;
+@property (nonatomic) NSUInteger currentFilterIndex;
 
 /**
  相机预览
@@ -68,11 +69,6 @@ UIGestureRecognizerDelegate
  默认滤镜码
  */
 @property (nonatomic, copy) NSString *defaultFilterCode;
-
-/**
- 美颜参数，该字典值从美颜面板中来，并应用到所有滤镜
- */
-@property (nonatomic, strong) NSMutableDictionary *beautyFilterParameters;
 
 /**
  滤镜参数默认值
@@ -96,9 +92,8 @@ UIGestureRecognizerDelegate
     // 滤镜列表，获取滤镜前往 TuSDK.bundle/others/lsq_tusdk_configs.json
     // TuSDK 滤镜信息介绍 @see-https://tutucloud.com/docs/ios/self-customize-filter
     _filterCodes = kNormalFilterCodes;
-    _beautyFilterParameters = [NSMutableDictionary dictionary];
     _filterParameterDefaultDic = [NSMutableDictionary dictionary];
-
+    
     // 获取相册的权限
     [self requestAlbumPermission];
     
@@ -192,10 +187,10 @@ UIGestureRecognizerDelegate
 -(void)requestAlbumPermission {
     // 测试相册访问权限
     [TuSDKTSAssetsManager testLibraryAuthor:^(NSError *error) {
-         if (error) {
-             [TuSDKTSAssetsManager showAlertWithController:self loadFailure:error];
-         }
-     }];
+        if (error) {
+            [TuSDKTSAssetsManager showAlertWithController:self loadFailure:error];
+        }
+    }];
 }
 
 /**
@@ -233,6 +228,10 @@ UIGestureRecognizerDelegate
     _camera.fileType = lsqFileTypeMPEG4;
     // 设置委托
     _camera.videoDelegate = self;
+    // 设置特效时间委托
+    _camera.effectDelegate = self;
+    
+    
     // 配置相机参数
     // 相机预览画面区域显示算法
     //CGFloat offset = 64/self.view.lsqGetSizeHeight;
@@ -248,10 +247,12 @@ UIGestureRecognizerDelegate
     
     // 输出视频的画质，主要包含码率、分辨率等参数 (默认为空，采用系统设置)
     _camera.videoQuality = [TuSDKVideoQuality makeQualityWith:TuSDKRecordVideoQuality_Medium2];
-    // 禁止触摸聚焦功能 (默认: NO)
+    // 禁止触摸聚焦功能（默认: NO）
     _camera.disableTapFocus = NO;
     // 是否禁用持续自动对焦
     _camera.disableContinueFoucs = NO;
+    // 是否启用手动变焦功能（默认: NO）
+    _camera.enableFocalDistance = YES;
     // 视频覆盖区域颜色 (默认：[UIColor blackColor])
     _camera.regionViewColor = [UIColor clearColor];
     // 禁用前置摄像头自动水平镜像 (默认: NO，前置摄像头拍摄结果自动进行水平镜像)
@@ -282,6 +283,16 @@ UIGestureRecognizerDelegate
     _camera.speedMode = lsqSpeedMode_Normal;
     // 设置检测框最小倍数 [取值范围: 0.1 < x < 0.5, 默认: 0.2] 值越大性能越高距离越近
     [_camera setDetectScale:0.2f];
+    
+    
+    /** 初始化微整形特效 */
+    TuSDKMediaPlasticFaceEffect *plasticFaceEffect = [[TuSDKMediaPlasticFaceEffect alloc] init];
+    [_camera addMediaEffect:plasticFaceEffect];
+    
+    /** 添加默认美颜效果 */
+    [self applySkinFaceEffect];
+
+    
     // 更新其他 UI
     [self setupUIAfterCameraSetup];
 }
@@ -290,7 +301,7 @@ UIGestureRecognizerDelegate
 
 /**
  返回按钮事件
-
+ 
  @param sender 返回按钮事件
  */
 - (IBAction)backButtonAction:(id)sender {
@@ -299,7 +310,7 @@ UIGestureRecognizerDelegate
 
 /**
  相机模式切换控件事件
-
+ 
  @param sender 相机模式切换按钮
  */
 - (IBAction)captureModeChangeAction:(TextPageControl *)sender {
@@ -323,7 +334,7 @@ UIGestureRecognizerDelegate
 
 /**
  速率分段按钮值变更事件
-
+ 
  @param sender 录制速率改变按钮
  */
 - (void)speedSegmentValueChangeAction:(CameraSpeedSegmentButton *)sender {
@@ -355,7 +366,7 @@ UIGestureRecognizerDelegate
 
 /**
  切换摄像头按钮事件
-
+ 
  @param sender 切换摄像头位置按钮
  */
 - (IBAction)switchCameraButtonAction:(UIButton *)sender {
@@ -366,7 +377,7 @@ UIGestureRecognizerDelegate
 
 /**
  左滑手势响应事件
-
+ 
  @param sender 左滑手势
  */
 - (IBAction)leftSwipeAction:(UISwipeGestureRecognizer *)sender {
@@ -375,7 +386,7 @@ UIGestureRecognizerDelegate
 
 /**
  右滑手势响应事件
-
+ 
  @param sender 右滑手势
  */
 - (IBAction)rightSwipeAction:(UISwipeGestureRecognizer *)sender {
@@ -386,32 +397,56 @@ UIGestureRecognizerDelegate
  切换前一个滤镜
  */
 - (void)switchToPreviousFilter {
-    NSString *currentFilterCode = _currentFilter.code;
-    NSInteger currentFilterIndex = [_filterCodes containsObject:currentFilterCode] ? [_filterCodes indexOfObject:currentFilterCode] : _filterCodes.count - 1;
     
-    NSInteger previousFilterIndex = currentFilterIndex - 1;
+    if (_currentFilterIndex == 0)
+        _currentFilterIndex = _filterCodes.count - 1;
+    else
+        _currentFilterIndex = _currentFilterIndex - 1;
     
-    while (previousFilterIndex < 0) {
-        previousFilterIndex += _filterCodes.count;
+    // 漫画
+    if (_controlMaskView.filterPanelView.selectedTabIndex == 0) {
+        
+        TuSDKMediaComicEffect *comicEffect = [[TuSDKMediaComicEffect alloc] initWithEffectCode:_filterCodes[_currentFilterIndex]];
+        [_camera addMediaEffect:comicEffect];
+        
+    }else
+    {
+        // 滤镜
+        TuSDKMediaFilterEffect *comicEffect = [[TuSDKMediaFilterEffect alloc] initWithEffectCode:_filterCodes[_currentFilterIndex]];
+        [_camera addMediaEffect:comicEffect];
+        
     }
-    [_camera switchFilterWithCode:_filterCodes[previousFilterIndex]];
+    _controlMaskView.filterPanelView.selectedFilterCode = _filterCodes[_currentFilterIndex];
+    
 }
 
 /**
  切换至后一个滤镜
  */
 - (void)switchToNextFilter {
-    NSString *currentFilterCode = _currentFilter.code;
-    NSInteger currentFilterIndex = [_filterCodes containsObject:currentFilterCode] ? [_filterCodes indexOfObject:_currentFilter.code] : 0;
     
-    NSInteger nextFilterIndex = (currentFilterIndex + 1) % _filterCodes.count;
+    _currentFilterIndex = (_currentFilterIndex + 1) % _filterCodes.count;
     
-    [_camera switchFilterWithCode:_filterCodes[nextFilterIndex]];
+    // 漫画
+    if (_controlMaskView.filterPanelView.selectedTabIndex == 0) {
+        
+        TuSDKMediaComicEffect *comicEffect = [[TuSDKMediaComicEffect alloc] initWithEffectCode:_filterCodes[_currentFilterIndex]];
+        [_camera addMediaEffect:comicEffect];
+        
+    }else
+    {
+        // 滤镜
+        TuSDKMediaFilterEffect *comicEffect = [[TuSDKMediaFilterEffect alloc] initWithEffectCode:_filterCodes[_currentFilterIndex]];
+        [_camera addMediaEffect:comicEffect];
+    }
+    
+    _controlMaskView.filterPanelView.selectedFilterCode = _filterCodes[_currentFilterIndex];
+    
 }
 
 /**
  获取图片
-
+ 
  @return 拍照结果
  */
 - (UIImage *)captureImage {
@@ -421,7 +456,7 @@ UIGestureRecognizerDelegate
 
 /**
  获取相机预览比例
-
+ 
  @return 预览界面比例
  */
 - (CGFloat)ratio {
@@ -466,136 +501,6 @@ UIGestureRecognizerDelegate
     [_camera popMovieFragment];
 }
 
-#pragma mark - 滤镜相关
-
-/**
- 设置当前滤镜对象
- 
- @param currentFilter 当前滤镜对象
- */
-- (void)setCurrentFilter:(TuSDKFilterWrap *)currentFilter {
-    _currentFilter = currentFilter;
-    
-    // 更新在相机界面上显示的滤镜名称
-    NSString *filterName = [NSString stringWithFormat:@"lsq_filter_%@", currentFilter.code];
-    self.controlMaskView.filterName = NSLocalizedStringFromTable(filterName, @"TuSDKConstants", @"无需国际化");
-    
-    // 恢复参数默认值
-    [self resetParameterOfFilter:currentFilter];
-    
-    // 更新滤镜参数面板
-    if (self.controlMaskView.filterPanelView.display) {
-        self.controlMaskView.filterPanelView.selectedFilterCode = currentFilter.code;
-        [self.controlMaskView.filterPanelView reloadFilterParamters];
-    }
-    
-    // 更新美颜面板
-    if (self.controlMaskView.beautyPanelView.display) {
-        [self.controlMaskView.beautyPanelView reloadFilterParamters];
-    };
-}
-
-/**
- 滤镜参数调整
-
- @param filter 滤镜对象
- */
-- (void)resetParameterOfFilter:(TuSDKFilterWrap *)filter {
-    NSArray<TuSDKFilterArg *> *args = filter.filterParameter.args;
-    BOOL needSubmitParameter = NO;
-    
-    for (TuSDKFilterArg *arg in args) {
-        NSString *parameterName = arg.key;
-        // NSLog(@"调节的滤镜参数名称 parameterName: %@",parameterName)
-        // 应用保存的参数默认值、最大值
-        NSDictionary *savedDefaultDic = _filterParameterDefaultDic[parameterName];
-        if (savedDefaultDic) {
-            if (savedDefaultDic[kFilterParameterDefaultKey])
-                arg.defaultValue = [savedDefaultDic[kFilterParameterDefaultKey] doubleValue];
-            
-            if (savedDefaultDic[kFilterParameterMaxKey])
-                arg.maxFloatValue = [savedDefaultDic[kFilterParameterMaxKey] doubleValue];
-            
-            // 把当前值重置为默认值
-            [arg reset];
-            needSubmitParameter = YES;
-            continue;
-        }
-        
-        // 是否需要更新参数值
-        BOOL updateValue = NO;
-        // 默认值的百分比，用于指定滤镜初始的效果（参数默认值 = 最小值 + (最大值 - 最小值) * defaultValueFactor）
-        CGFloat defaultValueFactor = 1;
-        // 最大值的百分比，用于限制滤镜参数变化的幅度（参数最大值 = 最小值 + (最大值 - 最小值) * maxValueFactor）
-        CGFloat maxValueFactor = 1;
-        if ([parameterName isEqualToString:@"eyeSize"]) {
-            // 大眼
-            defaultValueFactor = 0.3;
-            maxValueFactor = 0.85;
-            updateValue = YES;
-        } else if ([parameterName isEqualToString:@"chinSize"]) {
-            // 瘦脸
-            defaultValueFactor = 0.2;
-            maxValueFactor = 0.7;
-            updateValue = YES;
-        } else if ([parameterName isEqualToString:@"noseSize"]) {
-            // 瘦鼻
-            defaultValueFactor = 0.2;
-            maxValueFactor = 0.6;
-            updateValue = YES;
-        } else if ([parameterName isEqualToString:@"mouthWidth"]) {
-            // 嘴型
-        } else if ([parameterName isEqualToString:@"archEyebrow"]) {
-            // 细眉
-        } else if ([parameterName isEqualToString:@"jawSize"]) {
-            // 下巴
-        } else if ([parameterName isEqualToString:@"eyeAngle"]) {
-            // 眼角
-        } else if ([parameterName isEqualToString:@"eyeDis"]) {
-            // 眼距
-        } else if ([parameterName isEqualToString:@"smoothing"]) {
-            // 润滑
-            maxValueFactor = 0.7;
-            defaultValueFactor = 0.7;
-            updateValue = YES;
-        } else if ([parameterName isEqualToString:@"whitening"]) {
-            // 白皙
-            maxValueFactor = 0.7;
-            defaultValueFactor = 0.6;
-            updateValue = YES;
-        }
-        if (updateValue) {
-            if (defaultValueFactor != 1)
-                arg.defaultValue = arg.minFloatValue + (arg.maxFloatValue - arg.minFloatValue) * defaultValueFactor * maxValueFactor;
-            
-            if (maxValueFactor != 1)
-                arg.maxFloatValue = arg.minFloatValue + (arg.maxFloatValue - arg.minFloatValue) * maxValueFactor;
-            // 把当前值重置为默认值
-            [arg reset];
-            
-            // 存储值
-            _filterParameterDefaultDic[parameterName] = @{kFilterParameterDefaultKey: @(arg.defaultValue), kFilterParameterMaxKey: @(arg.maxFloatValue)};
-            needSubmitParameter = YES;
-        }
-    }
-    
-    // 应用保存的美颜参数
-    if (!isComicsFilterCode(filter.code) && _beautyFilterParameters.count) {
-        for (TuSDKFilterArg *arg in args) {
-            for (NSString *key in _beautyFilterParameters.allKeys) {
-                if ([arg.key isEqualToString:key])
-                    arg.precent = [_beautyFilterParameters[key] doubleValue];
-            }
-        }
-        // 提交修改结果
-        [filter submitParameter];
-        needSubmitParameter = NO;
-    }    
-    // 提交修改结果
-    if (needSubmitParameter)
-        [filter submitParameter];
-}
-
 #pragma mark - 销毁操作
 
 /**
@@ -614,7 +519,6 @@ UIGestureRecognizerDelegate
 - (void)dealloc {
     [self destroyCamera];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    NSLog(@"%s", __FUNCTION__);
 }
 
 @end
@@ -628,7 +532,7 @@ UIGestureRecognizerDelegate
 
 /**
  滤镜，美颜栏点击回调
-
+ 
  @param controlMask 相机界面遮罩视图
  @param filterPanel 滤镜回调事件
  */
@@ -637,14 +541,20 @@ UIGestureRecognizerDelegate
         CameraFilterPanelView *filterPanelView = (CameraFilterPanelView *)filterPanel;
         _filterCodes = filterPanelView.selectedTabIndex == 0 ? kComicsFilterCodes : kNormalFilterCodes;
     }
-    
-    NSString *filterCode = _currentFilter.code;
-    if (filterPanel == _controlMaskView.beautyPanelView && isComicsFilterCode(filterCode)) {
-        [_camera switchFilterWithCode:_defaultFilterCode];
-        return;
-    }
-    controlMask.filterPanelView.selectedFilterCode = filterCode;
-    [filterPanel reloadFilterParamters];
+}
+
+/**
+ 变焦操作回调，在该方法中实现对相机的变焦
+ 
+ @param controlMask 相机遮罩视图
+ @param zoomDelta 变焦倍数增量
+ */
+- (void)controlMask:(CameraControlMaskView *)controlMask didChangeZoomDelta:(CGFloat)zoomDelta {
+    //NSLog(@"zoom delta: %f", zoomDelta);
+    CGFloat scale = _camera.focalDistanceScale;
+    scale += zoomDelta;
+    scale = MIN(10, scale);
+    _camera.focalDistanceScale = scale;
 }
 
 #pragma mark - RecordMoreMenuViewDelegate
@@ -700,142 +610,6 @@ UIGestureRecognizerDelegate
     _camera.soundPitch = pitchType;
 }
 
-#pragma mark - CameraFilterPanelDataSource
-
-/**
- 滤镜参数个数
-
- @return 滤镜参数数量
- */
-- (NSInteger)numberOfParamter {
-    return _currentFilter.filterParameter.count;
-}
-
-/**
- 滤镜参数名称
-
- @param index 滤镜索引
- @return 参数名称
- */
-- (NSString *)paramterNameAtIndex:(NSUInteger)index {
-    return _currentFilter.filterParameter.args[index].key;
-}
-
-/**
- 滤镜参数值
-
- @param index 滤镜参数索引
- @return 滤镜参数百分比
- */
-- (double)percentValueAtIndex:(NSUInteger)index {
-    TuSDKFilterArg *arg = _currentFilter.filterParameter.args[index];
-    double percentValue = arg.precent;
-    if (percentValue == 0) percentValue = 0;
-    
-    return percentValue;
-}
-
-#pragma mark - RecordFilterPanelDelegate
-
-/**
- 滤镜面板切换标签回调
- 
- @param filterPanel 滤镜面板
- @param tabIndex 标签索引
- */
-- (void)filterPanel:(id<CameraFilterPanelProtocol>)filterPanel didSwitchTabIndex:(NSInteger)tabIndex {
-    if ([filterPanel isKindOfClass:[CameraFilterPanelView class]]) {
-        _filterCodes = tabIndex == 0 ? kComicsFilterCodes : kNormalFilterCodes;
-    }
-}
-
-/**
- 滤镜面板选中回调
-
- @param filterPanel 滤镜面板
- @param code 滤镜码
- */
-- (void)filterPanel:(id<CameraFilterPanelProtocol>)filterPanel didSelectedFilterCode:(NSString *)code {
-    // 通过滤镜码切换滤镜
-    [_camera switchFilterWithCode:code];
-}
-
-/**
- 滤镜面板值变更回调
-
- @param filterPanel 滤镜面板
- @param percentValue 滤镜参数变更数值
- @param index 滤镜参数索引
- */
-- (void)filterPanel:(id<CameraFilterPanelProtocol>)filterPanel didChangeValue:(double)percentValue paramterIndex:(NSUInteger)index {
-    // 设置当前滤镜的参数，并 `-submitParameter` 提交参数让其生效
-    TuSDKFilterArg *arg = _currentFilter.filterParameter.args[index];
-    arg.precent = percentValue;
-    [_currentFilter submitParameter];
-    
-    // 保存美颜参数
-    if (filterPanel == _controlMaskView.beautyPanelView) {
-        _beautyFilterParameters[_currentFilter.filterParameter.args[index].key] = @(percentValue);
-    }
-}
-
-/**
- 重置滤镜参数回调
-
- @param filterPanel 滤镜面板
- @param paramterKeys 滤镜参数
- */
-- (void)filterPanel:(id<CameraFilterPanelProtocol>)filterPanel resetParamterKeys:(NSArray *)paramterKeys {
-    void (^resetBlock)(void) = ^{
-        for (NSString *parameterName in paramterKeys) {
-            for (TuSDKFilterArg *arg in self.currentFilter.filterParameter.args) {
-                if (![parameterName isEqualToString:arg.key]) continue;
-                
-                [arg reset];
-            }
-        }
-        [self.currentFilter submitParameter];
-    };
-    
-    if (filterPanel == _controlMaskView.beautyPanelView && _controlMaskView.beautyPanelView.selectedIndex == 1) {
-        // 微整形
-        NSString *title = NSLocalizedStringFromTable(@"tu_微整形", @"VideoDemo", @"微整形");
-        NSString *message = NSLocalizedStringFromTable(@"tu_将所有参数恢复默认吗？", @"VideoDemo", @"将所有参数恢复默认吗？");
-        
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
-        
-        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"tu_取消", @"VideoDemo", @"取消") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {}]];
-        
-        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"tu_确定", @"VideoDemo", @"确定") style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-            resetBlock();
-        }]];
-        [self presentViewController:alertController animated:YES completion:nil];
-    } else {
-        resetBlock();
-    }
-}
-
-#pragma mark StickerPanelViewDelegate
-
-/**
- 贴纸选中回调
-
- @param stickerPanel 相机贴纸协议
- @param sticker 贴纸组
- */
-- (void)stickerPanel:(StickerPanelView *)stickerPanel didSelectSticker:(TuSDKPFStickerGroup *)sticker {
-    if (!sticker) {
-        // 为nil时 移除已有贴纸组
-        [_camera removeAllLiveSticker];
-        return;
-    }
-    // 是否正在使用
-    if (![_camera isGroupStickerUsed:sticker]) {
-        // 展示对应贴纸组
-        [_camera showGroupSticker:sticker];
-    }
-}
-
 #pragma mark - UIGestureRecognizerDelegate
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
@@ -853,7 +627,7 @@ UIGestureRecognizerDelegate
 
 /**
  相机状态 (如需操作UI线程， 请检查当前线程是否为主线程)
-
+ 
  @param camera 录制相机
  @param state 相机运行状态
  */
@@ -890,13 +664,17 @@ UIGestureRecognizerDelegate
 
 /**
  相机滤镜改变 (如需操作UI线程， 请检查当前线程是否为主线程)
-
+ 
  @param camera 录制相机
  @param newFilter 新的滤镜对象
  */
 - (void)onVideoCamera:(id<TuSDKVideoCameraInterface>)camera filterChanged:(TuSDKFilterWrap *)newFilter {
     // 在该滤镜变更回调中，更像滤镜属性，以方便在参数面板中配置参数
-    self.currentFilter = newFilter;
+    
+    /** 该方法已废弃 请使用 ：
+     - (void)onVideoCamera:(TuSDKVideoCameraBase *_Nonnull)videoCamera didApplyingMediaEffect:(id<TuSDKMediaEffect>_Nonnull)mediaEffectData;
+     */
+    
 }
 
 @end
@@ -908,7 +686,7 @@ UIGestureRecognizerDelegate
 
 /**
  录制结果回调
-
+ 
  @param camerea 录制相机
  @param result 录制结果
  */
@@ -941,7 +719,7 @@ UIGestureRecognizerDelegate
 
 /**
  进度条改变
-
+ 
  @param camerea 录制相机
  @param progress 进度条百分比
  @param durationTime 录制时长
@@ -955,7 +733,7 @@ UIGestureRecognizerDelegate
 
 /**
  录制状态
-
+ 
  @param camerea 录制相机
  @param state 相机录制操作状态
  */
@@ -998,7 +776,7 @@ UIGestureRecognizerDelegate
 
 /**
  录制错误信息
-
+ 
  @param camerea 录制相机
  @param error 错误信息
  */
@@ -1035,7 +813,7 @@ UIGestureRecognizerDelegate
 
 /**
  获取拍摄图片 (如需操作UI线程， 请检查当前线程是否为主线程)
-
+ 
  @param camera 相机对象
  @param result 获取的结果
  @param error 错误信息
@@ -1047,5 +825,554 @@ UIGestureRecognizerDelegate
         // UIImageWriteToSavedPhotosAlbum(result.image, NULL, NULL, NULL);
     }
 }
+
+@end
+
+#pragma mark - Tusdkvieo
+
+@implementation CameraViewController (Effect)
+
+/**
+ 当前正在应用的特效
+ 
+ @param videoCamera 相机对象
+ @param mediaEffectData 正在预览特效
+ @since v3.2.0
+ */
+- (void)onVideoCamera:(TuSDKVideoCameraBase *_Nonnull)videoCamera didApplyingMediaEffect:(id<TuSDKMediaEffect>_Nonnull)mediaEffectData; {
+    
+    switch (mediaEffectData.effectType) {
+            // 滤镜特效
+        case TuSDKMediaEffectDataTypeFilter: {
+            
+            // 更新在相机界面上显示的滤镜名称
+            NSString *filterName = [NSString stringWithFormat:@"lsq_filter_%@", mediaEffectData.filterWrap.code];
+            self.controlMaskView.filterName = NSLocalizedStringFromTable(filterName, @"TuSDKConstants", @"无需国际化");
+            
+            self.controlMaskView.filterPanelView.selectedFilterCode = mediaEffectData.filterWrap.code;
+            [self.controlMaskView.filterPanelView reloadFilterParamters];
+            
+        }
+            break;
+            // 微整形特效
+        case TuSDKMediaEffectDataTypePlasticFace: {
+            [self updatePlasticFaceDefaultParameters];
+        }
+            break;
+        case TuSDKMediaEffectDataTypeSkinFace: {
+            break;
+        }
+        default:
+            break;
+    }
+    
+}
+
+/**
+ 特效被移除通知
+ 
+ @param videoCamera 相机对象
+ @param mediaEffects 被移除的特效列表
+ @since v3.2.0
+ */
+- (void)onVideoCamera:(TuSDKVideoCameraBase *_Nonnull)videoCamera didRemoveMediaEffects:(NSArray<id<TuSDKMediaEffect>> *_Nonnull) mediaEffects {
+    
+    
+}
+
+#pragma mark - CameraFilterPanelDataSource
+
+/**
+ 滤镜/微整形 参数个数
+ 
+ @return  滤镜/微整形参数数量
+ */
+- (NSInteger)numberOfParamter:(id<CameraFilterPanelProtocol>)filterPanel {
+    
+    // 美颜视图面板
+    if (filterPanel == _controlMaskView.beautyPanelView)
+    {
+        switch (_controlMaskView.beautyPanelView.selectedTabIndex)
+        {
+            case 0: // 美颜
+            {
+                return [_camera mediaEffectsWithType:TuSDKMediaEffectDataTypeSkinFace].count > 0 ? 1 : 0;
+            }
+            default:
+            {
+                // 微整形特效
+                TuSDKMediaPlasticFaceEffect *effect = [_camera mediaEffectsWithType:TuSDKMediaEffectDataTypePlasticFace].firstObject;
+                return effect.filterArgs.count;
+            }
+        }
+        
+    }else
+    {
+        // 滤镜视图面板
+        switch (_controlMaskView.filterPanelView.selectedTabIndex)
+        {
+            case 0: // 漫画
+            {
+                return 0;
+            }
+            case 1: { // 滤镜
+                TuSDKMediaFilterEffect *effect = [_camera mediaEffectsWithType:TuSDKMediaEffectDataTypeFilter].firstObject;
+                return effect.filterArgs.count;
+            }
+        }
+    }
+    
+    return 0;
+    
+}
+
+/**
+ 滤镜/微整形参数名称
+ 
+ @param index 滤镜索引
+ @return  滤镜/微整形参数名称
+ */
+- (NSString *)filterPanel:(id<CameraFilterPanelProtocol>)filterPanel paramterNameAtIndex:(NSUInteger)index {
+    
+    // 美颜视图面板
+    if (filterPanel == _controlMaskView.beautyPanelView)
+    {
+        switch (_controlMaskView.beautyPanelView.selectedTabIndex)
+        {
+            case 0: // 精准美颜、极度美颜
+            {
+                return _controlMaskView.beautyPanelView.selectedSkinKey;
+            }
+            default:
+            {
+                // 微整形
+                TuSDKMediaPlasticFaceEffect *effect = [_camera mediaEffectsWithType:TuSDKMediaEffectDataTypePlasticFace].firstObject;
+                return effect.filterArgs[index].key;
+            }
+        }
+        
+    }else
+    {
+        // 滤镜视图面板
+        switch (_controlMaskView.filterPanelView.selectedTabIndex)
+        {
+            case 0: // 漫画
+            {
+                return 0;
+            }
+            case 1:  // 滤镜
+            {
+                TuSDKMediaFilterEffect *effect = [_camera mediaEffectsWithType:TuSDKMediaEffectDataTypeFilter].firstObject;
+                return effect.filterArgs[index].key;
+            }
+        }
+    }
+    
+    return @"";
+}
+
+/**
+ 滤镜/微整形参数值
+ 
+ @param index  滤镜/微整形参数索引
+ @return  滤镜/微整形参数百分比
+ */
+- (double)filterPanel:(id<CameraFilterPanelProtocol>)filterPanel percentValueAtIndex:(NSUInteger)index {
+    
+    // 美颜视图面板
+    if (filterPanel == _controlMaskView.beautyPanelView)
+    {
+        switch (_controlMaskView.beautyPanelView.selectedTabIndex)
+        {
+            case 0: // 精准美颜，极度美颜
+            {
+                TuSDKMediaSkinFaceEffect *effect = [_camera mediaEffectsWithType:TuSDKMediaEffectDataTypeSkinFace].firstObject;
+                return [effect argWithKey:_controlMaskView.beautyPanelView.selectedSkinKey].precent;
+            }
+            default:
+            {
+                // 微整形
+                TuSDKMediaPlasticFaceEffect *effect = [_camera mediaEffectsWithType:TuSDKMediaEffectDataTypePlasticFace].firstObject;
+                return effect.filterArgs[index].precent;
+            }
+        }
+        
+    }else
+    {
+        // 滤镜视图面板
+        switch (_controlMaskView.filterPanelView.selectedTabIndex)
+        {
+            case 0: // 漫画
+            {
+                return 0;
+            }
+            case 1:
+            {
+                TuSDKMediaFilterEffect *effect = [_camera mediaEffectsWithType:TuSDKMediaEffectDataTypeFilter].firstObject;
+                return effect.filterArgs[index].precent;
+            }
+        }
+    }
+    
+    return 0;
+}
+
+#pragma mark - RecordFilterPanelDelegate
+
+- (void)applySkinFaceEffect;
+{
+    /** 老的特效 */
+    TuSDKMediaSkinFaceEffect *oldSkinFaceEffect = [_camera mediaEffectsWithType:TuSDKMediaEffectDataTypeSkinFace].firstObject;
+    NSArray<TuSDKFilterArg *> *filterArgs = oldSkinFaceEffect.filterArgs;
+
+    
+    /** 初始化美肤特效 */
+    TuSDKMediaSkinFaceEffect *skinFaceEffect = [[TuSDKMediaSkinFaceEffect alloc] initUseSkinNatural:_controlMaskView.beautyPanelView.useSkinNatural];
+    [_camera addMediaEffect:skinFaceEffect];
+   
+    // 使用上次的值
+    [filterArgs enumerateObjectsUsingBlock:^(TuSDKFilterArg * _Nonnull arg, NSUInteger idx, BOOL * _Nonnull stop) {
+        [skinFaceEffect argWithKey:arg.key].precent = arg.precent;
+    }];
+    
+    if (oldSkinFaceEffect)
+        [skinFaceEffect submitParameters];
+    else
+        [self updateSkinFaceDefaultParameters];
+
+    [_controlMaskView setFilterName:_controlMaskView.beautyPanelView.useSkinNatural ? NSLocalizedStringFromTable(@"lsq_filter_set_skin_precision", @"TuSDKConstants", @"精准美颜") : NSLocalizedStringFromTable(@"lsq_filter_set_skin_extreme", @"TuSDKConstants", @"极致美颜")];
+    
+}
+
+/**
+ 滤镜面板切换标签回调
+ 
+ @param filterPanel 滤镜面板
+ @param tabIndex 标签索引
+ */
+- (void)filterPanel:(id<CameraFilterPanelProtocol>)filterPanel didSwitchTabIndex:(NSInteger)tabIndex {
+    if ([filterPanel isKindOfClass:[CameraFilterPanelView class]]) {
+        _filterCodes = tabIndex == 0 ? kComicsFilterCodes : kNormalFilterCodes;
+    }
+}
+
+/**
+ 滤镜面板选中回调
+ 
+ @param filterPanel 滤镜面板
+ @param code 滤镜码
+ */
+- (void)filterPanel:(id<CameraFilterPanelProtocol>)filterPanel didSelectedFilterCode:(NSString *)code {
+    
+    // 美颜视图面板
+    if (filterPanel == _controlMaskView.beautyPanelView)
+    {
+        switch (_controlMaskView.beautyPanelView.selectedTabIndex)
+        {
+            case 0: // 精准美颜、 极度美颜
+            {
+                // 如果是切换美颜
+                if ([code isEqualToString:@[kBeautySkinKeys][0]])
+                {
+                    [self applySkinFaceEffect];
+                    
+                }else {
+                    
+                    if ([_camera mediaEffectsWithType:TuSDKMediaEffectDataTypeSkinFace].count == 0)
+                        [self applySkinFaceEffect];
+                }
+        
+                break;
+            }
+            default:
+            {
+                // 微整形
+                if ([_camera mediaEffectsWithType:TuSDKMediaEffectDataTypePlasticFace].count == 0) {
+                    TuSDKMediaPlasticFaceEffect *plasticFaceEffect = [[TuSDKMediaPlasticFaceEffect alloc] init];
+                    [_camera addMediaEffect:plasticFaceEffect];
+                    [self updatePlasticFaceDefaultParameters];
+                    return;
+                }
+                break;
+            }
+        }
+        
+    }else {
+        
+        // 滤镜视图面板
+        switch (_controlMaskView.filterPanelView.selectedTabIndex)
+        {
+            case 0: // 漫画
+            {
+                TuSDKMediaComicEffect *effect = [[TuSDKMediaComicEffect alloc] initWithEffectCode:code];
+                [_camera addMediaEffect:effect];
+                _currentFilterIndex = [_filterCodes indexOfObject:code];
+                break;
+            }
+            case 1: { // 滤镜
+                TuSDKMediaFilterEffect *effect = [[TuSDKMediaFilterEffect alloc] initWithEffectCode:code];
+                [_camera addMediaEffect:effect];
+                _currentFilterIndex = [_filterCodes indexOfObject:code];
+                break;
+            }
+            default:
+                break;
+        }
+    }
+}
+
+/**
+ 滤镜面板值变更回调
+ 
+ @param filterPanel 滤镜面板
+ @param percentValue 滤镜参数变更数值
+ @param index 滤镜参数索引
+ */
+- (void)filterPanel:(id<CameraFilterPanelProtocol>)filterPanel didChangeValue:(double)percentValue paramterIndex:(NSUInteger)index {
+    
+    // 美颜视图面板
+    if (filterPanel == _controlMaskView.beautyPanelView)
+    {
+        switch (_controlMaskView.beautyPanelView.selectedTabIndex)
+        {
+            case 0: // 精准美颜,极致美颜
+            {
+                TuSDKMediaSkinFaceEffect *effect = [_camera mediaEffectsWithType:TuSDKMediaEffectDataTypeSkinFace].firstObject;
+                [effect submitParameterWithKey:_controlMaskView.beautyPanelView.selectedSkinKey argPrecent:percentValue];
+            
+                break;
+            }
+            default: {
+                // 微整形
+                TuSDKMediaPlasticFaceEffect *effect = [_camera mediaEffectsWithType:TuSDKMediaEffectDataTypePlasticFace].firstObject;
+                [effect submitParameter:index argPrecent:percentValue];
+                break;
+            }
+        }
+        
+    }else
+    {
+        // 滤镜视图面板
+        switch (_controlMaskView.filterPanelView.selectedTabIndex)
+        {
+            case 0: // 漫画
+            {
+                break;
+            }
+            case 1: {
+                TuSDKMediaFilterEffect *effect = [_camera mediaEffectsWithType:TuSDKMediaEffectDataTypeFilter].firstObject;
+                [effect submitParameter:index argPrecent:percentValue];
+                break;
+            }
+        }
+    }
+    
+}
+
+/**
+ 重置滤镜参数回调
+ 
+ @param filterPanel 滤镜面板
+ @param paramterKeys 滤镜参数
+ */
+- (void)filterPanel:(id<CameraFilterPanelProtocol>)filterPanel resetParamterKeys:(NSArray *)paramterKeys {
+
+    if (filterPanel == _controlMaskView.beautyPanelView)
+    {
+        
+        
+        typeof(self)weakSelf = self;
+        void (^resetBlock)(void) = ^{
+            
+            // 微整形
+            NSString *title = NSLocalizedStringFromTable(@"tu_重置", @"VideoDemo", @"重置");
+            NSString *message = NSLocalizedStringFromTable(@"tu_将所有参数恢复默认吗？", @"VideoDemo", @"将所有参数恢复默认吗？");
+            
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+            
+            [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"tu_取消", @"VideoDemo", @"取消") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {}]];
+            
+            [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"tu_确定", @"VideoDemo", @"确定") style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+                
+                [weakSelf->_camera removeMediaEffectsWithType:TuSDKMediaEffectDataTypePlasticFace];
+                
+            }]];
+            [self presentViewController:alertController animated:YES completion:nil];
+            
+        };
+        
+        switch (_controlMaskView.beautyPanelView.selectedTabIndex) {
+            case 0:
+                [_camera removeMediaEffectsWithType:TuSDKMediaEffectDataTypeSkinFace];
+                break;
+            case 1:
+                resetBlock();
+                break;
+            default:
+                break;
+        }
+        
+    }else if(filterPanel == _controlMaskView.filterPanelView)
+    {
+        [_camera removeMediaEffectsWithType:TuSDKMediaEffectDataTypeFilter];
+    }
+}
+
+#pragma mark StickerPanelViewDelegate
+
+/**
+ 贴纸选中回调
+ 
+ @param stickerPanel 相机贴纸协议
+ @param sticker 贴纸组
+ */
+- (void)stickerPanel:(StickerPanelView *)stickerPanel didSelectSticker:(TuSDKPFStickerGroup *)sticker {
+    if (!sticker) {
+        // 为nil时 移除已有贴纸组
+        [_camera removeMediaEffectsWithType:TuSDKMediaEffectDataTypeSticker];
+        return;
+    }
+    
+    // 添加贴纸特效
+    TuSDKMediaStickerEffect *stickerEffect = [[TuSDKMediaStickerEffect alloc] initWithStickerGroup:sticker];
+    [_camera addMediaEffect:stickerEffect];
+    
+}
+
+#pragma mark - 滤镜相关
+
+/**
+ 重置美颜参数默认值
+ */
+- (void)updateSkinFaceDefaultParameters;
+{
+    TuSDKMediaSkinFaceEffect *effect = [_camera mediaEffectsWithType:TuSDKMediaEffectDataTypeSkinFace].firstObject;
+    NSArray<TuSDKFilterArg *> *args = effect.filterArgs;
+    BOOL needSubmitParameter = NO;
+    
+    
+    for (TuSDKFilterArg *arg in args) {
+        NSString *parameterName = arg.key;
+        // NSLog(@"调节的滤镜参数名称 parameterName: %@",parameterName)
+        // 应用保存的参数默认值、最大值
+        NSDictionary *savedDefaultDic = _filterParameterDefaultDic[parameterName];
+        if (savedDefaultDic) {
+            if (savedDefaultDic[kFilterParameterDefaultKey])
+                arg.defaultValue = [savedDefaultDic[kFilterParameterDefaultKey] doubleValue];
+            
+            if (savedDefaultDic[kFilterParameterMaxKey])
+                arg.maxFloatValue = [savedDefaultDic[kFilterParameterMaxKey] doubleValue];
+            
+            // 把当前值重置为默认值
+            [arg reset];
+            needSubmitParameter = YES;
+            continue;
+        }
+        
+        // 是否需要更新参数值
+        BOOL updateValue = NO;
+        // 默认值的百分比，用于指定滤镜初始的效果（参数默认值 = 最小值 + (最大值 - 最小值) * defaultValueFactor）
+        CGFloat defaultValueFactor = 1;
+        // 最大值的百分比，用于限制滤镜参数变化的幅度（参数最大值 = 最小值 + (最大值 - 最小值) * maxValueFactor）
+        CGFloat maxValueFactor = 1;
+        
+        if ([parameterName isEqualToString:@"smoothing"]) {
+            // 磨皮
+            maxValueFactor = 0.7;
+            defaultValueFactor = 0.6;
+            updateValue = YES;
+        } else if ([parameterName isEqualToString:@"whitening"]) {
+            // 美白
+            maxValueFactor = 0.7;
+            defaultValueFactor = 0.3;
+            updateValue = YES;
+        }
+        if (updateValue) {
+            if (defaultValueFactor != 1)
+                arg.defaultValue = arg.minFloatValue + (arg.maxFloatValue - arg.minFloatValue) * defaultValueFactor * maxValueFactor;
+            
+            if (maxValueFactor != 1)
+                arg.maxFloatValue = arg.minFloatValue + (arg.maxFloatValue - arg.minFloatValue) * maxValueFactor;
+            // 把当前值重置为默认值
+            [arg reset];
+            
+            // 存储值
+            _filterParameterDefaultDic[parameterName] = @{kFilterParameterDefaultKey: @(arg.defaultValue), kFilterParameterMaxKey: @(arg.maxFloatValue)};
+            needSubmitParameter = YES;
+        }
+    }
+    
+    // 提交修改结果
+    if (needSubmitParameter)
+        [effect submitParameters];
+    
+    [self.controlMaskView.beautyPanelView reloadFilterParamters];
+    
+}
+
+/**
+ 重置微整形参数默认值
+ */
+- (void)updatePlasticFaceDefaultParameters {
+    
+    TuSDKMediaPlasticFaceEffect *effect = [_camera mediaEffectsWithType:TuSDKMediaEffectDataTypePlasticFace].firstObject;
+    NSArray<TuSDKFilterArg *> *args = effect.filterArgs;
+    BOOL needSubmitParameter = NO;
+    
+    for (TuSDKFilterArg *arg in args) {
+        NSString *parameterName = arg.key;
+        
+        // 是否需要更新参数值
+        BOOL updateValue = NO;
+        // 默认值的百分比，用于指定滤镜初始的效果（参数默认值 = 最小值 + (最大值 - 最小值) * defaultValueFactor）
+        CGFloat defaultValueFactor = 1;
+        // 最大值的百分比，用于限制滤镜参数变化的幅度（参数最大值 = 最小值 + (最大值 - 最小值) * maxValueFactor）
+        CGFloat maxValueFactor = 1;
+        if ([parameterName isEqualToString:@"eyeSize"]) {
+            // 大眼
+            defaultValueFactor = 0.3;
+            maxValueFactor = 0.85;
+            updateValue = YES;
+        } else if ([parameterName isEqualToString:@"chinSize"]) {
+            // 瘦脸
+            defaultValueFactor = 0.2;
+            maxValueFactor = 0.8;
+            updateValue = YES;
+        } else if ([parameterName isEqualToString:@"noseSize"]) {
+            // 瘦鼻
+            defaultValueFactor = 0.2;
+            maxValueFactor = 0.6;
+            updateValue = YES;
+        } else if ([parameterName isEqualToString:@"mouthWidth"]) {
+            // 嘴型
+        } else if ([parameterName isEqualToString:@"archEyebrow"]) {
+            // 细眉
+        } else if ([parameterName isEqualToString:@"jawSize"]) {
+            // 下巴
+        } else if ([parameterName isEqualToString:@"eyeAngle"]) {
+            // 眼角
+        } else if ([parameterName isEqualToString:@"eyeDis"]) {
+            // 眼距
+        }
+        
+        if (updateValue) {
+            if (defaultValueFactor != 1)
+                arg.defaultValue = arg.minFloatValue + (arg.maxFloatValue - arg.minFloatValue) * defaultValueFactor * maxValueFactor;
+            
+            if (maxValueFactor != 1)
+                arg.maxFloatValue = arg.minFloatValue + (arg.maxFloatValue - arg.minFloatValue) * maxValueFactor;
+            // 把当前值重置为默认值
+            [arg reset];
+            
+            needSubmitParameter = YES;
+        }
+    }
+    
+    // 提交修改结果
+    if (needSubmitParameter)
+        [effect submitParameters];
+    
+}
+
 
 @end

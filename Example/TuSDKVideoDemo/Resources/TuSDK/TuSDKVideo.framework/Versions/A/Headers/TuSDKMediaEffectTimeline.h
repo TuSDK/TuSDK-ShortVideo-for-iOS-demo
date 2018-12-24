@@ -10,7 +10,7 @@
 #import "TuSDKMediaEffectSync.h"
 
 /**
- 时间特效时间轴
+ 时间特效时间轴. 对特效数据进行管理
  @since v3.0.1
  */
 @protocol TuSDKMediaEffectTimeline  <NSObject>

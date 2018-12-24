@@ -7,14 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "OverlayViewPtotocol.h"
+#import "OverlayViewProtocol.h"
 #import "ParametersAdjustView.h"
 #import "CameraFilterPanelProtocol.h"
 
 /**
  相机滤镜面板
  */
-@interface CameraFilterPanelView : UIView <OverlayViewPtotocol, CameraFilterPanelProtocol>
+@interface CameraFilterPanelView : UIView <OverlayViewProtocol, CameraFilterPanelProtocol>
 
 /**
  触发者

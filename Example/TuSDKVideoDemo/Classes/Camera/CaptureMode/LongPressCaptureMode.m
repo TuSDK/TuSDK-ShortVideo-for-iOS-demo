@@ -10,20 +10,11 @@
 #import "RecordButton.h"
 #import "CameraControllerProtocol.h"
 
-@interface LongPressCaptureMode ()
-
-/**
- 录制按钮
- */
-@property (nonatomic, strong) RecordButton *recordButton;
+@interface LongPressCaptureMode ()<RecordButtonDelegate>
 
 @end
 
 @implementation LongPressCaptureMode
-
-- (void)dealloc {
-    NSLog(@"%s", __FUNCTION__);
-}
 
 /**
  初始化相机控制器
@@ -43,11 +34,8 @@
  创建按钮
  */
 - (void)commonInit {
-    RecordButton *recordButton = [RecordButton buttonWithType:UIButtonTypeSystem];
-    _recordButton = recordButton;
-    recordButton.contentSize = CGSizeMake(72, 72);
-    [recordButton addTarget:self action:@selector(recordButtonTouchDownAction:) forControlEvents:UIControlEventTouchDown];
-    [recordButton addTarget:self action:@selector(recordButtonTouchEndAction:) forControlEvents:UIControlEventTouchCancel | UIControlEventTouchUpInside | UIControlEventTouchUpOutside];
+    RecordButton *captureButton = _cameraController.controlMaskView.captureButton;
+    [captureButton addDelegate:self];
     
     [_cameraController.controlMaskView.doneButton addTarget:self action:@selector(doneButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     [_cameraController.controlMaskView.undoButton addTarget:self action:@selector(undoButtonAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -57,11 +45,10 @@
  更新界面
  */
 - (void)updateModeUI {
-    for (UIView *view in _cameraController.controlMaskView.captureButtonStackView.arrangedSubviews) {
-        [_cameraController.controlMaskView.captureButtonStackView removeArrangedSubview:view];
-        [view removeFromSuperview];
-    }
-    [_cameraController.controlMaskView.captureButtonStackView addArrangedSubview:_recordButton];
+    RecordButton *captureButton = _cameraController.controlMaskView.captureButton;
+    [captureButton switchStyle:RecordButtonStyleVideo1];
+    captureButton.panEnable = YES;
+    
     _cameraController.controlMaskView.moreMenuView.pitchHidden = NO;
     
     [UIView animateWithDuration:kAnimationDuration animations:^{
@@ -108,28 +95,7 @@
     [_cameraController.controlMaskView updateRecordConfrimViewsDisplay];
 }
 
-#pragma mark - 按钮事件
-
-/**
- 开始录制事件
-
- @param sender 录制按钮
- */
-- (void)recordButtonTouchDownAction:(UIButton *)sender {
-    [_cameraController startRecording];
-    // 更新 UI
-    [_cameraController.controlMaskView hideViewsWhenRecording];
-    _cameraController.controlMaskView.moreMenuView.disableRatioSwitching = YES;
-}
-
-/**
- 暂停录制事件
-
- @param sender 录制按钮
- */
-- (void)recordButtonTouchEndAction:(UIButton *)sender {
-    [_cameraController pauseRecording];
-}
+#pragma mark - action
 
 /**
  完成录制事件
@@ -160,6 +126,27 @@
 - (void)pauseRecordAction {
     [_cameraController.controlMaskView.markableProgressView pushMark];
     [_cameraController.controlMaskView showViewsWhenPauseRecording];
+}
+
+#pragma mark - RecordButtonDelegate
+
+/**
+ 录制按钮按下回调
+ */
+- (void)recordButtonDidTouchDown:(RecordButton *)sender {
+    [_cameraController startRecording];
+    // 更新 UI
+    sender.selected = YES;
+    [_cameraController.controlMaskView hideViewsWhenRecording];
+    _cameraController.controlMaskView.moreMenuView.disableRatioSwitching = YES;
+}
+
+/**
+ 录制按钮抬起或结束触摸回调
+ */
+- (void)recordButtonDidTouchEnd:(RecordButton *)sender {
+    [_cameraController pauseRecording];
+    sender.selected = NO;
 }
 
 @end

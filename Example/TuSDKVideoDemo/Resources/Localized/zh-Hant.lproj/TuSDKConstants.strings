@@ -137,8 +137,9 @@
 "lsq_filter_set_distanceFactor" = "半徑";
 
 // 美顏
-"lsq_filter_set_smoothing" = "潤滑";
-"lsq_filter_set_whitening" = "白皙";
+"lsq_filter_set_smoothing" = "磨皮";
+"lsq_filter_set_whitening" = "美白";
+"lsq_filter_set_ruddy" = "紅潤";
 
 // 微整形
 "lsq_filter_set_chinSize" = "瘦臉";
@@ -149,6 +150,8 @@
 "lsq_filter_set_eyeDis" = "眼距";
 "lsq_filter_set_eyeAngle" = "眼角";
 "lsq_filter_set_archEyebrow" = "細眉";
+"lsq_filter_set_skin_precision" = "精準美顏";
+"lsq_filter_set_skin_extreme" = "極致美顏";
 
 // 漫画滤镜
 "lsq_filter_CHComics_Video" = "國漫";
@@ -157,3 +160,19 @@
 "lsq_filter_Lightcolor_Video" = "淡彩";
 "lsq_filter_Ink_Video" = "墨水";
 "lsq_filter_Monochrome_Video" = "單色";
+
+// 3.2.0
+"lsq_filter_SkinNature10" = "自然";
+"lsq_filter_SkinPink10" = "粉嫩";
+"lsq_filter_SkinJelly10" = "果冻";
+"lsq_filter_SkinNoir10" = "深黑";
+"lsq_filter_SkinRuddy10" = "红润";
+"lsq_filter_SkinSugar10" = "糖水";
+"lsq_filter_SkinPowder10" = "蜜粉";
+"lsq_filter_SkinWheat10" = "原麥";
+"lsq_filter_SkinSoft10" = "柔和";
+"lsq_filter_SkinPure10" = "清純";
+"lsq_filter_SkinMoving10" = "動人";
+"lsq_filter_SkinPast10" = "過往";
+"lsq_filter_SkinCookies10" = "曲奇";
+"lsq_filter_SkinRose10" = "薔薇";

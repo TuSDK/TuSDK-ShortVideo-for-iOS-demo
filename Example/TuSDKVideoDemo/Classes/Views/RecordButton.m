@@ -20,6 +20,21 @@
  */
 @property (nonatomic, strong) CAShapeLayer *dotLayer;
 
+/**
+ 滑动手势
+ */
+@property (nonatomic, assign) BOOL panning;
+
+/**
+ 滑动开始中点，用于滑动结束后还原
+ */
+@property (nonatomic, assign) CGPoint panBeganCenter;
+
+/**
+ 弱引用记录添加的代理
+ */
+@property (nonatomic, strong) NSHashTable *delegates;
+
 @end
 
 @implementation RecordButton
@@ -40,6 +55,7 @@
 - (void)commonInit {
     self.backgroundColor = [UIColor clearColor];
     self.tintColor = [UIColor whiteColor];
+    self.adjustsImageWhenHighlighted = NO;
     _backgroundDotColor = [UIColor colorWithWhite:1 alpha:0.6];
     _dotColor = [UIColor colorWithRed:254.0f/255.0f green:58.0f/255.0f blue:58.0f/255.0f alpha:1.0f];
     _backgroundDotRatio = 7/9.0;
@@ -53,7 +69,16 @@
     _backgroundDotLayer.fillColor = _backgroundDotColor.CGColor;
     
     [self addTarget:self action:@selector(touchDownAction:) forControlEvents:UIControlEventTouchDown];
-    [self addTarget:self action:@selector(touchEndAction:) forControlEvents:UIControlEventTouchCancel | UIControlEventTouchUpInside | UIControlEventTouchUpOutside];
+    [self addTarget:self action:@selector(touchEndAction:) forControlEvents:
+     UIControlEventTouchUpInside
+     | UIControlEventTouchUpOutside
+     | UIControlEventTouchCancel
+     ];
+    
+    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panAction:)];
+    [self addGestureRecognizer:pan];
+    
+    _delegates = [NSHashTable hashTableWithOptions:NSPointerFunctionsWeakMemory];
 }
 
 - (void)layoutSubviews {
@@ -91,6 +116,28 @@
     return path;
 }
 
+- (void)touchDownCallback {
+    for (id<RecordButtonDelegate> delegate in _delegates) {
+        if ([delegate respondsToSelector:@selector(recordButtonDidTouchDown:)]) {
+            [delegate recordButtonDidTouchDown:self];
+        }
+    }
+}
+- (void)touchEndCallback {
+    for (id<RecordButtonDelegate> delegate in _delegates) {
+        if ([delegate respondsToSelector:@selector(recordButtonDidTouchEnd:)]) {
+            [delegate recordButtonDidTouchEnd:self];
+        }
+    }
+}
+- (void)panningCallback:(UIPanGestureRecognizer *)sender {
+    for (id<RecordButtonDelegate> delegate in _delegates) {
+        if ([delegate respondsToSelector:@selector(recordButton:panningWithSender:)]) {
+            [delegate recordButton:self panningWithSender:sender];
+        }
+    }
+}
+
 #pragma mark - property
 
 - (void)setContentSize:(CGSize)contentSize {
@@ -104,7 +151,7 @@
 
 - (void)setBackgroundDotColor:(UIColor *)backgroundDotColor {
     _backgroundDotColor = backgroundDotColor;
-    _backgroundDotLayer.fillColor = _dotColor.CGColor;
+    _backgroundDotLayer.fillColor = backgroundDotColor.CGColor;
 }
 
 - (void)setDotColor:(UIColor *)dotColor {
@@ -119,11 +166,7 @@
 
 - (void)setSelected:(BOOL)selected {
     [super setSelected:selected];
-    if (selected) {
-        [self touchDownAction:nil];
-    } else {
-        [self touchEndAction:nil];
-    }
+    [self updateUIWithTouchDwon:selected];
 }
 
 #pragma mark - action
@@ -132,17 +175,87 @@
  按下事件
  */
 - (void)touchDownAction:(UIButton *)sender {
-    NSString *transformKey = @"transform.scale";
-    [_backgroundDotLayer setValue:@(7/6.0) forKeyPath:transformKey];
-    [_dotLayer setValue:@(6/7.0) forKeyPath:transformKey];
+    [self touchDownCallback];
 }
 
 /**
  抬起事件
  */
 - (void)touchEndAction:(UIButton *)sender {
-    _backgroundDotLayer.affineTransform = CGAffineTransformIdentity;
-    _dotLayer.affineTransform = CGAffineTransformIdentity;
+    // 当时滑动，在滑动事件回调 touch end 事件
+    if (_panning) return;
+    
+    [self touchEndCallback];
+}
+
+/**
+ 更新按下时 UI
+ */
+- (void)updateUIWithTouchDwon:(BOOL)touchDwon {
+    if (touchDwon) {
+        NSString *transformKey = @"transform.scale";
+        [_backgroundDotLayer setValue:@(7/6.0) forKeyPath:transformKey];
+        [_dotLayer setValue:@(6/7.0) forKeyPath:transformKey];
+    } else {
+        _backgroundDotLayer.affineTransform = CGAffineTransformIdentity;
+        _dotLayer.affineTransform = CGAffineTransformIdentity;
+    }
+}
+
+/**
+ 滑动手势
+ */
+- (void)panAction:(UIPanGestureRecognizer *)sender {
+    if (!_panEnable) return;
+    CGPoint translation = [sender translationInView:self];
+    //NSLog(@"translation: %@", NSStringFromCGPoint(translation));
+    switch (sender.state) {
+        case UIGestureRecognizerStateBegan:{
+            _panBeganCenter = self.center;
+            _panning = YES;
+        } break;
+        case UIGestureRecognizerStateChanged:{
+            self.center = CGPointMake(_panBeganCenter.x + translation.x, _panBeganCenter.y + translation.y);
+            _panning = YES;
+        } break;
+        default:{
+            _panning = NO;
+            [UIView animateWithDuration:0.15 animations:^{
+                self.center = self.panBeganCenter;
+            } completion:^(BOOL finished) {}];
+            [self touchEndCallback];
+        } break;
+    }
+    [self panningCallback:sender];
+}
+
+#pragma mark - public
+
+- (void)addDelegate:(id<RecordButtonDelegate>)delegate {
+    if ([_delegates containsObject:delegate]) return;
+    [_delegates addObject:delegate];
+}
+
+- (void)switchStyle:(RecordButtonStyle)style {
+    self.backgroundDotColor = [UIColor colorWithWhite:1 alpha:0.6];
+    self.dotColor = [UIColor colorWithRed:254.0f/255.0f green:58.0f/255.0f blue:58.0f/255.0f alpha:1.0f];
+    self.contentSize = CGSizeMake(72, 72);
+    [self setImage:nil forState:UIControlStateNormal];
+    [self setImage:nil forState:UIControlStateSelected];
+    
+    switch (style) {
+        case RecordButtonStylePhoto:{
+            self.dotColor = [UIColor whiteColor];
+        } break;
+        case RecordButtonStyleVideo1:{
+            
+        } break;
+        case RecordButtonStyleVideo2:{
+            UIImage *image = [UIImage imageNamed:@"video_ic_recording"];
+            [self setImage:image forState:UIControlStateNormal];
+            [self setImage:image forState:UIControlStateSelected];
+        } break;
+    }
 }
 
 @end

@@ -7,9 +7,9 @@
 //
 
 #import "SegmentButton.h"
-#import "OverlayViewPtotocol.h"
+#import "OverlayViewProtocol.h"
 
-@interface CameraSpeedSegmentButton : SegmentButton <OverlayViewPtotocol>
+@interface CameraSpeedSegmentButton : SegmentButton <OverlayViewProtocol>
 
 /**
  触发者

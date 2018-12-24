@@ -9,9 +9,8 @@
 @protocol TuSDKMediaEffectTimeline;
 @protocol TuSDKMediaEffectSyncDelegate;
 
-
 /**
- 特效同步器
+ 特效同步器. 根据特效时间筛选指定特效
  
  @since v3.0.1
  */
@@ -45,7 +44,7 @@
  同步特效数据
 
  @param effects 当前生效的特效数据
- @param atTime 当前时间
+ @param time 当前时间
  @since v3.0.1
  */
 - (void)syncMediaEffects:(NSMutableDictionary<NSNumber *,NSMutableArray<id<TuSDKMediaEffect>> *> *)effects atTime:(CMTime)time;

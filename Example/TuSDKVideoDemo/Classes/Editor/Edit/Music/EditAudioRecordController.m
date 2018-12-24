@@ -61,10 +61,6 @@
 
 @implementation EditAudioRecordController
 
-- (void)dealloc {
-    NSLog(@"%s", __FUNCTION__);
-}
-
 + (CGFloat)bottomPreviewOffset {
     return 199;
 }

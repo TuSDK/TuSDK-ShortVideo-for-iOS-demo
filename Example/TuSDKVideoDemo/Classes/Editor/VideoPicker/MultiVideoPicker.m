@@ -98,10 +98,6 @@ static const CGFloat kCellMargin = 3;
 
 #pragma mark - view controller
 
-- (void)dealloc {
-    NSLog(@"%s", __FUNCTION__);
-}
-
 + (instancetype)picker {
     return [[self alloc] initWithCollectionViewLayout:[[UICollectionViewFlowLayout alloc] init]];
 }

@@ -24,10 +24,6 @@ static NSString * const kEffectItemImageKey = @"image";
 
 @implementation EditCollectionViewDataSource
 
-- (void)dealloc {
-    NSLog(@"%s", __FUNCTION__);
-}
-
 - (instancetype)init {
     if (self = [super init]) {
         _effectItemTitles =

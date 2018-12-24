@@ -63,10 +63,6 @@ static const NSTimeInterval kMinMvEffectDuration = 1.0;
 
 @implementation EditMVViewController
 
-- (void)dealloc {
-    NSLog(@"%s", __FUNCTION__);
-}
-
 /**
  完成按钮事件
 

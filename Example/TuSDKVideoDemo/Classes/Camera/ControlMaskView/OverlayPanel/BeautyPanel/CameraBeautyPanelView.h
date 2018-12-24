@@ -7,21 +7,30 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "OverlayViewPtotocol.h"
+#import "OverlayViewProtocol.h"
 #import "CameraFilterPanelProtocol.h"
+#import "CameraBeautySkinListView.h"
+
 
 /**
  美化面板
  */
-@interface CameraBeautyPanelView : UIView <OverlayViewPtotocol, CameraFilterPanelProtocol>
+@interface CameraBeautyPanelView : UIView <OverlayViewProtocol, CameraFilterPanelProtocol>
 
-/// 触发者
+/** 触发者 */
 @property (nonatomic, weak) UIControl *sender;
 
+/** 当前选中的美颜/微整形索引 */
+@property (nonatomic, assign, readonly) NSInteger selectedTabIndex;
+
 /**
- 选中索引，0 为美颜页面，1 为微整形页面
+ 标记当前是否选择了自然美颜
  */
-@property (nonatomic, assign, readonly) NSInteger selectedIndex;
+@property (nonatomic,readonly) BOOL useSkinNatural;
+/**
+ 当前选择的美颜参数 （润滑，磨皮，红润）
+ */
+@property (nonatomic,readonly) NSString* selectedSkinKey;
 
 @property (nonatomic, weak) id<CameraFilterPanelDelegate> delegate;
 @property (nonatomic, weak) id<CameraFilterPanelDataSource> dataSource;

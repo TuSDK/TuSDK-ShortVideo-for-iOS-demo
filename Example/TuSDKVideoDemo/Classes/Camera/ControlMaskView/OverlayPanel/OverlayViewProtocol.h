@@ -9,7 +9,7 @@
 /**
  浮层协议
  */
-@protocol OverlayViewPtotocol <NSObject>
+@protocol OverlayViewProtocol <NSObject>
 
 /**
  触发者
