@@ -181,6 +181,9 @@ static const CGFloat kButtonWidth = 20;
  @param angle 角度
  */
 - (void)setScale:(CGFloat)scale angle:(CGFloat)angle {
+    
+    if (scale >= 4) return;
+    
     _scale = scale;
     _angle = angle;
     _textLabel.initialPercentCenter = CGPointZero;
@@ -222,14 +225,26 @@ static const CGFloat kButtonWidth = 20;
 - (void)translationPanAction:(UIPanGestureRecognizer *)sender {
     switch (sender.state) {
         case UIGestureRecognizerStateBegan:{
+            
             _panBeganPoint = self.center;
         } break;
         case UIGestureRecognizerStateChanged:{
             CGPoint translation = [sender translationInView:self.superview];
+            
+            BOOL canPanX = (CGRectGetMinX(self.frame) < 0 && translation.x > 0)
+            || (CGRectGetMaxX(self.frame) > CGRectGetMaxX(self.superview.bounds) && translation.x < 0);
+            BOOL canPanY = (CGRectGetMinY(self.frame) < 0 && translation.x > 0)
+                            ||  (CGRectGetMaxY(self.frame) > CGRectGetMaxY(self.superview.bounds) && translation.x < 0);
             CGPoint resultCenter = CGPointMake(_panBeganPoint.x + translation.x, _panBeganPoint.y + translation.y);
+    
             if (CGRectContainsPoint(self.superview.bounds, resultCenter)) {
                 self.center = resultCenter;
+            }else if (canPanX || canPanY) {
+                CGPoint resultCenter = CGPointMake( canPanX ?  (_panBeganPoint.x + translation.x) : self.center.x, canPanY ? (_panBeganPoint.y + translation.y) : self.center.y);
+                self.center = resultCenter;
+
             }
+
         } break;
         case UIGestureRecognizerStateEnded:{
             [self sendActionsForControlEvents:UIControlEventValueChanged];

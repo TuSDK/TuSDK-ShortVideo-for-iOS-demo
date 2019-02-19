@@ -12,7 +12,7 @@
 #import "TextEditAreaView.h"
 #import "TextFontMenuView.h"
 #import "TextStyleMenuView.h"
-#import "TextEditAreaView+TextEffect.h"
+#import "MediaTextEffect.h"
 
 /// 文字默认时长
 static const CGFloat kTextItemDefaultDuration = 2.0;
@@ -108,8 +108,25 @@ UIGestureRecognizerDelegate
     TuSDKVideoTrackInfo *trackInfo = self.movieEditor.inputAssetInfo.videoInfo.videoTrackInfoArray.firstObject;
     CGSize videoSize = trackInfo.presentSize;
     NSArray *textEffects = [_textEditAreaView generateTextEffectsWithVideoSize:videoSize];
-    for (TuSDKMediaTextEffect *textEffect in textEffects) {
+    for (MediaTextEffect *textEffect in textEffects) {
         [self.movieEditor addMediaEffect:textEffect];
+    }
+}
+
+/**
+ 取消按钮事件
+
+ @param sender 取消按钮
+ */
+- (void)cancelButtonAction:(UIButton *)sender {
+    [super cancelButtonAction:sender];
+    _textEditAreaView.hidden = YES;
+    // 恢复保存的文字特效
+    [self.movieEditor removeMediaEffectsWithType:TuSDKMediaEffectDataTypeStickerText];
+    if (self.initialEffects.count) {
+        for (TuSDKMediaSceneEffect *effect in self.initialEffects) {
+            [self.movieEditor addMediaEffect:effect];
+        }
     }
 }
 
@@ -117,7 +134,14 @@ UIGestureRecognizerDelegate
     [super viewWillDisappear:animated];
     // 恢复到首帧
     [self.movieEditor seekToTime:kCMTimeZero];
+    self.playbackProgress = CMTimeGetSeconds(self.movieEditor.outputTimeAtSlice) / CMTimeGetSeconds(self.movieEditor.inputDuration);
 }
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.playbackProgress = CMTimeGetSeconds(self.movieEditor.outputTimeAtSlice) / CMTimeGetSeconds(self.movieEditor.inputDuration);
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -140,6 +164,11 @@ UIGestureRecognizerDelegate
     // 监听键盘弹出与隐藏状态
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    
+    // 载入已加入的文字特效
+    self.initialEffects = [self.movieEditor mediaEffectsWithType:TuSDKMediaEffectDataTypeStickerText];
+    [_textEditAreaView setupWithTextEffects:self.initialEffects];
+    [self.movieEditor removeMediaEffectsWithType:TuSDKMediaEffectDataTypeStickerText];
     
     // 跳转到首帧
     [self.movieEditor seekToTime:kCMTimeZero];

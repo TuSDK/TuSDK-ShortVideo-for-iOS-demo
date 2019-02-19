@@ -7,6 +7,7 @@
 //
 
 #import "CameraViewController.h"
+#import "MovieCutViewController.h"
 #import "TuSDKFramework.h"
 // 相机模式
 #import "LongPressCaptureMode.h"
@@ -30,7 +31,7 @@ static NSString * const kFilterParameterMaxKey = @"max";
 CameraControlMaskViewDelegate,
 CameraMoreMenuViewDelegate,
 CameraFilterPanelDelegate,
-StickerPanelViewDelegate,
+PropsPanelViewDelegate,
 UIGestureRecognizerDelegate
 >
 @end
@@ -115,9 +116,7 @@ UIGestureRecognizerDelegate
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     // 当从别的页面返回相机页面时，需要判断相机状态
-    // if (_camera && _camera.state == lsqCameraStatePaused) {
-    //     [_camera resumeCameraCapture];
-    // }
+    // [_camera resumeCameraCapture];
     // 设置屏幕常亮，默认是NO
     [UIApplication sharedApplication].idleTimerDisabled = YES;
 }
@@ -139,7 +138,9 @@ UIGestureRecognizerDelegate
         [self setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
     }
     
-    [_controlMaskView.speedSegmentButton addTarget:self action:@selector(speedSegmentValueChangeAction:) forControlEvents:UIControlEventValueChanged];
+    [_controlMaskView.speedSegmentButton addTarget:self action:@selector(speedSegmentValueChangeAction:)
+                                  forControlEvents:UIControlEventValueChanged];
+    
 }
 
 /**
@@ -148,6 +149,9 @@ UIGestureRecognizerDelegate
 - (void)setupUIAfterCameraSetup {
     // 同步相机镜头位置
     _controlMaskView.moreMenuView.disableFlashSwitching = _camera.cameraPosition == AVCaptureDevicePositionFront;
+    
+    [_controlMaskView.markableProgressView addPlaceholder:_camera.minRecordingTime / _camera.maxRecordingTime markWidth:4];
+    
 }
 
 #pragma mark - 后台前台切换
@@ -208,7 +212,24 @@ UIGestureRecognizerDelegate
         [self.camera tryStartCameraCapture];
         // 设置默认滤镜
         self.defaultFilterCode = self.filterCodes[2];
-        [self.camera switchFilterWithCode:self.defaultFilterCode];
+        
+        /** 注意： 特效必须在相机启动后添加 */
+        
+        /** 初始化滤镜特效 */
+        TuSDKMediaFilterEffect *filterEffect = [[TuSDKMediaFilterEffect alloc] initWithEffectCode:self.defaultFilterCode];
+        [self.camera addMediaEffect:filterEffect];
+        
+        /** 初始化微整形特效 */
+        TuSDKMediaPlasticFaceEffect *plasticFaceEffect = [[TuSDKMediaPlasticFaceEffect alloc] init];
+        [self.camera addMediaEffect:plasticFaceEffect];
+        
+        /** 添加默认美颜效果 */
+        [self applySkinFaceEffect];
+
+        /** 添加默认变脸特效（哈哈镜） */
+        // TuSDKMediaMonsterFaceEffect *monsterEfffect = [[TuSDKMediaMonsterFaceEffect alloc]initWithMonsterFaceType:TuSDKMonsterFaceTypePapayaFace];
+        // [self.camera addMediaEffect:monsterEfffect];
+        
     }];
 }
 
@@ -283,15 +304,6 @@ UIGestureRecognizerDelegate
     _camera.speedMode = lsqSpeedMode_Normal;
     // 设置检测框最小倍数 [取值范围: 0.1 < x < 0.5, 默认: 0.2] 值越大性能越高距离越近
     [_camera setDetectScale:0.2f];
-    
-    
-    /** 初始化微整形特效 */
-    TuSDKMediaPlasticFaceEffect *plasticFaceEffect = [[TuSDKMediaPlasticFaceEffect alloc] init];
-    [_camera addMediaEffect:plasticFaceEffect];
-    
-    /** 添加默认美颜效果 */
-    [self applySkinFaceEffect];
-
     
     // 更新其他 UI
     [self setupUIAfterCameraSetup];
@@ -690,24 +702,30 @@ UIGestureRecognizerDelegate
  @param camerea 录制相机
  @param result 录制结果
  */
-- (void)onVideoCamera:(TuSDKRecordVideoCamera *)camerea result:(TuSDKVideoResult *)result {
-    // 通过相机初始化设置  _camera.saveToAlbum = NO;  result.videoPath 拿到视频的临时文件路径
-    
+- (void)onVideoCamera:(TuSDKRecordVideoCamera *)camerea result:(TuSDKVideoResult *)result;{
+    // 通过相机初始化设置  _camera.saveToAlbum = NO;   result.videoPath 拿到视频的临时文件路径
+    // 通过相机初始化设置  _camera.saveToAlbum = YES;  result.videoAsset.asset （PHAsset）拿到视频在相册中的文件路径
     if (result.videoPath) {
-        // 进行自定义操作，例如保存到相册
+        // 进行自定义操作，例如保存到相册（系统方法）
         UISaveVideoAtPathToSavedPhotosAlbum(result.videoPath, nil, nil, nil);
         [[TuSDK shared].messageHub showSuccess:NSLocalizedStringFromTable(@"tu_保存成功", @"VideoDemo", @"保存成功")];
-        
+        /**
         // 如需相机跳转时间裁剪进入编辑需要进行 input 赋值
         // MovieCutViewController.inputAssets，NSArray<AVAsset *> *inputAssets;为不可变数组类型
         // 需要将文件处理后的 videoAsset 对象加入到数组中
-        // NSURL *videoPathURL = [NSURL fileURLWithPath:result.videoPath];
-        // AVAsset *videoAsset = [AVAsset assetWithURL:videoPathURL];
-        // array add object
-        // 跳转代码
-        // MovieCutViewController *cutter = [[MovieCutViewController alloc] initWithNibName:nil bundle:nil];
+         
+         NSURL *videoPathURL = [NSURL fileURLWithPath:result.videoPath];
+         AVAsset *videoAsset = [AVAsset assetWithURL:videoPathURL];
+         NSArray *assets = [NSArray arrayWithObjects:videoAsset, nil];
+         // array add object
+         // 跳转代码
+         MovieCutViewController *cutter = [[MovieCutViewController alloc] initWithNibName:nil bundle:nil];
         // input 赋值
-        // cutter.inputAssets = assets;
+         cutter.inputAssets = assets;
+        
+        [self.navigationController pushViewController:cutter animated:YES];
+        **/        
+        
     } else {
         [[TuSDK shared].messageHub showSuccess:NSLocalizedStringFromTable(@"tu_保存成功", @"VideoDemo", @"保存成功")];
     }
@@ -823,6 +841,8 @@ UIGestureRecognizerDelegate
         NSLog(@"result.image: %@",result.image);
         // 进行自定义操作，例如保存到相册
         // UIImageWriteToSavedPhotosAlbum(result.image, NULL, NULL, NULL);
+        
+   
     }
 }
 
@@ -857,11 +877,14 @@ UIGestureRecognizerDelegate
             // 微整形特效
         case TuSDKMediaEffectDataTypePlasticFace: {
             [self updatePlasticFaceDefaultParameters];
+            [self.controlMaskView.propsItemPanelView reloadPanelView:TuSDKMediaEffectDataTypeMonsterFace];
         }
             break;
-        case TuSDKMediaEffectDataTypeSkinFace: {
-            break;
+        case TuSDKMediaEffectDataTypeMonsterFace: {
+            // 添加哈哈镜后重置微整形特效（哈哈镜特效无法和其他人脸特效共存：动态贴纸，人脸微整形效果）
+            [self.controlMaskView.beautyPanelView resetPlasticFaceEffect];
         }
+            break;
         default:
             break;
     }
@@ -1021,7 +1044,7 @@ UIGestureRecognizerDelegate
 
 - (void)applySkinFaceEffect;
 {
-    /** 老的特效 */
+    /** 上次应用的特效 */
     TuSDKMediaSkinFaceEffect *oldSkinFaceEffect = [_camera mediaEffectsWithType:TuSDKMediaEffectDataTypeSkinFace].firstObject;
     NSArray<TuSDKFilterArg *> *filterArgs = oldSkinFaceEffect.filterArgs;
 
@@ -1179,8 +1202,6 @@ UIGestureRecognizerDelegate
 
     if (filterPanel == _controlMaskView.beautyPanelView)
     {
-        
-        
         typeof(self)weakSelf = self;
         void (^resetBlock)(void) = ^{
             
@@ -1218,25 +1239,43 @@ UIGestureRecognizerDelegate
     }
 }
 
-#pragma mark StickerPanelViewDelegate
+#pragma mark PropsPanelViewDelegate
 
 /**
  贴纸选中回调
  
- @param stickerPanel 相机贴纸协议
- @param sticker 贴纸组
+ @param propsPanelView 相机贴纸协议
+ @param propsItem 贴纸组
  */
-- (void)stickerPanel:(StickerPanelView *)stickerPanel didSelectSticker:(TuSDKPFStickerGroup *)sticker {
-    if (!sticker) {
+- (void)propsPanel:(PropsPanelView *)propsPanelView didSelectPropsItem:(__kindof PropsItem *)propsItem {
+    if (!propsItem) {
         // 为nil时 移除已有贴纸组
         [_camera removeMediaEffectsWithType:TuSDKMediaEffectDataTypeSticker];
         return;
     }
     
     // 添加贴纸特效
-    TuSDKMediaStickerEffect *stickerEffect = [[TuSDKMediaStickerEffect alloc] initWithStickerGroup:sticker];
-    [_camera addMediaEffect:stickerEffect];
-    
+    [_camera addMediaEffect:propsItem.effect];
+}
+
+/**
+ 取消选中某类道具
+
+ @param propsPanel 道具视频
+ @param propsItemCategory 道具分类
+ */
+- (void)propsPanel:(PropsPanelView *)propsPanel unSelectPropsItemCategory:(__kindof PropsItemCategory *)propsItemCategory {
+    [_camera removeMediaEffectsWithType:propsItemCategory.categoryType];
+}
+
+/**
+ 道具移除事件
+
+ @param propsPanel 道具视图
+ @param propsItem 被移除的特效
+ */
+- (void)propsPanel:(PropsPanelView *)propsPanel didRemovePropsItem:(__kindof PropsItem *)propsItem {
+    [_camera removeMediaEffect:propsItem.effect];
 }
 
 #pragma mark - 滤镜相关
@@ -1269,6 +1308,9 @@ UIGestureRecognizerDelegate
             continue;
         }
         
+        // Attention:可对参数效果强弱进行自定义调节，请用户自行测试选择最适宜强度 ！！！
+        // Attention:参数效果调节强度并非效果强度越大越好，请用户根据实际情况对强度进行控制 ！！！
+        
         // 是否需要更新参数值
         BOOL updateValue = NO;
         // 默认值的百分比，用于指定滤镜初始的效果（参数默认值 = 最小值 + (最大值 - 最小值) * defaultValueFactor）
@@ -1279,12 +1321,17 @@ UIGestureRecognizerDelegate
         if ([parameterName isEqualToString:@"smoothing"]) {
             // 磨皮
             maxValueFactor = 0.7;
-            defaultValueFactor = 0.6;
+            defaultValueFactor = 0.5;
             updateValue = YES;
         } else if ([parameterName isEqualToString:@"whitening"]) {
             // 美白
-            maxValueFactor = 0.7;
-            defaultValueFactor = 0.3;
+            maxValueFactor = 0.4;
+            defaultValueFactor = 0.2;
+            updateValue = YES;
+        } else if ([parameterName isEqualToString:@"ruddy"]) {
+            // 红润
+            maxValueFactor = 0.4;
+            defaultValueFactor = 0.2;
             updateValue = YES;
         }
         if (updateValue) {

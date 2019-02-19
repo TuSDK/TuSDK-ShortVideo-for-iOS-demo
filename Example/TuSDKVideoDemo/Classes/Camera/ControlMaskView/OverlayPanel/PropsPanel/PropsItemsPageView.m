@@ -6,15 +6,15 @@
 //  Copyright © 2018年 TuSDK. All rights reserved.
 //
 
-#import "StickerCategoryPageView.h"
+#import "PropsItemsPageView.h"
 
 // CollectionView Cell 重用 ID
-static NSString * const kStickerCellReuseID = @"StickerCellReuseID";
+static NSString * const kPropsItemCellReuseID = @"PropsItemCellReuseID";
 
 /**
- 贴纸单元格
+ 道具单元格
  */
-@interface StickerCollectionCell()
+@interface PropsItemCollectionCell()
 
 /**
  选中状态视图
@@ -24,11 +24,11 @@ static NSString * const kStickerCellReuseID = @"StickerCellReuseID";
 /**
  删除按钮事件回调
  */
-@property (nonatomic, copy) void (^deleteButtonActionHandler)(StickerCollectionCell *cell);
+@property (nonatomic, copy) void (^deleteButtonActionHandler)(PropsItemCollectionCell *cell);
 
 @end
 
-@implementation StickerCollectionCell
+@implementation PropsItemCollectionCell
 
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
@@ -137,9 +137,9 @@ static NSString * const kStickerCellReuseID = @"StickerCellReuseID";
 
 
 /**
- 贴纸每个分类的页面视图
+ 道具每个分类的页面视图
  */
-@interface StickerCategoryPageView() <UIGestureRecognizerDelegate>
+@interface PropsItemsPageView() <UIGestureRecognizerDelegate>
 
 /**
  显示删除按钮的索引对象
@@ -153,7 +153,7 @@ static NSString * const kStickerCellReuseID = @"StickerCellReuseID";
 
 @end
 
-@implementation StickerCategoryPageView
+@implementation PropsItemsPageView
 
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
@@ -173,14 +173,14 @@ static NSString * const kStickerCellReuseID = @"StickerCellReuseID";
     flowLayout.sectionInset = UIEdgeInsetsMake(itemVerticalSpacing, itemHorizontalSpacing, itemVerticalSpacing, itemHorizontalSpacing);
     flowLayout.minimumLineSpacing = itemVerticalSpacing;
     
-    _stickerCollectionView = [[UICollectionView alloc] initWithFrame:self.bounds collectionViewLayout:flowLayout];
-    [self addSubview:_stickerCollectionView];
-    _stickerCollectionView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    _stickerCollectionView.backgroundColor = [UIColor clearColor];
-    _stickerCollectionView.dataSource = self;
-    _stickerCollectionView.allowsSelection = NO;
+    _itemCollectionView = [[UICollectionView alloc] initWithFrame:self.bounds collectionViewLayout:flowLayout];
+    [self addSubview:_itemCollectionView];
+    _itemCollectionView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    _itemCollectionView.backgroundColor = [UIColor clearColor];
+    _itemCollectionView.dataSource = self;
+    _itemCollectionView.allowsSelection = NO;
     
-    [_stickerCollectionView registerClass:[StickerCollectionCell class] forCellWithReuseIdentifier:kStickerCellReuseID];
+    [_itemCollectionView registerClass:[PropsItemCollectionCell class] forCellWithReuseIdentifier:kPropsItemCellReuseID];
     
     UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressAction:)];
     [self addGestureRecognizer:longPress];
@@ -197,9 +197,9 @@ static NSString * const kStickerCellReuseID = @"StickerCellReuseID";
         return;
     }
     
-    StickerCollectionCell *cellShouldHideButton = (StickerCollectionCell *)[_stickerCollectionView cellForItemAtIndexPath:_shouldShowDeleteButtonIndexPath];
+    PropsItemCollectionCell *cellShouldHideButton = (PropsItemCollectionCell *)[_itemCollectionView cellForItemAtIndexPath:_shouldShowDeleteButtonIndexPath];
     [cellShouldHideButton setDeleteButtonHidden:YES animated:YES];
-    StickerCollectionCell *cellShouldShowButton = (StickerCollectionCell *)[_stickerCollectionView cellForItemAtIndexPath:shouldShowDeleteButtonIndexPath];
+    PropsItemCollectionCell *cellShouldShowButton = (PropsItemCollectionCell *)[_itemCollectionView cellForItemAtIndexPath:shouldShowDeleteButtonIndexPath];
     [cellShouldShowButton setDeleteButtonHidden:NO animated:YES];
     
     _shouldShowDeleteButtonIndexPath = shouldShowDeleteButtonIndexPath;
@@ -209,10 +209,10 @@ static NSString * const kStickerCellReuseID = @"StickerCellReuseID";
     if ([selectedIndexPath isEqual:_selectedIndexPath]) {
         return;
     }
-    for (UICollectionViewCell *cellShouldDeselect in _stickerCollectionView.visibleCells) {
+    for (UICollectionViewCell *cellShouldDeselect in _itemCollectionView.visibleCells) {
         if (cellShouldDeselect.selected) cellShouldDeselect.selected = NO;
     }
-    UICollectionViewCell *cellShouldSelect = [_stickerCollectionView cellForItemAtIndexPath:selectedIndexPath];
+    UICollectionViewCell *cellShouldSelect = [_itemCollectionView cellForItemAtIndexPath:selectedIndexPath];
     cellShouldSelect.selected = YES;
     
     _selectedIndexPath = selectedIndexPath;
@@ -234,8 +234,8 @@ static NSString * const kStickerCellReuseID = @"StickerCellReuseID";
 - (void)dismissDeleteButtons {
     if ([_shouldShowDeleteButtonIndexPath isEqual:_selectedIndexPath]) {
         [self deselect];
-        if ([self.delegate respondsToSelector:@selector(stickerCategoryPageView:didSelectCell:atIndex:)]) {
-            [self.delegate stickerCategoryPageView:self didSelectCell:nil atIndex:-1];
+        if ([self.delegate respondsToSelector:@selector(propsItemsPageView:didSelectCell:atIndex:)]) {
+            [self.delegate propsItemsPageView:self didSelectCell:nil atIndex:-1];
         }
     }
     self.shouldShowDeleteButtonIndexPath = nil;
@@ -253,16 +253,16 @@ static NSString * const kStickerCellReuseID = @"StickerCellReuseID";
  @param sender 点击手势
  */
 - (void)tapAction:(UITapGestureRecognizer *)sender {
-    CGPoint touchPoint = [sender locationInView:_stickerCollectionView];
-    if (!CGRectContainsPoint(_stickerCollectionView.bounds, touchPoint)) return;
-    NSIndexPath *touchIndexPath = [_stickerCollectionView indexPathForItemAtPoint:touchPoint];
+    CGPoint touchPoint = [sender locationInView:_itemCollectionView];
+    if (!CGRectContainsPoint(_itemCollectionView.bounds, touchPoint)) return;
+    NSIndexPath *touchIndexPath = [_itemCollectionView indexPathForItemAtPoint:touchPoint];
     if (!touchIndexPath) return;
     
     [self dismissDeleteButtons];
     self.selectedIndexPath = touchIndexPath;
-    StickerCollectionCell *cell = (StickerCollectionCell *)[_stickerCollectionView cellForItemAtIndexPath:touchIndexPath];
-    if ([self.delegate respondsToSelector:@selector(stickerCategoryPageView:didSelectCell:atIndex:)]) {
-        [self.delegate stickerCategoryPageView:self didSelectCell:cell atIndex:touchIndexPath.item];
+    PropsItemCollectionCell *cell = (PropsItemCollectionCell *)[_itemCollectionView cellForItemAtIndexPath:touchIndexPath];
+    if ([self.delegate respondsToSelector:@selector(propsItemsPageView:didSelectCell:atIndex:)]) {
+        [self.delegate propsItemsPageView:self didSelectCell:cell atIndex:touchIndexPath.item];
     }
 }
 
@@ -272,16 +272,21 @@ static NSString * const kStickerCellReuseID = @"StickerCellReuseID";
  @param sender 长按手势
  */
 - (void)longPressAction:(UILongPressGestureRecognizer *)sender {
+    
     if (sender.state != UIGestureRecognizerStateBegan) return;
+
+    CGPoint touchPoint = [sender locationInView:_itemCollectionView];
+    if (!CGRectContainsPoint(_itemCollectionView.bounds, touchPoint)) return;
     
-    CGPoint touchPoint = [sender locationInView:_stickerCollectionView];
-    if (!CGRectContainsPoint(_stickerCollectionView.bounds, touchPoint)) return;
-    
-    NSIndexPath *touchIndexPath = [_stickerCollectionView indexPathForItemAtPoint:touchPoint];
+    NSIndexPath *touchIndexPath = [_itemCollectionView indexPathForItemAtPoint:touchPoint];
     if (!touchIndexPath) return;
     
-    StickerCollectionCell *cell = (StickerCollectionCell *)[_stickerCollectionView cellForItemAtIndexPath:touchIndexPath];
-    if (cell.online) return;
+    if ([self.delegate respondsToSelector:@selector(propsItemsPageView:canDeleteButtonAtIndex:)]) {
+        if (![self.delegate propsItemsPageView:self canDeleteButtonAtIndex:touchIndexPath]) {
+            NSLog(@"canDeleteButtonAtIndex return false.");
+            return;
+        }
+    }
     
     self.shouldShowDeleteButtonIndexPath = touchIndexPath;
 }
@@ -292,23 +297,26 @@ static NSString * const kStickerCellReuseID = @"StickerCellReuseID";
  @param cell 单元格
  @param indexPath 单元格索引对象
  */
-- (void)cell:(StickerCollectionCell *)cell didTapDeleteButtonWithIndexPath:(NSIndexPath *)indexPath {
-    if ([self.delegate respondsToSelector:@selector(stickerCategoryPageView:didTapDeleteButtonAtIndex:)]) {
-        [self.delegate stickerCategoryPageView:self didTapDeleteButtonAtIndex:indexPath.item];
+- (void)cell:(PropsItemCollectionCell *)cell didTapDeleteButtonWithIndexPath:(NSIndexPath *)indexPath {
+    if ([self.delegate respondsToSelector:@selector(propsItemsPageView:didTapDeleteButtonAtIndex:)]) {
+        [self.delegate propsItemsPageView:self didTapDeleteButtonAtIndex:indexPath.item];
     }
 }
 
 #pragma mark - UICollectionViewDataSource
 
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    StickerCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kStickerCellReuseID forIndexPath:indexPath];
+    PropsItemCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kPropsItemCellReuseID forIndexPath:indexPath];
     
     //cell.thumbnailView.image = [UIImage imageNamed:@"default"];
-    [self.dataSource stickerCategoryPageView:self setupStickerCollectionCell:cell atIndex:indexPath.item];
+    [self.dataSource propsItemsPageView:self setupStickerCollectionCell:cell atIndex:indexPath.item];
+
+    // 选中当前项
+    cell.selected = [_selectedIndexPath isEqual:indexPath];
     
     cell.deleteButton.hidden = cell.selected || ![indexPath isEqual:_shouldShowDeleteButtonIndexPath] || cell.online;
     __weak typeof(self) weakSelf = self;
-    cell.deleteButtonActionHandler = ^(StickerCollectionCell *cell) {
+    cell.deleteButtonActionHandler = ^(PropsItemCollectionCell *cell) {
         [weakSelf cell:cell didTapDeleteButtonWithIndexPath:indexPath];
     };
     
@@ -322,7 +330,7 @@ static NSString * const kStickerCellReuseID = @"StickerCellReuseID";
 #pragma mark UIGestureRecognizerDelegate
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
-    for (UIView *view in _stickerCollectionView.visibleCells) {
+    for (UIView *view in _itemCollectionView.visibleCells) {
         if ([touch.view isDescendantOfView:view]) {
             return YES;
         }

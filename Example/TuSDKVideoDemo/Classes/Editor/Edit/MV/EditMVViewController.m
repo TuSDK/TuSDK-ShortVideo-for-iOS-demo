@@ -93,7 +93,14 @@ static const NSTimeInterval kMinMvEffectDuration = 1.0;
     [super viewWillDisappear:animated];
     // 恢复到首帧
     [self.movieEditor seekToTime:kCMTimeZero];
+    self.playbackProgress = CMTimeGetSeconds(self.movieEditor.outputTimeAtSlice) / CMTimeGetSeconds(self.movieEditor.inputDuration);
 }
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.playbackProgress = CMTimeGetSeconds(self.movieEditor.outputTimeAtSlice) / CMTimeGetSeconds(self.movieEditor.inputDuration);
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];

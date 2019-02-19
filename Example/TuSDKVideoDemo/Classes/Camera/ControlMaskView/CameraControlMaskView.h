@@ -14,7 +14,7 @@
 #import "CameraMoreMenuView.h"
 #import "CameraFilterPanelView.h"
 #import "CameraBeautyPanelView.h"
-#import "StickerPanelView.h"
+#import "PropsPanelView.h"
 #import "CameraSpeedSegmentButton.h"
 #import "RecordButton.h"
 
@@ -149,9 +149,9 @@
 @property (nonatomic, strong, readonly) CameraBeautyPanelView *beautyPanelView;
 
 /**
- 贴纸面板叠层视图
+ 道具面板叠层视图
  */
-@property (nonatomic, strong, readonly) StickerPanelView *stickerPanelView;
+@property (nonatomic, strong, readonly) PropsPanelView *propsItemPanelView;
 
 /**
  显示的滤镜名称
@@ -181,7 +181,7 @@
 /**
  相机贴纸代理
  */
-@property (nonatomic, weak) IBOutlet id<StickerPanelViewDelegate> stickerPaneldelegate;
+@property (nonatomic, weak) IBOutlet id<PropsPanelViewDelegate> stickerPaneldelegate;
 
 /**
  隐藏视图方法

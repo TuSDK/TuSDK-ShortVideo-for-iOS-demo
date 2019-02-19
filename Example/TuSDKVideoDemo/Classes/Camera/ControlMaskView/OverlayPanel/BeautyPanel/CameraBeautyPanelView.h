@@ -27,12 +27,25 @@
  标记当前是否选择了自然美颜
  */
 @property (nonatomic,readonly) BOOL useSkinNatural;
+
 /**
  当前选择的美颜参数 （润滑，磨皮，红润）
  */
 @property (nonatomic,readonly) NSString* selectedSkinKey;
 
+/**
+ 事件委托
+ */
 @property (nonatomic, weak) id<CameraFilterPanelDelegate> delegate;
+
+/**
+ 数据源委托
+ */
 @property (nonatomic, weak) id<CameraFilterPanelDataSource> dataSource;
+
+/**
+ 清除选择的微整形特效
+ */
+- (void)resetPlasticFaceEffect;
 
 @end

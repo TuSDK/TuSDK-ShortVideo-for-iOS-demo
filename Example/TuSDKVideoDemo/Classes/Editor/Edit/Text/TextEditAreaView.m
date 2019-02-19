@@ -132,7 +132,8 @@ static const NSTimeInterval kAnimationDuration = 0.25;
 
 - (void)showTextItemAtTime:(CMTime)time index:(NSInteger)index animated:(BOOL)animated {
     TextItemTransformControl *textItemControl = [self textItemControlAtIndex:index];
-    BOOL hidden = !CMTimeRangeContainsTime(textItemControl.textLabel.timeRange, time);
+    // CMTimeRangeContainsTime 不包含末尾
+    BOOL hidden = !CMTimeRangeContainsTime(textItemControl.textLabel.timeRange, time) &&  !CMTIME_COMPARE_INLINE(time, ==, CMTimeRangeGetEnd(textItemControl.textLabel.timeRange));
     [self setTextItemControl:textItemControl hidden:hidden animated:animated];
 }
 

@@ -87,6 +87,9 @@
  @param editComponentViewController 子页面控制器
  */
 - (void)setupEditComponentViewController:(BaseEditComponentViewController *)editComponentViewController {
+    
+    self.playbackProgress = CMTimeGetSeconds(self.movieEditor.outputTimeAtSlice) / CMTimeGetSeconds(self.movieEditor.inputDuration);
+    
     editComponentViewController.movieEditor = self.movieEditor;
     editComponentViewController.thumbnails = self.thumbnails;
     editComponentViewController.playbackProgress = self.playbackProgress;

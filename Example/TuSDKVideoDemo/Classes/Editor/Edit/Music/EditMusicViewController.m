@@ -186,7 +186,7 @@ static NSString * const kVideoSoundVolumeKey = @"videoSoundVolume";
     // 应用音量
     audioEffect.audioVolume = self.effectAudioVolume;
     // 设置应用范围
-    audioEffect.atTimeRange = [TuSDKTimeRange makeTimeRangeWithStart:kCMTimeZero duration:self.movieEditor.inputDuration];
+    audioEffect.atTimeRange = [TuSDKTimeRange makeTimeRangeWithStart:kCMTimeZero duration:self.movieEditor.outputDuraiton];
     // 添加特效
     [self.movieEditor addMediaEffect:audioEffect];
     // 切换音乐后，重新预览视频

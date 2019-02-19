@@ -10,12 +10,12 @@
 #import "PageTabbar.h"
 #import "ViewSlider.h"
 
-@class StickerCategory;
+@class PropsItemCategory;
 
 /**
- 贴纸面板基类
+ 道具面板基类
  */
-@interface BaseStickerPanelView : UIView <PageTabbarDelegate, ViewSliderDataSource, ViewSliderDelegate>
+@interface BasePropsPanelView : UIView <PageTabbarDelegate, ViewSliderDataSource, ViewSliderDelegate>
 
 /**
  重置安桥
@@ -23,7 +23,7 @@
 @property (nonatomic, strong, readonly) UIButton *unsetButton;
 
 /**
- 贴纸分类
+ 道具分类
  */
 @property (nonatomic, strong, readonly) PageTabbar *categoryTabbar;
 

@@ -73,6 +73,10 @@
         case lsqRecordStateRecording:{
             
         } break;
+        case lsqRecordStateSaveingCompleted:
+        case lsqRecordStateCanceled:
+            _cameraController.controlMaskView.moreMenuView.disableRatioSwitching = NO;
+            break;
         default:{} break;
     }
 }
@@ -84,7 +88,6 @@
  */
 - (void)recordProgressDidChange:(double)progress {
     _cameraController.controlMaskView.markableProgressView.progress = progress;
-    NSLog(@"progress: %@", @(progress));
 }
 
 /**

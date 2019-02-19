@@ -477,7 +477,12 @@ EditComponentNavigatorDelegate, FilterSwipeViewDelegate
         TuSDKMediaFilterEffect *filterEffect = [[TuSDKMediaFilterEffect alloc] initWithEffectCode:filterCode];
         [_movieEditor addMediaEffect:filterEffect];
     }
-    [_movieEditor startPreview];
+    
+    /** 切换滤镜时 如果当前视频没有正在播放开启预览。 */
+    if (!_movieEditor.isPreviewing)
+        [_movieEditor startPreview];
+    
+    
     return YES;
 }
 

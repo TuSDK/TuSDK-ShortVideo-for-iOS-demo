@@ -145,6 +145,12 @@
 @property (nonatomic) BOOL videoCameraBitrateSupport;
 
 /**
+ video camera monster effect support 哈哈镜
+ @since v3.3.0
+ */
+@property (nonatomic) BOOL videoCameraMonsterFaceSupport;
+
+/**
  video editor music support
  */
 @property (nonatomic) BOOL videoEditorMusicSupport;
@@ -190,6 +196,12 @@
  @since v3.0.1
  */
 @property (nonatomic) BOOL videoEditorComicEffectsSupport;
+
+/**
+ video editor monster effect support 哈哈镜
+ @since v3.3.0
+ */
+@property (nonatomic) BOOL videoEditorMonsterFaceSupport;
 
 /**
  音频变声权限

@@ -1,14 +1,18 @@
 //
-//  TextEditAreaView+TextEffect.m
+//  MediaTextEffect.m
 //  TuSDKVideoDemo
 //
-//  Created by bqlin on 2018/11/13.
+//  Created by bqlin on 2018/10/22.
 //  Copyright © 2018年 TuSDK. All rights reserved.
 //
 
-#import "TextEditAreaView+TextEffect.h"
+#import "MediaTextEffect.h"
 #import "TextItemTransformControl.h"
 #import "TuSDKFramework.h"
+
+@implementation MediaTextEffect
+
+@end
 
 @interface TextEditAreaView ()
 
@@ -19,9 +23,9 @@
 
 @end
 
-@implementation TextEditAreaView (TextEffect)
+@implementation TextEditAreaView (MediaTextEffect)
 
-- (NSArray<TuSDKMediaTextEffect *> *)generateTextEffectsWithVideoSize:(CGSize)videoSize {
+- (NSArray<MediaTextEffect *> *)generateTextEffectsWithVideoSize:(CGSize)videoSize {
     NSMutableArray *textEffects = [NSMutableArray array];
     
     for (TextItemTransformControl *textItemControl in self.textItemControls) {
@@ -37,19 +41,37 @@
         
         // 创建 text effect
         CMTimeRange timeRange = textLabel.timeRange;
-        TuSDKMediaTextEffect *textEffect = [[TuSDKMediaTextEffect alloc] initWithStickerImage:image center:centerRect degree:degree designSize:videoSize];
+        MediaTextEffect *textEffect = [[MediaTextEffect alloc] initWithStickerImage:image center:centerRect degree:degree designSize:videoSize];
         textEffect.atTimeRange = [TuSDKTimeRange makeTimeRangeWithStart:timeRange.start duration:timeRange.duration];
+        textEffect.edgeInsets = textLabel.edgeInsets;
+        textEffect.backgroundColor = textLabel.backgroundColor;
+        textEffect.text = textLabel.text;
+        textEffect.textAttributes = textLabel.textAttributes;
         [textEffects addObject:textEffect];
     }
     
     return textEffects.copy;
 }
 
+- (void)setupWithTextEffects:(NSArray<MediaTextEffect *> *)textEffects {
+    for (MediaTextEffect *textEffect in textEffects) {
+        AttributedLabel *textLabel = [[AttributedLabel alloc] initWithFrame:CGRectZero];
+        textLabel.edgeInsets = textEffect.edgeInsets;
+        textLabel.initialPercentCenter = textEffect.textStickerImage.center.origin;
+        textLabel.transform = CGAffineTransformMakeRotation(textEffect.textStickerImage.degree / 180 * M_PI);
+        textLabel.backgroundColor = textEffect.backgroundColor;
+        textLabel.text = textEffect.text;
+        textLabel.textAttributes = textEffect.textAttributes;
+        textLabel.timeRange = textEffect.atTimeRange.CMTimeRange;
+        [self addTextEditItem:textLabel];
+    }
+}
+
 #pragma mark - util
 
 /**
  由给定 texlLabel 矢量拉伸后生成图片
- 
+
  @param textLabel 文字标签
  @return 图片
  */
@@ -79,7 +101,7 @@
 
 /**
  生成基于中点的百分比 frame
- 
+
  @param textFrame 文字的 frame
  @return rect 尺寸比例
  */
@@ -95,6 +117,21 @@
     w /= width;
     h /= height;
     return CGRectMake(x, y, w, h);
+}
+
+/**
+ 生成文字中点
+
+ @param centerRect 中心点 rect
+ @param bounds 边框 frame
+ @return 点坐标
+ */
+- (CGPoint)textCenterWithCenterRect:(CGRect)centerRect bounds:(CGRect)bounds {
+    CGFloat boundsWidth = CGRectGetWidth(bounds);
+    CGFloat boundsHeight = CGRectGetHeight(bounds);
+    CGFloat x = centerRect.origin.x * boundsWidth;
+    CGFloat y = centerRect.origin.y * boundsHeight;
+    return CGPointMake(x, y);
 }
 
 @end

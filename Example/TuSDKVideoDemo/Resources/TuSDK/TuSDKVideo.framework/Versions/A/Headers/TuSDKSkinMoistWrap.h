@@ -6,7 +6,7 @@
 //  Copyright © 2018 TuSDK. All rights reserved.
 //
 
-#import "TuSDKFilterWrap.h"
+#import "TuSDKVideoImport.h"
 
 NS_ASSUME_NONNULL_BEGIN
 /**

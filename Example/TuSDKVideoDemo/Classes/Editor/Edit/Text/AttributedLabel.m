@@ -8,7 +8,8 @@
 
 #import "AttributedLabel.h"
 
-static const CGFloat kDefalutFontSize = 15.0;
+/** 默认字体大小 */
+static const CGFloat kDefalutFontSize = 24.0;
 
 @interface AttributedLabel ()
 

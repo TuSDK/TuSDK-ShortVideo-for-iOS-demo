@@ -6,9 +6,9 @@
 //  Copyright © 2018年 TuSDK. All rights reserved.
 //
 
-#import "BaseStickerPanelView.h"
+#import "BasePropsPanelView.h"
 
-@interface BaseStickerPanelView ()
+@interface BasePropsPanelView ()
 
 /**
  背景视图
@@ -42,7 +42,7 @@
 
 @end
 
-@implementation BaseStickerPanelView
+@implementation BasePropsPanelView
 
 - (instancetype)initWithCoder:(NSCoder *)decoder {
     if (self = [super initWithCoder:decoder]) {

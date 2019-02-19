@@ -64,11 +64,17 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [_moviePlayer seekToTime:kCMTimeZero];
+    [_moviePlayer stop];
     // 取消资源请求
     [[PHImageManager defaultManager] cancelImageRequest:_assetRequestId];
     _assetRequestId = -1;
     [[TuSDK shared].messageHub dismiss];
+}
+
+- (void)dealloc;
+{
+    [_moviePlayer destory];
+    _moviePlayer = nil;
 }
 
 - (void)setupPlayerWithAsset:(AVAsset *)avAsset {
@@ -137,7 +143,7 @@
  */
 - (void)enterBackFromFront {
     if (_moviePlayer) {
-        [_moviePlayer seekToTime:kCMTimeZero];
+        [_moviePlayer stop];
         _playButton.hidden = NO;
     }
 }

@@ -186,10 +186,18 @@ static const CGFloat kBeautyListParamtersViewSpacing = 24;
     return _beautySkinListView.selectedSkinKey;
 }
 
-
 - (NSInteger)selectedTabIndex;
 {
     return _pageSlider.selectedIndex;
+}
+
+
+/**
+ 清除选择的微整形特效
+ */
+- (void)resetPlasticFaceEffect {
+    _beautyFaceListView.selectedIndex = 0;
+    [self reloadBeautyFaceParamters];
 }
 
 #pragma mark - private

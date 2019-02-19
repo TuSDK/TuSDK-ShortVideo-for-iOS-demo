@@ -80,11 +80,13 @@
             
         } break;
         case lsqRecordStateCanceled:{
-            if (_recordButton.selected) {
-                _recordButton.selected = !_recordButton.selected;
-                [self pauseRecordAction];
-            }
+            _recordButton.selected = NO;
+            _cameraController.controlMaskView.moreMenuView.disableRatioSwitching = NO;
+            [_cameraController.controlMaskView showViewsWhenPauseRecording];
         } break;
+        case lsqRecordStateSaveingCompleted:
+            _cameraController.controlMaskView.moreMenuView.disableRatioSwitching = NO;
+            break;
         default:{} break;
     }
 }
@@ -96,7 +98,6 @@
  */
 - (void)recordProgressDidChange:(double)progress {
     _cameraController.controlMaskView.markableProgressView.progress = progress;
-    NSLog(@"progress: %@", @(progress));
 }
 
 - (void)resetUI {
@@ -144,6 +145,7 @@
  */
 - (void)recordButtonDidTouchDown:(RecordButton *)sender {
     sender.selected = !sender.selected;
+    _recordButton = sender;
     if (sender.selected) {
         [_cameraController startRecording];
         // 更新 UI

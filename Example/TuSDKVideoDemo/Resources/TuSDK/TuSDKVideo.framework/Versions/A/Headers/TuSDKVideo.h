@@ -33,6 +33,7 @@
 #import "TuSDKMediaComicEffect.h"
 #import "TuSDKMediaPlasticFaceEffect.h"
 #import "TuSDKMediaSkinFaceEffect.h"
+#import "TuSDKMediaMonsterFaceEffect.h"
 
 // 时间特效
 #import "TuSDKMediaTimeEffect.h"

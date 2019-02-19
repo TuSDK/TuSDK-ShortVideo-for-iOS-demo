@@ -73,7 +73,7 @@
     
     // 先进入视频选择器，再对选取的视频时长进行裁剪，然后进入视频编辑
     MultiVideoPickerViewController *picker = [[MultiVideoPickerViewController alloc] initWithNibName:nil bundle:nil];
-    picker.maxSelectedCount = 1;
+    picker.maxSelectedCount = 9;
     picker.rightButtonActionHandler = ^(MultiVideoPickerViewController *picker, UIButton *sender) {
         NSArray *assets = [picker allSelectedAssets];
         if (assets.count) [self actionAfterPickVideos:assets];
@@ -88,7 +88,7 @@
  */
 - (void)actionAfterPickVideos:(NSArray<AVURLAsset *> *)assets {
     MovieCutViewController *cutter = [[MovieCutViewController alloc] initWithNibName:nil bundle:nil];
-    cutter.inputAsset = assets.firstObject;
+    cutter.inputAssets = assets;
     cutter.rightButtonActionHandler = ^(MovieCutViewController *cutter, UIButton *sender) {
         [self actionAfterMovieCutWithURL:cutter.outputURL];
     };

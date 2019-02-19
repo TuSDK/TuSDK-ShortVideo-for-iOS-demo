@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  初始化美颜特效
 
- @param useSkinNatural 是否使用自然美颜
+ @param useSkinNatural 是否开启精准美颜 YES：精准美颜 NO: 极致美颜
  @return TuSDKMediaSkinFaceEffect 美肤美颜特效实例
  @since v3.2.0
  */

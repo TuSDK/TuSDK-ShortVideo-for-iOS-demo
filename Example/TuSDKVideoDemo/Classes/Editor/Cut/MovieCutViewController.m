@@ -65,6 +65,11 @@ static const NSTimeInterval kMinCutDuration = 3.0;
  */
 @property (nonatomic, assign) CMTimeRange selectedTimeRange;
 
+/**
+ 标识是否删除生成的临时文件
+ */
+@property (nonatomic, assign) BOOL removeTempFileFlag;
+
 @end
 
 
@@ -81,13 +86,18 @@ static const NSTimeInterval kMinCutDuration = 3.0;
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [_moviePlayer seekToTime:kCMTimeZero];
+    [_moviePlayer stop];
 }
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     [_moviePlayer updatePreViewFrame:_playerView.frame];
     [_moviePlayer load];
+}
+
+- (void)dealloc;
+{
+    [_moviePlayer destory];
 }
 
 - (void)setupUI {
@@ -101,10 +111,15 @@ static const NSTimeInterval kMinCutDuration = 3.0;
  创建并配置播放器
  */
 - (void)setupPlayer {
-    TuSDKMediaAsset *mediaAsset = [[TuSDKMediaAsset alloc] initWithAsset:_inputAsset timeRange:kCMTimeRangeInvalid];
-    _moviePlayer = [[TuSDKMediaMutableAssetMoviePlayer alloc] initWithMediaAssets:@[mediaAsset] preview:_playerView];
-    _moviePlayer.delegate = self;
     
+    NSMutableArray<TuSDKMediaAsset *> *inputMediaAssets = [NSMutableArray arrayWithCapacity:_inputAssets.count];
+    [_inputAssets enumerateObjectsUsingBlock:^(AVURLAsset * _Nonnull inputAsset, NSUInteger idx, BOOL * _Nonnull stop) {
+        TuSDKMediaAsset *mediaAsset = [[TuSDKMediaAsset alloc] initWithAsset:inputAsset timeRange:kCMTimeRangeInvalid];
+        [inputMediaAssets addObject:mediaAsset];
+    }];
+    
+    _moviePlayer = [[TuSDKMediaMutableAssetMoviePlayer alloc] initWithMediaAssets:inputMediaAssets preview:_playerView];
+    _moviePlayer.delegate = self;
     _selectedTimeRange = CMTimeRangeMake(kCMTimeZero, _moviePlayer.asset.duration);
 }
 
@@ -123,7 +138,7 @@ static const NSTimeInterval kMinCutDuration = 3.0;
     // 获取缩略图
     TuSDKVideoImageExtractor *imageExtractor = [TuSDKVideoImageExtractor createExtractor];
     //imageExtractor.isAccurate = YES; // 精确截帧
-    imageExtractor.videoAsset = _inputAsset;
+    imageExtractor.videoAssets = _inputAssets;
     const NSInteger frameCount = 10;
     imageExtractor.extractFrameCount = frameCount;
     _videoTrimmerView.thumbnailsView.thumbnailCount = frameCount;
@@ -145,8 +160,9 @@ static const NSTimeInterval kMinCutDuration = 3.0;
     if (_moviePlayer) {
         if (_saver) {
             [_saver cancelExport];
+            _saver = nil;
         }
-        [_moviePlayer seekToTime:kCMTimeZero];
+        [_moviePlayer stop];
     }
 }
 
@@ -180,6 +196,17 @@ static const NSTimeInterval kMinCutDuration = 3.0;
     [_moviePlayer play];
 }
 
+
+/**
+ 清除多文件转码后生成的临时文件
+ */
+- (void)removeTempFile {
+    if (!_removeTempFileFlag || !_outputURL) return;
+    BOOL result = [[NSFileManager defaultManager] removeItemAtURL:_outputURL error:nil];
+    _outputURL = nil;
+    lsqLInfo(@"remove temp file %d",result);
+}
+
 /**
  右上方按钮事件
 
@@ -189,25 +216,41 @@ static const NSTimeInterval kMinCutDuration = 3.0;
     [_moviePlayer pause];
     
     // 若截取时间与视频时长一致，则直接返回视频 URL
-    if (CMTimeRangeEqual(_selectedTimeRange, CMTimeRangeMake(kCMTimeZero, _inputAsset.duration))) {
-        _outputURL = _inputAsset.URL;
+    if (_inputAssets.count == 1 // 单个视频
+        && CMTimeRangeEqual(_selectedTimeRange, CMTimeRangeMake(kCMTimeZero, _moviePlayer.inputDuration)))
+    {
+        _outputURL = _inputAssets.firstObject.URL;
+        
+        /** 原始视频卫生处临时文件时不需要删除 */
+        self.removeTempFileFlag = NO;
+        
         [super base_rightButtonAction:sender];
+        
         return;
     }
+    
+ 
+    [self removeTempFile];
+    
+    TuSDKMediaTimeRange *timeRange = [[TuSDKMediaTimeRange alloc] initWithStart:_selectedTimeRange.start duration:_selectedTimeRange.duration];
+    TuSDKMediaTimelineSlice *cutTimeRangeSlice = [[TuSDKMediaTimelineSlice alloc] initWithTimeRange:timeRange];
+
     
     // 否则进行导出
     TuSDKMediaMovieAssetTranscoderSettings *exportSettings = [[TuSDKMediaMovieAssetTranscoderSettings alloc] init];
     exportSettings.saveToAlbum = NO;
     exportSettings.enableExportAssetSound = YES;
+    
+    // 多文件时裁剪时可以通过 _moviePlayer.videoComposition 获取 videoComposition, 开发者也可以自定义。
+    [_moviePlayer appendMediaTimeSlice:cutTimeRangeSlice];
     exportSettings.videoComposition = _moviePlayer.videoComposition;
+    
+    // 通过 appendMediaTimeSlice 为播放器添加切片，只是为了生成 videoComposition。
+    [_moviePlayer removeAllMediaTimeSlices];
     
     _saver = [[TuSDKMediaMovieAssetTranscoder alloc] initWithInputAsset:_moviePlayer.asset exportOutputSettings:exportSettings];
     _saver.delegate = self;
-    
-    TuSDKMediaTimeRange *timeRange = [[TuSDKMediaTimeRange alloc] initWithStart:_selectedTimeRange.start duration:_selectedTimeRange.duration];
-    TuSDKMediaTimelineSlice *newSlice = [[TuSDKMediaTimelineSlice alloc] initWithTimeRange:timeRange];
-    [_saver appendSlice:newSlice];
-    
+    [_saver appendSlice:cutTimeRangeSlice];
     [_saver startExport];
 }
 
@@ -316,7 +359,6 @@ static const NSTimeInterval kMinCutDuration = 3.0;
  @since      v3.0
  */
 - (void)mediaAssetExportSession:(TuSDKMediaMovieAssetTranscoder *_Nonnull)exportSession progressChanged:(CGFloat)percent outputTime:(CMTime)outputTime {
-    NSLog(@"progressChanged : %f",percent);
     [TuSDKProgressHUD showProgress:percent status:NSLocalizedStringFromTable(@"tu_正在处理视频", @"VideoDemo", @"正在处理视频") maskType:TuSDKProgressHUDMaskTypeBlack];
 }
 
@@ -355,8 +397,12 @@ static const NSTimeInterval kMinCutDuration = 3.0;
  */
 - (void)mediaAssetExportSession:(TuSDKMediaMovieAssetTranscoder *_Nonnull)exportSession result:(TuSDKVideoResult *_Nonnull)result error:(NSError *_Nonnull)error {
     if (result) {
+        
         _outputURL = [NSURL fileURLWithPath:result.videoPath];
         
+        /** 转码后生成的时临时需要自行清楚，MovieEditor 不负责清除。*/
+        self.removeTempFileFlag = YES;
+        _saver = nil;
         if (self.rightButtonActionHandler) self.rightButtonActionHandler(self, nil);
     }
 }

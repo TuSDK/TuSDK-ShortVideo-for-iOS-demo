@@ -73,10 +73,10 @@ static const CGFloat kTopBarHeight = 64.0;
     _moreMenuView.sender = _moreButton;
     _moreMenuView.delegate = _moreMenuDelegate;
     // 贴纸视图
-    _stickerPanelView = [[StickerPanelView alloc] initWithFrame:CGRectZero];
-    _stickerPanelView.alpha = 0;
-    _stickerPanelView.sender = _stickerButton;
-    _stickerPanelView.delegate = _stickerPaneldelegate;
+    _propsItemPanelView = [[PropsPanelView alloc] initWithFrame:CGRectZero];
+    _propsItemPanelView.alpha = 0;
+    _propsItemPanelView.sender = _stickerButton;
+    _propsItemPanelView.delegate = _stickerPaneldelegate;
     // 滤镜视图
     _filterPanelView = [[CameraFilterPanelView alloc] initWithFrame:CGRectZero];
     _filterPanelView.alpha = 0;
@@ -97,7 +97,7 @@ static const CGFloat kTopBarHeight = 64.0;
     // 滤镜标题
     _filterNameLabel.alpha = 0;
     // 容器视图
-    _blockTapViews = @[_captureModeControl, _moreMenuView, _stickerPanelView, _filterPanelView, _beautyPanelView];
+    _blockTapViews = @[_captureModeControl, _moreMenuView, _propsItemPanelView, _filterPanelView, _beautyPanelView];
     _bottomViews = @[_leftBottomToolBar, _rightBottomToolBar, _captureButton, _captureModeControl, _undoButton];
     
     _recordingHiddenViews = @[_topToolBar, _leftBottomToolBar, _rightBottomToolBar];
@@ -136,7 +136,7 @@ static const CGFloat kTopBarHeight = 64.0;
     _moreMenuView.frame = CGRectMake(CGRectGetMinX(safeBounds) + moreMenuX, CGRectGetMinY(safeBounds) + 74, CGRectGetWidth(safeBounds) - moreMenuX * 2, _moreMenuView.intrinsicContentSize.height);
     // 初始化贴纸视图
     const CGFloat stickerPanelHeight = 200 + safeAreaInsets.bottom;
-    _stickerPanelView.frame = CGRectMake(0, size.height - stickerPanelHeight, size.width, stickerPanelHeight);
+    _propsItemPanelView.frame = CGRectMake(0, size.height - stickerPanelHeight, size.width, stickerPanelHeight);
     // 初始化滤镜视图
     const CGFloat filterPanelHeight = 276 + safeAreaInsets.bottom;
     _filterPanelView.frame = CGRectMake(0, size.height - filterPanelHeight, size.width, filterPanelHeight);
@@ -235,7 +235,7 @@ static const CGFloat kTopBarHeight = 64.0;
  @param sender 按钮
  */
 - (IBAction)stickerButtonAction:(UIButton *)sender {
-    self.currentBottomPanelView = sender.selected ? nil : _stickerPanelView;
+    self.currentBottomPanelView = sender.selected ? nil : _propsItemPanelView;
 }
 
 /**
@@ -381,6 +381,7 @@ static const CGFloat kTopBarHeight = 64.0;
         view.hidden = YES;
     }
     self.captureModeControl.hidden = YES;
+    self.speedSegmentButton.hidden = YES;
     [self setRecordConfrimViewsHidden:YES];
 }
 
@@ -390,6 +391,8 @@ static const CGFloat kTopBarHeight = 64.0;
     }
     [self updateRecordConfrimViewsDisplay];
     [self updateSpeedSegmentDisplay];
+    self.speedSegmentButton.hidden = ! _speedButton.selected;
+
 }
 
 - (void)updateRecordConfrimViewsDisplay {

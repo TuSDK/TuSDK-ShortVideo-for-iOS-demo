@@ -111,8 +111,9 @@
     _maxReocrdDuration = CMTimeGetSeconds(self.movieEditor.outputDuraiton);
     
     // 跳转到开始
-    [self.movieEditor pausePreView];
     [self.movieEditor seekToTime:kCMTimeZero];
+    self.playbackProgress = CMTimeGetSeconds(self.movieEditor.outputTimeAtSlice) / CMTimeGetSeconds(self.movieEditor.inputDuration);
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -173,8 +174,9 @@
     [self.movieEditor startPreview];
     [_audioRecorder startRecord];
     
-    // 更新录制操作界面状态
-    [self updateActionPanel];
+    // 更新录制操作界面状态 录制时不显示回删和确定按钮
+    self.actionPanel.hidden = YES;
+
 }
 
 /**
@@ -202,8 +204,9 @@
     // 更新音频录制操作界面各控件状态
     [_progressView popMark];
     _reachMaxReocrdDuration = NO;
-    NSTimeInterval duration = CMTimeGetSeconds(self.movieEditor.outputDuraiton);
-    [self.movieEditor seekToTime:CMTimeMakeWithSeconds(duration * _progressView.progress, self.movieEditor.outputDuraiton.timescale)];
+
+    [self.movieEditor seekToTime:CMTimeMakeWithSeconds(_audioRecorder.outputDuration,USEC_PER_SEC)];
+    
     [self updateActionPanel];
 }
 
@@ -300,7 +303,7 @@
  @since v3.0
  */
 - (void)mediaAssetAudioRecorder:(TuSDKMediaAssetAudioRecorder *)recoder durationChanged:(CGFloat)duration {
-    //NSLog(@"duration: %@", @(duration));
+//    NSLog(@"duration: %@", @(duration));
     if (duration >= _maxReocrdDuration) {
         _reachMaxReocrdDuration = YES;
         [_audioRecorder pauseRecord];

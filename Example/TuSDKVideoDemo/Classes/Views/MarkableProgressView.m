@@ -46,18 +46,28 @@
     _markLayers = [NSMutableArray array];
 }
 
-#pragma mark - public
-
-- (void)pushMark {
-    [_markedProgresses addObject:@(self.progress)];
-    
+/**
+ 占位视图
+ 
+ @param progress 占位进度
+ */
+- (CALayer *)addPlaceholder:(CGFloat)progress markWidth:(CGFloat)markWidth;
+{
     CALayer *layer = [CALayer layer];
     layer.backgroundColor = [UIColor whiteColor].CGColor;
     CGFloat width = CGRectGetWidth(self.bounds);
     CGFloat height = CGRectGetHeight(self.bounds);
-    CGFloat markWidth = height / 2;
-    layer.frame = CGRectMake(width * self.progress - markWidth, 0, markWidth, height);
+    layer.frame = CGRectMake(width * progress - markWidth, 0, markWidth, height);
     [self.layer addSublayer:layer];
+    
+    return layer;
+}
+
+#pragma mark - public
+
+- (void)pushMark {
+    [_markedProgresses addObject:@(self.progress)];
+    CALayer *layer = [self addPlaceholder:self.progress markWidth:CGRectGetHeight(self.bounds)/2];
     [_markLayers addObject:layer];
 }
 

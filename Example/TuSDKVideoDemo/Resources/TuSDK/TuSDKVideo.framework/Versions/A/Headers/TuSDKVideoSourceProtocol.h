@@ -26,21 +26,21 @@
 /**
  *  旋转模式
  *
- *  @return
+ *  @return LSQGPUImageRotationMode
  */
 - (LSQGPUImageRotationMode)getInternalRotation;
 
 /**
  *  设备当前朝向
  *
- *  @return
+ *  @return UIDeviceOrientation
  */
 - (UIDeviceOrientation)getDeviceOrientation;
 
 /**
  *  获取聚焦视图
  *
- *  @return
+ *  @return id<TuSDKVideoCameraExtendViewInterface>
  */
 - (UIView<TuSDKVideoCameraExtendViewInterface> *)getFocusTouchView;
 

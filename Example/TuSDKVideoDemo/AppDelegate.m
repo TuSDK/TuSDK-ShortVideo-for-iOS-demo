@@ -39,6 +39,15 @@
      *  如果一个应用对应多个包名，则可以使用这种方式来进行集成调试。
      */
     // [TuSDK initSdkWithAppKey:@"828d700d182dd469-04-ewdjn1" devType:@"debug"];
+
+    // 添加文件引入
+    //#import <TuSDK/TuSDK.h>
+    //#import <TuSDKVideo/TuSDKVideo.h>
+    //#import <TuSDKFace/TuSDKFace.h>
+    // 版本号输出
+    NSLog(@"TuSDK.framework 的版本号 : %@",lsqSDKVersion);
+    NSLog(@"TuSDKVideo.framework 的版本号 : %@",lsqVideoVersion);
+    NSLog(@"TuSDKFace.framework 的版本号 : %@",lsqFaceVersion);
     
     return YES;
 }

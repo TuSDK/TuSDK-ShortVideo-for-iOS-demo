@@ -17,7 +17,7 @@
 /**
 选取的视频
  */
-@property (nonatomic, strong) AVURLAsset *inputAsset;
+@property (nonatomic, strong) NSArray<AVURLAsset *> *inputAssets;
 
 /**
  裁剪后的视频

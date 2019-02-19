@@ -34,13 +34,13 @@
 @property (nonatomic, assign) TuSDKSoundPitchType pitchType;
 
 /**
- 录音速度, 设置速度后音调设置失效
+ 已录制的时长
  @since v3.0
  */
-@property (nonatomic, assign) float speed;
+@property (nonatomic, assign, readonly) CGFloat outputDuration;
 
 /**
- 最大录制时长， 默认: -1 不限制录制时长
+ 最大录制时长， 默认: -1 不限制录制时长 单位: 秒
  @since v3.0
  */
 @property (nonatomic, assign) CGFloat maxRecordingTime;
