@@ -7,12 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "HorizontalListItemView.h"
+
+@class HorizontalListItemBaseView;
+@protocol HorizontalListItemViewDelegate;
 
 @class HorizontalListView;
 
 // 横向视图项配置 Block
-typedef void(^HorizontalListItemViewConfigBlock)(HorizontalListView *listView, NSUInteger index, HorizontalListItemView *itemView);
+typedef void(^HorizontalListItemViewConfigBlock)(HorizontalListView *listView, NSUInteger index, __kindof HorizontalListItemBaseView *itemView);
 
 /**
  横向滚动列表视图
@@ -33,6 +35,11 @@ typedef void(^HorizontalListItemViewConfigBlock)(HorizontalListView *listView, N
  列表项尺寸
  */
 @property (nonatomic, assign) CGSize itemSize;
+
+/**
+ 列表数量
+ */
+@property (nonatomic, readonly) CGFloat itemCount;
 
 /**
  列表项自动尺寸，根据列表项的内容来计算宽高
@@ -58,7 +65,6 @@ typedef void(^HorizontalListItemViewConfigBlock)(HorizontalListView *listView, N
  列表项的类型
  */
 + (Class)listItemViewClass;
-
 - (void)commonInit;
 
 /**
@@ -67,7 +73,7 @@ typedef void(^HorizontalListItemViewConfigBlock)(HorizontalListView *listView, N
  @param itemView 列表项视图
  @param index 插入索引
  */
-- (void)insertItemView:(HorizontalListItemView *)itemView atIndex:(NSInteger)index;
+- (void)insertItemView:(HorizontalListItemBaseView *)itemView atIndex:(NSInteger)index;
 
 /**
  添加列表项
@@ -77,13 +83,15 @@ typedef void(^HorizontalListItemViewConfigBlock)(HorizontalListView *listView, N
  */
 - (void)addItemViewsWithCount:(NSInteger)itemCount config:(HorizontalListItemViewConfigBlock)configHandler;
 
+- (void)addItemViewsFromXIBWithCount:(NSInteger)itemCount config:(HorizontalListItemViewConfigBlock)configHandler;
+
 /**
  获取给定列表项的索引
 
  @param itemView 列表项
  @return 列表项索引
  */
-- (NSInteger)indexOfItemView:(HorizontalListItemView *)itemView;
+- (NSInteger)indexOfItemView:(HorizontalListItemBaseView *)itemView;
 
 /**
  获取给定索引的列表项
@@ -91,6 +99,69 @@ typedef void(^HorizontalListItemViewConfigBlock)(HorizontalListView *listView, N
  @param index 列表项索引
  @return 列表项
  */
-- (HorizontalListItemView *)itemViewAtIndex:(NSInteger)index;
+- (HorizontalListItemBaseView *)itemViewAtIndex:(NSInteger)index;
+
+@end
+
+
+#pragma mark - HorizontalListItemBaseView
+
+
+@interface HorizontalListItemBaseView : UIView
+{
+    BOOL _selected;
+    BOOL _disableSelect;
+    NSInteger _tapCount;
+}
+
+/**
+ 禁止选中
+ */
+@property (nonatomic, assign) BOOL disableSelect;
+
+/**
+ 选中状态
+ */
+@property (nonatomic, assign) BOOL selected;
+
+/**
+ 点击次数
+ */
+@property (nonatomic, assign, readonly) NSInteger tapCount;
+
+/**
+ 最大点击次数，默认为 1，tapCount 大于该值则切换对未选中状态，并归零 tapCount；若设置为 -1，则不归零 tapCount
+ */
+@property (nonatomic, assign) NSInteger maxTapCount;
+
+
+@property (nonatomic, weak) id<HorizontalListItemViewDelegate> delegate;
+
+- (void)commonInit;
+
+- (void)itemViewDidTouchDown;
+- (void)itemViewDidTouchUp;
+
+@end
+
+
+@protocol HorizontalListItemViewDelegate <NSObject>
+
+@optional
+
+/**
+ 按下回调
+ */
+- (void)itemViewDidTouchDown:(HorizontalListItemBaseView *)itemView;
+
+/**
+ 抬起回调
+ */
+- (void)itemViewDidTouchUp:(HorizontalListItemBaseView *)itemView;
+
+/**
+ 点击回调
+ */
+- (void)itemViewDidTap:(HorizontalListItemBaseView *)itemView;
 
 @end

@@ -6,6 +6,8 @@
 //  Copyright © 2018年 TuSDK. All rights reserved.
 //
 
+//#import "TuSDKMediaTextEffect.h"
+
 #import "TuSDKFramework.h"
 
 /**
@@ -33,26 +35,12 @@
  */
 @property (nonatomic, strong) UIColor *backgroundColor;
 
-@end
-
-
-#import "TextEditAreaView.h"
-
-@interface TextEditAreaView (MediaTextEffect)
 
 /**
- 生成文字特效
-
- @param videoSize 视频尺寸
- @return 文字特效
+ 保存各种颜色进度，用于回显
  */
-- (NSArray<MediaTextEffect *> *)generateTextEffectsWithVideoSize:(CGSize)videoSize;
-
-/**
- 通过文字特效配置显示的文字项
-
- @param textEffects 文字特效
- */
-- (void)setupWithTextEffects:(NSArray<MediaTextEffect *> *)textEffects;
+@property (nonatomic) CGFloat textColorProgress;
+@property (nonatomic) CGFloat textStrokeColorProgress;
+@property (nonatomic) CGFloat bgColorProgress;
 
 @end

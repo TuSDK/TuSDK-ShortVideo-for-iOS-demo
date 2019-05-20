@@ -27,7 +27,7 @@
 /**
  初始化视频导出会话
 
- @param asset 输入的视频资源
+ @param inputAsset 输入的视频资源
  @param exportOutputSettings 输出设置
  @return TuSDKMovieEditorExportSession
  */

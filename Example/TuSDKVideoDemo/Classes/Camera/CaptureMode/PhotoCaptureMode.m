@@ -76,8 +76,9 @@
  @param sender 录制按钮（拍照功能）
  */
 - (void)doneButtonAction:(UIButton *)sender {
+
     // 保存到相册
-    [TuSDKTSAssetsManager saveWithImage:_capturedImage compress:0 metadata:nil toAblum:nil completionBlock:^(id<TuSDKTSAssetInterface> asset, NSError *error) {
+    [TuSDKTSAssetsManager saveWithImage:_capturedImage compress:0 metadata: nil toAblum:nil completionBlock:^(id<TuSDKTSAssetInterface> asset, NSError *error) {
         if (!error) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 self.capturedImage = nil;
@@ -111,15 +112,24 @@
  */
 - (void)recordButtonDidTouchEnd:(RecordButton *)sender {
     sender.selected = NO;
-    UIImage *capturedImage = self.cameraController.captureImage;
-    _capturedImage = capturedImage;
-    CGFloat ratio = self.cameraController.ratio;
-    [_cameraController.controlMaskView showPhotoCaptureConfirmViewWithConfig:^(PhotoCaptureConfirmView *confirmView) {
-        confirmView.photoView.image = capturedImage;
-        [confirmView.doneButton addTarget:self action:@selector(doneButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-        [confirmView.backButton addTarget:self action:@selector(backButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-        confirmView.photoRatio = ratio;
-    }];
+    
+    [self.cameraController capturePhotoAsImageCompletionHandler:^(UIImage * capturedImage, NSError * error) {
+        
+        if (error) return;
+        
+        self.capturedImage = capturedImage;
+
+        CGFloat ratio = self.cameraController.ratio;
+        [self->_cameraController.controlMaskView showPhotoCaptureConfirmViewWithConfig:^(PhotoCaptureConfirmView *confirmView) {
+
+            confirmView.photoView.image = capturedImage;
+            [confirmView.doneButton addTarget:self action:@selector(doneButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+            [confirmView.backButton addTarget:self action:@selector(backButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+            confirmView.photoRatio = ratio;
+        }];
+        
+    }];;
+    
 }
 
 @end

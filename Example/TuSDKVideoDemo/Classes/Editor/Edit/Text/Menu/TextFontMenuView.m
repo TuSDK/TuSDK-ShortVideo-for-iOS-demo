@@ -7,13 +7,14 @@
 //
 
 #import "TextFontMenuView.h"
+#import "TuSDKFramework.h"
+#import "AttributedLabel.h"
 
 // 字体对象键
 static NSString * const kItemFontKey = @"font";
 // 字体标题键
 static NSString * const kItemTitleKey = @"title";
-// 默认字体大小键
-static const CGFloat kDefalutFontSize = 15.0;
+
 
 @interface TextFontMenuView ()
 
@@ -32,8 +33,8 @@ static const CGFloat kDefalutFontSize = 15.0;
     [super commonInit];
     
     // 菜单项布局
-    self.itemSize = CGSizeMake(40, 44);
-    self.itemSpacing = 28;
+    self.itemSize = CGSizeMake((self.frame.size.width - 76)/2.f,self.frame.size.height/2);
+    self.itemSpacing = 0;
     
     // 配置字体信息，可参考以下代码
     _fontSize = kDefalutFontSize;
@@ -58,6 +59,32 @@ static const CGFloat kDefalutFontSize = 15.0;
 }
 
 /**
+ 设置
+ @param label 设置属性
+ */
+- (void)updateByAttributeLabel:(AttributedLabel *)label;{
+    [self setFont:label.font];
+}
+
+- (void)setFont:(UIFont *)font;{
+   
+    [self.menuItemViews enumerateObjectsUsingBlock:^(UIView * _Nonnull itemView, NSUInteger idx, BOOL * _Nonnull stop) {
+        MenuItemControl *itemControl = (MenuItemControl *)itemView;
+        
+        UIFont *itemFont = self -> _fontInfos[idx][kItemFontKey];
+        BOOL selected = [itemFont.familyName isEqualToString:font.familyName];
+        
+        UIColor *selectedColor = [UIColor lsqClorWithHex:@"#ffc502"];
+        itemControl.textLabel.textColor = selected ? selectedColor : [UIColor whiteColor];
+        
+        UILabel *label = (UILabel *)itemControl.iconView;
+        label.textColor = selected ? selectedColor : [UIColor whiteColor];
+        
+    }];
+    
+}
+
+/**
  菜单项点击事件
 
  @param sender 点击的菜单项
@@ -66,6 +93,7 @@ static const CGFloat kDefalutFontSize = 15.0;
     NSInteger index = [self.menuItemViews indexOfObject:sender];
     self.selectedIndex = index;
     UIFont *font = _fontInfos[index][kItemFontKey];
+    [self setFont:font];
     if ([self.delegate respondsToSelector:@selector(menu:didChangeFont:)]) {
         [self.delegate menu:self didChangeFont:font];
     }

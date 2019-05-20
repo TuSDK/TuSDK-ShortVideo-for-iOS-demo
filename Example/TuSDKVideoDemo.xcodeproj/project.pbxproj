@@ -9,6 +9,17 @@
 /* Begin PBXBuildFile section */
 		4510A83B21AEABF200705ECD /* APIAudioPitchEngineRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 4510A83921AEABF200705ECD /* APIAudioPitchEngineRecorder.m */; };
 		45122B042154C62C0052D8CC /* FilterListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 45122B032154C62C0052D8CC /* FilterListView.m */; };
+		451F4C6B2228E54B00A227C7 /* EditRatioViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 451F4C692228E54B00A227C7 /* EditRatioViewController.m */; };
+		451F4C6C2228E54B00A227C7 /* EditRatioViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 451F4C6A2228E54B00A227C7 /* EditRatioViewController.xib */; };
+		451F4E7F2229063100A227C7 /* EditRatioListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 451F4E7E2229063100A227C7 /* EditRatioListView.m */; };
+		451F4E812229099E00A227C7 /* EditRatioListItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 451F4E802229099E00A227C7 /* EditRatioListItemView.xib */; };
+		451F4E84222909C100A227C7 /* EditRatioListItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 451F4E83222909C100A227C7 /* EditRatioListItemView.m */; };
+		451F4E88222E0CDE00A227C7 /* EditStickerImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 451F4E87222E0CDE00A227C7 /* EditStickerImageViewController.m */; };
+		451F4E8A222E0D0100A227C7 /* EditStickerImageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 451F4E89222E0D0100A227C7 /* EditStickerImageViewController.xib */; };
+		451F4E8D222E0DE800A227C7 /* StickerImageListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 451F4E8C222E0DE800A227C7 /* StickerImageListView.m */; };
+		451F4E90222E10A100A227C7 /* StickerImageItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 451F4E8F222E10A100A227C7 /* StickerImageItemView.m */; };
+		451F4E92222E10B500A227C7 /* StickerImageItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 451F4E91222E10B400A227C7 /* StickerImageItemView.xib */; };
+		451F4E98222E21F400A227C7 /* EditStickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 451F4E97222E21F400A227C7 /* EditStickerView.m */; };
 		4548DC1E21D35C0C00E5EAC1 /* PropsItemsPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4548DC0A21D35C0C00E5EAC1 /* PropsItemsPageView.m */; };
 		4548DC1F21D35C0C00E5EAC1 /* BasePropsPanelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4548DC0B21D35C0C00E5EAC1 /* BasePropsPanelView.m */; };
 		4548DC2021D35C0C00E5EAC1 /* FaceMonsterPropsItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4548DC0E21D35C0C00E5EAC1 /* FaceMonsterPropsItem.m */; };
@@ -19,7 +30,16 @@
 		4548DC2621D35C0C00E5EAC1 /* PropsItemCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 4548DC1921D35C0C00E5EAC1 /* PropsItemCategory.m */; };
 		4548DC2721D35C0C00E5EAC1 /* PropsPanelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4548DC1B21D35C0C00E5EAC1 /* PropsPanelView.m */; };
 		45500B9321FEA91C00C5A6D3 /* StickerDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 45500B9221FEA91C00C5A6D3 /* StickerDownloader.m */; };
+		4566B7B5222FDAB700E3485F /* TextSpaceMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4566B7B4222FDAB700E3485F /* TextSpaceMenuView.m */; };
+		4566B7B82230F37F00E3485F /* TextAlphaMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4566B7B72230F37F00E3485F /* TextAlphaMenuView.m */; };
+		4566B7BE2230FAE900E3485F /* TextBorderMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4566B7BD2230FAE900E3485F /* TextBorderMenuView.m */; };
+		4566B7C4223107D500E3485F /* TextBgColorMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4566B7C3223107D500E3485F /* TextBgColorMenuView.m */; };
+		4566B7C72231155100E3485F /* TextAlignmentMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4566B7C62231155100E3485F /* TextAlignmentMenuView.m */; };
+		4566B7CA22311A4100E3485F /* TextDirectionMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4566B7C922311A4100E3485F /* TextDirectionMenuView.m */; };
+		4566B7CD223130AA00E3485F /* TextFontSizeMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4566B7CC223130AA00E3485F /* TextFontSizeMenuView.m */; };
+		45E707D2226D633A009C73C9 /* StickerEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E707D1226D633A009C73C9 /* StickerEditor.m */; };
 		45EC66A821AE97A300385E3D /* APIAudioPitchEngineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45EC66A621AE97A200385E3D /* APIAudioPitchEngineViewController.m */; };
+		45FC1C6E2282746F00020F32 /* ImageStickerEditorItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 45FC1C6D2282746F00020F32 /* ImageStickerEditorItem.m */; };
 		D719752B215C7865000AECDD /* MoviePreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D719752A215C7865000AECDD /* MoviePreviewViewController.m */; };
 		D72E88442181964200DD3F16 /* video_camera_focus_finish@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D72E88422181964200DD3F16 /* video_camera_focus_finish@2x.png */; };
 		D72E88452181964200DD3F16 /* video_camera_focus@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D72E88432181964200DD3F16 /* video_camera_focus@2x.png */; };
@@ -30,10 +50,6 @@
 		F820851721FAA7D900D398E8 /* face_monster_ic_pie@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = F820851021FAA7D900D398E8 /* face_monster_ic_pie@3x.png */; };
 		F820851821FAA7D900D398E8 /* face_monster_ic_snake@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = F820851121FAA7D900D398E8 /* face_monster_ic_snake@3x.png */; };
 		F820851921FAA7D900D398E8 /* face_monster_ic_bignose@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = F820851221FAA7D900D398E8 /* face_monster_ic_bignose@3x.png */; };
-		F820851F21FEF98F00D398E8 /* TuSDKVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F820851B21FEF98F00D398E8 /* TuSDKVideo.framework */; };
-		F820852021FEF98F00D398E8 /* TuSDKFace.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F820851C21FEF98F00D398E8 /* TuSDKFace.framework */; };
-		F820852121FEF98F00D398E8 /* libyuv.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F820851D21FEF98F00D398E8 /* libyuv.framework */; };
-		F820852221FEF98F00D398E8 /* TuSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F820851E21FEF98F00D398E8 /* TuSDK.framework */; };
 		F8592C2E21D0D08E0037050D /* lsq_filter_thumb_SkinPink10.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F8592C2021D0D08A0037050D /* lsq_filter_thumb_SkinPink10.jpg */; };
 		F8592C2F21D0D08E0037050D /* lsq_filter_thumb_SkinSugar10.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F8592C2121D0D08A0037050D /* lsq_filter_thumb_SkinSugar10.jpg */; };
 		F8592C3021D0D08E0037050D /* lsq_filter_thumb_SkinPure10.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F8592C2221D0D08A0037050D /* lsq_filter_thumb_SkinPure10.jpg */; };
@@ -48,6 +64,10 @@
 		F8592C3921D0D08E0037050D /* lsq_filter_thumb_SkinRuddy10.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F8592C2B21D0D08D0037050D /* lsq_filter_thumb_SkinRuddy10.jpg */; };
 		F8592C3A21D0D08E0037050D /* lsq_filter_thumb_SkinNature10.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F8592C2C21D0D08D0037050D /* lsq_filter_thumb_SkinNature10.jpg */; };
 		F8592C3B21D0D08E0037050D /* lsq_filter_thumb_SkinSoft10.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F8592C2D21D0D08D0037050D /* lsq_filter_thumb_SkinSoft10.jpg */; };
+		F8A75827228918A5008ABDCE /* TuSDKVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8A75823228918A5008ABDCE /* TuSDKVideo.framework */; };
+		F8A75828228918A5008ABDCE /* TuSDKFace.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8A75824228918A5008ABDCE /* TuSDKFace.framework */; };
+		F8A75829228918A5008ABDCE /* libyuv.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8A75825228918A5008ABDCE /* libyuv.framework */; };
+		F8A7582A228918A5008ABDCE /* TuSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8A75826228918A5008ABDCE /* TuSDK.framework */; };
 		F8FA849D219413B0002B24EB /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = F8FA849C219413B0002B24EB /* libc++.tbd */; };
 		FB11CF4A217DB8F7003C3194 /* MediaTextEffect.m in Sources */ = {isa = PBXBuildFile; fileRef = FB11CF49217DB8F7003C3194 /* MediaTextEffect.m */; };
 		FB13B14C20D897EA007A34E7 /* PlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = FB13B14B20D897EA007A34E7 /* PlayerView.m */; };
@@ -210,8 +230,7 @@
 		FBDB321120DA66C3005DE82B /* SegmentButton.m in Sources */ = {isa = PBXBuildFile; fileRef = FBDB321020DA66C3005DE82B /* SegmentButton.m */; };
 		FBE15BCC21A55EBB0077DDD5 /* default.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FBE15BCA21A55EBA0077DDD5 /* default.jpg */; };
 		FBE7908920F84E7B00EB446B /* ParticleEffectEditAreaView.m in Sources */ = {isa = PBXBuildFile; fileRef = FBE7908820F84E7B00EB446B /* ParticleEffectEditAreaView.m */; };
-		FBE95F4420EF4B7900535FCD /* TextEditAreaView.m in Sources */ = {isa = PBXBuildFile; fileRef = FBE95F4320EF4B7900535FCD /* TextEditAreaView.m */; };
-		FBE95F4720EF60B200535FCD /* TextItemTransformControl.m in Sources */ = {isa = PBXBuildFile; fileRef = FBE95F4620EF60B200535FCD /* TextItemTransformControl.m */; };
+		FBE95F4720EF60B200535FCD /* TextStickerEditorItem.m in Sources */ = {isa = PBXBuildFile; fileRef = FBE95F4620EF60B200535FCD /* TextStickerEditorItem.m */; };
 		FBEDDE8B2101BF5000C1D232 /* ViewSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = FBEDDE892101BF4F00C1D232 /* ViewSlider.m */; };
 		FBEE598320E9D682003D8453 /* MusicListView.m in Sources */ = {isa = PBXBuildFile; fileRef = FBEE598220E9D682003D8453 /* MusicListView.m */; };
 		FBEE598720EA19C3003D8453 /* EditAudioRecordController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBEE598520EA19C3003D8453 /* EditAudioRecordController.m */; };
@@ -246,6 +265,24 @@
 		4510A83A21AEABF200705ECD /* APIAudioPitchEngineRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIAudioPitchEngineRecorder.h; sourceTree = "<group>"; };
 		45122B022154C62C0052D8CC /* FilterListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterListView.h; sourceTree = "<group>"; };
 		45122B032154C62C0052D8CC /* FilterListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterListView.m; sourceTree = "<group>"; };
+		451F4C682228E54B00A227C7 /* EditRatioViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditRatioViewController.h; sourceTree = "<group>"; };
+		451F4C692228E54B00A227C7 /* EditRatioViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditRatioViewController.m; sourceTree = "<group>"; };
+		451F4C6A2228E54B00A227C7 /* EditRatioViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditRatioViewController.xib; sourceTree = "<group>"; };
+		451F4E7D2229063100A227C7 /* EditRatioListView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditRatioListView.h; sourceTree = "<group>"; };
+		451F4E7E2229063100A227C7 /* EditRatioListView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditRatioListView.m; sourceTree = "<group>"; };
+		451F4E802229099E00A227C7 /* EditRatioListItemView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditRatioListItemView.xib; sourceTree = "<group>"; };
+		451F4E82222909C100A227C7 /* EditRatioListItemView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditRatioListItemView.h; sourceTree = "<group>"; };
+		451F4E83222909C100A227C7 /* EditRatioListItemView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditRatioListItemView.m; sourceTree = "<group>"; };
+		451F4E86222E0CDE00A227C7 /* EditStickerImageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditStickerImageViewController.h; sourceTree = "<group>"; };
+		451F4E87222E0CDE00A227C7 /* EditStickerImageViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditStickerImageViewController.m; sourceTree = "<group>"; };
+		451F4E89222E0D0100A227C7 /* EditStickerImageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditStickerImageViewController.xib; sourceTree = "<group>"; };
+		451F4E8B222E0DE800A227C7 /* StickerImageListView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StickerImageListView.h; sourceTree = "<group>"; };
+		451F4E8C222E0DE800A227C7 /* StickerImageListView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StickerImageListView.m; sourceTree = "<group>"; };
+		451F4E8E222E10A100A227C7 /* StickerImageItemView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StickerImageItemView.h; sourceTree = "<group>"; };
+		451F4E8F222E10A100A227C7 /* StickerImageItemView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StickerImageItemView.m; sourceTree = "<group>"; };
+		451F4E91222E10B400A227C7 /* StickerImageItemView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StickerImageItemView.xib; sourceTree = "<group>"; };
+		451F4E96222E21F400A227C7 /* EditStickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditStickerView.h; sourceTree = "<group>"; };
+		451F4E97222E21F400A227C7 /* EditStickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditStickerView.m; sourceTree = "<group>"; };
 		4548DC0721D35C0C00E5EAC1 /* BasePropsPanelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasePropsPanelView.h; sourceTree = "<group>"; };
 		4548DC0821D35C0C00E5EAC1 /* PropsPanelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PropsPanelView.h; sourceTree = "<group>"; };
 		4548DC0A21D35C0C00E5EAC1 /* PropsItemsPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PropsItemsPageView.m; sourceTree = "<group>"; };
@@ -266,8 +303,26 @@
 		4548DC1C21D35C0C00E5EAC1 /* PropsItemsPageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PropsItemsPageView.h; sourceTree = "<group>"; };
 		45500B9121FEA91C00C5A6D3 /* StickerDownloader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StickerDownloader.h; sourceTree = "<group>"; };
 		45500B9221FEA91C00C5A6D3 /* StickerDownloader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StickerDownloader.m; sourceTree = "<group>"; };
+		4566B7B3222FDAB700E3485F /* TextSpaceMenuView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TextSpaceMenuView.h; sourceTree = "<group>"; };
+		4566B7B4222FDAB700E3485F /* TextSpaceMenuView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TextSpaceMenuView.m; sourceTree = "<group>"; };
+		4566B7B62230F37F00E3485F /* TextAlphaMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextAlphaMenuView.h; sourceTree = "<group>"; };
+		4566B7B72230F37F00E3485F /* TextAlphaMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextAlphaMenuView.m; sourceTree = "<group>"; };
+		4566B7BC2230FAE900E3485F /* TextBorderMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextBorderMenuView.h; sourceTree = "<group>"; };
+		4566B7BD2230FAE900E3485F /* TextBorderMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextBorderMenuView.m; sourceTree = "<group>"; };
+		4566B7C2223107D500E3485F /* TextBgColorMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextBgColorMenuView.h; sourceTree = "<group>"; };
+		4566B7C3223107D500E3485F /* TextBgColorMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextBgColorMenuView.m; sourceTree = "<group>"; };
+		4566B7C52231155000E3485F /* TextAlignmentMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextAlignmentMenuView.h; sourceTree = "<group>"; };
+		4566B7C62231155100E3485F /* TextAlignmentMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextAlignmentMenuView.m; sourceTree = "<group>"; };
+		4566B7C822311A4100E3485F /* TextDirectionMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextDirectionMenuView.h; sourceTree = "<group>"; };
+		4566B7C922311A4100E3485F /* TextDirectionMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextDirectionMenuView.m; sourceTree = "<group>"; };
+		4566B7CB223130AA00E3485F /* TextFontSizeMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextFontSizeMenuView.h; sourceTree = "<group>"; };
+		4566B7CC223130AA00E3485F /* TextFontSizeMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextFontSizeMenuView.m; sourceTree = "<group>"; };
+		45E707D0226D633A009C73C9 /* StickerEditor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StickerEditor.h; sourceTree = "<group>"; };
+		45E707D1226D633A009C73C9 /* StickerEditor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StickerEditor.m; sourceTree = "<group>"; };
 		45EC66A621AE97A200385E3D /* APIAudioPitchEngineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIAudioPitchEngineViewController.m; sourceTree = "<group>"; };
 		45EC66A721AE97A200385E3D /* APIAudioPitchEngineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIAudioPitchEngineViewController.h; sourceTree = "<group>"; };
+		45FC1C6C2282746F00020F32 /* ImageStickerEditorItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageStickerEditorItem.h; sourceTree = "<group>"; };
+		45FC1C6D2282746F00020F32 /* ImageStickerEditorItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageStickerEditorItem.m; sourceTree = "<group>"; };
 		D7197529215C7865000AECDD /* MoviePreviewViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoviePreviewViewController.h; sourceTree = "<group>"; };
 		D719752A215C7865000AECDD /* MoviePreviewViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MoviePreviewViewController.m; sourceTree = "<group>"; };
 		D72E88422181964200DD3F16 /* video_camera_focus_finish@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "video_camera_focus_finish@2x.png"; sourceTree = "<group>"; };
@@ -279,10 +334,6 @@
 		F820851021FAA7D900D398E8 /* face_monster_ic_pie@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "face_monster_ic_pie@3x.png"; sourceTree = "<group>"; };
 		F820851121FAA7D900D398E8 /* face_monster_ic_snake@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "face_monster_ic_snake@3x.png"; sourceTree = "<group>"; };
 		F820851221FAA7D900D398E8 /* face_monster_ic_bignose@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "face_monster_ic_bignose@3x.png"; sourceTree = "<group>"; };
-		F820851B21FEF98F00D398E8 /* TuSDKVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TuSDKVideo.framework; sourceTree = "<group>"; };
-		F820851C21FEF98F00D398E8 /* TuSDKFace.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TuSDKFace.framework; sourceTree = "<group>"; };
-		F820851D21FEF98F00D398E8 /* libyuv.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = libyuv.framework; sourceTree = "<group>"; };
-		F820851E21FEF98F00D398E8 /* TuSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TuSDK.framework; sourceTree = "<group>"; };
 		F8592C0F21D07A9F0037050D /* OverlayViewProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OverlayViewProtocol.h; sourceTree = "<group>"; };
 		F8592C2021D0D08A0037050D /* lsq_filter_thumb_SkinPink10.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_SkinPink10.jpg; sourceTree = "<group>"; };
 		F8592C2121D0D08A0037050D /* lsq_filter_thumb_SkinSugar10.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_SkinSugar10.jpg; sourceTree = "<group>"; };
@@ -298,6 +349,10 @@
 		F8592C2B21D0D08D0037050D /* lsq_filter_thumb_SkinRuddy10.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_SkinRuddy10.jpg; sourceTree = "<group>"; };
 		F8592C2C21D0D08D0037050D /* lsq_filter_thumb_SkinNature10.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_SkinNature10.jpg; sourceTree = "<group>"; };
 		F8592C2D21D0D08D0037050D /* lsq_filter_thumb_SkinSoft10.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_SkinSoft10.jpg; sourceTree = "<group>"; };
+		F8A75823228918A5008ABDCE /* TuSDKVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TuSDKVideo.framework; sourceTree = "<group>"; };
+		F8A75824228918A5008ABDCE /* TuSDKFace.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TuSDKFace.framework; sourceTree = "<group>"; };
+		F8A75825228918A5008ABDCE /* libyuv.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = libyuv.framework; sourceTree = "<group>"; };
+		F8A75826228918A5008ABDCE /* TuSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TuSDK.framework; sourceTree = "<group>"; };
 		F8FA849C219413B0002B24EB /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		FB11CF48217DB8F7003C3194 /* MediaTextEffect.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MediaTextEffect.h; sourceTree = "<group>"; };
 		FB11CF49217DB8F7003C3194 /* MediaTextEffect.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MediaTextEffect.m; sourceTree = "<group>"; };
@@ -558,10 +613,8 @@
 		FBE15BCA21A55EBA0077DDD5 /* default.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = default.jpg; sourceTree = "<group>"; };
 		FBE7908720F84E7B00EB446B /* ParticleEffectEditAreaView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ParticleEffectEditAreaView.h; sourceTree = "<group>"; };
 		FBE7908820F84E7B00EB446B /* ParticleEffectEditAreaView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ParticleEffectEditAreaView.m; sourceTree = "<group>"; };
-		FBE95F4220EF4B7900535FCD /* TextEditAreaView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TextEditAreaView.h; sourceTree = "<group>"; };
-		FBE95F4320EF4B7900535FCD /* TextEditAreaView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TextEditAreaView.m; sourceTree = "<group>"; };
-		FBE95F4520EF60B200535FCD /* TextItemTransformControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TextItemTransformControl.h; sourceTree = "<group>"; };
-		FBE95F4620EF60B200535FCD /* TextItemTransformControl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TextItemTransformControl.m; sourceTree = "<group>"; };
+		FBE95F4520EF60B200535FCD /* TextStickerEditorItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TextStickerEditorItem.h; sourceTree = "<group>"; };
+		FBE95F4620EF60B200535FCD /* TextStickerEditorItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TextStickerEditorItem.m; sourceTree = "<group>"; };
 		FBEDDE892101BF4F00C1D232 /* ViewSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewSlider.m; sourceTree = "<group>"; };
 		FBEDDE8A2101BF4F00C1D232 /* ViewSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewSlider.h; sourceTree = "<group>"; };
 		FBEE598120E9D682003D8453 /* MusicListView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MusicListView.h; sourceTree = "<group>"; };
@@ -610,11 +663,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F820851F21FEF98F00D398E8 /* TuSDKVideo.framework in Frameworks */,
-				F820852121FEF98F00D398E8 /* libyuv.framework in Frameworks */,
-				F820852021FEF98F00D398E8 /* TuSDKFace.framework in Frameworks */,
+				F8A75827228918A5008ABDCE /* TuSDKVideo.framework in Frameworks */,
+				F8A75829228918A5008ABDCE /* libyuv.framework in Frameworks */,
+				F8A75828228918A5008ABDCE /* TuSDKFace.framework in Frameworks */,
 				F8FA849D219413B0002B24EB /* libc++.tbd in Frameworks */,
-				F820852221FEF98F00D398E8 /* TuSDK.framework in Frameworks */,
+				F8A7582A228918A5008ABDCE /* TuSDK.framework in Frameworks */,
 				FBC6F51020D3CE6400F2FBB7 /* Accelerate.framework in Frameworks */,
 				FBC6F50E20D3CE5D00F2FBB7 /* Security.framework in Frameworks */,
 				FBC6F50C20D3CE5600F2FBB7 /* SystemConfiguration.framework in Frameworks */,
@@ -626,6 +679,40 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		451F4C672228E52400A227C7 /* Ratio */ = {
+			isa = PBXGroup;
+			children = (
+				451F4E7D2229063100A227C7 /* EditRatioListView.h */,
+				451F4E7E2229063100A227C7 /* EditRatioListView.m */,
+				451F4E82222909C100A227C7 /* EditRatioListItemView.h */,
+				451F4E83222909C100A227C7 /* EditRatioListItemView.m */,
+				451F4E802229099E00A227C7 /* EditRatioListItemView.xib */,
+				451F4C682228E54B00A227C7 /* EditRatioViewController.h */,
+				451F4C692228E54B00A227C7 /* EditRatioViewController.m */,
+				451F4C6A2228E54B00A227C7 /* EditRatioViewController.xib */,
+			);
+			path = Ratio;
+			sourceTree = "<group>";
+		};
+		451F4E85222E0B9400A227C7 /* ImageSticker */ = {
+			isa = PBXGroup;
+			children = (
+				451F4E96222E21F400A227C7 /* EditStickerView.h */,
+				451F4E97222E21F400A227C7 /* EditStickerView.m */,
+				451F4E8B222E0DE800A227C7 /* StickerImageListView.h */,
+				451F4E8C222E0DE800A227C7 /* StickerImageListView.m */,
+				451F4E8E222E10A100A227C7 /* StickerImageItemView.h */,
+				451F4E8F222E10A100A227C7 /* StickerImageItemView.m */,
+				451F4E91222E10B400A227C7 /* StickerImageItemView.xib */,
+				45FC1C6C2282746F00020F32 /* ImageStickerEditorItem.h */,
+				45FC1C6D2282746F00020F32 /* ImageStickerEditorItem.m */,
+				451F4E86222E0CDE00A227C7 /* EditStickerImageViewController.h */,
+				451F4E87222E0CDE00A227C7 /* EditStickerImageViewController.m */,
+				451F4E89222E0D0100A227C7 /* EditStickerImageViewController.xib */,
+			);
+			path = ImageSticker;
+			sourceTree = "<group>";
+		};
 		4548DC0621D35C0C00E5EAC1 /* PropsPanel */ = {
 			isa = PBXGroup;
 			children = (
@@ -661,6 +748,15 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		45E707CF226D632E009C73C9 /* ImageStickerEditor */ = {
+			isa = PBXGroup;
+			children = (
+				45E707D0226D633A009C73C9 /* StickerEditor.h */,
+				45E707D1226D633A009C73C9 /* StickerEditor.m */,
+			);
+			path = ImageStickerEditor;
+			sourceTree = "<group>";
+		};
 		F820850B21FAA7D900D398E8 /* MonsterFace */ = {
 			isa = PBXGroup;
 			children = (
@@ -675,13 +771,13 @@
 			path = MonsterFace;
 			sourceTree = "<group>";
 		};
-		F820851A21FEF98F00D398E8 /* TuSDK */ = {
+		F8A75822228918A5008ABDCE /* TuSDK */ = {
 			isa = PBXGroup;
 			children = (
-				F820851B21FEF98F00D398E8 /* TuSDKVideo.framework */,
-				F820851C21FEF98F00D398E8 /* TuSDKFace.framework */,
-				F820851D21FEF98F00D398E8 /* libyuv.framework */,
-				F820851E21FEF98F00D398E8 /* TuSDK.framework */,
+				F8A75823228918A5008ABDCE /* TuSDKVideo.framework */,
+				F8A75824228918A5008ABDCE /* TuSDKFace.framework */,
+				F8A75825228918A5008ABDCE /* libyuv.framework */,
+				F8A75826228918A5008ABDCE /* TuSDK.framework */,
 			);
 			path = TuSDK;
 			sourceTree = "<group>";
@@ -697,7 +793,6 @@
 		FB13B14920D897A6007A34E7 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				FB7356642140BB2E0091D002 /* VideoTrimmerView */,
 				FB5F8293215B1DD600B2CFC5 /* AspectVideoPreviewView.h */,
 				FB5F8292215B1DD500B2CFC5 /* AspectVideoPreviewView.m */,
 				FB2E969520E3400D00A2B3A4 /* BottomNavigationBar.h */,
@@ -710,10 +805,10 @@
 				FB7A1F07215D04EB00FDE6D8 /* CustomTouchBoundsButton.m */,
 				FB25C05121114E6B004718D9 /* DemoAppearance.h */,
 				FB25C05221114E6B004718D9 /* DemoAppearance.m */,
-				FB2E971820E3A5A100A2B3A4 /* HorizontalListItemView.h */,
-				FB2E971920E3A5A100A2B3A4 /* HorizontalListItemView.m */,
 				FB203D7820E47457001A7939 /* HorizontalListView.h */,
 				FB203D7920E47457001A7939 /* HorizontalListView.m */,
+				FB2E971820E3A5A100A2B3A4 /* HorizontalListItemView.h */,
+				FB2E971920E3A5A100A2B3A4 /* HorizontalListItemView.m */,
 				FBF1DED520EB1FB6009ED5EC /* MarkableProgressView.h */,
 				FBF1DED620EB1FB6009ED5EC /* MarkableProgressView.m */,
 				FB7E05B520F4893F00C6E4C4 /* PageTabbar.h */,
@@ -732,6 +827,7 @@
 				FBDB320120DA2FC4005DE82B /* TopNavigationBar.m */,
 				FBD1BEF420FF2A3A00A92722 /* VerticalMenuView.h */,
 				FBD1BEF320FF2A3800A92722 /* VerticalMenuView.m */,
+				FB7356642140BB2E0091D002 /* VideoTrimmerView */,
 				FBEDDE8A2101BF4F00C1D232 /* ViewSlider.h */,
 				FBEDDE892101BF4F00C1D232 /* ViewSlider.m */,
 			);
@@ -995,6 +1091,20 @@
 				FB785C8D20F33A7D0021D641 /* TextFontMenuView.m */,
 				FB25AD0E20EDCB9E007551F7 /* TextColorMenuView.h */,
 				FB25AD0F20EDCB9E007551F7 /* TextColorMenuView.m */,
+				4566B7C2223107D500E3485F /* TextBgColorMenuView.h */,
+				4566B7C3223107D500E3485F /* TextBgColorMenuView.m */,
+				4566B7B3222FDAB700E3485F /* TextSpaceMenuView.h */,
+				4566B7B4222FDAB700E3485F /* TextSpaceMenuView.m */,
+				4566B7B62230F37F00E3485F /* TextAlphaMenuView.h */,
+				4566B7B72230F37F00E3485F /* TextAlphaMenuView.m */,
+				4566B7BC2230FAE900E3485F /* TextBorderMenuView.h */,
+				4566B7BD2230FAE900E3485F /* TextBorderMenuView.m */,
+				4566B7C52231155000E3485F /* TextAlignmentMenuView.h */,
+				4566B7C62231155100E3485F /* TextAlignmentMenuView.m */,
+				4566B7C822311A4100E3485F /* TextDirectionMenuView.h */,
+				4566B7C922311A4100E3485F /* TextDirectionMenuView.m */,
+				4566B7CB223130AA00E3485F /* TextFontSizeMenuView.h */,
+				4566B7CC223130AA00E3485F /* TextFontSizeMenuView.m */,
 			);
 			path = Menu;
 			sourceTree = "<group>";
@@ -1101,8 +1211,8 @@
 			isa = PBXGroup;
 			children = (
 				FBA2750621AFD75D00D1B170 /* lsq_filter_thumb_Gold_1.jpg */,
-				FBA2750721AFD75D00D1B170 /* lsq_filter_thumb_White_1.jpg */,
 				FBA2750821AFD75D00D1B170 /* lsq_filter_thumb_Leica_1.jpg */,
+				FBA2750721AFD75D00D1B170 /* lsq_filter_thumb_White_1.jpg */,
 				FBA2750921AFD75D00D1B170 /* lsq_filter_thumb_Blurred_1.jpg */,
 				FBA2750A21AFD75D00D1B170 /* lsq_filter_thumb_Olympus_1.jpg */,
 				FBA2750B21AFD75D00D1B170 /* lsq_filter_thumb_NewYork_1.jpg */,
@@ -1180,10 +1290,8 @@
 				FB785C9820F33F4B0021D641 /* Menu */,
 				FBF1DF2A20EB8C0B009ED5EC /* AttributedLabel.h */,
 				FBF1DF2B20EB8C0B009ED5EC /* AttributedLabel.m */,
-				FBE95F4520EF60B200535FCD /* TextItemTransformControl.h */,
-				FBE95F4620EF60B200535FCD /* TextItemTransformControl.m */,
-				FBE95F4220EF4B7900535FCD /* TextEditAreaView.h */,
-				FBE95F4320EF4B7900535FCD /* TextEditAreaView.m */,
+				FBE95F4520EF60B200535FCD /* TextStickerEditorItem.h */,
+				FBE95F4620EF60B200535FCD /* TextStickerEditorItem.m */,
 				FB11CF48217DB8F7003C3194 /* MediaTextEffect.h */,
 				FB11CF49217DB8F7003C3194 /* MediaTextEffect.m */,
 				FBA65F7820E60A6000A92503 /* EditTextViewController.h */,
@@ -1208,10 +1316,13 @@
 		FBB2AC3C20DE3DCA00BD8EE0 /* Edit */ = {
 			isa = PBXGroup;
 			children = (
+				45E707CF226D632E009C73C9 /* ImageStickerEditor */,
 				FBB2AC3D20DE413700BD8EE0 /* MovieEditViewController.h */,
 				FBB2AC3E20DE413700BD8EE0 /* MovieEditViewController.m */,
 				FBB2AC3F20DE413700BD8EE0 /* MovieEditViewController.xib */,
+				451F4C672228E52400A227C7 /* Ratio */,
 				FBB2AC4220DE43C000BD8EE0 /* EditCollectionViewDataSource */,
+				451F4E85222E0B9400A227C7 /* ImageSticker */,
 				FB2E96A820E3879200A2B3A4 /* Filter */,
 				FBA65F5520E608B000A92503 /* MV */,
 				FBA65F5620E608BD00A92503 /* Music */,
@@ -1322,7 +1433,7 @@
 		FBF3A89B20D3CCC0008466D0 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				F820851A21FEF98F00D398E8 /* TuSDK */,
+				F8A75822228918A5008ABDCE /* TuSDK */,
 				FB88F03421992E1400BE021F /* Localized */,
 				FBA274E421AFD75C00D1B170 /* Thumbnails */,
 				FBF3A89C20D3CD23008466D0 /* Assets */,
@@ -1458,6 +1569,7 @@
 				F8592C3321D0D08E0037050D /* lsq_filter_thumb_SkinWheat10.jpg in Resources */,
 				F8592C3B21D0D08E0037050D /* lsq_filter_thumb_SkinSoft10.jpg in Resources */,
 				FBA65F7220E609F900A92503 /* EditMVViewController.xib in Resources */,
+				451F4E812229099E00A227C7 /* EditRatioListItemView.xib in Resources */,
 				FBA2753121AFD75D00D1B170 /* lsq_effect_thumb_LiveShake01.gif in Resources */,
 				FBE15BCC21A55EBB0077DDD5 /* default.jpg in Resources */,
 				FBA2754421AFD75D00D1B170 /* lsq_filter_thumb_NewYork_1.jpg in Resources */,
@@ -1488,6 +1600,7 @@
 				FB88F04721992E1500BE021F /* InfoPlist.strings in Resources */,
 				F8592C3921D0D08E0037050D /* lsq_filter_thumb_SkinRuddy10.jpg in Resources */,
 				FBA2754D21AFD75D00D1B170 /* lsq_effect_thumb_Flower.jpg in Resources */,
+				451F4E92222E10B500A227C7 /* StickerImageItemView.xib in Resources */,
 				F8592C3721D0D08E0037050D /* lsq_filter_thumb_SkinNoir10.jpg in Resources */,
 				FBA2752B21AFD75D00D1B170 /* lsq_effect_thumb_LiveSignal01.gif in Resources */,
 				FB7E05C620F4A87A00C6E4C4 /* ParticleEffectViewController.xib in Resources */,
@@ -1495,6 +1608,7 @@
 				FBA2754121AFD75D00D1B170 /* lsq_filter_thumb_Leica_1.jpg in Resources */,
 				FB80D48A21B0D1FD00B3C465 /* APIMovieSpliceViewController.storyboard in Resources */,
 				FBA2755621AFD75D00D1B170 /* lsq_filter_thumb_JPComics_Video.jpg in Resources */,
+				451F4E8A222E0D0100A227C7 /* EditStickerImageViewController.xib in Resources */,
 				D72E88442181964200DD3F16 /* video_camera_focus_finish@2x.png in Resources */,
 				FBA2755321AFD75D00D1B170 /* lsq_effect_thumb_snow01.jpg in Resources */,
 				FBA65F7720E60A3700A92503 /* EditMusicViewController.xib in Resources */,
@@ -1531,6 +1645,7 @@
 				FBA2755821AFD75D00D1B170 /* lsq_filter_thumb_Ink_Video.jpg in Resources */,
 				FBA2752321AFD75D00D1B170 /* lsq_audio_thumb_lively.jpg in Resources */,
 				FBA2755021AFD75D00D1B170 /* lsq_effect_thumb_Star.jpg in Resources */,
+				451F4C6C2228E54B00A227C7 /* EditRatioViewController.xib in Resources */,
 				FBF3A8C120D3CD24008466D0 /* sound_cat.mp3 in Resources */,
 				FBA2755221AFD75D00D1B170 /* lsq_effect_thumb_Bubbles.jpg in Resources */,
 				FBA2754521AFD75D00D1B170 /* lsq_filter_thumb_s1950_1.jpg in Resources */,
@@ -1567,8 +1682,10 @@
 				FB284E4420DA07CD000FCFBF /* MultiVideoPickerCell.m in Sources */,
 				FB2E971A20E3A5A100A2B3A4 /* HorizontalListItemView.m in Sources */,
 				FB6EBACF20D399E200FA24F2 /* main.m in Sources */,
+				451F4E90222E10A100A227C7 /* StickerImageItemView.m in Sources */,
 				FBCB2B9D20D3C0B000921AD6 /* APIMovieMixViewController.m in Sources */,
 				FB848194219C20D000F8C502 /* CameraComicsFilterListView.m in Sources */,
+				4566B7C4223107D500E3485F /* TextBgColorMenuView.m in Sources */,
 				FB76498A20FDC04800A6DFA2 /* TextPageControl.m in Sources */,
 				FB8C95F6214FBA860073D2C2 /* CameraBeautyFaceListView.m in Sources */,
 				FB7469CF2106F9130008EF73 /* CameraSpeedSegmentButton.m in Sources */,
@@ -1576,6 +1693,7 @@
 				FBDB320520DA37AB005DE82B /* BaseNavigationViewController.m in Sources */,
 				FB526E9121081A85005A377F /* PhotoCaptureConfirmView.m in Sources */,
 				FBD1BEF220FF253900A92722 /* CameraMoreMenuView.m in Sources */,
+				45E707D2226D633A009C73C9 /* StickerEditor.m in Sources */,
 				FB203D7A20E47457001A7939 /* HorizontalListView.m in Sources */,
 				FB7356822140BB2F0091D002 /* RulerView.m in Sources */,
 				FB2E969A20E3632E00A2B3A4 /* BaseEditComponentViewController.m in Sources */,
@@ -1591,15 +1709,19 @@
 				FBB2AC4920DE44C600BD8EE0 /* EditCollectionViewCell.m in Sources */,
 				FB785C8E20F33A7D0021D641 /* TextFontMenuView.m in Sources */,
 				FBF1DED720EB1FB6009ED5EC /* MarkableProgressView.m in Sources */,
+				4566B7BE2230FAE900E3485F /* TextBorderMenuView.m in Sources */,
 				FBDB320820DA3961005DE82B /* MultiVideoPickerViewController.m in Sources */,
 				FBFF22FB2109D0F70003FE59 /* FDGapLayoutGuide.m in Sources */,
 				FBDB320220DA2FC4005DE82B /* TopNavigationBar.m in Sources */,
 				FBEE598B20EA2FDE003D8453 /* RecordButton.m in Sources */,
+				451F4E88222E0CDE00A227C7 /* EditStickerImageViewController.m in Sources */,
 				FBCB2B8B20D3B09400921AD6 /* FunctionListViewController.m in Sources */,
 				FB76499920FDDF4900A6DFA2 /* CameraControlMaskView.m in Sources */,
+				451F4E8D222E0DE800A227C7 /* StickerImageListView.m in Sources */,
 				FB6EBAC120D399E000FA24F2 /* AppDelegate.m in Sources */,
 				FB203D8820E4C853001A7939 /* CustomSlider.m in Sources */,
 				FB73567D2140BB2F0091D002 /* ScrollVideoTrimmerView.m in Sources */,
+				451F4E84222909C100A227C7 /* EditRatioListItemView.m in Sources */,
 				FB2E2E4620F6111500F8E5AF /* ParticleEffectListView.m in Sources */,
 				FBD1BEF520FF2A3A00A92722 /* VerticalMenuView.m in Sources */,
 				FBCB2BA920D3C0DE00921AD6 /* APIAudioRecordViewController.m in Sources */,
@@ -1611,6 +1733,7 @@
 				FBCB2BA020D3C0BD00921AD6 /* APIVideoThumbnailsViewController.m in Sources */,
 				4548DC1E21D35C0C00E5EAC1 /* PropsItemsPageView.m in Sources */,
 				FB5F8294215B1DD700B2CFC5 /* AspectVideoPreviewView.m in Sources */,
+				4566B7C72231155100E3485F /* TextAlignmentMenuView.m in Sources */,
 				FB25AD3F20EDF8F1007551F7 /* ColorSlider.m in Sources */,
 				FB2E2E1920F5A76C00F8E5AF /* UITextView+Debug.m in Sources */,
 				FB73567F2140BB2F0091D002 /* MaskLayer.m in Sources */,
@@ -1618,10 +1741,11 @@
 				FB640EB32105FDF9007B8CA5 /* CameraBeautyPanelView.m in Sources */,
 				FB2E969720E3400E00A2B3A4 /* BottomNavigationBar.m in Sources */,
 				FBFF22F42109D0F70003FE59 /* FDTransformLayer.m in Sources */,
+				451F4E98222E21F400A227C7 /* EditStickerView.m in Sources */,
 				FB7356862140BB2F0091D002 /* ThumbView.m in Sources */,
 				FBF1DF2C20EB8C0B009ED5EC /* AttributedLabel.m in Sources */,
 				FB25AD0720ED9C1E007551F7 /* TextMenuView.m in Sources */,
-				FBE95F4720EF60B200535FCD /* TextItemTransformControl.m in Sources */,
+				FBE95F4720EF60B200535FCD /* TextStickerEditorItem.m in Sources */,
 				FBA65FBD20E6590900A92503 /* MVListView.m in Sources */,
 				FBDB320C20DA4D49005DE82B /* MovieCutViewController.m in Sources */,
 				FB7356802140BB2F0091D002 /* PanControl.m in Sources */,
@@ -1632,15 +1756,16 @@
 				FBB2AC4020DE413700BD8EE0 /* MovieEditViewController.m in Sources */,
 				FBFF22F72109D0F70003FE59 /* FDStackViewExtensions.m in Sources */,
 				FB785C9720F33F320021D641 /* TextStyleMenuView.m in Sources */,
+				451F4C6B2228E54B00A227C7 /* EditRatioViewController.m in Sources */,
 				FBA65F7B20E60A6000A92503 /* EditTextViewController.m in Sources */,
 				FB73567E2140BB2F0091D002 /* VideoFixedSelectionRangeView.m in Sources */,
 				FB2E2E1F20F5B41E00F8E5AF /* SceneEffectListView.m in Sources */,
+				4566B7B82230F37F00E3485F /* TextAlphaMenuView.m in Sources */,
 				FBEDDE8B2101BF5000C1D232 /* ViewSlider.m in Sources */,
 				FB2E969E20E3673300A2B3A4 /* EditComponentNavigator.m in Sources */,
 				FBA65F8020E60A8300A92503 /* EditEffectViewController.m in Sources */,
 				45122B042154C62C0052D8CC /* FilterListView.m in Sources */,
 				FB7A1F08215D04EB00FDE6D8 /* CustomTouchBoundsButton.m in Sources */,
-				FBE95F4420EF4B7900535FCD /* TextEditAreaView.m in Sources */,
 				FB76499020FDDD9F00A6DFA2 /* TapCaptureMode.m in Sources */,
 				FBEE598720EA19C3003D8453 /* EditAudioRecordController.m in Sources */,
 				4548DC2621D35C0C00E5EAC1 /* PropsItemCategory.m in Sources */,
@@ -1649,8 +1774,10 @@
 				FB848191219C208C00F8C502 /* CameraNormalFilterListView.m in Sources */,
 				4548DC1F21D35C0C00E5EAC1 /* BasePropsPanelView.m in Sources */,
 				FB4F9B9E215B948700938BBE /* PitchSegmentButton.m in Sources */,
+				451F4E7F2229063100A227C7 /* EditRatioListView.m in Sources */,
 				4510A83B21AEABF200705ECD /* APIAudioPitchEngineRecorder.m in Sources */,
 				FB7356842140BB2F0091D002 /* TrimmerMaskView.m in Sources */,
+				4566B7B5222FDAB700E3485F /* TextSpaceMenuView.m in Sources */,
 				FBFF22F62109D0F70003FE59 /* FDStackView.m in Sources */,
 				45EC66A821AE97A300385E3D /* APIAudioPitchEngineViewController.m in Sources */,
 				FBA65F7120E609F900A92503 /* EditMVViewController.m in Sources */,
@@ -1663,8 +1790,10 @@
 				FB76498D20FDDD8A00A6DFA2 /* LongPressCaptureMode.m in Sources */,
 				FBDB321120DA66C3005DE82B /* SegmentButton.m in Sources */,
 				4548DC2121D35C0C00E5EAC1 /* OnlineStickerGroup.m in Sources */,
+				4566B7CD223130AA00E3485F /* TextFontSizeMenuView.m in Sources */,
 				FB7356872140BB2F0091D002 /* VideoTrimmerView.m in Sources */,
 				4548DC2721D35C0C00E5EAC1 /* PropsPanelView.m in Sources */,
+				4566B7CA22311A4100E3485F /* TextDirectionMenuView.m in Sources */,
 				45500B9321FEA91C00C5A6D3 /* StickerDownloader.m in Sources */,
 				FB7356832140BB2F0091D002 /* VideoThumbnailsView.m in Sources */,
 				FB6EBAEA20D39AF400FA24F2 /* HomeViewController.m in Sources */,
@@ -1677,6 +1806,7 @@
 				4548DC2321D35C0C00E5EAC1 /* PropsItemStickerCategory.m in Sources */,
 				FB76499320FDDDC900A6DFA2 /* PhotoCaptureMode.m in Sources */,
 				FB1A534F21869DFE0097A8D7 /* FilterSwipeView.m in Sources */,
+				45FC1C6E2282746F00020F32 /* ImageStickerEditorItem.m in Sources */,
 				FBA65F7620E60A3700A92503 /* EditMusicViewController.m in Sources */,
 				4548DC2021D35C0C00E5EAC1 /* FaceMonsterPropsItem.m in Sources */,
 			);
@@ -1864,7 +1994,7 @@
 					"../TuSDK/framework/Source/**",
 				);
 				INFOPLIST_FILE = TuSDKVideoDemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -1896,7 +2026,7 @@
 					"../TuSDK/framework/Source/**",
 				);
 				INFOPLIST_FILE = TuSDKVideoDemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",

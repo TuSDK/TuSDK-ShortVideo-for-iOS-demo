@@ -132,6 +132,7 @@ static NSString * const kMarkItemLayerKey = @"layer";
 }
 
 - (NSUInteger)indexOfMarkLayer:(CALayer *)markLayer {
+    if (!markLayer) return NSNotFound;
     return [_markLayer.sublayers indexOfObject:markLayer];
 }
 

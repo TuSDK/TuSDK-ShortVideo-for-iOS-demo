@@ -84,8 +84,9 @@ static const CGFloat kFilterTabbarHeight = 30;
     
     // 普通滤镜列表
     _normalFilterListView = [[CameraNormalFilterListView alloc] initWithFrame:CGRectZero];
-    _normalFilterListView.itemViewTapActionHandler = ^(CameraNormalFilterListView *filterListView, HorizontalListItemView *selectedItemView, NSString *filterCode) {
+    _normalFilterListView.itemViewTapActionHandler = ^(HorizontalListItemView *filterListView, HorizontalListItemView *selectedItemView, NSString *filterCode) {
         weakSelf.paramtersView.hidden = selectedItemView.tapCount < selectedItemView.maxTapCount;
+       
         if ([weakSelf.delegate respondsToSelector:@selector(filterPanel:didSelectedFilterCode:)]) {
             [weakSelf.delegate filterPanel:weakSelf didSelectedFilterCode:filterCode];
         }
@@ -94,7 +95,7 @@ static const CGFloat kFilterTabbarHeight = 30;
     
     // 漫画滤镜列表
     _comicsFilterListView = [[CameraComicsFilterListView alloc] initWithFrame:CGRectZero];
-    _comicsFilterListView.itemViewTapActionHandler = ^(CameraComicsFilterListView *filterListView, HorizontalListItemView *selectedItemView, NSString *filterCode) {
+    _comicsFilterListView.itemViewTapActionHandler = ^(HorizontalListItemView *filterListView, HorizontalListItemView *selectedItemView, NSString *filterCode) {
         //weakSelf.paramtersView.hidden = selectedItemView.tapCount < selectedItemView.maxTapCount;
         weakSelf.paramtersView.hidden = YES;
         if ([weakSelf.delegate respondsToSelector:@selector(filterPanel:didSelectedFilterCode:)]) {
@@ -126,8 +127,13 @@ static const CGFloat kFilterTabbarHeight = 30;
     _pageSlider = pageSlider;
     pageSlider.dataSource = self;
     pageSlider.delegate = self;
-    pageSlider.selectedIndex = 0;
+    pageSlider.selectedIndex = 0 ;
     pageSlider.disableSlide = YES;
+    
+    // 默认选中第一个滤镜
+    [tabbar setSelectedIndex:1];
+    _normalFilterListView.selectedIndex  = 0;
+
 }
 
 - (void)layoutSubviews {
@@ -230,6 +236,7 @@ static const CGFloat kFilterTabbarHeight = 30;
 }
 
 #pragma mark - PageTabbarDelegate
+
 
 /**
  标签项选中回调

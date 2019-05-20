@@ -32,6 +32,10 @@
      *
      *  @param appkey 应用秘钥 (请前往 https://tutucloud.com 申请秘钥)
      */
+    
+    // Attention ！！！！！！
+    // ********************** 更换包名和秘钥之后，一定要去控制台打包替换资源文件 **********************
+    
     [TuSDK initSdkWithAppKey:@"5e501981b069355a-04-ewdjn1"];
     
     /**
@@ -45,9 +49,9 @@
     //#import <TuSDKVideo/TuSDKVideo.h>
     //#import <TuSDKFace/TuSDKFace.h>
     // 版本号输出
-    NSLog(@"TuSDK.framework 的版本号 : %@",lsqSDKVersion);
-    NSLog(@"TuSDKVideo.framework 的版本号 : %@",lsqVideoVersion);
-    NSLog(@"TuSDKFace.framework 的版本号 : %@",lsqFaceVersion);
+    //NSLog(@"TuSDK.framework 的版本号 : %@",lsqSDKVersion);
+    //NSLog(@"TuSDKVideo.framework 的版本号 : %@",lsqVideoVersion);
+    //NSLog(@"TuSDKFace.framework 的版本号 : %@",lsqFaceVersion);
     
     return YES;
 }

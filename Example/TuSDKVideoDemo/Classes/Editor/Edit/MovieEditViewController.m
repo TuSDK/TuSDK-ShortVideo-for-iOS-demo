@@ -17,6 +17,8 @@
 #import "EditMusicViewController.h"
 #import "EditTextViewController.h"
 #import "EditEffectViewController.h"
+#import "EditStickerImageViewController.h"
+#import "EditRatioViewController.h"
 
 #import "AspectVideoPreviewView.h"
 #import "Constants.h"
@@ -110,8 +112,6 @@ EditComponentNavigatorDelegate, FilterSwipeViewDelegate
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-    // 如需跳转其他页面操作再返回，需要注释销毁代码，或在`-dealloc` 中调用
-    [self destroyMovieEditor];
     // 关闭屏幕常亮
     [UIApplication sharedApplication].idleTimerDisabled = NO;
 }
@@ -259,6 +259,12 @@ EditComponentNavigatorDelegate, FilterSwipeViewDelegate
 #pragma mark - MoviewEditor 初始化
 
 - (void)setupMovieEditor {
+    
+    // 如果用户需要输出视频的原始尺寸可以参考以下代码
+    // 获取 inputURL 内的视频信息
+    // AVURLAsset *videoAsset = [AVURLAsset assetWithURL:self.inputURL];
+    // TuSDKMediaAssetInfo *mediaAssetInfo =  [[TuSDKMediaAssetInfo alloc] initWithAsset:videoAsset];
+    
     TuSDKMovieEditorOptions *option = [TuSDKMovieEditorOptions defaultOptions];
     // 设置视频地址
     option.inputURL = self.inputURL;
@@ -266,16 +272,11 @@ EditComponentNavigatorDelegate, FilterSwipeViewDelegate
     option.saveToAlbum = NO;
     // 设置录制文件格式(默认：lsqFileTypeQuickTimeMovie)
     option.fileType = lsqFileTypeMPEG4;
-    // 设置视频截取范围
-    //option.cutTimeRange = [TuSDKTimeRange makeTimeRangeWithStartSeconds:_startTime endSeconds:_endTime];
-    // 是否按照时间播放
-    //option.playAtActualSpeed = YES;
-    // 设置裁剪范围 注：该参数对应的值均为比例值，即：若视频展示View总高度800，此时截取时y从200开始，则cropRect的 originY = 偏移位置/总高度， 应为 0.25, 其余三个值同理
-    // option.cropRect = CGRectMake(1.0, 1.0, 1.0, 1.0);
-    // 视频输出尺寸 注：当使用 cropRect 设置了裁剪范围后，该参数不再生效
-    // option.outputSize = CGSizeMake(720, 720);
+    // 设置视频截取范围（非特殊需求可不使用）
+    // option.cutTimeRange = [TuSDKTimeRange makeTimeRangeWithStart:kCMTimeZero endSeconds:mediaAssetInfo.videoInfo.duration];
+
     // 设置编码视频的画质
-    option.encodeVideoQuality = [TuSDKVideoQuality makeQualityWith:TuSDKRecordVideoQuality_Medium1];
+    option.encodeVideoQuality = [TuSDKVideoQuality makeQualityWith:TuSDKRecordVideoQuality_Medium2];
     // 是否保留原音
     option.enableVideoSound = YES;
     // 视频底色
@@ -286,6 +287,12 @@ EditComponentNavigatorDelegate, FilterSwipeViewDelegate
     option.waterMarkPosition = lsqWaterMarkTopRight;
     // 设置画面特效输出时间轴
     option.pictureEffectOptions.referTimelineType = TuSDKMediaEffectReferInputTimelineType;
+    
+    // 设置输出视频文件的尺寸
+    // option.outputSizeOptions.outputSize = CGSizeMake(540, 960);
+    // 输出视频的原始尺寸，低端机不建议此配置项
+    // option.outputSizeOptions.outputSize = mediaAssetInfo.videoInfo.videoTrackInfoArray.firstObject.presentSize;
+    
     // 视频预览的视频底色
     _previewView.backgroundColor = lsqRGB(18, 18, 18);
     
@@ -319,10 +326,8 @@ EditComponentNavigatorDelegate, FilterSwipeViewDelegate
             // 调用 stopRecording 会将已处理的视频保存下来；cancelRecording 会取消已录制的内容
             [_movieEditor cancelRecording];
         }
-        if ([_movieEditor isPreviewing]) {
-            [_movieEditor seekToTime:kCMTimeZero];
-            [_movieEditor stopPreview];
-        }
+        [_movieEditor stopPreview];
+
     }
 }
 
@@ -452,6 +457,19 @@ EditComponentNavigatorDelegate, FilterSwipeViewDelegate
             EditEffectViewController *effectViewController = [[EditEffectViewController alloc] initWithNibName:nil bundle:nil];
             editComponentViewController = effectViewController;
         } break;
+            
+        // 本地贴纸特效页面
+        case EditComponentIndexTileSticker: {
+            EditStickerImageViewController *effectViewController = [[EditStickerImageViewController alloc] initWithNibName:nil bundle:nil];
+            editComponentViewController = effectViewController;
+            break;
+        }
+        // 比例调节页面
+        case EditComponentIndexRatio: {
+            EditRatioViewController *effectViewController = [[EditRatioViewController alloc] initWithNibName:nil bundle:nil];
+            editComponentViewController = effectViewController;
+            break;
+        }
     }
 
     self.currentEditComponentViewController = editComponentViewController;
@@ -556,6 +574,11 @@ EditComponentNavigatorDelegate, FilterSwipeViewDelegate
 - (void)mediaMovieEditor:(TuSDKMovieEditorBase *_Nonnull)editor progressChanged:(CGFloat)percent outputTime:(CMTime)outputTime {
     // 预览时 更新UI
     self.playbackProgress = CMTimeGetSeconds(editor.outputTimeAtSlice) / CMTimeGetSeconds(editor.inputDuration);
+    
+    /** playbackProgress 计算会有误差 。 对 playbackProgress 进行纠正。 */
+    if (percent == 1)
+        /** self.playbackProgress < 0.1 倒序模式 */
+        self.playbackProgress = self.playbackProgress < 0.1 ? 0 : 1;
 }
 
 /**
@@ -639,7 +662,7 @@ EditComponentNavigatorDelegate, FilterSwipeViewDelegate
  @since      v3.0
  */
 - (void)mediaMovieEditor:(TuSDKMovieEditorBase *_Nonnull)editor saveStatusChanged:(lsqMovieEditorStatus)status {
-    NSLog(@"mediaMovieEditor saveStatusChanged : %ld ", status);
+    NSLog(@"mediaMovieEditor saveStatusChanged : %ld ", (long)status);
     
     switch (status) {
         // 正在保存
@@ -664,6 +687,14 @@ EditComponentNavigatorDelegate, FilterSwipeViewDelegate
 
 #pragma mark - 销毁操作
 
+-(void)dealloc;
+{
+    [self destroyMovieEditor];
+}
+
+/**
+ 销毁视频编辑器
+ */
 - (void)destroyMovieEditor {
     [_movieEditor destroy];
     [[NSNotificationCenter defaultCenter] removeObserver:self];

@@ -7,6 +7,8 @@
 //
 
 #import "ParticleEffectListView.h"
+#import "HorizontalListItemView.h"
+
 #import "Constants.h"
 
 @interface ParticleEffectListView ()
@@ -19,6 +21,10 @@
 @end
 
 @implementation ParticleEffectListView
+
++ (Class)listItemViewClass {
+    return [HorizontalListItemView class];
+}
 
 - (void)commonInit {
     [super commonInit];

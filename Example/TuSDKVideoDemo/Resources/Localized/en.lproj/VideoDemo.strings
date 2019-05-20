@@ -227,6 +227,12 @@
 /* 特效 */
 "tu_特效" = "Effect";
 
+/* 贴纸 */
+"tu_贴纸" = "Sticker";
+
+/** 裁剪 */
+"tu_裁剪" = "Crop";
+
 /* 特效时长最多%@秒 */
 "tu_特效时长最多%@秒" = "The effect duration up to %@ seconds";
 
@@ -322,3 +328,15 @@
 
 "tu_APIAudioPitchEngineViewController_usage" = "Please click the \"Stat Recording\" to start recording audio. After the recording is completed, click \"Finish and Play Recording\" to generate and play the audio file.";
 "tu_结束并播放录音" = "Finish and Play Recording";
+
+/*--- v3.3.2 --- */
+
+"tu_字间距" = "Word Spacing";
+"tu_行距" = "Line Spacing";
+"tu_不透明度" = "Alpha";
+"tu_宽度" = "Width";
+"tu_加粗" = "Bold";
+"tu_下划线" = "Underline";
+"tu_斜体" = "Obliqueness";
+"tu_字号" = "Font";
+"tu_换行数量限制" = "Up to three line breaks are supported";

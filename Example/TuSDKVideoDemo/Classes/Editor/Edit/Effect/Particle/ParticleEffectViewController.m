@@ -143,14 +143,16 @@
     
     // 获取视频在屏幕中的大小
     TuSDKVideoTrackInfo *trackInfo = self.movieEditor.inputAssetInfo.videoInfo.videoTrackInfoArray.firstObject;
-    CGRect bounds = [UIScreen mainScreen].bounds;
-    CGFloat bottomPreviewOffset = [self.class bottomPreviewOffset];
-    if (@available(iOS 11.0, *)) {
-        bounds = UIEdgeInsetsInsetRect(bounds, self.view.safeAreaInsets);
-    }
-    bounds.size.height -= bottomPreviewOffset;
+    CGRect bounds = self.movieEditor.holderView.bounds;
     CGSize videoSize = trackInfo.presentSize;
-    _particleEditAreaView.frame = AVMakeRectWithAspectRatioInsideRect(videoSize, bounds);
+    
+    /** 计算视频绘制区域 */
+    if (self.movieEditor.options.outputSizeOptions.aspectOutputRatioInSideCanvas) {
+        CGRect outputRect = AVMakeRectWithAspectRatioInsideRect(self.movieEditor.options.outputSizeOptions.outputSize, bounds);
+        _particleEditAreaView.frame = outputRect;
+    }else {
+        _particleEditAreaView.frame = AVMakeRectWithAspectRatioInsideRect(videoSize, bounds);
+    }
 }
 
 /**
@@ -303,7 +305,7 @@
     CMTime outputTime = self.movieEditor.outputTimeAtTimeline;
     CMTime outputDuraiton = self.movieEditor.outputDuraiton;
     CMTime minFrameDuration = self.movieEditor.inputAssetInfo.videoInfo.videoTrackInfoArray.firstObject.minFrameDuration;
-    if (CMTIME_COMPARE_INLINE(CMTimeAdd(outputTime, minFrameDuration), >=, outputDuraiton)) {
+    if (CMTIME_COMPARE_INLINE(CMTimeAdd(outputTime,CMTimeMultiply(minFrameDuration, 2)), >=, outputDuraiton)) {
         lsqLError(@"剩余时间太短，无法添加特效。");
         [self.movieEditor stopPreview];
         return;

@@ -7,6 +7,8 @@
 //
 
 #import "FilterListView.h"
+#import "HorizontalListItemView.h"
+
 #import "Constants.h"
 
 @interface FilterListView ()
@@ -14,6 +16,10 @@
 @end
 
 @implementation FilterListView
+
++ (Class)listItemViewClass {
+    return [HorizontalListItemView class];
+}
 
 - (void)commonInit {
     [super commonInit];

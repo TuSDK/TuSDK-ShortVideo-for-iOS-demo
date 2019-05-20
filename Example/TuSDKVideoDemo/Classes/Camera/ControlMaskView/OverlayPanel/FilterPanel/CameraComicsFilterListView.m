@@ -16,6 +16,10 @@
     [self setupData];
 }
 
++ (Class)listItemViewClass {
+    return [HorizontalListItemView class];
+}
+
 - (void)setupData {
     NSArray *filterCodes = @[kCameraComicsFilterCodes];
     _filterCodes = filterCodes;
@@ -38,6 +42,9 @@
 #pragma mark - property
 
 - (void)setSelectedFilterCode:(NSString *)selectedFilterCode {
+    if ([_selectedFilterCode isEqualToString:selectedFilterCode]) return;
+    if (!_selectedFilterCode && (!selectedFilterCode || [selectedFilterCode isEqualToString:@"Normal"]))return;
+
     _selectedFilterCode = selectedFilterCode;
     NSInteger selectedIndex = [_filterCodes indexOfObject:selectedFilterCode];
     if (selectedIndex < 0 || selectedIndex >= _filterCodes.count) { // 若不在 _filterCodes 范围内，则选中无效果
@@ -46,6 +53,9 @@
     }
     selectedIndex += 1;
     self.selectedIndex = selectedIndex;
+    
+    if (self.itemViewTapActionHandler) self.itemViewTapActionHandler(self, [self itemViewAtIndex:selectedIndex], selectedFilterCode);
+
 }
 
 #pragma mark - HorizontalListItemViewDelegate
@@ -59,8 +69,7 @@
     if (self.selectedIndex > 0) {
         code = _filterCodes[self.selectedIndex - 1];
     }
-    _selectedFilterCode = code;
-    if (self.itemViewTapActionHandler) self.itemViewTapActionHandler(self, itemView, code);
+    self.selectedFilterCode = code;
 }
 
 @end

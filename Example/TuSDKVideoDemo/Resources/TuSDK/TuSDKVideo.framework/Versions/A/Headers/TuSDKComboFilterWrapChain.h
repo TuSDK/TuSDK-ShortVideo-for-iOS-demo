@@ -76,7 +76,7 @@
  @return TuSDKFilterWrap
  @since v3.2.0
  */
-- (TuSDKFilterWrap *)lastFilterWrapNode;
+- (TuSDKFilterWrap *_Nullable)lastFilterWrapNode;
 
 /**
  旋转材质到图片方向

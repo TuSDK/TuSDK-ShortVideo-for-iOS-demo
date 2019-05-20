@@ -56,4 +56,11 @@
  */
 - (void)pauseAudioEffect;
 
+/**
+ 暂停播放音频特效
+ 
+ @since v3.4.1
+ */
+- (void)stopAudioEffect;
+
 @end

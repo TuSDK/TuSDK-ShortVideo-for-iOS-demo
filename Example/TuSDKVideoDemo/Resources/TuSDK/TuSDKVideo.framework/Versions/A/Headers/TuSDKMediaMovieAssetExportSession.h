@@ -199,6 +199,13 @@
 @property (nonatomic) CGSize outputSize;
 
 /**
+ 设定输出 outputSize 时比例不一致时是否自适应画布大小 默认：NO
+ 
+ @since v3.3.1
+ */
+@property (nonatomic) BOOL aspectOutputRatioInSideCanvas;
+
+/**
  输出的文件类型
  @since v3.0
  */

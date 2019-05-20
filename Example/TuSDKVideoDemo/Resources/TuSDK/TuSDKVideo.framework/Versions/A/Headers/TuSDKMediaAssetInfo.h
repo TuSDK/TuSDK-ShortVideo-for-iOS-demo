@@ -50,7 +50,6 @@ typedef void(^lsqMovieInfoLoadCompletionHandler)(void);
  异步加载视频信息
  
  @param asset AVAsset
- @param handler 完成后回调
  @since v2.2.0
  */
 - (void)loadSynchronouslyForAssetInfo:(AVAsset *)asset;

@@ -107,10 +107,13 @@ UIGestureRecognizerDelegate
 }
 
 - (void)viewDidLayoutSubviews {
-    // 获取相机的权限并启动相机
-    if (!_camera) [self requestCameraPermission];
     
-    [_camera updateCameraViewBounds:_cameraView.bounds];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        // 获取相机的权限并启动相机
+        if (!self->_camera) [self requestCameraPermission];
+        
+        [self->_camera updateCameraViewBounds:self->_cameraView.bounds];
+    });
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -210,8 +213,11 @@ UIGestureRecognizerDelegate
         [self setupCamera];
         // 启动相机
         [self.camera tryStartCameraCapture];
+        
+        // 默认选中的滤镜
+        self.currentFilterIndex = 2;
         // 设置默认滤镜
-        self.defaultFilterCode = self.filterCodes[2];
+        self.defaultFilterCode = self.filterCodes[self.currentFilterIndex];
         
         /** 注意： 特效必须在相机启动后添加 */
         
@@ -261,10 +267,10 @@ UIGestureRecognizerDelegate
     //}
     //_camera.regionHandler.offsetPercentTop = offset;
     
+    // 指定比例后，如不指定尺寸，输出裁剪尺寸
+    // _camera.outputSize = CGSizeMake(720, 1280);
     // 输出全屏视频画面
-    _camera.cameraViewRatio = 0;
-    // 指定比例后，如不指定尺寸，SDK 会根据设备情况自动输出适应比例的尺寸
-    // _camera.outputSize = CGSizeMake(640, 640);
+    // _camera.cameraViewRatio = _camera.outputSize.width/_camera.outputSize.height;
     
     // 输出视频的画质，主要包含码率、分辨率等参数 (默认为空，采用系统设置)
     _camera.videoQuality = [TuSDKVideoQuality makeQualityWith:TuSDKRecordVideoQuality_Medium2];
@@ -410,25 +416,25 @@ UIGestureRecognizerDelegate
  */
 - (void)switchToPreviousFilter {
     
-    if (_currentFilterIndex == 0)
-        _currentFilterIndex = _filterCodes.count - 1;
+    if (self.currentFilterIndex == 0)
+        self.currentFilterIndex = _filterCodes.count - 1;
     else
-        _currentFilterIndex = _currentFilterIndex - 1;
+        self.currentFilterIndex = self.currentFilterIndex - 1;
     
     // 漫画
     if (_controlMaskView.filterPanelView.selectedTabIndex == 0) {
         
-        TuSDKMediaComicEffect *comicEffect = [[TuSDKMediaComicEffect alloc] initWithEffectCode:_filterCodes[_currentFilterIndex]];
+        TuSDKMediaComicEffect *comicEffect = [[TuSDKMediaComicEffect alloc] initWithEffectCode:_filterCodes[self.currentFilterIndex]];
         [_camera addMediaEffect:comicEffect];
         
     }else
     {
         // 滤镜
-        TuSDKMediaFilterEffect *comicEffect = [[TuSDKMediaFilterEffect alloc] initWithEffectCode:_filterCodes[_currentFilterIndex]];
+        TuSDKMediaFilterEffect *comicEffect = [[TuSDKMediaFilterEffect alloc] initWithEffectCode:_filterCodes[self.currentFilterIndex]];
         [_camera addMediaEffect:comicEffect];
         
     }
-    _controlMaskView.filterPanelView.selectedFilterCode = _filterCodes[_currentFilterIndex];
+    _controlMaskView.filterPanelView.selectedFilterCode = _filterCodes[self.currentFilterIndex];
     
 }
 
@@ -437,33 +443,30 @@ UIGestureRecognizerDelegate
  */
 - (void)switchToNextFilter {
     
-    _currentFilterIndex = (_currentFilterIndex + 1) % _filterCodes.count;
+    self.currentFilterIndex = (self.currentFilterIndex + 1) % _filterCodes.count;
     
     // 漫画
     if (_controlMaskView.filterPanelView.selectedTabIndex == 0) {
         
-        TuSDKMediaComicEffect *comicEffect = [[TuSDKMediaComicEffect alloc] initWithEffectCode:_filterCodes[_currentFilterIndex]];
+        TuSDKMediaComicEffect *comicEffect = [[TuSDKMediaComicEffect alloc] initWithEffectCode:_filterCodes[self.currentFilterIndex]];
         [_camera addMediaEffect:comicEffect];
         
     }else
     {
         // 滤镜
-        TuSDKMediaFilterEffect *comicEffect = [[TuSDKMediaFilterEffect alloc] initWithEffectCode:_filterCodes[_currentFilterIndex]];
+        TuSDKMediaFilterEffect *comicEffect = [[TuSDKMediaFilterEffect alloc] initWithEffectCode:_filterCodes[self.currentFilterIndex]];
         [_camera addMediaEffect:comicEffect];
     }
     
-    _controlMaskView.filterPanelView.selectedFilterCode = _filterCodes[_currentFilterIndex];
+    _controlMaskView.filterPanelView.selectedFilterCode = _filterCodes[self.currentFilterIndex];
     
 }
 
 /**
  获取图片
- 
- @return 拍照结果
- */
-- (UIImage *)captureImage {
-    UIImage *captureImage = [_camera syncCaptureImage];
-    return captureImage;
+  */
+- (void)capturePhotoAsImageCompletionHandler:(void (^)(UIImage * _Nullable, NSError * _Nullable))block;{
+    [_camera capturePhotoAsImageCompletionHandler:block];
 }
 
 /**
@@ -549,10 +552,7 @@ UIGestureRecognizerDelegate
  @param filterPanel 滤镜回调事件
  */
 - (void)controlMask:(CameraControlMaskView *)controlMask didShowFilterPanel:(id<CameraFilterPanelProtocol>)filterPanel {
-    if ([filterPanel isKindOfClass:[CameraFilterPanelView class]]) {
-        CameraFilterPanelView *filterPanelView = (CameraFilterPanelView *)filterPanel;
-        _filterCodes = filterPanelView.selectedTabIndex == 0 ? kComicsFilterCodes : kNormalFilterCodes;
-    }
+
 }
 
 /**
@@ -874,6 +874,13 @@ UIGestureRecognizerDelegate
             
         }
             break;
+        case TuSDKMediaEffectDataTypeComic: {
+            // 更新在相机界面上显示的滤镜名称
+            NSString *filterName = [NSString stringWithFormat:@"lsq_filter_%@", mediaEffectData.filterWrap.code];
+            self.controlMaskView.filterName = NSLocalizedStringFromTable(filterName, @"TuSDKConstants", @"无需国际化");
+            
+            break;
+        }
             // 微整形特效
         case TuSDKMediaEffectDataTypePlasticFace: {
             [self updatePlasticFaceDefaultParameters];
@@ -1076,7 +1083,12 @@ UIGestureRecognizerDelegate
 - (void)filterPanel:(id<CameraFilterPanelProtocol>)filterPanel didSwitchTabIndex:(NSInteger)tabIndex {
     if ([filterPanel isKindOfClass:[CameraFilterPanelView class]]) {
         _filterCodes = tabIndex == 0 ? kComicsFilterCodes : kNormalFilterCodes;
+        self.currentFilterIndex = 0;
     }
+}
+
+-(void)setCurrentFilterIndex:(NSUInteger)currentFilterIndex;{
+    _currentFilterIndex =currentFilterIndex;
 }
 
 /**
@@ -1129,13 +1141,13 @@ UIGestureRecognizerDelegate
             {
                 TuSDKMediaComicEffect *effect = [[TuSDKMediaComicEffect alloc] initWithEffectCode:code];
                 [_camera addMediaEffect:effect];
-                _currentFilterIndex = [_filterCodes indexOfObject:code];
+                self.currentFilterIndex = [_filterCodes indexOfObject:code];
                 break;
             }
             case 1: { // 滤镜
                 TuSDKMediaFilterEffect *effect = [[TuSDKMediaFilterEffect alloc] initWithEffectCode:code];
                 [_camera addMediaEffect:effect];
-                _currentFilterIndex = [_filterCodes indexOfObject:code];
+                self.currentFilterIndex = [_filterCodes indexOfObject:code];
                 break;
             }
             default:

@@ -24,10 +24,6 @@
  */
 @property (weak, nonatomic, readonly) CameraControlMaskView *controlMaskView;
 
-/**
- 获取图像
- */
-@property (nonatomic, strong, readonly) UIImage *captureImage;
 
 /**
  相机预览视图比例
@@ -53,5 +49,13 @@
  撤销上一段录制片段
  */
 - (void)undoLastRecordedFragment;
+
+/**
+ 拍摄一张图片
+
+ @param block 完成回调
+ */
+- (void)capturePhotoAsImageCompletionHandler:(void (^)(UIImage * _Nullable, NSError * _Nullable))block;
+
 
 @end

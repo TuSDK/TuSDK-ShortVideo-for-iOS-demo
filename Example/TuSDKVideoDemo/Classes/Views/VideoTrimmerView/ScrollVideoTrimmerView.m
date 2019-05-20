@@ -340,6 +340,7 @@
 }
 
 - (BOOL)selectMarkWithIndex:(NSUInteger)markIndex {
+    
     CALayer *markLayer = [_markView markLayerWithIndex:markIndex];
     [self updateWithMarkLayer:markLayer];
     
@@ -390,7 +391,11 @@
 
 - (void)setSelectedTimeRange:(CMTimeRange)selectedTimeRange atDuration:(CMTime)duration {
     NSTimeInterval durationInterval = CMTimeGetSeconds(duration);
-    if (isnan(durationInterval) || durationInterval <= 0) return;
+    if (isnan(durationInterval) || durationInterval <= 0){
+        self.startProgress = 0;
+        self.endProgress = 0;
+        return;
+    }
     if (CMTIMERANGE_IS_EMPTY(selectedTimeRange) || CMTIMERANGE_IS_INVALID(selectedTimeRange) || CMTIMERANGE_IS_INDEFINITE(selectedTimeRange)) return;
     
     // 更新布局

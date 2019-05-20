@@ -49,7 +49,6 @@
 
 /*!
  @property processQueue
- @abstract
  
  @discussion
  Decoding run queue

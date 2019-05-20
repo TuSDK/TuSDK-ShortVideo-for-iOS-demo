@@ -96,6 +96,8 @@
  选中的标记索引
  */
 @property (nonatomic, assign) NSUInteger selectedMarkIndex;
+
+
 - (BOOL)selectMarkWithIndex:(NSUInteger)markIndex;
 
 /**

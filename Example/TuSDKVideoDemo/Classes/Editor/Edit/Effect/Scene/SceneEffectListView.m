@@ -7,6 +7,8 @@
 //
 
 #import "SceneEffectListView.h"
+#import "HorizontalListItemView.h"
+
 #import "Constants.h"
 
 @interface SceneEffectListView ()
@@ -24,6 +26,10 @@
 @end
 
 @implementation SceneEffectListView
+
++ (Class)listItemViewClass {
+    return [HorizontalListItemView class];
+}
 
 - (void)commonInit {
     [super commonInit];

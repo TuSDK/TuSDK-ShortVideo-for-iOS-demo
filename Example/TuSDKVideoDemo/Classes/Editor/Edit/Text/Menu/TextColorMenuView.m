@@ -9,16 +9,13 @@
 #import "TextColorMenuView.h"
 #import "ColorSlider.h"
 #import "UIImage+Demo.h"
+#import "AttributedLabel.h"
 
-// 各控件间的间隔
-static const CGFloat kItemSpacing = 8;
-// 控件高度
-static const CGFloat kItemHeight = 16;
-// 右侧距离
-static const CGFloat kRightSpacing = 14;
 
 @interface TextColorMenuView ()
-
+{
+    __weak AttributedLabel *_label;
+}
 /**
  颜色 slider
  */
@@ -39,6 +36,13 @@ static const CGFloat kRightSpacing = 14;
 
 @implementation TextColorMenuView
 
+// 各控件间的间隔
+static const CGFloat kItemSpacing = 8;
+// 控件高度
+static const CGFloat kItemHeight = 16;
+// 右侧距离
+static const CGFloat kRightSpacing = 14;
+
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         [self commonInit];
@@ -57,6 +61,8 @@ static const CGFloat kRightSpacing = 14;
     self.backgroundColor = [UIColor blackColor];
     NSMutableArray *colorSliders = [NSMutableArray array];
     NSMutableArray *colorLabels = [NSMutableArray array];
+    
+    
     // 字体
     {
         UILabel *label = [self.class colorLabel];
@@ -68,29 +74,7 @@ static const CGFloat kRightSpacing = 14;
         [self addSubview:slider];
         [colorSliders addObject:slider];
     }
-    // 背景
-    {
-        UILabel *label = [self.class colorLabel];
-        [self addSubview:label];
-        label.text = NSLocalizedStringFromTable(@"tu_背景", @"VideoDemo", @"背景");
-        [colorLabels addObject:label];
-        
-        ColorSlider *slider = [self colorSlider];
-        [self addSubview:slider];
-        [colorSliders addObject:slider];
-        slider.progress = 0;
-    }
-    // 描边
-    {
-        UILabel *label = [self.class colorLabel];
-        [self addSubview:label];
-        label.text = NSLocalizedStringFromTable(@"tu_描边", @"VideoDemo", @"描边");
-        [colorLabels addObject:label];
-        
-        ColorSlider *slider = [self colorSlider];
-        [self addSubview:slider];
-        [colorSliders addObject:slider];
-    }
+
     _colorSliders = colorSliders.copy;
     _colorLabels = colorLabels.copy;
     
@@ -129,8 +113,8 @@ static const CGFloat kRightSpacing = 14;
  */
 + (UILabel *)colorLabel {
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero];
-    label.textColor = [UIColor colorWithRed:153.0f/255.0f green:153.0f/255.0f blue:153.0f/255.0f alpha:1.0f];
-    label.font = [UIFont systemFontOfSize:10];
+    label.textColor = [UIColor whiteColor];
+    label.font = [UIFont systemFontOfSize:14];
     return label;
 }
 
@@ -150,14 +134,30 @@ static const CGFloat kRightSpacing = 14;
     [self removeFromSuperview];
 }
 
+- (void)setColorProgress:(CGFloat)colorProgress;{
+    _colorSliders.firstObject.progress = colorProgress;
+    [_colorSliders.firstObject layoutSubviews];
+}
+
 /**
  颜色 slider 值变更回调
  */
 - (void)sliderValueChangeAction:(ColorSlider *)slider {
-    TextColorType type = [_colorSliders indexOfObject:slider];
-    if ([self.delegate respondsToSelector:@selector(menu:didChangeColor:forType:)]) {
-        [self.delegate menu:self didChangeColor:slider.color forType:type];
+    _colorProgress = slider.progress;
+    _label.textColorProgress = _colorProgress;
+    if ([self.delegate respondsToSelector:@selector(menu:didChangeTextColor:)]) {
+        [self.delegate menu:self didChangeTextColor:slider.color];
     }
 }
+
+/**
+ 设置
+ @param label 设置属性
+ */
+- (void)updateByAttributeLabel:(AttributedLabel *)label;{
+    _label = label;
+    [self setColorProgress:_label.textColorProgress];
+}
+
 
 @end

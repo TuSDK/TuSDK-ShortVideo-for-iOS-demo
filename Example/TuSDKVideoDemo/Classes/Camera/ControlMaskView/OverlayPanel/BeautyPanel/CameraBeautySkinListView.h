@@ -7,6 +7,7 @@
 //
 
 #import "HorizontalListView.h"
+#import "HorizontalListItemView.h"
 
 
 /**

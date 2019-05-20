@@ -57,13 +57,7 @@
 @interface TuSDKLiveVideoProcessor : TuSDKFilterProcessorBase<TuSDKVideoCameraInterface>
 {
     @protected
-    
-    /**
-     *  输出画面分辨率，默认原始采样尺寸输出。
-     *  如果设置了输出尺寸，则对画面进行等比例缩放，必要时进行裁剪，保证输出尺寸和预设尺寸一致。
-     */
-    CGSize _outputSize;
-    
+
     /**
      *  输出 PixelBuffer 格式，可选: lsqFormatTypeBGRA | lsqFormatTypeYUV420F | lsqFormatTypeYUVI420 | lsqFormatTypeRawData
      *  默认:lsqFormatTypeBGRA
@@ -83,7 +77,6 @@
  *  @param videoOutput      视频输出对象
  *  @param cameraView       预览视图
  *
- *  @return
  */
 - (instancetype)initWithCaptureSession:(AVCaptureSession *)captureSesssion
                        VideoDataOutput:(AVCaptureVideoDataOutput *)videoOutput

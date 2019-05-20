@@ -21,7 +21,11 @@ typedef NS_ENUM(NSInteger, EditComponentIndex) {
     // 文字页面
     EditComponentIndexText,
     // 特效页面
-    EditComponentIndexEffect
+    EditComponentIndexEffect,
+    // 图片贴纸
+    EditComponentIndexTileSticker,
+    // 比例裁剪
+    EditComponentIndexRatio
 };
 
 /**

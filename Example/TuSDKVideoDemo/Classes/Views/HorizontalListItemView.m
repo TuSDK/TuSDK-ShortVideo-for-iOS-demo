@@ -24,21 +24,8 @@
 
 @implementation HorizontalListItemView
 
-- (instancetype)initWithCoder:(NSCoder *)decoder {
-    if (self = [super initWithCoder:decoder]) {
-        [self commonInit];
-    }
-    return self;
-}
-- (instancetype)initWithFrame:(CGRect)frame {
-    if (self = [super initWithFrame:frame]) {
-        [self commonInit];
-    }
-    return self;
-}
 
 - (void)commonInit {
-    _maxTapCount = 1;
     
     self.layer.cornerRadius = 5;
     self.layer.masksToBounds = YES;
@@ -116,12 +103,6 @@
     [self setTapCountWithSelected:selected];
 }
 
-- (void)setTapCount:(NSInteger)tapCount {
-    if (_maxTapCount >= 0 && tapCount > _maxTapCount) {
-        tapCount = 1;
-    }
-    _tapCount = tapCount;
-}
 
 - (void)setThumbnailView:(UIImageView *)thumbnailView {
     [_thumbnailView removeFromSuperview];
@@ -154,39 +135,5 @@
 //    }
 //}
 
-#pragma mark touch
-
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    [super touchesBegan:touches withEvent:event];
-    if (touches.count > 1) return;
-    if ([self.delegate respondsToSelector:@selector(itemViewDidTouchDown:)]) {
-        [self.delegate itemViewDidTouchDown:self];
-    }
-}
-
-- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    [super touchesBegan:touches withEvent:event];
-    if (touches.count > 1) return;
-    
-    if ([self.delegate respondsToSelector:@selector(itemViewDidTouchUp:)]) {
-        [self.delegate itemViewDidTouchUp:self];
-    }
-    
-    CGPoint touchPoint = [touches.anyObject locationInView:self];
-    BOOL inside = CGRectContainsPoint(self.bounds, touchPoint);
-    if (inside) {
-        if (!_disableSelect) self.tapCount += 1;
-        if ([self.delegate respondsToSelector:@selector(itemViewDidTap:)]) {
-            [self.delegate itemViewDidTap:self];
-        }
-    }
-}
-
-- (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    [super touchesCancelled:touches withEvent:event];
-    if ([self.delegate respondsToSelector:@selector(itemViewDidTouchUp:)]) {
-        [self.delegate itemViewDidTouchUp:self];
-    }
-}
 
 @end

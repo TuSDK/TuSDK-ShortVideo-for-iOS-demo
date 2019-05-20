@@ -160,9 +160,9 @@ static const CGFloat kTrackHeight = 2.0;
  */
 - (UIColor *)colorAtProgress:(double)progress {
     if (progress < 7 / 253.0) {
-        return nil;
+        progress = 0;
     } else if (progress > 1) {
-        return nil;
+        progress = 1;
     }
     
     CGImageRef cgImage = _trackImage.CGImage;

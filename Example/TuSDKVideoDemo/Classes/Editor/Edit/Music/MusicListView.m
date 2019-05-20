@@ -7,6 +7,8 @@
 //
 
 #import "MusicListView.h"
+#import "HorizontalListItemView.h"
+
 #import "Constants.h"
 
 @interface MusicListView ()
@@ -20,6 +22,10 @@
 
 
 @implementation MusicListView
+
++ (Class)listItemViewClass {
+    return [HorizontalListItemView class];
+}
 
 - (void)commonInit {
     [super commonInit];

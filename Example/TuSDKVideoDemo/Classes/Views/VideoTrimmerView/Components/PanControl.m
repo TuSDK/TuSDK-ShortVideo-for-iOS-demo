@@ -58,7 +58,10 @@
             [self.delegate controlDidBeginPan:self];
         }
     } else if (sender.state == UIGestureRecognizerStateChanged) {
+
         CGPoint translation = [sender translationInView:self.superview];
+
+        if (self.frame.origin.x <=0 && translation.x <0) return;        
         self.translation = CGPointMake(roundf(self.startPoint.x + translation.x),
                                        roundf(self.startPoint.y + translation.y));
         

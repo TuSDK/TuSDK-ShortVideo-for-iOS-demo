@@ -7,23 +7,20 @@
 //
 
 #import "TextMenuView.h"
+#import "AttributedLabel.h"
 
 /**
  文字样式
  */
 typedef NS_ENUM(NSInteger, TextMenuStyle) {
-    // 左对齐
-    TextMenuStyleAlignLeft = 0,
-    // 居中对齐
-    TextMenuStyleAlignCenter,
-    // 右对齐
-    TextMenuStyleAlignRight,
+    // 正常
+    TextMenuStyleNormal = 0,
+    // 加粗
+    TextMenuStyleBold,
     // 下划线
     TextMenuStyleUnderLine,
-    // 从左到右排列
-    TextMenuStyleLeftToRight,
-    // 从右到左排列
-    TextMenuStyleRightToLeft
+    // 斜体
+    TextMenuStyleItalics,
 };
 
 @class TextStyleMenuView;
@@ -47,5 +44,7 @@ typedef NS_ENUM(NSInteger, TextMenuStyle) {
 @interface TextStyleMenuView : TextMenuView
 
 @property (nonatomic, weak) id<TextStyleMenuViewDelegate> delegate;
+
+- (void)updateByAttributeLabel:(AttributedLabel *)label;
 
 @end

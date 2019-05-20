@@ -69,6 +69,7 @@
     [self.layer addSublayer:_maskLayer];
 	
     _borderLayer = [[BorderLayer alloc] init];
+    _borderLayer.masksToBounds = YES;
     _borderLayer.lineWidth = _borderWidth;
     [self.layer addSublayer:_borderLayer];
 	
@@ -96,6 +97,13 @@
 #pragma mark - layout
 
 - (void)layoutSubviews {
+    
+    BOOL inValid = self.endProgress <= self.startProgress;
+    _leftThumb.hidden = inValid;
+    _rightThumb.hidden = inValid;
+    _maskLayer.hidden  = inValid;
+    _borderLayer.hidden = inValid;
+    
     CGFloat height = CGRectGetHeight(self.bounds);
     CGRect insideRect = CGRectInset(self.bounds, _thumbWidth, _borderWidth);
 	
@@ -116,14 +124,19 @@
 - (void)layoutWithMaskRect:(CGRect)maskRect {
 	_maskLayer.maskRect = [self.layer convertRect:maskRect toLayer:_maskLayer];
     _borderLayer.borderRect = [self.layer convertRect:maskRect toLayer:_borderLayer];
+
 	
 	CGPoint leftThumbCenter = _leftThumb.center;
 	leftThumbCenter.x = CGRectGetMinX(maskRect) - _thumbWidth / 2;
-	_leftThumb.center = leftThumbCenter;
+    
+    if (CGRectGetMinX(maskRect) >= 0)
+        _leftThumb.center = leftThumbCenter;
 	
 	CGPoint rightThumbCenter = _rightThumb.center;
 	rightThumbCenter.x = CGRectGetMaxX(maskRect) + _thumbWidth / 2;
-	_rightThumb.center = rightThumbCenter;
+    
+    if (CGRectGetMaxX(maskRect) <= CGRectGetMaxX(self.bounds))
+        _rightThumb.center = rightThumbCenter;
 }
 
 #pragma mark - property
@@ -222,11 +235,12 @@
 	double progress = 0;
 	const CGFloat contentWidth = CGRectGetWidth(_maskLayer.bounds);
 	const CGRect controlFrameOnMaskLayer = [control.layer.superlayer convertRect:control.frame toLayer:_maskLayer];
+    
     if (control == _leftThumb) {
-		progress = CGRectGetMaxX(controlFrameOnMaskLayer) / contentWidth;
+		progress = MAX(0, CGRectGetMaxX(controlFrameOnMaskLayer) / contentWidth);
 		_startProgress = progress;
     } else if (control == _rightThumb) {
-		progress = CGRectGetMinX(controlFrameOnMaskLayer) / contentWidth;
+		progress = MIN(1, CGRectGetMinX(controlFrameOnMaskLayer) / contentWidth);
 		_endProgress = progress;
     }
 	self.maskRect = [self maskRectWithThumb:control];

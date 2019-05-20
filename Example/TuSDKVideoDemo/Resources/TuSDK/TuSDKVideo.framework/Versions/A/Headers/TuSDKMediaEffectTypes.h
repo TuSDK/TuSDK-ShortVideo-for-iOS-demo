@@ -18,6 +18,7 @@
  - TuSDKMediaEffectDataTypeScene: 场景特效
  - TuSDKMediaEffectDataTypeParticle: 粒子特效
  - TuSDKMediaEffectDataTypeStickerText: 字幕贴纸特效
+ - TuSDKMediaEffectDataTypeStickerImage: 图片贴纸特效
  - TuSDKMediaEffectDataTypeComic : 漫画特效
  - TuSDKMediaEffectDataTypePlasticFace : 微整形
  - TuSDKMediaEffectDataTypeSkinFace : 美肤特效
@@ -32,6 +33,7 @@ typedef NS_ENUM(NSUInteger,TuSDKMediaEffectDataType)
     TuSDKMediaEffectDataTypeScene,
     TuSDKMediaEffectDataTypeParticle,
     TuSDKMediaEffectDataTypeStickerText,
+    TuSDKMediaEffectDataTypeStickerImage,
     TuSDKMediaEffectDataTypeComic,
     TuSDKMediaEffectDataTypePlasticFace,
     TuSDKMediaEffectDataTypeSkinFace,

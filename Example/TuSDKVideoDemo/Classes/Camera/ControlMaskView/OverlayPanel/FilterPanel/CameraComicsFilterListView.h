@@ -7,6 +7,8 @@
 //
 
 #import "HorizontalListView.h"
+#import "HorizontalListItemView.h"
+
 
 /**
  相机漫画滤镜列表
@@ -26,6 +28,6 @@
 /**
  滤镜项点击回调
  */
-@property (nonatomic, copy) void (^itemViewTapActionHandler)(CameraComicsFilterListView *filterListView, HorizontalListItemView *selectedItemView, NSString *filterCode);
+@property (nonatomic, copy) void (^itemViewTapActionHandler)(HorizontalListItemView *filterListView, HorizontalListItemView *selectedItemView, NSString *filterCode);
 
 @end

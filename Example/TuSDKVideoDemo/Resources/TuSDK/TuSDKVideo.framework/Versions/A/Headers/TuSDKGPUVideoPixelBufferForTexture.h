@@ -18,6 +18,7 @@
 @interface TuSDKGPUVideoPixelBufferForTexture : SLGPUImageOutput <TuSDKSampleBufferInput>
 {
     CGSize _outputSize;
+    BOOL _aspectOutputRatioInSideCanvas;
 }
 
 /**
@@ -40,21 +41,18 @@
 @property (nonatomic) OSType inputPixelFormatType;
 
 /**
- 期望输出的视频宽高
- @since 3.0
- */
-@property (nonatomic) CGSize outputSize;
-
-/**
  输入的视频宽高
  @since 3.0
  */
 @property (nonatomic,readonly) CGSize inputSize;
 
 /**
- * 设置材质坐标计算接口
- *  @since 3.0
+ 设置输出 outputSize, 如果输出比例和原视频比例不一致时，自动缩放视频大小，视频不会被裁剪
+ 
+ @param outputSize 输出尺寸
+ @param aspectOutputRatioInSideCanvas 比例不一致时是否将视频自适应画布大小
  */
-@property (nonatomic) TuSDKTextureCoordinateCropBuilder *textureCoordinateBuilder;
+- (void)setOutputSize:(CGSize)outputSize aspectOutputRatioInSideCanvas:(BOOL)aspectOutputRatioInSideCanvas;
+
 
 @end

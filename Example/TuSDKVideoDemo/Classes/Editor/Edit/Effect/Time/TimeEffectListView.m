@@ -7,6 +7,8 @@
 //
 
 #import "TimeEffectListView.h"
+#import "HorizontalListItemView.h"
+
 #import "Constants.h"
 
 
@@ -20,6 +22,10 @@
 @end
 
 @implementation TimeEffectListView
+
++ (Class)listItemViewClass {
+    return [HorizontalListItemView class];
+}
 
 - (void)commonInit {
     [super commonInit];

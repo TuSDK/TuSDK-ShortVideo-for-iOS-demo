@@ -8,8 +8,6 @@
 
 #import "AttributedLabel.h"
 
-/** 默认字体大小 */
-static const CGFloat kDefalutFontSize = 24.0;
 
 @interface AttributedLabel ()
 
@@ -50,8 +48,11 @@ static const CGFloat kDefalutFontSize = 24.0;
     AttributedLabel *textLabel = [[AttributedLabel alloc] initWithFrame:CGRectZero];
     textLabel.edgeInsets = UIEdgeInsetsMake(kTextEdgeInset, kTextEdgeInset, kTextEdgeInset, kTextEdgeInset);
     textLabel.text = NSLocalizedStringFromTable(@"tu_点击输入内容", @"VideoDemo", @"点击输入内容");
-    textLabel.numberOfLines = -1;
+    textLabel.numberOfLines = 0;
     textLabel.textColor = [UIColor whiteColor];
+    textLabel.textColorProgress = 0.55f;
+    textLabel.backgroundColor = [textLabel.backgroundColor colorWithAlphaComponent:0.5f];
+    textLabel.bgColorProgress = 1.f;
     textLabel.font = [UIFont systemFontOfSize:kDefalutFontSize];
     return textLabel;
 }
@@ -117,15 +118,57 @@ static const CGFloat kDefalutFontSize = 24.0;
     return _attributes[NSFontAttributeName];
 }
 
+- (void)setBold:(BOOL)bold
+{
+    if (bold)
+        [self setFont:[UIFont boldSystemFontOfSize:[self.font pointSize]]];
+    else
+        [self setFont:[UIFont systemFontOfSize:[self.font pointSize]]];
+}
+
+-(BOOL)bold;{
+    UIFontDescriptor *fontDescriptor = self.font.fontDescriptor;
+    UIFontDescriptorSymbolicTraits fontDescriptorSymbolicTraits = fontDescriptor.symbolicTraits;
+    return (fontDescriptorSymbolicTraits & UIFontDescriptorTraitBold) != 0;
+}
+
+-(void)setWordSpace:(CGFloat)wordSpace;{
+    self.attributes[NSKernAttributeName] = @(wordSpace);
+    [self updateTextAttributes];
+}
+
+- (CGFloat)wordSpace;{
+    return [self.attributes[NSKernAttributeName] floatValue];
+}
+
+- (void)setLineSpace:(CGFloat)lineSpace; {
+    NSMutableParagraphStyle *style = [self.paragraphStyle mutableCopy];
+    style.lineSpacing = lineSpace;
+    _attributes[NSParagraphStyleAttributeName] = style;
+    [self updateTextAttributes];
+}
+
+- (CGFloat)lineSpace;{
+    return self.paragraphStyle.lineSpacing;
+}
+
 #pragma mark - custom
 
 - (void)setTextStrokeColor:(UIColor *)textStrokeColor {
     self.attributes[NSStrokeColorAttributeName] = textStrokeColor;
-    self.attributes[NSStrokeWidthAttributeName] = @(-1);
     [self updateTextAttributes];
 }
 - (UIColor *)textStrokeColor {
     return _attributes[NSStrokeColorAttributeName];
+}
+
+- (void)setTextStrokeWidth:(CGFloat)textStrokeWidth;{
+    self.attributes[NSStrokeWidthAttributeName] = @(-textStrokeWidth);
+    [self updateTextAttributes];
+}
+
+-(CGFloat)textStrokeWidth;{
+    return [self.attributes[NSStrokeWidthAttributeName] floatValue];
 }
 
 - (void)setParagraphStyle:(NSMutableParagraphStyle *)paragraphStyle {
@@ -138,6 +181,7 @@ static const CGFloat kDefalutFontSize = 24.0;
         style = [[NSMutableParagraphStyle alloc] init];
         _attributes[NSParagraphStyleAttributeName] = style;
     }
+    
     return style;
 }
 
@@ -147,6 +191,15 @@ static const CGFloat kDefalutFontSize = 24.0;
 }
 - (BOOL)underline {
     return [_attributes[NSUnderlineStyleAttributeName] boolValue];
+}
+
+-(void)setObliqueness:(BOOL)obliqueness;{
+    self.attributes[NSObliquenessAttributeName] = obliqueness ? @(0.5) : @(0);
+    [self updateTextAttributes];
+}
+
+- (BOOL)obliqueness{
+    return [self.attributes[NSObliquenessAttributeName] floatValue] > 0;
 }
 
 - (void)setWritingDirection:(NSArray<NSNumber *> *)writingDirection {

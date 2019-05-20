@@ -60,7 +60,7 @@ typedef NS_ENUM(NSUInteger,lsqVideoCameraFaceDetectionResultType) {
 /**
  *  视频相机基类
  */
-@interface TuSDKVideoCameraBase : SLGPUImageVideoCamera<TuSDKVideoCameraInterface>
+@interface TuSDKVideoCameraBase : SLGPUImageStillCamera<TuSDKVideoCameraInterface>
 {
     @protected
     // 输出尺寸
@@ -344,11 +344,12 @@ typedef NS_ENUM(NSUInteger,lsqVideoCameraFaceDetectionResultType) {
 - (void)notifyCaptureResult:(UIImage *_Nullable) result;
 
 /**
- 获取图片
- 
- @return  得到的图片对象
+ 拍摄图片
+
+ @param block 拍照完成数据回调
+ @since v3.4.1
  */
-- (UIImage *_Nullable)syncCaptureImage;
+- (BOOL)capturePhotoAsImageCompletionHandler:(void (^_Nonnull)(UIImage * _Nullable processedImage, NSError * _Nullable error))block;
 
 /**
  *  切换滤镜 v3.2.0 新增 addMediaEffect：接口，可通过该方法添加所有支持的特效。

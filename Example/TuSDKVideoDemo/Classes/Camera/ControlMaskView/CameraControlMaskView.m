@@ -92,6 +92,7 @@ static const CGFloat kTopBarHeight = 64.0;
     // 相机模式
     _captureModeControl.titles = @[NSLocalizedStringFromTable(@"tu_拍照", @"VideoDemo", @"拍照"), NSLocalizedStringFromTable(@"tu_长按拍摄", @"VideoDemo", @"长按拍摄"), NSLocalizedStringFromTable(@"tu_单击拍摄", @"VideoDemo", @"单击拍摄")];
     _captureModeControl.selectedIndex = 1;
+
     // 录制按钮
     [_captureButton addDelegate:self];
     // 滤镜标题
@@ -235,6 +236,8 @@ static const CGFloat kTopBarHeight = 64.0;
  @param sender 按钮
  */
 - (IBAction)stickerButtonAction:(UIButton *)sender {
+    if (self.currentBottomPanelView == _propsItemPanelView) return;
+
     self.currentBottomPanelView = sender.selected ? nil : _propsItemPanelView;
 }
 
@@ -244,6 +247,9 @@ static const CGFloat kTopBarHeight = 64.0;
  @param sender 按钮
  */
 - (IBAction)filterButtonAction:(UIButton *)sender {
+    
+    if (self.currentBottomPanelView == _filterPanelView) return;
+    
     self.currentBottomPanelView = sender.selected ? nil : _filterPanelView;
     if (_currentBottomPanelView && [self.delegate respondsToSelector:@selector(controlMask:didShowFilterPanel:)]) {
         [self.delegate controlMask:self didShowFilterPanel:(id<CameraFilterPanelProtocol>)_currentBottomPanelView];
@@ -256,6 +262,9 @@ static const CGFloat kTopBarHeight = 64.0;
  @param sender 按钮
  */
 - (IBAction)beautyButtonAction:(UIButton *)sender {
+    if (self.currentBottomPanelView == _beautyPanelView) return;
+
+    
     self.currentBottomPanelView = sender.selected ? nil : _beautyPanelView;
     if (_currentBottomPanelView && [self.delegate respondsToSelector:@selector(controlMask:didShowFilterPanel:)]) {
         [self.delegate controlMask:self didShowFilterPanel:(id<CameraFilterPanelProtocol>)_currentBottomPanelView];

@@ -19,7 +19,7 @@
 #import "TuSDKVideoResult.h"
 #import "TuSDKAudioResult.h"
 #import "TuSDKMoiveFragment.h"
-#import "TuSDK2DTextFilterWrap.h"
+#import "TuSDK2DImageFilterWrap.h"
 
 
 // 视频渲染特效
@@ -34,6 +34,7 @@
 #import "TuSDKMediaPlasticFaceEffect.h"
 #import "TuSDKMediaSkinFaceEffect.h"
 #import "TuSDKMediaMonsterFaceEffect.h"
+#import "TuSDKMediaStickerImageEffect.h"
 
 // 时间特效
 #import "TuSDKMediaTimeEffect.h"

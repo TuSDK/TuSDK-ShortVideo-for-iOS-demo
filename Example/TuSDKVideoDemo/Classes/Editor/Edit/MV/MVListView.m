@@ -7,6 +7,8 @@
 //
 
 #import "MVListView.h"
+#import "HorizontalListItemView.h"
+
 #import "Constants.h"
 #import "TuSDKMediaStickerAudioEffect+Equal.h"
 
@@ -21,6 +23,10 @@
 
 
 @implementation MVListView
+
++ (Class)listItemViewClass {
+    return [HorizontalListItemView class];
+}
 
 - (void)commonInit {
     [super commonInit];

@@ -82,7 +82,7 @@ typedef NS_ENUM(NSUInteger,lsqVideoProcesserFaceDetectionResultType) {
  特效数据移除
  
  @param processor 视频处理对象
- @param mediaEffects 被移除的特效列表
+ @param mediaEffectDatas 被移除的特效列表
  @since 2.2.0
  */
 - (void)onVideoProcessor:(TuSDKFilterProcessor *)processor didRemoveMediaEffects:(NSArray<id<TuSDKMediaEffect>> *)mediaEffectDatas;
@@ -99,11 +99,11 @@ typedef NS_ENUM(NSUInteger,lsqVideoProcesserFaceDetectionResultType) {
 {
     @protected
     
-    /**
-     *  输出画面分辨率，默认原始采样尺寸输出。
-     *  如果设置了输出尺寸，则对画面进行等比例缩放，必要时进行裁剪，保证输出尺寸和预设尺寸一致。
-     */
-    CGSize _outputSize;
+//    /**
+//     *  输出画面分辨率，默认原始采样尺寸输出。
+//     *  如果设置了输出尺寸，则对画面进行等比例缩放，必要时进行裁剪，保证输出尺寸和预设尺寸一致。
+//     */
+//    CGSize _outputSize;
     
     // 设备当前朝向
     UIDeviceOrientation _deviceOrient;
@@ -215,8 +215,8 @@ typedef NS_ENUM(NSUInteger,lsqVideoProcesserFaceDetectionResultType) {
 /**
  将 CVPixelBufferRef 数据从 srcPixelBuffer 复制到 destPixelBuffer
  
- @param pixelBuffer srcPixelBuffer
- @param pixelBuffer destPixelBuffer
+ @param CVPixelBufferRef srcPixelBuffer
+ @param CVPixelBufferRef destPixelBuffer
  */
 - (void)copyPixelBuffer:(CVPixelBufferRef)srcPixelBuffer dest:(CVPixelBufferRef) destPixelBuffer;
 

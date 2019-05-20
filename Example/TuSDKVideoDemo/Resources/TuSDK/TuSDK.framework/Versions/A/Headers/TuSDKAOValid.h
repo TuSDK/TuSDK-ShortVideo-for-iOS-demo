@@ -42,6 +42,10 @@
  */
 @property (nonatomic, readonly) NSString *appKey;
 
+/**
+ *  appType
+ */
+@property (nonatomic, readonly) NSNumber *appType;
 
 /**
  *  Sdk配置
@@ -110,6 +114,9 @@
 
 /** 涂抹功能是否开启 */
 - (BOOL)smudgeEnabled;
+
+/** 画笔涂鸦功能是否开启 */
+- (BOOL)paintEnabled;
 
 /** 滤镜涂抹功能是否开启 */
 - (BOOL)wipeFilterEnabled;
@@ -207,6 +214,14 @@
  @sinace v3.0.1
  */
 - (BOOL)videoEditorComicEffectsSupport;
+
+/**
+ video editor image sticker effects support 编辑视频 是否支持自定义图片贴纸
+
+ @return true/false
+ @sinace v3.0.1
+ */
+- (BOOL)videoEditorImageStickerSupport;
 
 /**
  *  解密文本
@@ -319,7 +334,7 @@
 /**
  *  验证笔刷
  *
- *  @param stickerId 笔刷ID
+ *  @param brushId 笔刷ID
  *  @param type      验证方式
  *
  *  @return BOOL 是否验证成功
@@ -331,7 +346,7 @@
  *
  *  @param key       笔刷密钥
  *  @param type      验证方式
- *  @param stickerId 笔刷ID
+ *  @param brushId 笔刷ID
  *
  *  @return BOOL 是否验证成功
  */

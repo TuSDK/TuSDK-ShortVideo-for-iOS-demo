@@ -7,6 +7,8 @@
 //
 
 #import "TextStyleMenuView.h"
+#import "TuSDKFramework.h"
+#import "AttributedLabel.h"
 
 // 缩略图键
 static NSString * const kItemIconKey = @"icon";
@@ -29,12 +31,11 @@ static NSString * const kItemTitleKey = @"title";
     
     _menuItemInfos =
     @[
-      @{kItemIconKey: @"edit_text_ic_left", kItemTitleKey: NSLocalizedStringFromTable(@"tu_左对齐", @"VideoDemo", @"左对齐")},
-      @{kItemIconKey: @"edit_text_ic_center", kItemTitleKey: NSLocalizedStringFromTable(@"tu_居中", @"VideoDemo", @"居中")},
-      @{kItemIconKey: @"edit_text_ic_right", kItemTitleKey: NSLocalizedStringFromTable(@"tu_右对齐", @"VideoDemo", @"右对齐")},
-      @{kItemIconKey: @"edit_text_ic_underline", kItemTitleKey: NSLocalizedStringFromTable(@"tu_下划线", @"VideoDemo", @"下划线")},
-      @{kItemIconKey: @"edit_text_ic_smooth", kItemTitleKey: NSLocalizedStringFromTable(@"tu_从左到右", @"VideoDemo", @"从左到右")},
-      @{kItemIconKey: @"edit_text_ic_inverse", kItemTitleKey: NSLocalizedStringFromTable(@"tu_从右到左", @"VideoDemo", @"从右到左")},
+      @{kItemIconKey: @"t_ic_nor_nor", kItemTitleKey: NSLocalizedStringFromTable(@"tu_正常", @"VideoDemo", @"正常")},
+      @{kItemIconKey: @"t_ic_blod_nor", kItemTitleKey: NSLocalizedStringFromTable(@"tu_加粗", @"VideoDemo", @"加粗")},
+      @{kItemIconKey: @"t_ic_underline_nor", kItemTitleKey: NSLocalizedStringFromTable(@"tu_下划线", @"VideoDemo", @"下划线")},
+      @{kItemIconKey: @"t_ic_ltalic_nor", kItemTitleKey: NSLocalizedStringFromTable(@"tu_斜体", @"VideoDemo", @"斜体")},
+
       ];
     self.itemSize = CGSizeMake(48, 44);
     self.itemSpacing = 40;
@@ -46,11 +47,54 @@ static NSString * const kItemTitleKey = @"title";
         [self.scrollView addSubview:itemView];
         [menuItemViews addObject:itemView];
         itemView.textLabel.text = info[kItemTitleKey];
-        UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:info[kItemIconKey]]];
+        UIImageView *imageView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:info[kItemIconKey]] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
         itemView.iconView = imageView;
         [itemView addTarget:self action:@selector(menuItemTapAction:) forControlEvents:UIControlEventTouchUpInside];
     }
     self.menuItemViews = menuItemViews.copy;
+}
+
+/**
+ 设置
+ @param label 设置属性
+ */
+- (void)updateByAttributeLabel:(AttributedLabel *)label;{
+
+    BOOL bold = label.bold;
+    BOOL underline = label.underline;
+    BOOL obliqueness = label.obliqueness;
+    
+    
+    [self.menuItemViews enumerateObjectsUsingBlock:^(UIView * _Nonnull itemView, NSUInteger idx, BOOL * _Nonnull stop) {
+        MenuItemControl *itemControl = (MenuItemControl *)itemView;
+        
+        BOOL selected = YES;
+        
+        switch (idx) {
+            case 1:
+                selected = bold;
+                break;
+            case 2:
+                selected = underline;
+                break;
+            case 3:
+                selected = obliqueness;
+                break;
+            case 0:
+                selected = !bold && !underline && !obliqueness;
+                break;
+            default:
+                break;
+        }
+        
+        UIColor *selectedColor = [UIColor lsqClorWithHex:@"#ffc502"];
+        itemControl.textLabel.textColor = selected ? selectedColor : [UIColor whiteColor];
+        
+        UIImageView *iconView = (UIImageView *)itemControl.iconView;
+        iconView.tintColor = selected ? selectedColor : [UIColor whiteColor];
+        
+    }];
+    
 }
 
 /**

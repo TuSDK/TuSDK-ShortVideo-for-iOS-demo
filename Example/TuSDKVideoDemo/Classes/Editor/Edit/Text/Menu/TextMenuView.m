@@ -7,6 +7,8 @@
 //
 
 #import "TextMenuView.h"
+#import "TuSDKFramework.h"
+
 
 @interface MenuItemControl()
 
@@ -26,8 +28,9 @@
 
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
+        _spacing = 4;
         _textLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _textLabel.font = [UIFont systemFontOfSize:10];
+        _textLabel.font = [UIFont systemFontOfSize:12];
         _textLabel.textColor = [UIColor whiteColor];
         [self addSubview:_textLabel];
         _eventButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -41,7 +44,7 @@
     CGSize size = self.bounds.size;
     CGSize textSize = [_textLabel intrinsicContentSize];
     _iconView.frame = CGRectMake(0, 0, size.width, size.height - textSize.height - _spacing);
-    _textLabel.frame = CGRectMake((size.width - textSize.width) / 2, size.height - textSize.height, textSize.width, textSize.height);
+    _textLabel.frame = CGRectMake((size.width - textSize.width) / 2, size.height - textSize.height + 4, textSize.width, textSize.height);
     _eventButton.frame = self.bounds;
 }
 

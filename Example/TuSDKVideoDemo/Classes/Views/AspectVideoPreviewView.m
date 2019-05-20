@@ -48,7 +48,7 @@
         if (@available(iOS 11.0, *)) {
             bounds = UIEdgeInsetsInsetRect(bounds, self.safeAreaInsets);
         }
-        _videoView.frame = AVMakeRectWithAspectRatioInsideRect(_videoSize, bounds);
+        _videoView.frame = CGRectMake(0, 0, bounds.size.width, bounds.size.height);
         CGSize videoViewSize = _videoView.frame.size;
         if (!CGSizeEqualToSize(_lastVideoViewSize, videoViewSize)) {
             if (self.resizeHandler) self.resizeHandler(self);

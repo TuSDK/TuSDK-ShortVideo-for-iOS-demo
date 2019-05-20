@@ -33,6 +33,8 @@ static NSString * const kEffectItemImageKey = @"image";
           @{kEffectItemTitleKey: NSLocalizedStringFromTable(@"tu_配乐", @"VideoDemo", @"配乐"), kEffectItemImageKey: @"edit_tab_ic_music"},
           @{kEffectItemTitleKey: NSLocalizedStringFromTable(@"tu_文字", @"VideoDemo", @"文字"), kEffectItemImageKey: @"edit_tab_ic_text"},
           @{kEffectItemTitleKey: NSLocalizedStringFromTable(@"tu_特效", @"VideoDemo", @"特效"), kEffectItemImageKey: @"edit_tab_ic_special"},
+           @{kEffectItemTitleKey: NSLocalizedStringFromTable(@"tu_贴纸", @"VideoDemo", @"贴纸 "), kEffectItemImageKey: @"tab_ic_sticker"},
+           @{kEffectItemTitleKey: NSLocalizedStringFromTable(@"tu_裁剪", @"VideoDemo", @"裁剪"), kEffectItemImageKey: @"tab_ic_crop"},
           ];
     }
     return self;

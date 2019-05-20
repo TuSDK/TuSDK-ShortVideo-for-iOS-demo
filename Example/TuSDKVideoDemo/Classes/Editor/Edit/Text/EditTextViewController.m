@@ -9,21 +9,42 @@
 #import "EditTextViewController.h"
 #import "ScrollVideoTrimmerView.h"
 #import "TextColorMenuView.h"
-#import "TextEditAreaView.h"
 #import "TextFontMenuView.h"
 #import "TextStyleMenuView.h"
+#import "TextSpaceMenuView.h"
+#import "TextAlphaMenuView.h"
+#import "TextBorderMenuView.h"
+#import "TextBgColorMenuView.h"
+#import "TextAlignmentMenuView.h"
+#import "TextDirectionMenuView.h"
+#import "TextFontSizeMenuView.h"
 #import "MediaTextEffect.h"
+#import "StickerEditor.h"
+#import "TextStickerEditorItem.h"
+#import "ImageStickerEditorItem.h"
 
 /// 文字默认时长
-static const CGFloat kTextItemDefaultDuration = 2.0;
+static const CGFloat kTextItemDefaultDuration = 1.0;
 /// 文字最小时长
 static const CGFloat kTextItemMinDuration = 1.0;
 
+API_AVAILABLE(ios(9.0))
 @interface EditTextViewController ()<
-ScrollVideoTrimmerViewDelegate, TextEditAreaViewDelegate,
-UITextViewDelegate,
-TextFontMenuViewDelegate, TextColorMenuViewDelegate, TextStyleMenuViewDelegate,
-UIGestureRecognizerDelegate
+ScrollVideoTrimmerViewDelegate,
+TextFontMenuViewDelegate,
+TextColorMenuViewDelegate,
+TextStyleMenuViewDelegate,
+TextSpaceMenuViewDelegate,
+TextAlphaMenuViewDelegate,
+TextBorderMenuViewDelegate,
+TextBgColorMenuViewDelegate,
+TextAlignmentMenuViewDelegate,
+TextDirectionMenuViewDelegate,
+TextFontSizeMenuViewDelegate,
+StickerEditorDelegate,
+TextStickerEditorItemDelegate,
+UIGestureRecognizerDelegate,
+UITextViewDelegate
 >
 
 /**
@@ -40,6 +61,11 @@ UIGestureRecognizerDelegate
  操作面板
  */
 @property (weak, nonatomic) IBOutlet UIView *actionPanel;
+
+/**
+ 底部文字菜单
+ */
+@property (weak, nonatomic) IBOutlet UIStackView *menuStackView;
 
 /**
  添加按钮
@@ -67,9 +93,14 @@ UIGestureRecognizerDelegate
 @property (nonatomic, weak) UIView *subMenuView;
 
 /**
- 文字编辑区域视图
+ 下一个文字项中点坐标
  */
-@property (nonatomic, strong) TextEditAreaView *textEditAreaView;
+@property (nonatomic, assign) CGPoint nextTextEditItemCenter;
+
+/**
+ 贴纸编辑视图
+ */
+@property (nonatomic)  StickerEditor *stickerEditor;
 
 /**
  当前选中的文字标签
@@ -91,6 +122,8 @@ UIGestureRecognizerDelegate
  */
 @property (nonatomic, assign) BOOL lastSeek;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomViewContraints;
+
 @end
 
 
@@ -103,14 +136,14 @@ UIGestureRecognizerDelegate
  */
 - (void)doneButtonAction:(UIButton *)sender {
     [super doneButtonAction:sender];
-    _textEditAreaView.hidden = YES;
     // 应用文字特效
     TuSDKVideoTrackInfo *trackInfo = self.movieEditor.inputAssetInfo.videoInfo.videoTrackInfoArray.firstObject;
     CGSize videoSize = trackInfo.presentSize;
-    NSArray *textEffects = [_textEditAreaView generateTextEffectsWithVideoSize:videoSize];
-    for (MediaTextEffect *textEffect in textEffects) {
+    
+    NSArray *textEffects = [_stickerEditor resultsWithRegionRect:CGRectMake(0, 0, videoSize.width, videoSize.height)];
+    
+    for (MediaTextEffect *textEffect in textEffects)
         [self.movieEditor addMediaEffect:textEffect];
-    }
 }
 
 /**
@@ -120,7 +153,6 @@ UIGestureRecognizerDelegate
  */
 - (void)cancelButtonAction:(UIButton *)sender {
     [super cancelButtonAction:sender];
-    _textEditAreaView.hidden = YES;
     // 恢复保存的文字特效
     [self.movieEditor removeMediaEffectsWithType:TuSDKMediaEffectDataTypeStickerText];
     if (self.initialEffects.count) {
@@ -150,38 +182,25 @@ UIGestureRecognizerDelegate
 }
 
 - (void)setupUI {
+    
     self.title = NSLocalizedStringFromTable(@"tu_文字", @"VideoDemo", @"文字");
     
-    // 配置时间轴
-    _trimmerView.thumbnailsView.thumbnails = self.thumbnails;
-    _trimmerView.minIntervalProgress = kTextItemMinDuration / CMTimeGetSeconds(self.movieEditor.inputDuration);
-    
-    // 配置文字编辑区域
-    _textEditAreaView = [[TextEditAreaView alloc] initWithFrame:CGRectZero];
-    [self.view insertSubview:_textEditAreaView atIndex:0];
-    _textEditAreaView.delegate = self;
+    /** 初始化 StickerEditor 用于编辑文字贴纸 */
+    _stickerEditor = [[StickerEditor alloc] initWithHolderView:self.view];
+    _stickerEditor.delegate = self;
     
     // 监听键盘弹出与隐藏状态
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     
-    // 载入已加入的文字特效
-    self.initialEffects = [self.movieEditor mediaEffectsWithType:TuSDKMediaEffectDataTypeStickerText];
-    [_textEditAreaView setupWithTextEffects:self.initialEffects];
-    [self.movieEditor removeMediaEffectsWithType:TuSDKMediaEffectDataTypeStickerText];
-    
-    // 跳转到首帧
-    [self.movieEditor seekToTime:kCMTimeZero];
-    
-    // 同步 UI 状态
-    _textEditAreaView.selectedIndex = -1;
+    // 配置时间轴
+    _trimmerView.thumbnailsView.thumbnails = self.thumbnails;
+    _trimmerView.minIntervalProgress = kTextItemMinDuration / CMTimeGetSeconds(self.movieEditor.inputDuration);
     _trimmerView.selectedMarkIndex = -1;
+    
     self.playButton.selected = self.movieEditor.isPreviewing;
     [self updateMenuButtonState];
-}
-
-- (void)viewDidLayoutSubviews {
-    [super viewDidLayoutSubviews];
+    
     // 获取视频在屏幕中的大小，应用到文字编辑区域的布局
     CGRect bounds = [UIScreen mainScreen].bounds;
     CGFloat bottomPreviewOffset = [self.class bottomPreviewOffset];
@@ -189,12 +208,97 @@ UIGestureRecognizerDelegate
         bounds = UIEdgeInsetsInsetRect(bounds, self.view.safeAreaInsets);
     }
     bounds.size.height -= bottomPreviewOffset;
+    bounds.origin.y = 0;
+    
     TuSDKVideoTrackInfo *trackInfo = self.movieEditor.inputAssetInfo.videoInfo.videoTrackInfoArray.firstObject;
     CGSize videoSize = trackInfo.presentSize;
-    _textEditAreaView.frame = AVMakeRectWithAspectRatioInsideRect(videoSize, bounds);
     
-    // 设置文字缩放
-    _textEditAreaView.textScale = videoSize.width / CGRectGetWidth(_textEditAreaView.frame);
+    /** 计算视频绘制区域 */
+    if (self.movieEditor.options.outputSizeOptions.aspectOutputRatioInSideCanvas) {
+        // 根据用户设置的比例计算
+        CGRect outputRect = AVMakeRectWithAspectRatioInsideRect(self.movieEditor.options.outputSizeOptions.outputSize, bounds);
+        _stickerEditor.contentView.frame = outputRect;
+    }else {
+        _stickerEditor.contentView.frame = AVMakeRectWithAspectRatioInsideRect(videoSize, bounds);
+    }
+    
+    /**
+     由于 StickerEditor 和  MovieEditor 的特效不能同时显示，也为了保证图片贴纸和文字贴纸的编辑顺序，并在 UI 上有层级关系，这里统一将 TuSDKMediaEffectDataTypeStickerText 与 TuSDKMediaEffectDataTypeStickerImage 添加至 StickerEditor，点击保存时通过 StickerEditor 获取编辑后的特效并添加至 MovieEditor。
+     */
+    NSMutableArray<id<TuSDKMediaEffect>> *initialEffects = [NSMutableArray array];
+    self.initialEffects = initialEffects;
+
+    __weak typeof(self)weakSelf = self;
+    [[self.movieEditor allMediaEffects] enumerateObjectsUsingBlock:^(id<TuSDKMediaEffect> _Nonnull effect, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        
+        switch (effect.effectType) {
+            case TuSDKMediaEffectDataTypeStickerText:{
+                
+                /** appendStickerImageEffect 显示时 需要依赖 _stickerViewEditor 的 frame  */
+                TextStickerEditorItem *item = [[TextStickerEditorItem alloc] initWithEditor:weakSelf.stickerEditor];
+                item.delegate = weakSelf;
+                item.effect = effect;
+                item.tag  = idx;
+                item.selected = NO;
+                
+                [weakSelf addItem:item];
+                [initialEffects addObject:effect];
+                break;
+            }
+            case TuSDKMediaEffectDataTypeStickerImage: {
+                /** appendStickerImageEffect 显示时 需要依赖 _stickerViewEditor 的 frame  */
+                ImageStickerEditorItem *item = [[ImageStickerEditorItem alloc] initWithEditor:weakSelf.stickerEditor];
+                item.editable = NO;
+                item.tag  = -1;
+                item.effect = effect;
+                [weakSelf.stickerEditor addItem:item];
+                [initialEffects addObject:effect];
+                break;
+            }
+            default:
+                break;
+        }
+    }];
+    
+    // 显示指定时间内的贴纸
+    [_stickerEditor showItemByTime:kCMTimeZero];
+
+    /** 移除 MovieEditor 中的特效，因为已添加至 _stickerEditor */
+    [self.movieEditor removeMediaEffectsWithType:TuSDKMediaEffectDataTypeStickerImage];
+    [self.movieEditor removeMediaEffectsWithType:TuSDKMediaEffectDataTypeStickerText];
+    [self.movieEditor seekToTime:kCMTimeZero];
+
+}
+
+/**
+ 设置是否启用文字菜单
+
+ @param enable 启用
+ */
+- (void)setEnableTextMenus:(BOOL)enable;{
+    
+    [self.menuStackView.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull view, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (idx <= 0) return;
+        [view.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull subView, NSUInteger idx, BOOL * _Nonnull stop) {
+            if ([subView isKindOfClass:[UIControl class]]) {
+                UIControl *control = subView;
+                control.enabled = enable;
+                subView.tintColor = enable ? [UIColor whiteColor]: [UIColor grayColor];
+            }else if([subView isKindOfClass:[UILabel class]])
+            {
+                UILabel *title = subView;
+                title.textColor = enable ? [UIColor whiteColor] : [UIColor grayColor];
+            }
+        }];
+    }];
+}
+
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    _bottomViewContraints.constant = self.bottomNavigationBar.frame.size.height;
+
+
 }
 
 /**
@@ -203,9 +307,7 @@ UIGestureRecognizerDelegate
  @param playbackProgress 回调的进度
  */
 - (void)showTextItemsWithProgress:(double)playbackProgress {
-    for (NSInteger i = 0; i < _textEditAreaView.textEditItemCount; i++) {
-        [_textEditAreaView showTextItemAtTime:self.movieEditor.outputTimeAtSlice index:i animated:YES];
-    }
+    [_stickerEditor showItemByTime:self.movieEditor.outputTimeAtSlice];
 }
 
 /**
@@ -213,11 +315,22 @@ UIGestureRecognizerDelegate
  */
 - (void)updateMenuButtonState {
     _addButton.enabled = !self.playing;
-    BOOL editable = _currentItemLabel && !self.playing && _textEditAreaView.textEditItemCount > 0;
-    _fontButton.enabled = _colorButton.enabled = _styleButton.enabled = editable;
-    if (!editable) {
+    
+    __block NSUInteger count = 0;
+    [[_stickerEditor items] enumerateObjectsUsingBlock:^(UIView<StickerEditorItem> * _Nonnull eachItem, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([eachItem isKindOfClass:[TextStickerEditorItem class]] && eachItem.selected)
+            count ++;
+    }];
+    
+    BOOL editable = _currentItemLabel && !self.playing && count > 0;
+    [self setEnableTextMenus:editable];
+    
+    if (!editable)
         [_subMenuView removeFromSuperview];
-    }
+    
+    if ([_subMenuView respondsToSelector:@selector(updateByAttributeLabel:)])
+        [_subMenuView performSelector:@selector(updateByAttributeLabel:) withObject:_currentItemLabel];
+
 }
 
 /**
@@ -265,7 +378,8 @@ UIGestureRecognizerDelegate
     
     // 清空 UI 状态
     if (playing) {
-        _textEditAreaView.selectedIndex = -1;
+
+        [_stickerEditor cancelSelectedAllItems];
         _trimmerView.selectedMarkIndex = -1;
         self.currentItemLabel = nil;
         _lastSeek = NO;
@@ -314,6 +428,29 @@ UIGestureRecognizerDelegate
     _currentItemLabel.text = textView.text;
 }
 
+/**
+ 编辑文本框内容改变处理
+ */
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text;{
+    
+    // 换行符限制
+    if ([text isEqualToString:@"\n"] && textView.text.length > 3) {
+        NSString *lastChar = [textView.text substringFromIndex:textView.text.length - 3];
+        if ([lastChar isEqualToString:@"\n\n\n"]){
+            [[[TuSDK shared] messageHub] showError:NSLocalizedStringFromTable(@"tu_换行数量限制", @"VideoDemo", @"最多支持三个换行符")];
+            return NO;
+        }
+    }
+    return YES;
+}
+
+- (void)setSubMenuView:(UIView *)subMenuView;{
+    _subMenuView = subMenuView;
+    if ([_subMenuView respondsToSelector:@selector(updateByAttributeLabel:)])
+        [_subMenuView performSelector:@selector(updateByAttributeLabel:) withObject:_currentItemLabel];
+    
+}
+
 #pragma mark - action
 
 /**
@@ -336,7 +473,53 @@ UIGestureRecognizerDelegate
  @param sender 添加文字按钮
  */
 - (IBAction)addButtonAction:(id)sender {
-    [_textEditAreaView addDefaultTextEditItem];
+    
+    TextStickerEditorItem *item = [[TextStickerEditorItem alloc] initWithEditor:_stickerEditor];
+    item.delegate = self;
+    item.center = self.nextTextEditItemCenter;
+    item.textLabel = [AttributedLabel defaultLabel];
+    item.selected = YES;
+    
+    [self addItem:item];
+}
+
+/**
+ 多次重复添加时防止覆盖
+ */
+- (CGPoint)nextTextEditItemCenter;{
+    if (CGPointEqualToPoint(_nextTextEditItemCenter,CGPointZero)) {
+        _nextTextEditItemCenter =  CGPointMake(CGRectGetMidX(_stickerEditor.contentView.bounds), CGRectGetMidY(_stickerEditor.contentView.bounds));
+    }else
+    {
+        _nextTextEditItemCenter = CGPointMake(_nextTextEditItemCenter.x + 7, _nextTextEditItemCenter.y + 7);
+        if (_nextTextEditItemCenter.x > CGRectGetMaxX(_stickerEditor.contentView.bounds)) {
+            _nextTextEditItemCenter.x = CGRectGetMaxX(_stickerEditor.contentView.bounds);
+        } else if (_nextTextEditItemCenter.x < 0) {
+            _nextTextEditItemCenter.x = 0;
+        }
+        if (_nextTextEditItemCenter.y > CGRectGetMaxY(_stickerEditor.contentView.bounds)) {
+            _nextTextEditItemCenter.y = CGRectGetMaxY(_stickerEditor.contentView.bounds);
+        } else if (_nextTextEditItemCenter.y < 0) {
+            _nextTextEditItemCenter.y = 0;
+        }
+    }
+    return _nextTextEditItemCenter;
+}
+
+/**
+ 添加一个文字贴纸项
+
+ @param item 文字贴纸项
+ */
+- (void)addItem:(TextStickerEditorItem *)item {
+    
+    __weak typeof(item) weak_control = item;
+    item.textLabel.labelUpdateHandler = ^(AttributedLabel *label) {
+        [weak_control updateLayoutWithContentSize:label.intrinsicContentSize];
+    };
+    
+    [_stickerEditor cancelSelectedAllItems];
+    [_stickerEditor addItem:item];
 }
 
 /**
@@ -345,12 +528,108 @@ UIGestureRecognizerDelegate
  @param sender 字体按钮
  */
 - (IBAction)fontButtonAction:(id)sender {
-    TextFontMenuView *menu = [[TextFontMenuView alloc] initWithFrame:CGRectZero];
+    TextFontMenuView *menu = [[TextFontMenuView alloc] initWithFrame:_actionPanel.bounds];
+    menu.delegate = self;
+    [_actionPanel addSubview:menu];
+    self.subMenuView = menu;
+}
+
+/**
+ 间距菜单按钮事件
+ 
+ @param sender 间距按钮
+ */
+- (IBAction)spaceButtonAction:(id)sender {
+    TextSpaceMenuView *menu = [[TextSpaceMenuView alloc] initWithFrame:CGRectZero];
+    menu.frame = _actionPanel.bounds;
+    menu.delegate = self;
+    [menu setValue:_currentItemLabel.lineSpace spaceType:TextSpaceTypeLine];
+    [menu setValue:_currentItemLabel.wordSpace spaceType:TextSpaceTypeWord];
+    [_actionPanel addSubview:menu];
+    self.subMenuView = menu;
+}
+
+/**
+ 对齐菜单按钮事件
+ 
+ @param sender 间距按钮
+ */
+- (IBAction)alignmentButtonAction:(id)sender {
+    TextAlignmentMenuView *menu = [[TextAlignmentMenuView alloc] initWithFrame:_actionPanel.bounds];
+    menu.alignment = _currentItemLabel.textAlignment;
+    menu.delegate = self;
+    [_actionPanel addSubview:menu];
+    self.subMenuView = menu;
+}
+
+/**
+ 对齐菜单按钮事件
+ 
+ @param sender 间距按钮
+ */
+- (IBAction)directionButtonAction:(id)sender {
+    TextDirectionMenuView *menu = [[TextDirectionMenuView alloc] initWithFrame:_actionPanel.bounds];
+    
+    menu.delegate = self;
+    [_actionPanel addSubview:menu];
+    self.subMenuView = menu;
+}
+
+/**
+ 对齐菜单按钮事件
+ 
+ @param sender 间距按钮
+ */
+- (IBAction)fontSizeButtonAction:(id)sender {
+    TextFontSizeMenuView *menu = [[TextFontSizeMenuView alloc] initWithFrame:_actionPanel.bounds];
+    menu.defaultFontSize = kDefalutFontSize;
+    menu.maxFontSize = kMaxFontSize;
+    menu.fontSize = _currentItemLabel.font.pointSize;
+    menu.delegate = self;
+    [_actionPanel addSubview:menu];
+    self.subMenuView = menu;
+}
+
+/**
+ 背景菜单按钮事件
+ 
+ @param sender 间距按钮
+ */
+- (IBAction)bgColorButtonAction:(id)sender {
+    TextBgColorMenuView *menu = [[TextBgColorMenuView alloc] initWithFrame:CGRectZero];
     menu.frame = _actionPanel.bounds;
     menu.delegate = self;
     [_actionPanel addSubview:menu];
-    _subMenuView = menu;
+    self.subMenuView = menu;
 }
+
+/**
+ 边框菜单按钮事件
+ 
+ @param sender 间距按钮
+ */
+- (IBAction)borderButtonAction:(id)sender {
+    TextBorderMenuView *menu = [[TextBorderMenuView alloc] initWithFrame:CGRectZero];
+    menu.frame = _actionPanel.bounds;
+    menu.strokeWidth = fabs(_currentItemLabel.textStrokeWidth);
+    menu.delegate = self;
+    [_actionPanel addSubview:menu];
+    self.subMenuView = menu;
+}
+
+/**
+ 透明度菜单按钮事件
+ 
+ @param sender 间距按钮
+ */
+- (IBAction)alphaButtonAction:(id)sender {
+    TextAlphaMenuView *menu = [[TextAlphaMenuView alloc] initWithFrame:CGRectZero];
+    menu.frame = _actionPanel.bounds;
+    menu.delegate = self;
+    [_actionPanel addSubview:menu];
+    self.subMenuView = menu;
+}
+
 
 /**
  文字颜色按钮事件
@@ -362,7 +641,7 @@ UIGestureRecognizerDelegate
     menu.frame = _actionPanel.bounds;
     menu.delegate = self;
     [_actionPanel addSubview:menu];
-    _subMenuView = menu;
+    self.subMenuView = menu;
 }
 
 /**
@@ -375,7 +654,7 @@ UIGestureRecognizerDelegate
     menu.frame = _actionPanel.bounds;
     menu.delegate = self;
     [_actionPanel addSubview:menu];
-    _subMenuView = menu;
+    self.subMenuView = menu;
 }
 
 /**
@@ -389,7 +668,7 @@ UIGestureRecognizerDelegate
     
     // 清空 UI 状态
     self.currentItemLabel = nil;
-    _textEditAreaView.selectedIndex = -1;
+    [_stickerEditor cancelSelectedAllItems];
     _trimmerView.selectedMarkIndex = -1;
 }
 
@@ -423,31 +702,38 @@ UIGestureRecognizerDelegate
  */
 - (void)menu:(TextStyleMenuView *)menu didChangeStyle:(TextMenuStyle)style {
     switch (style) {
-        // 中心对齐
-        case TextMenuStyleAlignCenter:{
-            _currentItemLabel.textAlignment = NSTextAlignmentCenter;
-        } break;
-        // 左对齐
-        case TextMenuStyleAlignLeft:{
-            _currentItemLabel.textAlignment = NSTextAlignmentLeft;
-        } break;
-        // 右对齐
-        case TextMenuStyleAlignRight:{
-            _currentItemLabel.textAlignment = NSTextAlignmentRight;
-        } break;
         // 下划线
         case TextMenuStyleUnderLine:{
             _currentItemLabel.underline = !_currentItemLabel.underline;
         } break;
-        // 从左到右排列
-        case TextMenuStyleLeftToRight:{
-            _currentItemLabel.writingDirection = @[@(2)];
+        case TextMenuStyleItalics:{
+            _currentItemLabel.obliqueness =  !_currentItemLabel.obliqueness;
         } break;
-        // 从右到左排列
-        case TextMenuStyleRightToLeft:{
-            _currentItemLabel.writingDirection = @[@(3)];
+        case TextMenuStyleBold:{
+            _currentItemLabel.bold =  !_currentItemLabel.bold;
         } break;
+        default:{
+            _currentItemLabel.bold = NO;
+            _currentItemLabel.underline = NO;
+             _currentItemLabel.obliqueness = NO;
+            break;
+        }
     }
+    
+    [menu updateByAttributeLabel:_currentItemLabel];
+}
+
+#pragma mark - TextDirectionMenuViewDelegate
+
+- (void)menu:(TextDirectionMenuView *)menu didChangeDirectionType:(TextDirectionType)directionType {
+    _currentItemLabel.writingDirection = @[@(directionType)];
+}
+
+#pragma mark - TextFontSizeMenuViewDelegate
+
+-(void)menu:(TextFontSizeMenuView *)menu didChangeFontSize:(CGFloat)fontSize
+{
+    _currentItemLabel.font = _currentItemLabel.bold ? [UIFont boldSystemFontOfSize:fontSize] : [UIFont systemFontOfSize:fontSize];
 }
 
 #pragma mark TextFontMenuViewDelegate
@@ -473,93 +759,54 @@ UIGestureRecognizerDelegate
 
  @param menu 文字颜色菜单视图
  @param color 文字颜色
- @param type 文字样式颜色
  */
-- (void)menu:(TextColorMenuView *)menu didChangeColor:(UIColor *)color forType:(TextColorType)type {
+- (void)menu:(TextColorMenuView *)menu didChangeTextColor:(UIColor *)color
+{
+    _currentItemLabel.textColor = color;
+}
+
+#pragma mark - TextSpaceMenuViewDelegate
+- (void)menu:(TextSpaceMenuView *)menu didChangeSpace:(CGFloat)space forType:(TextSpaceType)type {
     switch (type) {
-        // 文字背景颜色
-        case TextColorTypeBackground:{
-            _currentItemLabel.backgroundColor = color;
-        } break;
-        // 文字描边颜色
-        case TextColorTypeStroke:{
-            _currentItemLabel.textStrokeColor = color;
-        } break;
-        // 文字字体颜色
-        case TextColorTypeText:{
-            _currentItemLabel.textColor = color;
-        } break;
+        case TextSpaceTypeWord:
+            _currentItemLabel.wordSpace = space;
+            break;
+        case TextSpaceTypeLine:
+            _currentItemLabel.lineSpace = space;
+            break;
+        default:
+            break;
     }
 }
 
-#pragma mark - TextEditAreaViewDelegate
-
-/**
- 文字项变更回调
- 
- @param textEditAreaView 文字编辑视图
- @param itemLabel 文本 label
- @param itemIndex 元素索引
- @param added 是否添加
- @param removed 是否移除
- */
-- (void)textEditAreaView:(TextEditAreaView *)textEditAreaView didUpdateItem:(AttributedLabel *)itemLabel itemIndex:(NSInteger)itemIndex added:(BOOL)added removed:(BOOL)removed {
-    if (added) {
-        CMTime duration = self.movieEditor.inputDuration;
-        if (CMTIMERANGE_IS_INVALID(itemLabel.timeRange)) {
-            // 设置默认的时间范围
-            CMTime startTime = self.movieEditor.outputTimeAtSlice;
-            NSTimeInterval durationInterval = CMTimeGetSeconds(duration);
-            if (durationInterval - CMTimeGetSeconds(startTime) < kTextItemDefaultDuration) {
-                startTime = CMTimeMakeWithSeconds(durationInterval - kTextItemDefaultDuration, duration.timescale);
-            }
-            
-            if (CMTimeGetSeconds(startTime) < 0) {
-                startTime = kCMTimeZero;
-            }
-            
-            itemLabel.timeRange = CMTimeRangeMake(startTime, CMTimeMakeWithSeconds(kTextItemDefaultDuration, duration.timescale));
-        }
-        
-        // 联动更新 UI
-        self.currentItemLabel = itemLabel;
-        [_trimmerView addMarkWithColor:[UIColor colorWithRed:255/255.0 green:204/255.0 blue:0/255.0 alpha:0.5] timeRange:itemLabel.timeRange atDuration:duration];
-        _trimmerView.selectedMarkIndex = itemIndex;
-    }
-    if (removed) {
-        // 联动更新 UI
-        self.currentItemLabel = nil;
-        [_trimmerView removeMarkAtIndex:itemIndex];
-        _trimmerView.trimmerMaskView.hidden = YES;
-        [self.view endEditing:YES];
-    }
+#pragma mark - TextAlphaMenuViewDelegate
+- (void)menu:(TextAlphaMenuView *)menu didChangeAlphavalue:(CGFloat)value {
+    _currentItemLabel.textColor = [_currentItemLabel.textColor colorWithAlphaComponent:value];
 }
 
-/**
- 选中文字项回调，在此更新 `currentItemLabel` 属性、更新 `currentTextEffect` 属性、更新 UI
- 
- @param textEditAreaView 文字编辑视图
- @param selectedIndex 选中索引
- @param itemLabel 文本 label
- */
-- (void)textEditAreaView:(TextEditAreaView *)textEditAreaView didSelectIndex:(NSInteger)selectedIndex itemLabel:(AttributedLabel *)itemLabel {
-    // 更新 UI
-    self.currentItemLabel = itemLabel;
-    [_trimmerView selectMarkWithIndex:selectedIndex];
-    
-    // 跳转到文字的时间范围内
-    [self seekToTimeRange:itemLabel.timeRange];
+#pragma mark - TextBorderMenuViewDelegate
+- (void)menu:(TextBorderMenuView *)menu didChangeBorderSize:(CGFloat)borderSize {
+    _currentItemLabel.textStrokeWidth = borderSize;
 }
 
-/**
- 文字编辑状态回调，在此弹出 textView 进行编辑
- 
- @param textEditAreaView 文字编辑区域
- @param itemLabel 文字 label
- */
-- (void)textEditAreaView:(TextEditAreaView *)textEditAreaView shouldEditItem:(AttributedLabel *)itemLabel {
-    self.textView.text = itemLabel.text;
-    [self.textView becomeFirstResponder];
+- (void)menu:(TextBorderMenuView *)menu didChangeBorderColor:(UIColor *)color {
+    _currentItemLabel.textStrokeColor = color;
+}
+
+#pragma mark - TextBgColorMenuViewDelegate
+-(void)menu:(TextBgColorMenuView *)menu didChangeBgColor:(UIColor *)color
+{
+    _currentItemLabel.backgroundColor = [color colorWithAlphaComponent:CGColorGetAlpha(_currentItemLabel.backgroundColor.CGColor)];
+}
+
+-(void)menu:(TextBgColorMenuView *)menu didChangeBgAlpha:(CGFloat)alpha
+{
+    _currentItemLabel.backgroundColor = [_currentItemLabel.backgroundColor colorWithAlphaComponent:alpha];
+}
+
+#pragma mark - TextAlignmentMenuViewDelegate
+-(void)menu:(TextAlignmentMenuView *)menu didChangeAlignment:(NSTextAlignment)alignment;{
+    _currentItemLabel.textAlignment = alignment;
 }
 
 #pragma mark - ScrollVideoTrimmerViewDelegate
@@ -571,13 +818,20 @@ UIGestureRecognizerDelegate
  @param markIndex 标记索引
  */
 - (void)trimmer:(ScrollVideoTrimmerView *)trimmer didSelectMarkWithIndex:(NSUInteger)markIndex {
-    // 更新 UI
-    _textEditAreaView.selectedIndex = markIndex;
-    AttributedLabel *itemLabel = [_textEditAreaView itemLabelAtIndex:markIndex];
-    self.currentItemLabel = itemLabel;
     
+    [_stickerEditor selectWithIndex:markIndex];
+
+    if (markIndex == NSNotFound)
+        self.currentItemLabel = nil;
+    
+    // 更新 UI
+    TextStickerEditorItem *item = (TextStickerEditorItem *)[_stickerEditor itemByTag:markIndex];
+    if (item.selected) return;
+    
+    self.currentItemLabel = item.textLabel;
+    item.selected = YES;
     // 跳转到文字的时间范围内
-    if (itemLabel) [self seekToTimeRange:itemLabel.timeRange];
+    if (item.textLabel) [self seekToTimeRange:item.textLabel.timeRange];
 }
 
 #pragma mark VideoTrimmerViewDelegate
@@ -600,7 +854,7 @@ UIGestureRecognizerDelegate
         // 右滑块修整时间
         case TrimmerTimeLocationRight:{
             _currentItemLabel.timeRange = [_trimmerView selectedTimeRangeAtDuration:self.movieEditor.inputDuration];
-            [_textEditAreaView setTextItemAtIndex:_textEditAreaView.selectedIndex hidden:NO animated:NO];
+
         } break;
         // 当前游标修整时间
         case TrimmerTimeLocationCurrent:{
@@ -643,6 +897,111 @@ UIGestureRecognizerDelegate
         NSString *message = [NSString stringWithFormat:NSLocalizedStringFromTable(@"tu_特效时长最少%@秒", @"VideoDemo", @"特效时长最少%@秒"), @(kTextItemMinDuration)];
         [[TuSDK shared].messageHub showToast:message];
     }
+}
+
+@end
+
+#pragma mark - StickerEditorDelegate
+
+@implementation EditTextViewController (StickerEditorDelegate)
+
+-(void)resetItemsTag;{
+    __block NSUInteger count = 0;
+    [[_stickerEditor items] enumerateObjectsUsingBlock:^(UIView<StickerEditorItem> * _Nonnull eachItem, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([eachItem isKindOfClass:[TextStickerEditorItem class]]) {
+            eachItem.tag = count;
+            count ++;
+        }
+    }];
+}
+
+/**
+ Description
+ 
+ @param item item description
+ */
+- (void)shouldEditItem:(TextStickerEditorItem *)item; {
+    self.currentItemLabel = item.textLabel;
+    self.textView.text = item.textLabel.text;
+    [self.textView becomeFirstResponder];
+}
+
+/**
+ 一个贴纸项被添加
+ 
+ @param editor 视频编辑器
+ @param item 贴纸项
+ */
+- (void)imageStickerEditor:(StickerEditor *)editor didAddItem:(TextStickerEditorItem *)item;{
+    if (!item.editable) return;
+    [self resetItemsTag];
+
+    CMTime duration = self.movieEditor.inputDuration;
+    if (CMTIMERANGE_IS_INVALID(item.textLabel.timeRange)) {
+        // 设置默认的时间范围
+        CMTime startTime = self.movieEditor.outputTimeAtSlice;
+        NSTimeInterval durationInterval = CMTimeGetSeconds(duration);
+        if (durationInterval - CMTimeGetSeconds(startTime) < kTextItemDefaultDuration) {
+            startTime = CMTimeMakeWithSeconds(durationInterval - kTextItemDefaultDuration, duration.timescale);
+        }
+        
+        if (CMTimeGetSeconds(startTime) < 0) {
+            startTime = kCMTimeZero;
+        }
+        
+        item.textLabel.timeRange = CMTimeRangeMake(startTime, CMTimeMakeWithSeconds(kTextItemDefaultDuration, duration.timescale));
+    }
+    
+    // 联动更新 UI
+    self.currentItemLabel = item.textLabel;
+    [_trimmerView addMarkWithColor:[UIColor colorWithRed:255/255.0 green:204/255.0 blue:0/255.0 alpha:0.5] timeRange:item.textLabel.timeRange atDuration:duration];
+    _trimmerView.selectedMarkIndex = item.selected ? item.tag : -1;
+    
+}
+
+/**
+ 移除一个图片贴纸项
+ 
+ @param editor 编辑器
+ @param item 贴纸项
+ */
+-(void)imageStickerEditor:(StickerEditor *)editor didRemoveItem:(TextStickerEditorItem *)item;{
+    if (!item.editable) return;
+    
+    // 联动更新 UI
+    self.currentItemLabel = nil;
+    [_trimmerView removeMarkAtIndex:item.tag];
+    _trimmerView.trimmerMaskView.hidden = YES;
+    [self.view endEditing:YES];
+    
+    [self resetItemsTag];
+}
+
+/**
+ 选中一个图片贴纸
+ 
+ @param editor 编辑器
+ @param item 贴纸项
+ */
+-(void)imageStickerEditor:(StickerEditor *)editor didSelectedItem:(TextStickerEditorItem *)item;{
+    if (!item.editable) return;
+
+    [_trimmerView selectMarkWithIndex:item.tag];
+    
+    self.currentItemLabel = item.textLabel;
+    
+    // 跳转到文字的时间范围内
+    [self seekToTimeRange:item.textLabel.timeRange];
+}
+
+/**
+ 图片贴纸视图被取消选中
+ 
+ @param editor 编辑器
+ @param item 贴纸项
+ */
+-(void)imageStickerEditor:(StickerEditor *)editor didCancelSelectedItem:(TextStickerEditorItem *)item;{
+
 }
 
 @end

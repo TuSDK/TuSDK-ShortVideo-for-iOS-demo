@@ -230,6 +230,8 @@ static NSString * const kVideoSoundVolumeKey = @"videoSoundVolume";
 - (void)musicList:(MusicListView *)listView didSelectMusic:(NSURL *)musicURL tapCount:(NSInteger)tapCount {
     _paramtersView.hidden = tapCount <= 1;
     TuSDKMediaAudioEffect *audioEffect = nil;
+    // 外接在线音乐下载逻辑，音乐文件的地址，请使用  [NSURL fileURLWithPath:filePath（NSString *] 进行构建
+    // 音乐的临时文件后缀需要为 .mp3
     if (musicURL) {
         audioEffect = [[TuSDKMediaAudioEffect alloc] initWithAudioURL:musicURL];
     }
