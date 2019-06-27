@@ -137,9 +137,7 @@ UITextViewDelegate
 - (void)doneButtonAction:(UIButton *)sender {
     [super doneButtonAction:sender];
     // 应用文字特效
-    TuSDKVideoTrackInfo *trackInfo = self.movieEditor.inputAssetInfo.videoInfo.videoTrackInfoArray.firstObject;
-    CGSize videoSize = trackInfo.presentSize;
-    
+    CGSize videoSize = self.movieEditor.options.outputSizeOptions.outputSize;
     NSArray *textEffects = [_stickerEditor resultsWithRegionRect:CGRectMake(0, 0, videoSize.width, videoSize.height)];
     
     for (MediaTextEffect *textEffect in textEffects)
@@ -461,6 +459,9 @@ UITextViewDelegate
 - (IBAction)playButtonAction:(UIButton *)sender {
     sender.selected = !sender.selected;
     if (sender.selected) {
+        if (self.trimmerView.currentProgress >= 1.0) {
+            [self.movieEditor seekToTime:kCMTimeZero];
+        }
         [self.movieEditor startPreview];
     } else {
         [self.movieEditor pausePreView];

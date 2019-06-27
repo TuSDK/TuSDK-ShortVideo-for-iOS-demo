@@ -176,3 +176,18 @@
 "lsq_filter_SkinPast10" = "過往";
 "lsq_filter_SkinCookies10" = "曲奇";
 "lsq_filter_SkinRose10" = "薔薇";
+
+// 3.4.1
+"lsq_filter_FadeIn" = "淡入";
+"lsq_filter_FlyIn" = "飞入";
+"lsq_filter_PullInRight" = "右入";
+"lsq_filter_PullInLeft" = "左入";
+"lsq_filter_PullInTop" = "下降";
+"lsq_filter_PullInBottom" = "上升";
+"lsq_filter_SpreadIn" = "扩散";
+"lsq_filter_FlashLight" = "黑场过渡";
+"lsq_filter_Flip" = "翻转";
+"lsq_filter_FocusOut" = "圆形放大";
+"lsq_filter_FocusIn" = "圆形缩小";
+"lsq_filter_StackUp" = "叠起";
+"lsq_filter_Zoom" = "放大";

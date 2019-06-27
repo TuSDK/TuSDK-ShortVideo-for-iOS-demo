@@ -25,7 +25,9 @@ typedef NS_ENUM(NSInteger, EditComponentIndex) {
     // 图片贴纸
     EditComponentIndexTileSticker,
     // 比例裁剪
-    EditComponentIndexRatio
+    EditComponentIndexRatio,
+    // 转场特效
+    EditComponentIndexTransitionEffects
 };
 
 /**

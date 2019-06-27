@@ -178,3 +178,17 @@
 "lsq_filter_SkinRose10" = "Rose";
 
 
+// 3.4.1 转场
+"lsq_filter_FadeIn" = "FadeIn";
+"lsq_filter_FlyIn" = "FlyIn";
+"lsq_filter_PullInRight" = "PullInRight";
+"lsq_filter_PullInLeft" = "PullInLeft";
+"lsq_filter_PullInTop" = "PullInTop";
+"lsq_filter_PullInBottom" = "PullInBottom";
+"lsq_filter_SpreadIn" = "SpreadIn";
+"lsq_filter_FlashLight" = "FlashLight";
+"lsq_filter_Flip" = "Flip";
+"lsq_filter_FocusOut" = "FocusOut";
+"lsq_filter_FocusIn" = "FocusIn";
+"lsq_filter_StackUp" = "StackUp";
+"lsq_filter_Zoom" = "Zoom";

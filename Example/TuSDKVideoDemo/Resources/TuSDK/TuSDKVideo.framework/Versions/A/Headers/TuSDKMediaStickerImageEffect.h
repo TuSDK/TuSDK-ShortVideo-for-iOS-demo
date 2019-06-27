@@ -11,6 +11,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/**
+ 图片贴纸特效
+ @since v3.3.2
+ */
 @interface TuSDKMediaStickerImageEffect : TuSDKMediaEffectCore
 
 /**

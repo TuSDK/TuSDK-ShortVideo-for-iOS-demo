@@ -35,6 +35,7 @@ static NSString * const kEffectItemImageKey = @"image";
           @{kEffectItemTitleKey: NSLocalizedStringFromTable(@"tu_特效", @"VideoDemo", @"特效"), kEffectItemImageKey: @"edit_tab_ic_special"},
            @{kEffectItemTitleKey: NSLocalizedStringFromTable(@"tu_贴纸", @"VideoDemo", @"贴纸 "), kEffectItemImageKey: @"tab_ic_sticker"},
            @{kEffectItemTitleKey: NSLocalizedStringFromTable(@"tu_裁剪", @"VideoDemo", @"裁剪"), kEffectItemImageKey: @"tab_ic_crop"},
+          @{kEffectItemTitleKey: NSLocalizedStringFromTable(@"tu_转场", @"VideoDemo", @"转场"), kEffectItemImageKey: @"edit_ic_transition"},
           ];
     }
     return self;

@@ -232,6 +232,9 @@
 - (IBAction)playButtonAction:(UIButton *)sender {
     sender.selected = !sender.selected;
     if (sender.selected) {
+        if (self.trimmerView.currentProgress >= 1.0) {
+            [self.movieEditor seekToTime:kCMTimeZero];
+        }
         [self.movieEditor startPreview];
     } else {
         [self.movieEditor pausePreView];

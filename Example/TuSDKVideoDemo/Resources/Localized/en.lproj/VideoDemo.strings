@@ -8,6 +8,8 @@
 "APIMovieClipViewController" = "Cut Video";
 "APIAudioRecordViewController" = "Record Audio";
 "APIAudioPitchEngineViewController" = "Audio Pitch";
+"APIImageVideoComposerViewController" = "Image Composer";
+"APIImageVideoPickerViewController" = "Video or Image Composer";
 
 // 变声
 "tu_怪兽" = "Monster";
@@ -340,3 +342,20 @@
 "tu_斜体" = "Obliqueness";
 "tu_字号" = "Font";
 "tu_换行数量限制" = "Up to three line breaks are supported";
+
+
+/*--- v3.4.1----*/
+"tu_视频" = "Video";
+"tu_照片" = "Image";
+"tu_转场" = "Transition";
+
+/* 最多只能选择%zu个照片 */
+"tu_最多只能选择%zu个照片" = "You can only select up to %zu images";
+
+/* 已经选择照片，不能再选择视频 */
+"tu_已经选择照片，不能再选择视频" = "Images has been selected, can't choose a video";
+
+/* 已经选择视频，不能再选择照片 */
+"tu_已经选择视频，不能再选择照片" = "Videos has been selected, can't choose a image";
+
+"tu_不支持预览非视频文件" = "Preview non-video files is not supported";

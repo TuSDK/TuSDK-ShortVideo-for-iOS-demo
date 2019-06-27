@@ -15,11 +15,16 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>3.4.0</string>
+	<string>3.4.1</string>
 	<key>CFBundleVersion</key>
-	<string>201900513</string>
+	<string>201900627</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>Recording video requires your camera permission</string>
 	<key>NSLocationWhenInUseUsageDescription</key>

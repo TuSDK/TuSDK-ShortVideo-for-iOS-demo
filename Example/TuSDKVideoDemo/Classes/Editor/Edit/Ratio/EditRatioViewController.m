@@ -20,6 +20,10 @@
 
 @implementation EditRatioViewController
 
++ (CGFloat)bottomPreviewOffset {
+    return 132;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = NSLocalizedStringFromTable(@"tu_裁剪", @"VideoDemo", @"裁剪");

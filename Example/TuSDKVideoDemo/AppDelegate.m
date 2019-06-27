@@ -38,6 +38,9 @@
     
     [TuSDK initSdkWithAppKey:@"5e501981b069355a-04-ewdjn1"];
     
+    
+    // 设置弹框时，背景按钮不可点击
+    [TuSDKProgressHUD setDefaultMaskType:TuSDKProgressHUDMaskTypeClear];
     /**
      *  指定开发模式,需要与lsq_tusdk_configs.json中masters.key匹配， 如果找不到devType将默认读取master字段
      *  如果一个应用对应多个包名，则可以使用这种方式来进行集成调试。

@@ -50,6 +50,9 @@
 #import "TuSDKMediaPacketStoryEffect.h"
 #import "TuSDKMediaPacketSpeedEffect.h"
 
+// 转场特效
+#import "TuSDKMediaTransitionEffect.h"
+
 // API
 #import "TuSDKFilterProcessor.h"
 #import "TuSDKMovieEditor.h"
@@ -69,6 +72,7 @@
 #import "TuSDKTSAudioRecorder.h"
 #import "TuSDKTSMovieCompresser.h"
 #import "TuSDKVideoImageExtractor.h"
+#import "TuSDKVideoFileWriter.h"
 
 #import "TuSDKMediaAssetInfo.h"
 #import "TuSDKMediaTimelineSlice.h"
@@ -88,6 +92,22 @@
 
 #import "TuSDKMediaAudioRecorder.h"
 #import "TuSDKMediaAssetAudioRecorder.h"
+
+// 图片视频合成API
+#import "TuSDKMediaVideoTrackComposition.h"
+#import "TuSDKMediaImageComposition.h"
+#import "TuSDKMediaMutableVideoComposition.h"
+
+#import "TuSDKMediaAudioTrackComposition.h"
+#import "TuSDKMediaMutableAudioComposition.h"
+#import "TuSDKMediaAudioMuteComposition.h"
+
+#import "TuSDKMediaMovieCompositionComposer.h"
+
+
+#import "TuSDKGPUVideoPixelBufferForTexture.h"
+#import "TuSDKAssetVideoTrackPixelBufferOutput.h"
+#import "TuSDKMediaAssetExtractor.h"
 
 
 /** Video版本号 */

@@ -34,7 +34,6 @@ extern NSString *const kTuVideoGPUImageColorSwizzlingFragmentShaderString;
 {
     BOOL alreadyFinishedRecording;
     
-    NSURL *movieURL;
     NSString *fileType;
     AVAssetWriter *assetWriter;
     AVAssetWriterInput *assetWriterAudioInput;
@@ -42,6 +41,7 @@ extern NSString *const kTuVideoGPUImageColorSwizzlingFragmentShaderString;
     AVAssetWriterInputPixelBufferAdaptor *assetWriterPixelBufferInput;
 }
 
+@property(nonatomic,readonly)NSURL *movieURL;
 @property(readwrite, nonatomic) BOOL hasAudioTrack;
 @property(readwrite, nonatomic) BOOL shouldPassthroughAudioSettings;
 @property(readwrite, nonatomic) BOOL shouldInvalidateAudioSampleWhenDone;
@@ -111,6 +111,24 @@ extern NSString *const kTuVideoGPUImageColorSwizzlingFragmentShaderString;
 - (void)setHasAudioTrack:(BOOL)hasAudioTrack audioSettings:(NSDictionary *)audioOutputSettings;
 
 - (void)enableSynchronizationCallbacks;
+
+
+/**
+ 写入一帧音频数据
+
+ @param audioBuffer 音频数据
+ @param outputTime 输出时间
+ @since v3.4.1
+ */
+- (void)processAudioBuffer:(CMSampleBufferRef)audioBuffer outputTime:(CMTime)outputTime;
+
+/**
+ 写入一帧音频数据
+ 
+ @param audioBuffer 音频数据
+ @since v3.4.1
+ */
+- (void)processAudioBuffer:(CMSampleBufferRef)audioBuffer;
 
 /**
  *  完成视频录制，且在完成后，执行block内容

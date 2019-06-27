@@ -160,7 +160,7 @@ typedef NS_ENUM(NSUInteger,lsqVideoProcesserFaceDetectionResultType) {
 @property (nonatomic, assign) BOOL adjustOutputRotation;
 
 /**
- *  用户界面方向 默认为：UIDeviceOrientationPortrait
+ *  用户界面方向 默认为：UIInterfaceOrientationPortrait
  */
 @property(readwrite, nonatomic) UIInterfaceOrientation interfaceOrientation;
 
@@ -215,8 +215,8 @@ typedef NS_ENUM(NSUInteger,lsqVideoProcesserFaceDetectionResultType) {
 /**
  将 CVPixelBufferRef 数据从 srcPixelBuffer 复制到 destPixelBuffer
  
- @param CVPixelBufferRef srcPixelBuffer
- @param CVPixelBufferRef destPixelBuffer
+ @param srcPixelBuffer 源 CVPixelBufferRef
+ @param destPixelBuffer 目标 CVPixelBufferRef
  */
 - (void)copyPixelBuffer:(CVPixelBufferRef)srcPixelBuffer dest:(CVPixelBufferRef) destPixelBuffer;
 

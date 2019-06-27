@@ -8,6 +8,8 @@
 "APIMovieClipViewController" = "視頻時間裁剪";
 "APIAudioRecordViewController" = "錄製音頻";
 "APIAudioPitchEngineViewController" = "音頻變聲";
+"APIImageVideoComposerViewController" = "圖片合成視頻";
+"APIImageVideoPickerViewController" = "多视频及图像合成视频";
 
 // 变声
 "tu_怪兽" = "怪獸";
@@ -335,3 +337,21 @@
 "tu_字号" = "字號";
 "tu_裁剪" = "裁剪";
 "tu_换行数量限制" = "最多支持三個換行符";
+
+
+/*--- v3.4.1----*/
+"tu_视频" = "视频";
+"tu_照片" = "照片";
+"tu_转场" = "转场";
+
+/* 最多只能选择%zu个照片 */
+"tu_最多只能选择%zu个照片" = "最多只能选择%zu个照片";
+
+
+/* 已经选择照片，不能再选择视频 */
+"tu_已经选择照片，不能再选择视频" = "已经选择照片，不能再选择视频";
+
+/* 已经选择视频，不能再选择照片 */
+"tu_已经选择视频，不能再选择照片" = "已经选择视频，不能再选择照片";
+
+"tu_不支持预览非视频文件" = "不支持预览非视频文件";

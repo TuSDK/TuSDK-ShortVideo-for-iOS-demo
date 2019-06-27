@@ -8,7 +8,6 @@
 
 #import "MediaTextEffect.h"
 #import "TextStickerEditorItem.h"
-#import "TuSDKFramework.h"
 
 @implementation MediaTextEffect
 

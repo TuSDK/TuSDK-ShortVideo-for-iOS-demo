@@ -224,7 +224,7 @@ UIGestureRecognizerDelegate
         /** 初始化滤镜特效 */
         TuSDKMediaFilterEffect *filterEffect = [[TuSDKMediaFilterEffect alloc] initWithEffectCode:self.defaultFilterCode];
         [self.camera addMediaEffect:filterEffect];
-        
+
         /** 初始化微整形特效 */
         TuSDKMediaPlasticFaceEffect *plasticFaceEffect = [[TuSDKMediaPlasticFaceEffect alloc] init];
         [self.camera addMediaEffect:plasticFaceEffect];
@@ -268,7 +268,7 @@ UIGestureRecognizerDelegate
     //_camera.regionHandler.offsetPercentTop = offset;
     
     // 指定比例后，如不指定尺寸，输出裁剪尺寸
-    // _camera.outputSize = CGSizeMake(720, 1280);
+//     _camera.outputSize = CGSizeMake(720, 1280);
     // 输出全屏视频画面
     // _camera.cameraViewRatio = _camera.outputSize.width/_camera.outputSize.height;
     
@@ -422,7 +422,7 @@ UIGestureRecognizerDelegate
         self.currentFilterIndex = self.currentFilterIndex - 1;
     
     // 漫画
-    if (_controlMaskView.filterPanelView.selectedTabIndex == 0) {
+    if (_controlMaskView.filterPanelView.selectedTabIndex == 1) {
         
         TuSDKMediaComicEffect *comicEffect = [[TuSDKMediaComicEffect alloc] initWithEffectCode:_filterCodes[self.currentFilterIndex]];
         [_camera addMediaEffect:comicEffect];
@@ -446,7 +446,7 @@ UIGestureRecognizerDelegate
     self.currentFilterIndex = (self.currentFilterIndex + 1) % _filterCodes.count;
     
     // 漫画
-    if (_controlMaskView.filterPanelView.selectedTabIndex == 0) {
+    if (_controlMaskView.filterPanelView.selectedTabIndex == 1) {
         
         TuSDKMediaComicEffect *comicEffect = [[TuSDKMediaComicEffect alloc] initWithEffectCode:_filterCodes[self.currentFilterIndex]];
         [_camera addMediaEffect:comicEffect];
@@ -941,11 +941,11 @@ UIGestureRecognizerDelegate
         // 滤镜视图面板
         switch (_controlMaskView.filterPanelView.selectedTabIndex)
         {
-            case 0: // 漫画
+            case 1: // 漫画
             {
                 return 0;
             }
-            case 1: { // 滤镜
+            case 0: { // 滤镜
                 TuSDKMediaFilterEffect *effect = [_camera mediaEffectsWithType:TuSDKMediaEffectDataTypeFilter].firstObject;
                 return effect.filterArgs.count;
             }
@@ -986,11 +986,11 @@ UIGestureRecognizerDelegate
         // 滤镜视图面板
         switch (_controlMaskView.filterPanelView.selectedTabIndex)
         {
-            case 0: // 漫画
+            case 1: // 漫画
             {
                 return 0;
             }
-            case 1:  // 滤镜
+            case 0:  // 滤镜
             {
                 TuSDKMediaFilterEffect *effect = [_camera mediaEffectsWithType:TuSDKMediaEffectDataTypeFilter].firstObject;
                 return effect.filterArgs[index].key;
@@ -1032,11 +1032,11 @@ UIGestureRecognizerDelegate
         // 滤镜视图面板
         switch (_controlMaskView.filterPanelView.selectedTabIndex)
         {
-            case 0: // 漫画
+            case 1: // 漫画
             {
                 return 0;
             }
-            case 1:
+            case 0:
             {
                 TuSDKMediaFilterEffect *effect = [_camera mediaEffectsWithType:TuSDKMediaEffectDataTypeFilter].firstObject;
                 return effect.filterArgs[index].precent;
@@ -1082,7 +1082,7 @@ UIGestureRecognizerDelegate
  */
 - (void)filterPanel:(id<CameraFilterPanelProtocol>)filterPanel didSwitchTabIndex:(NSInteger)tabIndex {
     if ([filterPanel isKindOfClass:[CameraFilterPanelView class]]) {
-        _filterCodes = tabIndex == 0 ? kComicsFilterCodes : kNormalFilterCodes;
+        _filterCodes = tabIndex == 1 ? kComicsFilterCodes : kNormalFilterCodes;
         self.currentFilterIndex = 0;
     }
 }
@@ -1137,14 +1137,14 @@ UIGestureRecognizerDelegate
         // 滤镜视图面板
         switch (_controlMaskView.filterPanelView.selectedTabIndex)
         {
-            case 0: // 漫画
+            case 1: // 漫画
             {
                 TuSDKMediaComicEffect *effect = [[TuSDKMediaComicEffect alloc] initWithEffectCode:code];
                 [_camera addMediaEffect:effect];
                 self.currentFilterIndex = [_filterCodes indexOfObject:code];
                 break;
             }
-            case 1: { // 滤镜
+            case 0: { // 滤镜
                 TuSDKMediaFilterEffect *effect = [[TuSDKMediaFilterEffect alloc] initWithEffectCode:code];
                 [_camera addMediaEffect:effect];
                 self.currentFilterIndex = [_filterCodes indexOfObject:code];
@@ -1190,11 +1190,11 @@ UIGestureRecognizerDelegate
         // 滤镜视图面板
         switch (_controlMaskView.filterPanelView.selectedTabIndex)
         {
-            case 0: // 漫画
+            case 1: // 漫画
             {
                 break;
             }
-            case 1: {
+            case 0: {
                 TuSDKMediaFilterEffect *effect = [_camera mediaEffectsWithType:TuSDKMediaEffectDataTypeFilter].firstObject;
                 [effect submitParameter:index argPrecent:percentValue];
                 break;
@@ -1394,8 +1394,8 @@ UIGestureRecognizerDelegate
             updateValue = YES;
         } else if ([parameterName isEqualToString:@"chinSize"]) {
             // 瘦脸
-            defaultValueFactor = 0.2;
-            maxValueFactor = 0.8;
+            defaultValueFactor = 0.5;
+            maxValueFactor = 0.9;
             updateValue = YES;
         } else if ([parameterName isEqualToString:@"noseSize"]) {
             // 瘦鼻

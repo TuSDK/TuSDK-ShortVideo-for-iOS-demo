@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina3_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -16,6 +15,7 @@
                 <outlet property="playButton" destination="jdT-le-ZgC" id="ja2-0O-Kfu"/>
                 <outlet property="playerView" destination="08p-1b-IGa" id="PkK-LE-xd8"/>
                 <outlet property="rulerView" destination="eFn-XN-dCJ" id="BW6-x0-p0X"/>
+                <outlet property="speedBar" destination="rvJ-hu-l1q" id="B9o-YP-fZx"/>
                 <outlet property="timeLabel" destination="iRf-4N-QUV" id="FWp-fE-1VT"/>
                 <outlet property="videoTrimmerView" destination="sct-Yv-pD4" id="hOx-sy-rcG"/>
                 <outlet property="view" destination="iN0-l3-epB" id="Bx1-27-8G2"/>
@@ -43,26 +43,26 @@
                             <blurEffect style="dark"/>
                         </visualEffectView>
                         <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TJB-vb-qV1">
-                            <rect key="frame" x="0.0" y="368" width="320" height="112"/>
+                            <rect key="frame" x="0.0" y="304" width="320" height="176"/>
                             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="xgI-5L-i23">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="112"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="176"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rvJ-hu-l1q" customClass="SegmentButton">
-                                        <rect key="frame" x="18" y="21" width="284" height="28"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rvJ-hu-l1q" customClass="SegmentButton">
+                                        <rect key="frame" x="18" y="21" width="284" height="30"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="28" id="glD-5e-vkg"/>
+                                            <constraint firstAttribute="height" constant="30" id="glD-5e-vkg"/>
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iRf-4N-QUV">
-                                        <rect key="frame" x="160.5" y="30" width="0.0" height="0.0"/>
+                                        <rect key="frame" x="160" y="94" width="0.0" height="0.0"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <color key="textColor" white="1" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sct-Yv-pD4" customClass="VideoTrimmerView">
-                                        <rect key="frame" x="10" y="44" width="300" height="32"/>
+                                        <rect key="frame" x="10" y="108" width="300" height="32"/>
                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="32" id="lvB-KE-Pef"/>
@@ -72,7 +72,7 @@
                                         </connections>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eFn-XN-dCJ" customClass="RulerView">
-                                        <rect key="frame" x="10" y="80" width="300" height="32"/>
+                                        <rect key="frame" x="10" y="144" width="300" height="32"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                 </subviews>
@@ -92,7 +92,7 @@
                                 </constraints>
                             </view>
                             <constraints>
-                                <constraint firstAttribute="height" constant="112" id="JON-lO-JEK"/>
+                                <constraint firstAttribute="height" constant="176" id="JON-lO-JEK"/>
                             </constraints>
                             <blurEffect style="dark"/>
                         </visualEffectView>

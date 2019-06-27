@@ -19,6 +19,7 @@
 #import "EditEffectViewController.h"
 #import "EditStickerImageViewController.h"
 #import "EditRatioViewController.h"
+#import "EditTransitionViewController.h"
 
 #import "AspectVideoPreviewView.h"
 #import "Constants.h"
@@ -39,6 +40,12 @@ EditComponentNavigatorDelegate, FilterSwipeViewDelegate
  底部标签栏视图
  */
 @property (weak, nonatomic) IBOutlet UICollectionView *effectCollectionView;
+
+
+/**
+ 预览视图顶部约束
+ */
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topMargin;
 
 /**
  底部标签栏视图数据源
@@ -129,6 +136,8 @@ EditComponentNavigatorDelegate, FilterSwipeViewDelegate
     // 添加后台、前台切换的通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(enterBackFromFront) name:UIApplicationDidEnterBackgroundNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(enterFrontFromBack) name:UIApplicationWillEnterForegroundNotification object:nil];
+    
+    self.topMargin.constant = [UIDevice lsqIsDeviceiPhoneX] ? 44 : 0;
 }
 
 - (void)setupThumbnails {
@@ -281,7 +290,8 @@ EditComponentNavigatorDelegate, FilterSwipeViewDelegate
     option.enableVideoSound = YES;
     // 视频底色
     option.regionViewColor = lsqRGB(18, 18, 18);
-    // 设置水印，默认为空
+    // 设置水印，默认为空,
+    // 水印的大小是基于视频最小边1080进行缩放的，视频小分辨率小于1080则水印会对应缩小，
     option.waterMarkImage = [UIImage imageNamed:@"sample_watermark.png"];
     // 设置水印图片的位置
     option.waterMarkPosition = lsqWaterMarkTopRight;
@@ -468,6 +478,11 @@ EditComponentNavigatorDelegate, FilterSwipeViewDelegate
         case EditComponentIndexRatio: {
             EditRatioViewController *effectViewController = [[EditRatioViewController alloc] initWithNibName:nil bundle:nil];
             editComponentViewController = effectViewController;
+            break;
+        }
+        case EditComponentIndexTransitionEffects: {
+            EditTransitionViewController *transitionViewController = [[EditTransitionViewController alloc] initWithNibName:nil bundle:nil];
+            editComponentViewController = transitionViewController;
             break;
         }
     }

@@ -6,12 +6,12 @@
 //  Copyright © 2018年 TuSDK. All rights reserved.
 //
 
-#import "MultiVideoPickerCell.h"
+#import "MultiAssetPickerCell.h"
 #import "CustomTouchBoundsButton.h"
 
 static const CGFloat kTimeLabelHeight = 16;
 
-@interface MultiVideoPickerCell ()
+@interface MultiAssetPickerCell ()
 
 @property (nonatomic, strong) UIImageView *imageView;
 
@@ -26,7 +26,7 @@ static const CGFloat kTimeLabelHeight = 16;
 
 @end
 
-@implementation MultiVideoPickerCell
+@implementation MultiAssetPickerCell
 
 - (instancetype)initWithCoder:(NSCoder *)decoder {
     if (self = [super initWithCoder:decoder]) {
@@ -82,6 +82,28 @@ static const CGFloat kTimeLabelHeight = 16;
     self.selectButton.selected = NO;
 }
 
+-(void)setAsset:(PHAsset *)asset;{
+    _asset = asset;
+    __weak typeof(self) weak_cell = self;
+    PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
+    options.networkAccessAllowed = YES;
+    CGSize targetSize = CGSizeMake(CGRectGetWidth(weak_cell.contentView.bounds), CGRectGetHeight(weak_cell.contentView.bounds));
+    
+    switch (asset.mediaType) {
+        case PHAssetMediaTypeVideo:
+        case PHAssetMediaTypeAudio:
+            weak_cell.duration = asset.duration;
+            break;
+        default:
+            weak_cell.duration = -1;
+            break;
+    }
+    
+    [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:targetSize contentMode:PHImageContentModeAspectFill options:options resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
+        weak_cell.imageView.image = result;
+    }];
+}
+
 /**
  根据给定的时间创建时间字符串
  
@@ -89,7 +111,7 @@ static const CGFloat kTimeLabelHeight = 16;
  @return 时间字符串
  */
 + (NSString *)textWithTimeInterval:(NSTimeInterval)timeInterval {
-    if (isnan(timeInterval)) return nil;
+    if (isnan(timeInterval) || timeInterval < 0) return nil;
     NSInteger time = (NSInteger)(timeInterval + .5);
     NSInteger hours = time / 60 / 60;
     NSInteger minutes = (time / 60) % 60;

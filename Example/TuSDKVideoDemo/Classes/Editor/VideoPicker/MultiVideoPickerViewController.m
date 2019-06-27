@@ -9,22 +9,30 @@
 #import "MultiVideoPickerViewController.h"
 #import "TuSDKFramework.h"
 
-#import "MultiVideoPicker.h"
+#import "MultiAssetPicker.h"
 #import "MoviePreviewViewController.h"
 
 // 最小视频时长
 static const NSTimeInterval kMinDuration = 3.0;
 
-@interface MultiVideoPickerViewController ()<MultiVideoPickerDelegate>
+@interface MultiVideoPickerViewController ()<MultiPickerDelegate>
 
 /**
  多视频选择器
  */
-@property (nonatomic, strong) MultiVideoPicker *picker;
+@property (nonatomic, strong) MultiAssetPicker *picker;
 
 @end
 
 @implementation MultiVideoPickerViewController
+
+-(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil;{
+    if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]){
+        // 默认提取视频
+        self.fetchMediaTypes = @[@(PHAssetMediaTypeVideo)];
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -37,8 +45,10 @@ static const NSTimeInterval kMinDuration = 3.0;
     // 最少需选
     if (!_minSelectedCount) _minSelectedCount = 1;
     
+
     // 配置多视频选择器
-    MultiVideoPicker *picker = [MultiVideoPicker picker];
+    MultiAssetPicker *picker = [MultiAssetPicker picker];
+    picker.fetchMediaTypes = self.fetchMediaTypes;
     _picker = picker;
     
     [self.view insertSubview:picker.view atIndex:0];
@@ -57,7 +67,7 @@ static const NSTimeInterval kMinDuration = 3.0;
     if (_picker.requesting) return;
     
     if (self.allSelectedAssets.count < _minSelectedCount) {
-        NSString *message = [NSString stringWithFormat:NSLocalizedStringFromTable(@"tu_请选择%zu个视频", @"VideoDemo", @"请选择%zu个视频"), _minSelectedCount];
+        NSString *message = [NSString stringWithFormat:NSLocalizedStringFromTable(@"tu_请选择%zu个媒体文件", @"VideoDemo", @"请选择%zu个视频"), _minSelectedCount];
         [[TuSDK shared].messageHub showError:message];
         return;
     }
@@ -88,6 +98,11 @@ static const NSTimeInterval kMinDuration = 3.0;
     return _picker.allSelectedAssets;
 }
 
+-(NSArray<PHAsset *> *)allSelectedPhAssets;{
+    return _picker.allSelectedPhAssets;
+
+}
+
 #pragma mark - MultiVideoPickerDelegate
 
 /**
@@ -97,7 +112,14 @@ static const NSTimeInterval kMinDuration = 3.0;
  @param indexPath 点击的 NSIndexPath 对象
  @param phAsset 对应的 PHAsset 对象
  */
-- (void)picker:(MultiVideoPicker *)picker didTapItemWithIndexPath:(NSIndexPath *)indexPath phAsset:(PHAsset *)phAsset {
+- (void)picker:(MultiAssetPicker *)picker didTapItemWithIndexPath:(NSIndexPath *)indexPath phAsset:(PHAsset *)phAsset {
+    
+    if (phAsset.mediaType != PHAssetMediaTypeVideo) {
+        NSString *message = [NSString stringWithFormat:NSLocalizedStringFromTable(@"tu_不支持预览非视频文件", @"VideoDemo", @"不支持预览非视频文件")];
+        [[TuSDK shared].messageHub showError:message];
+        return;
+    }
+    
     MoviePreviewViewController *previewer = [[MoviePreviewViewController alloc] initWithNibName:nil bundle:nil];
     
     previewer.selectedIndex = [picker selectedIndexForIndexPath:indexPath];
@@ -127,7 +149,7 @@ static const NSTimeInterval kMinDuration = 3.0;
  @param indexPath 目标 indexPath
  @return 目标项是否可选中
  */
-- (BOOL)picker:(MultiVideoPicker *)picker shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+- (BOOL)picker:(MultiAssetPicker *)picker shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     if (picker.disableMultipleSelection) {
         PHAsset *phAsset = [picker phAssetAtIndexPathItem:indexPath.item];
         NSTimeInterval duration = phAsset.duration;

@@ -88,6 +88,9 @@
 }
 
 - (void)setSelectedIndex:(NSInteger)selectedIndex {
+    if (_selectedIndex == selectedIndex) {
+        return;
+    }
     _selectedIndex = selectedIndex;
     for (UIButton *button in _buttons) {
         button.selected = NO;
@@ -112,6 +115,21 @@
 - (void)setTitleColor:(UIColor *)color forState:(UIControlState)state {
     for (UIButton *button in _buttons) {
         [button setTitleColor:color forState:state];
+    }
+}
+
+- (float)getSpeed {
+    switch (_selectedIndex) {
+        case 0:
+            return 0.5;
+        case 1:
+            return 0.7;
+        case 3:
+            return 1.5;
+        case 4:
+            return 2.0;
+        default:
+            return 1.0;
     }
 }
 
@@ -141,8 +159,12 @@
  @param sender 点击的按钮
  */
 - (void)subButtonAction:(UIButton *)sender {
+    NSInteger index = [_buttons indexOfObject:sender];
+    if (index == self.selectedIndex) {
+        return;
+    }
     sender.selected = !sender.selected;
-    self.selectedIndex = [_buttons indexOfObject:sender];
+    self.selectedIndex = index;
     [self sendActionsForControlEvents:UIControlEventValueChanged];
 }
 

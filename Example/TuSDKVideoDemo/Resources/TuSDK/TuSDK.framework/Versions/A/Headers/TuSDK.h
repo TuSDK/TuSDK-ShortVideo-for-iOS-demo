@@ -110,11 +110,13 @@
 #import "TuSDKPFStickerGroup.h"
 #import "TuSDKPFSmudgeViewBase.h"
 #import "TuSDKPFBrushBarViewBase.h"
+#import "TuSDKPaintDrawViewBase.h"
+#import "TuSDKPFPaintBezierPath.h"
 
 #import "TuSDKOpenGLAssistant.h"
 #import "TuSDKTextureCoordinateCropBuilder.h"
 #import "TuSDKVerticeCoordinateBuilder.h"
-#import "SLGL2DTextureProgram.h"
+
 
 #import "TuSDKTKThread.h"
 #import "TuSDKVideoCameraInterface.h"
@@ -139,10 +141,14 @@
 #import "TuSDKOnlineStickerDownloader.h"
 
 #import "TuSDKGPU2DImageFilter.h"
+#import "TuSDKGPULiveTransitionFilterProtocol.h"
 
 
 #import "TuSDKNKNetworkEngine.h"
 #import "UIImageView+TuSDKNetworkAdditions.h"
+
+#import "SLGL2DTextureProgram.h"
+#import "SLGLYUVTextureProgram.h"
 
 /**
  *  SDK版本

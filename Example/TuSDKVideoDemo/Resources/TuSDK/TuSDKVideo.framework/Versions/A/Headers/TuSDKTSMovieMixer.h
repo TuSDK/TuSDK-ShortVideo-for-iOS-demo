@@ -83,6 +83,9 @@ typedef NS_ENUM(NSInteger,lsqMovieMixStatus)
 
 // 视频路径
 @property (nonatomic, copy) NSString *moviePath;
+// 输出视频路径
+@property (nonatomic, copy) NSString *outputFilePath;
+
 // 输出的文件格式 lsqFileTypeQuickTimeMovie 或 lsqFileTypeMPEG4
 @property (nonatomic, assign) lsqFileType outputFileType;
 // 是否保留视频原音，默认 YES，保留视频原音

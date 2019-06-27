@@ -23,6 +23,7 @@ typedef NS_ENUM(NSInteger, SegmentButtonStyle) {
  */
 @interface SegmentButton : UIControl
 
+
 /**
  样式
  */
@@ -37,6 +38,7 @@ typedef NS_ENUM(NSInteger, SegmentButtonStyle) {
  圆角半径
  */
 @property (nonatomic, assign) CGFloat cornerRadius;
+
 
 /**
  选中背景色
@@ -65,5 +67,10 @@ typedef NS_ENUM(NSInteger, SegmentButtonStyle) {
  @param state 控制状态
  */
 - (void)setTitleColor:(UIColor *)color forState:(UIControlState)state;
+
+/**
+ 播放的速度: 0.5     0.7    1     1.5     2.0
+ */
+- (float)getSpeed;
 
 @end

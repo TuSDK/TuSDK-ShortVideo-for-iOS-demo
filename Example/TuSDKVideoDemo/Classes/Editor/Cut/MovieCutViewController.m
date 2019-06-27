@@ -50,6 +50,13 @@ static const NSTimeInterval kMinCutDuration = 3.0;
  */
 @property (weak, nonatomic) IBOutlet UIButton *playButton;
 
+
+/**
+ 速度选择器
+ */
+@property (weak, nonatomic) IBOutlet SegmentButton *speedBar;
+
+
 /**
  多文件播放器
  */
@@ -105,6 +112,7 @@ static const NSTimeInterval kMinCutDuration = 3.0;
     
     [self setupPlayer];
     [self setupUIAfterAssetsPrepared];
+    [self setupSpeedBar];
 }
 
 /**
@@ -151,6 +159,24 @@ static const NSTimeInterval kMinCutDuration = 3.0;
     _videoTrimmerView.minIntervalProgress = kMinCutDuration / duration;
 }
 
+
+/**
+ 配置速度选取bar
+ */
+- (void)setupSpeedBar {
+    _speedBar.style = SegmentButtonStylePlain;
+    [_speedBar setButtonTitles:@[@"极慢",@"慢",@"标准",@"快",@"极快"]];
+    [_speedBar setTitleColor:lsqRGB(255.0, 255.0, 255.0) forState:UIControlStateNormal];
+    [_speedBar setTitleColor:lsqRGB(255.0, 204, 0.0) forState:UIControlStateSelected];
+    [_speedBar setCornerRadius:2];
+    _speedBar.selectedIndex = 2;
+    _speedBar.backgroundColor = lsqRGBA(51, 51, 51, 0.6);
+    _speedBar.selectedBackgroundColor = lsqRGBA(51, 51, 51, 1.0);
+    [_speedBar addTarget:self action:@selector(speedValueChanged) forControlEvents:UIControlEventValueChanged];
+}
+
+
+
 #pragma mark - 后台切换操作
 
 /**
@@ -183,6 +209,9 @@ static const NSTimeInterval kMinCutDuration = 3.0;
     if (_moviePlayer.status == TuSDKMediaPlayerStatusPlaying) {
         [_moviePlayer pause];
     } else {
+        if (_videoTrimmerView.currentProgress >= 1.0) {
+            [_moviePlayer seekToTime:kCMTimeZero];
+        }
         [_moviePlayer play];
     }
 }
@@ -193,6 +222,9 @@ static const NSTimeInterval kMinCutDuration = 3.0;
  @param sender 点击的按钮
  */
 - (IBAction)palyButtonAction:(UIButton *)sender {
+    if (_videoTrimmerView.currentProgress >= 1.0) {
+        [_moviePlayer seekToTime:kCMTimeZero];
+    }
     [_moviePlayer play];
 }
 
@@ -217,7 +249,7 @@ static const NSTimeInterval kMinCutDuration = 3.0;
     
     // 若截取时间与视频时长一致，则直接返回视频 URL
     if (_inputAssets.count == 1 // 单个视频
-        && CMTimeRangeEqual(_selectedTimeRange, CMTimeRangeMake(kCMTimeZero, _moviePlayer.inputDuration)))
+        && _speedBar.selectedIndex == 2 && CMTimeRangeEqual(_selectedTimeRange, CMTimeRangeMake(kCMTimeZero, _moviePlayer.inputDuration)))
     {
         _outputURL = _inputAssets.firstObject.URL;
         
@@ -234,7 +266,9 @@ static const NSTimeInterval kMinCutDuration = 3.0;
     
     TuSDKMediaTimeRange *timeRange = [[TuSDKMediaTimeRange alloc] initWithStart:_selectedTimeRange.start duration:_selectedTimeRange.duration];
     TuSDKMediaTimelineSlice *cutTimeRangeSlice = [[TuSDKMediaTimelineSlice alloc] initWithTimeRange:timeRange];
-
+    
+    // 在选择速度的时候已经添加了速度特效
+    cutTimeRangeSlice.speedRate = [_speedBar getSpeed];
     
     // 否则进行导出
     TuSDKMediaMovieAssetTranscoderSettings *exportSettings = [[TuSDKMediaMovieAssetTranscoderSettings alloc] init];
@@ -244,7 +278,8 @@ static const NSTimeInterval kMinCutDuration = 3.0;
     // 多文件时裁剪时可以通过 _moviePlayer.videoComposition 获取 videoComposition, 开发者也可以自定义。
     [_moviePlayer appendMediaTimeSlice:cutTimeRangeSlice];
     exportSettings.videoComposition = _moviePlayer.videoComposition;
-    
+//    exportSettings.outputSize = _moviePlayer.inputAssetInfo.videoInfo.videoTrackInfoArray.firstObject.presentSize;
+    NSLog(@"---width:%f, height:%f", exportSettings.outputSize.width, exportSettings.outputSize.height);
     // 通过 appendMediaTimeSlice 为播放器添加切片，只是为了生成 videoComposition。
     [_moviePlayer removeAllMediaTimeSlices];
     
@@ -252,6 +287,20 @@ static const NSTimeInterval kMinCutDuration = 3.0;
     _saver.delegate = self;
     [_saver appendSlice:cutTimeRangeSlice];
     [_saver startExport];
+}
+
+
+- (void)appendVideoPlayerTimelineSlice {
+    // 速度特效
+    [_moviePlayer removeAllMediaTimeSlices];
+    if (_speedBar.selectedIndex == 2) {
+        return;
+    }
+    
+    TuSDKMediaTimeRange *speedTimeRange = [[TuSDKMediaTimeRange alloc] initWithStart:kCMTimeZero duration:_moviePlayer.asset.duration];
+    TuSDKMediaTimelineSlice *timelineSlice = [[TuSDKMediaTimelineSlice alloc] initWithTimeRange:speedTimeRange];
+    timelineSlice.speedRate = [_speedBar getSpeed];
+    [_moviePlayer appendMediaTimeSlice:timelineSlice];
 }
 
 #pragma mark - VideoTrimmerViewDelegate
@@ -271,9 +320,10 @@ static const NSTimeInterval kMinCutDuration = 3.0;
     
     CMTimeRange timeRange = [_videoTrimmerView selectedTimeRangeAtDuration:_moviePlayer.timelineOutputDuraiton];
     NSTimeInterval rangeDutaion = CMTimeGetSeconds(timeRange.duration);
-    _selectedTimeRange = timeRange;
     
     _timeLabel.text = [NSString stringWithFormat:NSLocalizedStringFromTable(@"tu_已选择%.1f秒", @"VideoDemo", @"已选择%.1f秒"), rangeDutaion];
+    
+    _selectedTimeRange = CMTimeRangeMake(CMTimeMake(timeRange.start.value * [_speedBar getSpeed], timeRange.start.timescale), CMTimeMake(timeRange.duration.value * [_speedBar getSpeed], timeRange.duration.timescale));
 }
 
 /**
@@ -285,6 +335,9 @@ static const NSTimeInterval kMinCutDuration = 3.0;
 - (void)trimmer:(id<VideoTrimmerViewProtocol>)trimmer didStartAtLocation:(TrimmerTimeLocation)location {
     [_moviePlayer pause];
     _playButton.hidden = YES;
+    
+    // 速度特效
+    [self appendVideoPlayerTimelineSlice];
 }
 
 /**
@@ -305,10 +358,24 @@ static const NSTimeInterval kMinCutDuration = 3.0;
  @param reachMinIntervalProgress 进度最小值
  */
 - (void)trimmer:(id<VideoTrimmerViewProtocol>)trimmer reachMaxIntervalProgress:(BOOL)reachMaxIntervalProgress reachMinIntervalProgress:(BOOL)reachMinIntervalProgress {
+    
     if (reachMinIntervalProgress) {
         NSString *message = [NSString stringWithFormat:NSLocalizedStringFromTable(@"tu_视频时长最少%@秒", @"VideoDemo", @"视频时长最少%@秒"), @(kMinCutDuration)];
         [[TuSDK shared].messageHub showToast:message];
     }
+}
+
+#pragma mark - speedValueChanged
+
+- (void)speedValueChanged {
+    [_moviePlayer pause];
+    [_moviePlayer seekToTime:kCMTimeZero];
+    [self appendVideoPlayerTimelineSlice];
+    
+    [_videoTrimmerView setCurrentProgress:0.0];
+    _videoTrimmerView.minIntervalProgress = kMinCutDuration / CMTimeGetSeconds(_moviePlayer.asset.duration) * [_speedBar getSpeed];
+    [self trimmer:_videoTrimmerView updateProgress:_videoTrimmerView.currentProgress atLocation:TrimmerTimeLocationCurrent];
+    [_moviePlayer play];
 }
 
 #pragma mark - UIGestureRecognizerDelegate

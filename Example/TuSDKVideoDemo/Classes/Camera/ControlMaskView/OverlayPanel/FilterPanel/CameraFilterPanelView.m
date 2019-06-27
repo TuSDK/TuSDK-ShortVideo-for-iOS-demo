@@ -117,7 +117,7 @@ static const CGFloat kFilterTabbarHeight = 30;
     tabbar.itemSelectedColor = [UIColor whiteColor];
     tabbar.itemNormalColor = [UIColor colorWithWhite:1 alpha:.25];
     tabbar.delegate = self;
-    tabbar.itemTitles = @[NSLocalizedStringFromTable(@"tu_漫画", @"VideoDemo", @"漫画"), NSLocalizedStringFromTable(@"tu_滤镜", @"VideoDemo", @"滤镜")];
+    tabbar.itemTitles = @[NSLocalizedStringFromTable(@"tu_滤镜", @"VideoDemo", @"滤镜"),NSLocalizedStringFromTable(@"tu_漫画", @"VideoDemo", @"漫画")];
     tabbar.disableAnimation = YES;
     tabbar.itemTitleFont = [UIFont systemFontOfSize:13];
     
@@ -131,7 +131,7 @@ static const CGFloat kFilterTabbarHeight = 30;
     pageSlider.disableSlide = YES;
     
     // 默认选中第一个滤镜
-    [tabbar setSelectedIndex:1];
+    [tabbar setSelectedIndex:0];
     _normalFilterListView.selectedIndex  = 0;
 
 }
@@ -188,10 +188,10 @@ static const CGFloat kFilterTabbarHeight = 30;
 - (void)setSelectedFilterCode:(NSString *)selectedFilterCode {
     _selectedFilterCode = selectedFilterCode;
     switch (_tabbar.selectedIndex) {
-        case 0:{
+        case 1:{
             _comicsFilterListView.selectedFilterCode = selectedFilterCode;
         } break;
-        case 1:{
+        case 0:{
             _normalFilterListView.selectedFilterCode = selectedFilterCode;
         } break;
     }
@@ -212,7 +212,7 @@ static const CGFloat kFilterTabbarHeight = 30;
  */
 - (void)reloadFilterParamters {
     if (!self.display) return;
-    if (_tabbar.selectedIndex == 0) {
+    if (_tabbar.selectedIndex == 1) {
         _paramtersView.hidden = YES;
         return;
     }
@@ -268,10 +268,10 @@ static const CGFloat kFilterTabbarHeight = 30;
  */
 - (UIView *)viewSlider:(ViewSlider *)slider viewAtIndex:(NSInteger)index {
     switch (index) {
-        case 0:{
+        case 1:{
             return _comicsFilterListView;
         } break;
-        case 1:{
+        case 0:{
             return _normalFilterListView;
         } break;
         default:{

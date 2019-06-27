@@ -11,7 +11,6 @@
 #import "TuSDKAudioInfo.h"
 #import "TuSDKVideoInfo.h"
 
-typedef void(^lsqMovieInfoLoadCompletionHandler)(void);
 
 /**
  视频信息

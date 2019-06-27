@@ -6,8 +6,6 @@
 //  Copyright © 2018年 TuSDK. All rights reserved.
 //
 
-//#import "TuSDKMediaTextEffect.h"
-
 #import "TuSDKFramework.h"
 
 /**
