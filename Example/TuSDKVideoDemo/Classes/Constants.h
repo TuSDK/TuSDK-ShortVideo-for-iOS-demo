@@ -16,7 +16,7 @@
 // 视频编辑器滤镜的 filterCode
 #define kVideoFilterCodes @"Olympus_1", @"Leica_1", @"Gold_1", @"Cheerful_1", @"White_1", @"s1950_1", @"Blurred_1", @"Newborn_1", @"Fade_1", @"NewYork_1"
 // 录制相机普通滤镜的 filterCode
-#define kCameraNormalFilterCodes @"SkinNature10", @"SkinPink10", @"SkinJelly10", @"SkinNoir10", @"SkinRuddy10", @"SkinSugar10", @"SkinPowder10", @"SkinWheat10", @"SkinSoft10", @"SkinPure10", @"SkinMoving10", @"SkinPast10", @"SkinCookies10", @"SkinRose10"
+#define kCameraNormalFilterCodes  @"SkinNature10", @"SkinPink10", @"SkinJelly10", @"SkinNoir10", @"SkinRuddy10", @"SkinSugar10", @"SkinPowder10", @"SkinWheat10", @"SkinSoft10", @"SkinPure10", @"SkinMoving10", @"SkinPast10", @"SkinCookies10", @"SkinRose10", @"gaosi_01"
 // 录制相机漫画滤镜 filterCode
 #define kCameraComicsFilterCodes @"CHComics_Video", @"USComics_Video", @"JPComics_Video", @"Lightcolor_Video", @"Ink_Video", @"Monochrome_Video"
 // 美颜滤镜参数名称
@@ -112,3 +112,4 @@ lsqRGBA(255, 145, 91, 0.7),\
 lsqRGBA(252, 231, 123, 0.7),\
 lsqRGBA(100, 253, 253, 0.7),\
 lsqRGBA(255, 203, 91, 0.7)]
+

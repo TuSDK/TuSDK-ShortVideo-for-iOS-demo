@@ -110,13 +110,16 @@
 @property (nonatomic,readonly)CGSize preferredOutputSize;
 
 /**
- 设置输出 outputSize, 如果输出比例和原视频比例不一致时，自动缩放视频大小，视频不会被裁剪
- 
- @param outputSize 输出尺寸
- @param aspectOutputRatioInSideCanvas 比例不一致时是否将视频自适应画布大小 默认：NO
- @since v3.2.1
+ 预览宽高
+ @since 3.4.2
  */
-- (void)setOutputSize:(CGSize)outputSize aspectOutputRatioInSideCanvas:(BOOL)aspectOutputRatioInSideCanvas;
+@property (nonatomic) CGSize previewSize;
+
+/**
+ 输出比例与原视频比例不一致时是否自适应画布大小
+ @since 3.4.2
+ */
+@property (nonatomic) BOOL aspectPreviewRatioInSideCanvas;
 
 /**
  更新预览View

@@ -135,6 +135,8 @@
 "lsq_filter_set_blurSize" = "Blur Size";
 "lsq_filter_set_mixied" = "Mixed";
 "lsq_filter_set_distanceFactor" = "Radius";
+"lsq_filter_set_rangeReductionFactor" = "Reduction";
+"lsq_filter_set_saturation" = "Saturation";
 
 // 美颜
 "lsq_filter_set_smoothing" = "Smoothing";
@@ -192,3 +194,7 @@
 "lsq_filter_FocusIn" = "FocusIn";
 "lsq_filter_StackUp" = "StackUp";
 "lsq_filter_Zoom" = "Zoom";
+
+
+// 3.4.4 高斯模糊
+"lsq_filter_gaosi_01" = "Gaussian blur";

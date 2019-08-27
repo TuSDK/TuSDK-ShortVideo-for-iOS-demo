@@ -281,6 +281,13 @@ EditComponentNavigatorDelegate, FilterSwipeViewDelegate
     option.saveToAlbum = NO;
     // 设置录制文件格式(默认：lsqFileTypeQuickTimeMovie)
     option.fileType = lsqFileTypeMPEG4;
+    
+    
+    NSString *path = [TuSDKTSFileManager createDir:[TuSDKTSFileManager pathInCacheWithDirPath:lsqTempDir filePath:@""]];
+    path = [NSString stringWithFormat:@"%@-22222-%f.mp4", path, [[NSDate date]timeIntervalSince1970]];
+    NSLog(@"path: %@", path);
+    option.outputURL = [NSURL fileURLWithPath:path];
+    
     // 设置视频截取范围（非特殊需求可不使用）
     // option.cutTimeRange = [TuSDKTimeRange makeTimeRangeWithStart:kCMTimeZero endSeconds:mediaAssetInfo.videoInfo.duration];
 
@@ -299,9 +306,39 @@ EditComponentNavigatorDelegate, FilterSwipeViewDelegate
     option.pictureEffectOptions.referTimelineType = TuSDKMediaEffectReferInputTimelineType;
     
     // 设置输出视频文件的尺寸
-    // option.outputSizeOptions.outputSize = CGSizeMake(540, 960);
-    // 输出视频的原始尺寸，低端机不建议此配置项
-    // option.outputSizeOptions.outputSize = mediaAssetInfo.videoInfo.videoTrackInfoArray.firstObject.presentSize;
+    TuSDKMediaAssetInfo *info = [[TuSDKMediaAssetInfo alloc] initWithAsset:[AVAsset assetWithURL:self.inputURL]];
+    CGSize outputSize = info.videoInfo.videoTrackInfoArray.firstObject.presentSize;
+    if ([UIDevice lsqDevicePlatform] < TuSDKDevicePlatform_iPhone6) {
+        // 需要裁剪: 竖屏条件/横屏条件
+        if ((outputSize.width < outputSize.height && outputSize.width > 540.0) || (outputSize.width > outputSize.height && outputSize.width > 960.0)) {
+            // 540p
+            outputSize = outputSize.width > outputSize.height ? CGSizeMake(960, 960.0/outputSize.width * outputSize.height) : CGSizeMake(540, 540.0/outputSize.width * outputSize.height);
+        }
+        
+    } else if ([UIDevice lsqDevicePlatform] < TuSDKDevicePlatform_iPhone7p) {
+        // 需要裁剪: 竖屏条件/横屏条件
+        if ((outputSize.width < outputSize.height && outputSize.width > 720.0) || (outputSize.width > outputSize.height && outputSize.width > 1280.0)) {
+            // 720p
+            outputSize = outputSize.width > outputSize.height ? CGSizeMake(1280, 1280.0/outputSize.width * outputSize.height) : CGSizeMake(720, 720.0/outputSize.width * outputSize.height);
+        }
+        
+    } else if ((outputSize.width > 1080.0 || outputSize.height > 1920.0)) {
+        // 需要裁剪: 竖屏条件/横屏条件
+        if ((outputSize.width < outputSize.height && outputSize.width > 1080.0) || (outputSize.width > outputSize.height && outputSize.width > 1920.0)) {
+            // 1080p
+            outputSize = outputSize.width > outputSize.height ? CGSizeMake(1920, 1920.0/outputSize.width * outputSize.height) : CGSizeMake(1080, 1080.0/outputSize.width * outputSize.height);
+        }
+        
+    }
+//    outputSize = CGSizeMake(1080, 1920);
+    option.outputSizeOptions.outputSize = outputSize;
+    option.outputSizeOptions.aspectOutputRatioInSideCanvas = YES;
+    
+    
+    // 预览配置
+    option.prviewSizeOptions.outputSize = CGSizeMake(720, 1280);
+    option.prviewSizeOptions.aspectOutputRatioInSideCanvas = YES;
+    
     
     // 视频预览的视频底色
     _previewView.backgroundColor = lsqRGB(18, 18, 18);
@@ -656,6 +693,7 @@ EditComponentNavigatorDelegate, FilterSwipeViewDelegate
     
     // 通过 result.videoPath 拿到视频的临时文件路径
     if (result.videoPath) {
+        NSLog(@"%@", result.videoPath);
         // 进行自定义操作，例如保存到相册
         UISaveVideoAtPathToSavedPhotosAlbum(result.videoPath, nil, nil, nil);
         [[TuSDK shared].messageHub showSuccess:NSLocalizedStringFromTable(@"tu_保存成功", @"VideoDemo", @"保存成功")];

@@ -10,6 +10,7 @@
 #import "TuSDKVideoImport.h"
 #import "TuSDKMediaSettings.h"
 #import "TuSDKMediaStatus.h"
+#import "TuSDKMediaAssetExtractorPitch.h"
 
 @protocol TuSDKMediaExtractorSync;
 

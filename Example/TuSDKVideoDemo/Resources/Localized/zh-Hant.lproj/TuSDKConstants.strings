@@ -135,6 +135,8 @@
 "lsq_filter_set_blurSize" = "強度";
 "lsq_filter_set_mixied" = "效果";
 "lsq_filter_set_distanceFactor" = "半徑";
+"lsq_filter_set_rangeReductionFactor" = "衰减";
+"lsq_filter_set_saturation" = "饱和";
 
 // 美顏
 "lsq_filter_set_smoothing" = "磨皮";
@@ -191,3 +193,7 @@
 "lsq_filter_FocusIn" = "圆形缩小";
 "lsq_filter_StackUp" = "叠起";
 "lsq_filter_Zoom" = "放大";
+
+
+// 3.4.4 高斯模糊
+"lsq_filter_gaosi_01" = "高斯模糊";

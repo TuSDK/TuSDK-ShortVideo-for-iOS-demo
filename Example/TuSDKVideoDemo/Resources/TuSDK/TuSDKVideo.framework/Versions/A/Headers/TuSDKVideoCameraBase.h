@@ -106,6 +106,12 @@ typedef NS_ENUM(NSUInteger,lsqVideoCameraFaceDetectionResultType) {
 @property (nonatomic,weak)id<TuSDKVideoCameraEffectDelegate> _Nullable effectDelegate;
 
 /**
+ 聚焦视图点击委托对象
+ @since v3.5.1
+ */
+@property (nonatomic,weak)id<TuSDKCPFocusTouchViewDelegate> _Nullable focusTouchDelegate;
+
+/**
  *  相机状态
  */
 @property (nonatomic, readonly) lsqCameraState state;
@@ -137,9 +143,16 @@ typedef NS_ENUM(NSUInteger,lsqVideoCameraFaceDetectionResultType) {
 @property (nonatomic) BOOL enableFilterConfig;
 
 /**
- *  禁止触摸聚焦功能 (默认: YES)
+ *  禁止触摸聚焦功能 (默认: NO)
  */
 @property (nonatomic) BOOL disableTapFocus;
+
+/**
+ *  禁止触摸曝光功能 (默认: NO)
+ *  @since v3.4.2
+ */
+@property (nonatomic) BOOL disableTapExposure;
+
 
 /**
  *  是否开启长按拍摄 (默认: NO)
@@ -287,6 +300,14 @@ typedef NS_ENUM(NSUInteger,lsqVideoCameraFaceDetectionResultType) {
 - (BOOL)focusWithMode:(AVCaptureFocusMode)focusMode;
 
 /**
+ 获取当前摄像头的 activeFormat
+ 
+ @return activeFormat
+ @since v3.4.2
+ */
+- (AVCaptureDeviceFormat *_Nullable)getInputCameraDeviceFormat;
+
+/**
  *  设置聚焦模式
  *
  *  @param focusMode 聚焦模式
@@ -297,13 +318,44 @@ typedef NS_ENUM(NSUInteger,lsqVideoCameraFaceDetectionResultType) {
 - (BOOL)focusWithMode:(AVCaptureFocusMode)focusMode point:(CGPoint)point;
 
 /**
- *  设置曝光模式
+ *  设置曝光模式, 默认AVCaptureExposureModeContinuousAutoExposure
  *
  *  @param exposureMode 曝光模式
  *
  *  @return 是否支持曝光模式
  */
 - (BOOL)exposureWithMode:(AVCaptureExposureMode)exposureMode;
+
+/**
+ *  设置曝光模式, 默认AVCaptureExposureModeContinuousAutoExposure
+ *
+ *  @param exposureMode 曝光模式
+ *  @param point 曝光点，[(0,0),(1,1)]
+ *
+ *  @return 是否支持曝光模式
+ *  @since 3.4.2
+ */
+- (BOOL)exposureWithMode:(AVCaptureExposureMode)exposureMode point:(CGPoint)point;
+
+/**
+ 设置曝光感应度 ISO值 当exposureMode 为AVCaptureExposureModeCustom 才能生效
+
+ @param duration 曝光时长，可以用AVCaptureExposureDurationCurrent
+ @param ISO 曝光感应度 范围在[minISO maxISO]
+ @return 是否设置成功
+ @since v3.4.2
+ */
+- (BOOL)exposureModeCustomCustomWithDuration:(CMTime)duration ISO:(float)ISO;
+
+
+/**
+ 设置曝光补偿 bias
+
+ @param bias [-8 8]
+ @return 是否设置成功
+ @since v3.4.2
+ */
+- (BOOL)exposureWithBias:(float)bias;
 
 /**
  *  当前聚焦状态

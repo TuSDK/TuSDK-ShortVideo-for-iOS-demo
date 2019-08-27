@@ -127,6 +127,11 @@ typedef NS_ENUM(NSInteger, AudioIndex) {
     NSURL *videoURL = [self fileURLWithName:@"tusdk_sample_video.mov"];
     _movieMixer = [[TuSDKTSMovieMixer alloc] initWithMoviePath:videoURL.path];
     _movieMixer.mixDelegate = self;
+    _movieMixer.outputFileType = lsqFileTypeMPEG4;
+    NSString *path = [TuSDKTSFileManager createDir:[TuSDKTSFileManager pathInCacheWithDirPath:lsqTempDir filePath:@""]];
+    path = [NSString stringWithFormat:@"%@-22222-%f.mp4", path, [[NSDate date]timeIntervalSince1970]];
+    NSLog(@"path: %@", path);
+//    _movieMixer.outputFilePath = path;
     // 是否允许音频循环 默认 NO
     _movieMixer.enableCycleAdd = YES;
     // 是否保留视频原音
@@ -176,11 +181,11 @@ typedef NS_ENUM(NSInteger, AudioIndex) {
     // 混合的音频
     _movieMixer.mixAudios = @[_firstMixAudio, _secondMixAudio];
     // 开始混合
-    [_movieMixer startMovieMixWithCompletionHandler:^(NSString *filePath, lsqMovieMixStatus status) {
+    [_movieMixer startMovieMixWithCompletionHandler:^(NSString *filePath, CGFloat progress, lsqMovieMixStatus status) {
         if (status == lsqMovieMixStatusCompleted) {
             // 操作成功 保存到相册
             UISaveVideoAtPathToSavedPhotosAlbum(filePath, nil, nil, nil);
-        } else {
+        } else if (status != lsqMovieMixStatusMixing) {
             // 提示失败
             NSLog(@"保存失败");
         }

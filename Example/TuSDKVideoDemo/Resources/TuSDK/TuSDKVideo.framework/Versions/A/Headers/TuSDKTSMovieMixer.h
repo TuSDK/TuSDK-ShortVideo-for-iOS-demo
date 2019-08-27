@@ -117,7 +117,7 @@ typedef NS_ENUM(NSInteger,lsqMovieMixStatus)
  
  @param handler 完成回调处理
  */
-- (void)startMovieMixWithCompletionHandler:(void (^)(NSString *filePath, lsqMovieMixStatus status))handler;
+- (void)startMovieMixWithCompletionHandler:(void (^)(NSString *filePath, CGFloat progress, lsqMovieMixStatus status))handler;
 
 /**
  取消混合操作

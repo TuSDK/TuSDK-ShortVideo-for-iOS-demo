@@ -128,6 +128,7 @@ static const CGFloat kButtonWidth = 20;
     [self addTarget:self action:@selector(controlTapAction:) forControlEvents:UIControlEventTouchUpInside];
 
     // 初始化成员变量
+    _initialFontSize = [[AttributedLabel defaultLabel] font].pointSize;
     _scale = 1.0;
     _angle = 0;
 }
@@ -143,6 +144,28 @@ static const CGFloat kButtonWidth = 20;
     BOOL shouldShow = CMTIME_COMPARE_INLINE(time, >=, timeRange.start) && CMTIME_COMPARE_INLINE(time , <= ,CMTimeRangeGetEnd(timeRange));
     return shouldShow;
 }
+
+
+/**
+ 计算最大缩放值
+
+ @return 最大缩放值
+ */
+- (CGFloat)maxScale {
+    if (_maxScale > 0.0) return _maxScale;
+    AttributedLabel *text = [AttributedLabel defaultLabel];
+    NSString *fontName = _textLabel.font.fontName;
+    text.font = [UIFont fontWithName:fontName size:text.font.pointSize];
+    text.text = self.textLabel.text;
+    text.edgeInsets = self.textLabel.edgeInsets;
+    
+    CGRect containerFrame = _containerView.frame;
+    containerFrame.size = text.intrinsicContentSize;
+    // 这里的3.0 取得是【UIScreen mainScreen】.scall 低端机型是2.0，但为了低端机型不要太大，统一3.0
+    CGFloat max = 4000.0/3.0/CGRectGetWidth(containerFrame);
+    return max;
+}
+
 
 /**
  文字项点击事件
@@ -168,7 +191,7 @@ static const CGFloat kButtonWidth = 20;
         self.transform = textLabel.transform;
         textLabel.transform = CGAffineTransformIdentity;
     }
-    _initialFontSize = textLabel.font.pointSize;
+//    _initialFontSize = textLabel.font.pointSize;
     CGSize contentSize = CGSizeEqualToSize(CGSizeZero, textLabel.frame.size) ? textLabel.intrinsicContentSize : textLabel.frame.size;
     [self updateLayoutWithContentSize:contentSize];
 }
@@ -241,11 +264,11 @@ static const CGFloat kButtonWidth = 20;
  @param angle 角度
  */
 - (void)setScale:(CGFloat)scale angle:(CGFloat)angle {
-    
+    if ([self maxScale] < scale * _scale) {
+        scale = [self maxScale];
+    }
     if (_initialFontSize * scale > kMaxFontSize) return;
     
-    _scale = scale;
-    _angle = angle;
     _textLabel.initialPercentCenter = CGPointZero;
     
     // 重置自身的变换
@@ -258,6 +281,9 @@ static const CGFloat kButtonWidth = 20;
     CGRect containerFrame = _containerView.frame;
     containerFrame.size = _textLabel.intrinsicContentSize;
     _containerView.frame = containerFrame;
+    
+    _scale = scale;
+    _angle = angle;
     
     // 通过 _containerView size 计算出 self.frame
     CGRect frame = self.frame;
@@ -336,7 +362,6 @@ static const CGFloat kButtonWidth = 20;
             CGPoint vectorToCenter = CGPointMake(location.x - self.center.x, location.y - self.center.y);
             CGFloat radius = sqrt(pow(vectorToCenter.x, 2) + pow(vectorToCenter.y, 2));
             CGFloat angle = atan2(vectorToCenter.y, vectorToCenter.x);
-            
             [self setScale:_panBeganScale * radius / _beginRadius
                      angle:_panBeganAngle + angle - _beginAngle];
         } break;
@@ -378,6 +403,7 @@ static const CGFloat kButtonWidth = 20;
     
     AttributedLabel *textLabel = self.textLabel;
     CGRect textFrame = [textLabel.superview convertRect:textLabel.frame toView:_stickerEditor.contentView];
+    // TODO 需要对齐视频的位置
     CGRect centerRect = [self centerRectWithTextFrame:textFrame];
     UIImage *image = [self textImageWithItemLabel:textLabel videoSize:videoSize];
     CGAffineTransform transform = self.transform;
@@ -416,7 +442,8 @@ static const CGFloat kButtonWidth = 20;
     textLabel.textColorProgress = textEffect.textColorProgress;
     textLabel.textStrokeColorProgress = textEffect.textStrokeColorProgress;
     textLabel.bgColorProgress = textEffect.bgColorProgress;
-    
+    // 还原角度
+    _angle = textEffect.textStickerImage.degree/180.0 * M_PI;
     self.center = CGPointMake(_stickerEditor.contentView.lsqGetSizeWidth * textEffect.textStickerImage.centerPercent.x,_stickerEditor.contentView.lsqGetSizeHeight * textEffect.textStickerImage.centerPercent.y);
     
     // textLabel 信息设置完成后方可以设置

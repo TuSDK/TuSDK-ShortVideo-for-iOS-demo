@@ -22,6 +22,13 @@
  */
 @property (nonatomic, strong) AttributedLabel *textLabel;
 
+
+/**
+ 最大缩放值， 默认是根据机型分辨率计算所支持的适合的缩放比
+ 过大会导致模糊，锯齿等
+ */
+@property (nonatomic, assign) CGFloat maxScale;
+
 @property (nonatomic)id<TextStickerEditorItemDelegate> delegate;
 
 /**

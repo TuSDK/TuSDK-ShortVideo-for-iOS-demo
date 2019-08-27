@@ -40,23 +40,24 @@
 		45E707D2226D633A009C73C9 /* StickerEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E707D1226D633A009C73C9 /* StickerEditor.m */; };
 		45EC66A821AE97A300385E3D /* APIAudioPitchEngineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45EC66A621AE97A200385E3D /* APIAudioPitchEngineViewController.m */; };
 		45FC1C6E2282746F00020F32 /* ImageStickerEditorItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 45FC1C6D2282746F00020F32 /* ImageStickerEditorItem.m */; };
+		D70DADF823154552006376E0 /* TuSDKVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D70DADF423154552006376E0 /* TuSDKVideo.framework */; };
+		D70DADF923154552006376E0 /* TuSDKFace.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D70DADF523154552006376E0 /* TuSDKFace.framework */; };
+		D70DADFA23154552006376E0 /* libyuv.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D70DADF623154552006376E0 /* libyuv.framework */; };
+		D70DADFB23154552006376E0 /* TuSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D70DADF723154552006376E0 /* TuSDK.framework */; };
 		D719752B215C7865000AECDD /* MoviePreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D719752A215C7865000AECDD /* MoviePreviewViewController.m */; };
 		D72E88442181964200DD3F16 /* video_camera_focus_finish@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D72E88422181964200DD3F16 /* video_camera_focus_finish@2x.png */; };
 		D72E88452181964200DD3F16 /* video_camera_focus@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D72E88432181964200DD3F16 /* video_camera_focus@2x.png */; };
 		D73AA913229FA8630024BF8D /* EditTransitionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D73AA911229FA8630024BF8D /* EditTransitionViewController.m */; };
 		D73AA914229FA8630024BF8D /* EditTransitionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D73AA912229FA8630024BF8D /* EditTransitionViewController.xib */; };
 		D73AA9A422A637130024BF8D /* TransitionEffectListView.m in Sources */ = {isa = PBXBuildFile; fileRef = D73AA9A322A637130024BF8D /* TransitionEffectListView.m */; };
-		D7B9F92B22C4A02400EA3DC3 /* TuSDKVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7B9F92722C4A01F00EA3DC3 /* TuSDKVideo.framework */; };
-		D7B9F92C22C4A02400EA3DC3 /* libyuv.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7B9F92822C4A02000EA3DC3 /* libyuv.framework */; };
-		D7B9F92D22C4A02400EA3DC3 /* TuSDKFace.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7B9F92922C4A02100EA3DC3 /* TuSDKFace.framework */; };
-		D7B9F93822C4CB3700EA3DC3 /* TuSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7B9F93722C4CB3700EA3DC3 /* TuSDK.framework */; };
-		D7B9F93A22C4CB4E00EA3DC3 /* TuSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D7B9F93922C4CB4E00EA3DC3 /* TuSDK.bundle */; };
 		D7BCA5F3229E7170001E4480 /* APIImageVideoPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7BCA5F2229E7170001E4480 /* APIImageVideoPickerViewController.m */; };
 		D7BCA5F5229E717B001E4480 /* APIImageVideoPickerViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D7BCA5F4229E717B001E4480 /* APIImageVideoPickerViewController.storyboard */; };
 		D7BCA5F9229E9B26001E4480 /* APIImageVideoComposer.m in Sources */ = {isa = PBXBuildFile; fileRef = D7BCA5F8229E9B26001E4480 /* APIImageVideoComposer.m */; };
 		D7BF7C5F22BA425C0063CDE8 /* TransitionHorizontalListItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = D7BF7C5E22BA425C0063CDE8 /* TransitionHorizontalListItemView.m */; };
 		D7BF7C6622BCB51C0063CDE8 /* sample_watermark.png in Resources */ = {isa = PBXBuildFile; fileRef = D7BF7C6522BCB51C0063CDE8 /* sample_watermark.png */; };
 		D7D93E3E22B74E6100169CCB /* ImagePreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7D93E3D22B74E6100169CCB /* ImagePreviewViewController.m */; };
+		D7E350E722E7072B005166DE /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D7E350E622E7072A005166DE /* libresolv.tbd */; };
+		D7EB49D62313859800DDA49B /* lsq_filter_thumb_gaosi_01.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D7EB49D52313859800DDA49B /* lsq_filter_thumb_gaosi_01.jpg */; };
 		F820851321FAA7D900D398E8 /* face_monster_ic_square@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = F820850C21FAA7D900D398E8 /* face_monster_ic_square@3x.png */; };
 		F820851421FAA7D900D398E8 /* face_monster_ic_thicklips@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = F820850D21FAA7D900D398E8 /* face_monster_ic_thicklips@3x.png */; };
 		F820851521FAA7D900D398E8 /* face_monster_ic_smalleyes@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = F820850E21FAA7D900D398E8 /* face_monster_ic_smalleyes@3x.png */; };
@@ -248,6 +249,7 @@
 		FBEE598B20EA2FDE003D8453 /* RecordButton.m in Sources */ = {isa = PBXBuildFile; fileRef = FBEE598A20EA2FDE003D8453 /* RecordButton.m */; };
 		FBF1DED720EB1FB6009ED5EC /* MarkableProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF1DED620EB1FB6009ED5EC /* MarkableProgressView.m */; };
 		FBF1DF2C20EB8C0B009ED5EC /* AttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF1DF2B20EB8C0B009ED5EC /* AttributedLabel.m */; };
+		FBF3A8BC20D3CD24008466D0 /* TuSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = FBF3A8A020D3CD23008466D0 /* TuSDK.bundle */; };
 		FBF3A8C020D3CD24008466D0 /* Bugly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FBF3A8AE20D3CD23008466D0 /* Bugly.framework */; };
 		FBF3A8C120D3CD24008466D0 /* sound_cat.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FBF3A8B020D3CD23008466D0 /* sound_cat.mp3 */; };
 		FBF3A8C220D3CD24008466D0 /* sound_relieve.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FBF3A8B120D3CD23008466D0 /* sound_relieve.mp3 */; };
@@ -331,6 +333,10 @@
 		45EC66A721AE97A200385E3D /* APIAudioPitchEngineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIAudioPitchEngineViewController.h; sourceTree = "<group>"; };
 		45FC1C6C2282746F00020F32 /* ImageStickerEditorItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageStickerEditorItem.h; sourceTree = "<group>"; };
 		45FC1C6D2282746F00020F32 /* ImageStickerEditorItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageStickerEditorItem.m; sourceTree = "<group>"; };
+		D70DADF423154552006376E0 /* TuSDKVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TuSDKVideo.framework; sourceTree = "<group>"; };
+		D70DADF523154552006376E0 /* TuSDKFace.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TuSDKFace.framework; sourceTree = "<group>"; };
+		D70DADF623154552006376E0 /* libyuv.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = libyuv.framework; sourceTree = "<group>"; };
+		D70DADF723154552006376E0 /* TuSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TuSDK.framework; sourceTree = "<group>"; };
 		D7197529215C7865000AECDD /* MoviePreviewViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoviePreviewViewController.h; sourceTree = "<group>"; };
 		D719752A215C7865000AECDD /* MoviePreviewViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MoviePreviewViewController.m; sourceTree = "<group>"; };
 		D72E88422181964200DD3F16 /* video_camera_focus_finish@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "video_camera_focus_finish@2x.png"; sourceTree = "<group>"; };
@@ -340,11 +346,6 @@
 		D73AA912229FA8630024BF8D /* EditTransitionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditTransitionViewController.xib; sourceTree = "<group>"; };
 		D73AA9A222A637130024BF8D /* TransitionEffectListView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TransitionEffectListView.h; sourceTree = "<group>"; };
 		D73AA9A322A637130024BF8D /* TransitionEffectListView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TransitionEffectListView.m; sourceTree = "<group>"; };
-		D7B9F92722C4A01F00EA3DC3 /* TuSDKVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TuSDKVideo.framework; sourceTree = "<group>"; };
-		D7B9F92822C4A02000EA3DC3 /* libyuv.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = libyuv.framework; sourceTree = "<group>"; };
-		D7B9F92922C4A02100EA3DC3 /* TuSDKFace.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TuSDKFace.framework; sourceTree = "<group>"; };
-		D7B9F93722C4CB3700EA3DC3 /* TuSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TuSDK.framework; sourceTree = "<group>"; };
-		D7B9F93922C4CB4E00EA3DC3 /* TuSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = TuSDK.bundle; sourceTree = "<group>"; };
 		D7BCA5F1229E7170001E4480 /* APIImageVideoPickerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APIImageVideoPickerViewController.h; sourceTree = "<group>"; };
 		D7BCA5F2229E7170001E4480 /* APIImageVideoPickerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APIImageVideoPickerViewController.m; sourceTree = "<group>"; };
 		D7BCA5F4229E717B001E4480 /* APIImageVideoPickerViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = APIImageVideoPickerViewController.storyboard; sourceTree = "<group>"; };
@@ -355,6 +356,8 @@
 		D7BF7C6522BCB51C0063CDE8 /* sample_watermark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sample_watermark.png; sourceTree = "<group>"; };
 		D7D93E3C22B74E6100169CCB /* ImagePreviewViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImagePreviewViewController.h; sourceTree = "<group>"; };
 		D7D93E3D22B74E6100169CCB /* ImagePreviewViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImagePreviewViewController.m; sourceTree = "<group>"; };
+		D7E350E622E7072A005166DE /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
+		D7EB49D52313859800DDA49B /* lsq_filter_thumb_gaosi_01.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_gaosi_01.jpg; sourceTree = "<group>"; };
 		F820850C21FAA7D900D398E8 /* face_monster_ic_square@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "face_monster_ic_square@3x.png"; sourceTree = "<group>"; };
 		F820850D21FAA7D900D398E8 /* face_monster_ic_thicklips@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "face_monster_ic_thicklips@3x.png"; sourceTree = "<group>"; };
 		F820850E21FAA7D900D398E8 /* face_monster_ic_smalleyes@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "face_monster_ic_smalleyes@3x.png"; sourceTree = "<group>"; };
@@ -602,10 +605,6 @@
 		FBC6F50B20D3CE5500F2FBB7 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		FBC6F50D20D3CE5D00F2FBB7 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		FBC6F50F20D3CE6400F2FBB7 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
-		FBC6F51120D3CE7600F2FBB7 /* libTuSDKFace.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libTuSDKFace.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		FBC6F51320D3CE8C00F2FBB7 /* libTuSDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libTuSDK.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		FBC6F51520D3CE9700F2FBB7 /* libTuSDKVideo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libTuSDKVideo.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		FBC6F51720D3CEF300F2FBB7 /* libyuv.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = libyuv.framework; path = ../TuSDK/vendor/libyuv.framework; sourceTree = "<group>"; };
 		FBC6F51B20D3CF7B00F2FBB7 /* TuSDKFramework.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TuSDKFramework.h; sourceTree = "<group>"; };
 		FBCB2B8920D3B09400921AD6 /* FunctionListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FunctionListViewController.h; sourceTree = "<group>"; };
 		FBCB2B8A20D3B09400921AD6 /* FunctionListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FunctionListViewController.m; sourceTree = "<group>"; };
@@ -656,6 +655,7 @@
 		FBF1DED620EB1FB6009ED5EC /* MarkableProgressView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MarkableProgressView.m; sourceTree = "<group>"; };
 		FBF1DF2A20EB8C0B009ED5EC /* AttributedLabel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AttributedLabel.h; sourceTree = "<group>"; };
 		FBF1DF2B20EB8C0B009ED5EC /* AttributedLabel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AttributedLabel.m; sourceTree = "<group>"; };
+		FBF3A8A020D3CD23008466D0 /* TuSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = TuSDK.bundle; sourceTree = "<group>"; };
 		FBF3A8AE20D3CD23008466D0 /* Bugly.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bugly.framework; sourceTree = "<group>"; };
 		FBF3A8B020D3CD23008466D0 /* sound_cat.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = sound_cat.mp3; sourceTree = "<group>"; };
 		FBF3A8B120D3CD23008466D0 /* sound_relieve.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = sound_relieve.mp3; sourceTree = "<group>"; };
@@ -689,16 +689,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D7E350E722E7072B005166DE /* libresolv.tbd in Frameworks */,
 				F8FA849D219413B0002B24EB /* libc++.tbd in Frameworks */,
-				D7B9F92B22C4A02400EA3DC3 /* TuSDKVideo.framework in Frameworks */,
+				D70DADFB23154552006376E0 /* TuSDK.framework in Frameworks */,
+				D70DADF823154552006376E0 /* TuSDKVideo.framework in Frameworks */,
 				FBC6F51020D3CE6400F2FBB7 /* Accelerate.framework in Frameworks */,
+				D70DADF923154552006376E0 /* TuSDKFace.framework in Frameworks */,
 				FBC6F50E20D3CE5D00F2FBB7 /* Security.framework in Frameworks */,
 				FBC6F50C20D3CE5600F2FBB7 /* SystemConfiguration.framework in Frameworks */,
+				D70DADFA23154552006376E0 /* libyuv.framework in Frameworks */,
 				FBC6F50A20D3CE4800F2FBB7 /* libz.1.2.5.tbd in Frameworks */,
-				D7B9F92C22C4A02400EA3DC3 /* libyuv.framework in Frameworks */,
 				FBF3A8C020D3CD24008466D0 /* Bugly.framework in Frameworks */,
-				D7B9F93822C4CB3700EA3DC3 /* TuSDK.framework in Frameworks */,
-				D7B9F92D22C4A02400EA3DC3 /* TuSDKFace.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -783,6 +784,17 @@
 			path = ImageStickerEditor;
 			sourceTree = "<group>";
 		};
+		D70DADF323154552006376E0 /* TuSDK */ = {
+			isa = PBXGroup;
+			children = (
+				D70DADF423154552006376E0 /* TuSDKVideo.framework */,
+				D70DADF523154552006376E0 /* TuSDKFace.framework */,
+				D70DADF623154552006376E0 /* libyuv.framework */,
+				D70DADF723154552006376E0 /* TuSDK.framework */,
+			);
+			path = TuSDK;
+			sourceTree = "<group>";
+		};
 		D73AA90F229FA7F90024BF8D /* TransitionEffect */ = {
 			isa = PBXGroup;
 			children = (
@@ -795,17 +807,6 @@
 				D73AA912229FA8630024BF8D /* EditTransitionViewController.xib */,
 			);
 			path = TransitionEffect;
-			sourceTree = "<group>";
-		};
-		D7B9F92622C4A00000EA3DC3 /* TuSDK */ = {
-			isa = PBXGroup;
-			children = (
-				D7B9F93722C4CB3700EA3DC3 /* TuSDK.framework */,
-				D7B9F92822C4A02000EA3DC3 /* libyuv.framework */,
-				D7B9F92922C4A02100EA3DC3 /* TuSDKFace.framework */,
-				D7B9F92722C4A01F00EA3DC3 /* TuSDKVideo.framework */,
-			);
-			path = TuSDK;
 			sourceTree = "<group>";
 		};
 		D7BCA5F6229E9AFF001E4480 /* ImageVideoComposer */ = {
@@ -1233,6 +1234,7 @@
 		FBA274F621AFD75C00D1B170 /* CameraNormalFilter */ = {
 			isa = PBXGroup;
 			children = (
+				D7EB49D52313859800DDA49B /* lsq_filter_thumb_gaosi_01.jpg */,
 				F8592C2521D0D08B0037050D /* lsq_filter_thumb_SkinWheat10.jpg */,
 				F8592C2821D0D08C0037050D /* lsq_filter_thumb_SkinCookies10.jpg */,
 				F8592C2321D0D08B0037050D /* lsq_filter_thumb_SkinJelly10.jpg */,
@@ -1401,11 +1403,8 @@
 		FBC6F50820D3CE4800F2FBB7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D7E350E622E7072A005166DE /* libresolv.tbd */,
 				F8FA849C219413B0002B24EB /* libc++.tbd */,
-				FBC6F51720D3CEF300F2FBB7 /* libyuv.framework */,
-				FBC6F51520D3CE9700F2FBB7 /* libTuSDKVideo.a */,
-				FBC6F51320D3CE8C00F2FBB7 /* libTuSDK.a */,
-				FBC6F51120D3CE7600F2FBB7 /* libTuSDKFace.a */,
 				FBC6F50F20D3CE6400F2FBB7 /* Accelerate.framework */,
 				FBC6F50D20D3CE5D00F2FBB7 /* Security.framework */,
 				FBC6F50B20D3CE5500F2FBB7 /* SystemConfiguration.framework */,
@@ -1493,13 +1492,13 @@
 		FBF3A89B20D3CCC0008466D0 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				D7B9F92622C4A00000EA3DC3 /* TuSDK */,
+				D70DADF323154552006376E0 /* TuSDK */,
 				FB88F03421992E1400BE021F /* Localized */,
 				FBA274E421AFD75C00D1B170 /* Thumbnails */,
 				FBF3A89C20D3CD23008466D0 /* Assets */,
 				FBF3A8AF20D3CD23008466D0 /* AVSamples */,
 				FBF3A8AE20D3CD23008466D0 /* Bugly.framework */,
-				D7B9F93922C4CB4E00EA3DC3 /* TuSDK.bundle */,
+				FBF3A8A020D3CD23008466D0 /* TuSDK.bundle */,
 				FB6EBAC820D399E200FA24F2 /* Assets.xcassets */,
 			);
 			path = Resources;
@@ -1590,6 +1589,11 @@
 					FB6EBABB20D399E000FA24F2 = {
 						CreatedOnToolsVersion = 9.4;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -1648,6 +1652,7 @@
 				FBF3A8C820D3CD24008466D0 /* sound_tangyuan.mp3 in Resources */,
 				FB25AD4620EE21D0007551F7 /* edit_ic_colorbar.jpg in Resources */,
 				FBA2753D21AFD75D00D1B170 /* lsq_effect_thumb_reverse.gif in Resources */,
+				FBF3A8BC20D3CD24008466D0 /* TuSDK.bundle in Resources */,
 				FB85C65C219A66CC00D23716 /* LaunchScreen.storyboard in Resources */,
 				FBA65F7C20E60A6000A92503 /* EditTextViewController.xib in Resources */,
 				FBA2755521AFD75D00D1B170 /* lsq_filter_thumb_Lightcolor_Video.jpg in Resources */,
@@ -1692,7 +1697,6 @@
 				FBA2754B21AFD75D00D1B170 /* lsq_effect_thumb_Fireball.jpg in Resources */,
 				FBA2754F21AFD75D00D1B170 /* lsq_effect_thumb_Love.jpg in Resources */,
 				F8592C3621D0D08E0037050D /* lsq_filter_thumb_SkinCookies10.jpg in Resources */,
-				D7B9F93A22C4CB4E00EA3DC3 /* TuSDK.bundle in Resources */,
 				FBA2754721AFD75D00D1B170 /* lsq_filter_thumb_Cheerful_1.jpg in Resources */,
 				F8592C3A21D0D08E0037050D /* lsq_filter_thumb_SkinNature10.jpg in Resources */,
 				FBA2753F21AFD75D00D1B170 /* lsq_filter_thumb_Gold_1.jpg in Resources */,
@@ -1720,6 +1724,7 @@
 				FBF3A8C520D3CD24008466D0 /* sound_oldmovie.mp3 in Resources */,
 				D7BF7C6622BCB51C0063CDE8 /* sample_watermark.png in Resources */,
 				FBA2753021AFD75D00D1B170 /* lsq_effect_thumb_LiveSoulOut01.gif in Resources */,
+				D7EB49D62313859800DDA49B /* lsq_filter_thumb_gaosi_01.jpg in Resources */,
 				FBA2755121AFD75D00D1B170 /* lsq_effect_thumb_Magic.jpg in Resources */,
 				F8592C3421D0D08E0037050D /* lsq_filter_thumb_SkinPowder10.jpg in Resources */,
 				F820851821FAA7D900D398E8 /* face_monster_ic_snake@3x.png in Resources */,
@@ -2052,7 +2057,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/TuSDKVideoDemo/Resources/**",
-					"../TuSDK/vendor/**",
 					"$(PROJECT_DIR)/TuSDKVideoDemo/Resources/TuSDK",
 				);
 				HEADER_SEARCH_PATHS = (
@@ -2084,7 +2088,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/TuSDKVideoDemo/Resources/**",
-					"../TuSDK/vendor/**",
 					"$(PROJECT_DIR)/TuSDKVideoDemo/Resources/TuSDK",
 				);
 				HEADER_SEARCH_PATHS = (

@@ -218,6 +218,12 @@ extern NSString * const lsqFilterSampleExtension;
  */
 @property (nonatomic) BOOL useSSL;
 
+
+/**
+ * udid
+ * @since v1.0.0
+ */
+@property (nonatomic, strong, readonly) NSString *openid;
 /**
  *  TuSDK 核心
  *

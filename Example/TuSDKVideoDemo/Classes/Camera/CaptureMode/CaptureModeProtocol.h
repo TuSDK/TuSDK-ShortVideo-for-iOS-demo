@@ -56,4 +56,6 @@
  */
 - (void)recordStateDidChange:(lsqRecordState)state;
 
+- (void)recordButtonDidTouchDown:(UIButton *)sender;
+
 @end

@@ -127,6 +127,10 @@ static const NSTimeInterval kMinCutDuration = 3.0;
     }];
     
     _moviePlayer = [[TuSDKMediaMutableAssetMoviePlayer alloc] initWithMediaAssets:inputMediaAssets preview:_playerView];
+    
+    // 预览设置
+    _moviePlayer.previewSize = CGSizeMake(720, 1280);
+    _moviePlayer.aspectPreviewRatioInSideCanvas = YES;
     _moviePlayer.delegate = self;
     _selectedTimeRange = CMTimeRangeMake(kCMTimeZero, _moviePlayer.asset.duration);
 }
@@ -251,14 +255,22 @@ static const NSTimeInterval kMinCutDuration = 3.0;
     if (_inputAssets.count == 1 // 单个视频
         && _speedBar.selectedIndex == 2 && CMTimeRangeEqual(_selectedTimeRange, CMTimeRangeMake(kCMTimeZero, _moviePlayer.inputDuration)))
     {
-        _outputURL = _inputAssets.firstObject.URL;
+     
+        TuSDKMediaAssetInfo *assetInfo = [[TuSDKMediaAssetInfo alloc] initWithAsset:_inputAssets.firstObject];
+
+        // 对于低帧率视频进入视频编辑时必须开启转码
+        if(assetInfo.videoInfo.videoTrackInfoArray.firstObject.nominalFrameRate > 15) {
+            
+            _outputURL = _inputAssets.firstObject.URL;
+            
+            /** 原始视频卫生处临时文件时不需要删除 */
+            self.removeTempFileFlag = NO;
+            
+            [super base_rightButtonAction:sender];
+            
+            return;
+        }
         
-        /** 原始视频卫生处临时文件时不需要删除 */
-        self.removeTempFileFlag = NO;
-        
-        [super base_rightButtonAction:sender];
-        
-        return;
     }
     
  
@@ -277,7 +289,35 @@ static const NSTimeInterval kMinCutDuration = 3.0;
     
     // 多文件时裁剪时可以通过 _moviePlayer.videoComposition 获取 videoComposition, 开发者也可以自定义。
     [_moviePlayer appendMediaTimeSlice:cutTimeRangeSlice];
+    
     exportSettings.videoComposition = _moviePlayer.videoComposition;
+    CGSize outputSize = _moviePlayer.inputAssetInfo.videoInfo.videoTrackInfoArray.firstObject.presentSize;
+    if ([UIDevice lsqDevicePlatform] < TuSDKDevicePlatform_iPhone6) {
+        // 需要裁剪: 竖屏条件/横屏条件
+        if ((outputSize.width < outputSize.height && outputSize.width > 540.0) || (outputSize.width > outputSize.height && outputSize.width > 960.0)) {
+            // 540p
+            outputSize = outputSize.width > outputSize.height ? CGSizeMake(960, 960.0/outputSize.width * outputSize.height) : CGSizeMake(540, 540.0/outputSize.width * outputSize.height);
+        }
+        
+    } else if ([UIDevice lsqDevicePlatform] < TuSDKDevicePlatform_iPhone7p) {
+        // 需要裁剪: 竖屏条件/横屏条件
+        if ((outputSize.width < outputSize.height && outputSize.width > 720.0) || (outputSize.width > outputSize.height && outputSize.width > 1280.0)) {
+            // 720p
+            outputSize = outputSize.width > outputSize.height ? CGSizeMake(1280, 1280.0/outputSize.width * outputSize.height) : CGSizeMake(720, 720.0/outputSize.width * outputSize.height);
+        }
+        
+    } else if ((outputSize.width > 1080.0 || outputSize.height > 1920.0)) {
+        // 需要裁剪: 竖屏条件/横屏条件
+        if ((outputSize.width < outputSize.height && outputSize.width > 1080.0) || (outputSize.width > outputSize.height && outputSize.width > 1920.0)) {
+            // 1080p
+            outputSize = outputSize.width > outputSize.height ? CGSizeMake(1920, 1920.0/outputSize.width * outputSize.height) : CGSizeMake(1080, 1080.0/outputSize.width * outputSize.height);
+        }
+        
+    }
+    
+    exportSettings.outputSize = outputSize;
+    exportSettings.aspectOutputRatioInSideCanvas = YES;
+//    exportSettings.outputVideoQuality = [TuSDKVideoQuality makeQualityWith:TuSDKRecordVideoQuality_High1];
 //    exportSettings.outputSize = _moviePlayer.inputAssetInfo.videoInfo.videoTrackInfoArray.firstObject.presentSize;
     NSLog(@"---width:%f, height:%f", exportSettings.outputSize.width, exportSettings.outputSize.height);
     // 通过 appendMediaTimeSlice 为播放器添加切片，只是为了生成 videoComposition。

@@ -28,6 +28,12 @@
  */
 @property (nonatomic, readonly) UIView<TuSDKICFocusRangeViewProtocol> *rangeView;
 
+
+/**
+ * 聚焦中心点击回调
+ */
+@property (nonatomic, weak) id<TuSDKCPFocusTouchViewDelegate> focusViewDelegate;
+
 /**
  *  顶部边距
  */

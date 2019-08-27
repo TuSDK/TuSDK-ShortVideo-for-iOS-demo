@@ -20,6 +20,15 @@
 #define kNormalFilterCodes @[@"Normal", kCameraNormalFilterCodes]
 #define kComicsFilterCodes @[@"Normal", kCameraComicsFilterCodes]
 
+// 轻易不要动，产品让改才改
+#define kSkinFaceSmothingMaxDefault 1.0
+#define kSkinFaceWhiteningMaxDefault 0.4
+#define kSkinFaceRuddyMaxDefault 0.35
+
+#define kSkinPinkFaceSmothingMaxDefault 1.0
+#define kSkinPinkFaceWhiteningMaxDefault 0.5
+#define kSkinPinkFaceRuddyMaxDefault 0.65
+
 // 顶部工具栏高度
 static const CGFloat kTopBarHeight = 64.0;
 // 滤镜参数默认值键
@@ -32,7 +41,9 @@ CameraControlMaskViewDelegate,
 CameraMoreMenuViewDelegate,
 CameraFilterPanelDelegate,
 PropsPanelViewDelegate,
-UIGestureRecognizerDelegate
+UIGestureRecognizerDelegate,
+TuSDKCPFocusTouchViewDelegate,
+LSQGPUImageVideoCameraDelegate
 >
 @end
 @interface CameraViewController (State) <TuSDKVideoCameraDelegate>
@@ -45,6 +56,20 @@ UIGestureRecognizerDelegate
 @end
 
 @interface CameraViewController ()
+{
+    UISlider *_exposureSlider;
+    UIImageView *_lightImageView;
+    
+    // 曝光模式切换逻辑：先查看是否可以切换曝光模式，如果可以再看上一帧环境光强度和当前环境光强度的差值是否大于0.3
+    // 是否可以切换曝光模式：拖拽slider时不可以，结束后才行；点击屏幕曝光时不可以，点击完成后2s可以；录制的过程中不可以
+    
+    // 上一帧的环境光强度
+    float _lastBrightnessValue;
+    // 是否可以重置曝光模式
+    BOOL _canResetExposures;
+    
+    BOOL _isSetDefaultEffect;
+}
 
 /**
  录制相机对象
@@ -99,11 +124,14 @@ UIGestureRecognizerDelegate
     [self requestAlbumPermission];
     
     // 添加后台、前台切换的通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(enterBackFromFront) name:UIApplicationDidEnterBackgroundNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(enterFrontFromBack) name:UIApplicationWillEnterForegroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(enterBackFromFront) name:UIApplicationWillResignActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(enterFrontFromBack) name:UIApplicationDidBecomeActiveNotification object:nil];
     
     // 设置UI
     [self setupUI];
+    
+    // 相机权限
+//    [self requestCameraPermission];
 }
 
 - (void)viewDidLayoutSubviews {
@@ -113,6 +141,9 @@ UIGestureRecognizerDelegate
         if (!self->_camera) [self requestCameraPermission];
         
         [self->_camera updateCameraViewBounds:self->_cameraView.bounds];
+        
+        self->_exposureSlider.frame = CGRectMake(self.view.bounds.size.width - 45, (self.view.bounds.size.height-220)*0.5, 40, 220);
+        self->_lightImageView.frame = CGRectMake(self.view.bounds.size.width - 40, (self.view.bounds.size.height-220)*0.5 - 35, 30, 30);
     });
 }
 
@@ -143,7 +174,7 @@ UIGestureRecognizerDelegate
     
     [_controlMaskView.speedSegmentButton addTarget:self action:@selector(speedSegmentValueChangeAction:)
                                   forControlEvents:UIControlEventValueChanged];
-    
+    [self configSlider];
 }
 
 /**
@@ -157,12 +188,119 @@ UIGestureRecognizerDelegate
     
 }
 
+
+#pragma mark - 曝光控制
+// 曝光
+- (void)configSlider {
+    
+    _lightImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
+    _lightImageView.image = [UIImage imageNamed:@"ic_light"];
+    [self.view addSubview:_lightImageView];
+    
+    _exposureSlider = [[UISlider alloc] initWithFrame:CGRectZero];
+    [self.view addSubview:_exposureSlider];
+    _exposureSlider.transform = CGAffineTransformMakeRotation(-M_PI/2);
+    _exposureSlider.maximumValue = 1.0;
+    _exposureSlider.minimumValue = 0.0;
+    _exposureSlider.value = 0.5;
+    _exposureSlider.minimumTrackTintColor = [UIColor whiteColor];
+    _exposureSlider.maximumTrackTintColor = [UIColor colorWithRed:150/255.0 green:150/255.0 blue:150/255.0 alpha:0.3];
+    [_exposureSlider setThumbImage:[UIImage imageNamed:@"slider_thum_icon"] forState:UIControlStateNormal];
+    [_exposureSlider addTarget:self action:@selector(updateValue:) forControlEvents:UIControlEventValueChanged];
+    [_exposureSlider addTarget:self action:@selector(sliderEnd:) forControlEvents:UIControlEventTouchUpInside];
+    [_exposureSlider addTarget:self action:@selector(sliderEnd:) forControlEvents:UIControlEventTouchUpOutside];
+}
+
+- (void)sliderEnd:(UISlider *)slider {
+    // 录制过程中不能自动切换到运行重置曝光模式
+    if (self.camera.isRecording) {
+        return;
+    }
+    _lastBrightnessValue = 0.0;
+    _canResetExposures = YES;
+}
+
+- (void)updateValue:(UISlider *)slider {
+    _canResetExposures = NO;
+    float value = slider.value;
+
+    float bias = (value - 0.5) * 8;
+    [self.camera exposureWithBias:bias];
+}
+
+
+#pragma mark - TuSDKCPFocusTouchViewDelegate
+// 点击聚焦曝光点后的回调 ----- 内部已经添加了聚焦和曝光，这里不需要再设置
+- (void)focusTouchView:(id<TuSDKVideoCameraExtendViewInterface>)focusTouchView didTapPoint:(CGPoint)point {
+    _exposureSlider.value = 0.5; // 重置到中间
+    _canResetExposures = NO;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        // 录制过程中不能自动切换到运行重置曝光模式
+        if (self.camera.isRecording) {
+            return;
+        }
+        self->_lastBrightnessValue = 0.0;
+        self->_canResetExposures = YES;
+    });
+}
+
+
+#pragma mark - LSQGPUImageVideoCameraDelegate
+- (void)willOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer {
+    // 不允许重置时，返回
+    if (_canResetExposures == NO) {
+        return;
+    }
+
+    // 获取当前帧数据的环境光强度
+    CFDictionaryRef metadataDict = CMCopyDictionaryOfAttachments(NULL,sampleBuffer, kCMAttachmentMode_ShouldPropagate);
+    NSDictionary *metadata = [[NSMutableDictionary alloc] initWithDictionary:(__bridge NSDictionary*)metadataDict];
+    CFRelease(metadataDict);
+    NSDictionary *exifMetadata = [[metadata objectForKey:(NSString *)kCGImagePropertyExifDictionary] mutableCopy];
+    float brightnessValue = [[exifMetadata objectForKey:(NSString *)kCGImagePropertyExifBrightnessValue] floatValue];
+    
+    // 不要在处理视频线程中操作
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        if (self->_lastBrightnessValue == 0) {
+            self->_lastBrightnessValue = brightnessValue;
+        }
+        if (fabs(self->_lastBrightnessValue - brightnessValue) > 0.3) {
+            self->_lastBrightnessValue = brightnessValue;
+            // 在这个类即将释放或者释放的时候调用到这里，容易造成 crash,
+            // 所以 _canResetExposures在返回的时候也设置
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self->_exposureSlider.value = 0.5;
+            });
+        
+            // 重置至自动持续曝光模式
+            [self.camera exposureWithMode:AVCaptureExposureModeContinuousAutoExposure point:CGPointMake(0.5, 0.5)];
+            self->_canResetExposures = NO;
+        }
+    });
+    
+}
+
+
+
 #pragma mark - 后台前台切换
 
 /**
  进入后台
  */
 - (void)enterBackFromFront {
+    
+    // 进入后台暂停录制，保留之前录制的信息
+//    if (_camera) {
+//        if (_camera.isRecording) {
+//            [_captureMode recordButtonDidTouchDown:_controlMaskView.captureButton];
+//        }
+//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//            [self->_camera pauseCameraCapture];
+//        });
+//    }
+    
+    // 进入后台后取消录制，舍弃之前录制的信息
     if (_camera) {
         // 取消录制
         [self cancelRecording];
@@ -179,6 +317,10 @@ UIGestureRecognizerDelegate
  恢复前台
  */
 - (void)enterFrontFromBack {
+    // 为匹配：进入后台暂停录制，保留之前录制的信息   , 回复到前台后回复相机开启
+//    [_camera resumeCameraCapture];
+    
+    // 为匹配：进入后台后取消录制，舍弃之前录制的信息  , 回复到前台后重启相机，回复UI页面
     if (_camera) {
         [_camera startCameraCapture];
     }
@@ -205,6 +347,7 @@ UIGestureRecognizerDelegate
  */
 -(void)requestCameraPermission {
     // 开启访问相机权限
+    // 查看有没有相机访问权限
     [TuSDKTSDeviceSettings checkAllowWithController:self type:lsqDeviceSettingsCamera completed:^(lsqDeviceSettingsType type, BOOL openSetting) {
         if (openSetting) {
             lsqLError(@"Can not open camera");
@@ -219,24 +362,29 @@ UIGestureRecognizerDelegate
         // 设置默认滤镜
         self.defaultFilterCode = self.filterCodes[self.currentFilterIndex];
         
-        /** 注意： 特效必须在相机启动后添加 */
-        
-        /** 初始化滤镜特效 */
-        TuSDKMediaFilterEffect *filterEffect = [[TuSDKMediaFilterEffect alloc] initWithEffectCode:self.defaultFilterCode];
-        [self.camera addMediaEffect:filterEffect];
-
-        /** 初始化微整形特效 */
-        TuSDKMediaPlasticFaceEffect *plasticFaceEffect = [[TuSDKMediaPlasticFaceEffect alloc] init];
-        [self.camera addMediaEffect:plasticFaceEffect];
-        
-        /** 添加默认美颜效果 */
-        [self applySkinFaceEffect];
-
-        /** 添加默认变脸特效（哈哈镜） */
-        // TuSDKMediaMonsterFaceEffect *monsterEfffect = [[TuSDKMediaMonsterFaceEffect alloc]initWithMonsterFaceType:TuSDKMonsterFaceTypePapayaFace];
-        // [self.camera addMediaEffect:monsterEfffect];
-        
     }];
+}
+
+/** 注意： 特效必须在相机启动后添加 */
+- (void)addDefaultEffect {
+    if (_isSetDefaultEffect) {
+        return;
+    }
+    _isSetDefaultEffect = YES;
+    /** 初始化滤镜特效 */
+    TuSDKMediaFilterEffect *filterEffect = [[TuSDKMediaFilterEffect alloc] initWithEffectCode:self.defaultFilterCode];
+    [self.camera addMediaEffect:filterEffect];
+    
+    /** 初始化微整形特效 */
+    TuSDKMediaPlasticFaceEffect *plasticFaceEffect = [[TuSDKMediaPlasticFaceEffect alloc] init];
+    [self.camera addMediaEffect:plasticFaceEffect];
+    
+    /** 添加默认美颜效果 */
+    [self applySkinFaceEffect];
+    
+    /** 添加默认变脸特效（哈哈镜） */
+    // TuSDKMediaMonsterFaceEffect *monsterEfffect = [[TuSDKMediaMonsterFaceEffect alloc]initWithMonsterFaceType:TuSDKMonsterFaceTypePapayaFace];
+    // [self.camera addMediaEffect:monsterEfffect];
 }
 
 #pragma mark - 启动相机
@@ -258,6 +406,11 @@ UIGestureRecognizerDelegate
     // 设置特效时间委托
     _camera.effectDelegate = self;
     
+    // 设置聚焦点击委托
+    _camera.focusTouchDelegate = self;
+    
+    // 数据委托
+    _camera.delegate = self;
     
     // 配置相机参数
     // 相机预览画面区域显示算法
@@ -267,8 +420,9 @@ UIGestureRecognizerDelegate
     //}
     //_camera.regionHandler.offsetPercentTop = offset;
     
+    
     // 指定比例后，如不指定尺寸，输出裁剪尺寸
-//     _camera.outputSize = CGSizeMake(720, 1280);
+//     _camera.outputSize = CGSizeMake(1080, 1920);
     // 输出全屏视频画面
     // _camera.cameraViewRatio = _camera.outputSize.width/_camera.outputSize.height;
     
@@ -276,6 +430,8 @@ UIGestureRecognizerDelegate
     _camera.videoQuality = [TuSDKVideoQuality makeQualityWith:TuSDKRecordVideoQuality_Medium2];
     // 禁止触摸聚焦功能（默认: NO）
     _camera.disableTapFocus = NO;
+    // 禁止触摸曝光功能（默认: NO）
+    _camera.disableTapExposure = NO;
     // 是否禁用持续自动对焦
     _camera.disableContinueFoucs = NO;
     // 是否启用手动变焦功能（默认: NO）
@@ -323,6 +479,7 @@ UIGestureRecognizerDelegate
  @param sender 返回按钮事件
  */
 - (IBAction)backButtonAction:(id)sender {
+    _canResetExposures = NO;
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -410,6 +567,8 @@ UIGestureRecognizerDelegate
 - (IBAction)rightSwipeAction:(UISwipeGestureRecognizer *)sender {
     [self switchToPreviousFilter];
 }
+
+
 
 /**
  切换前一个滤镜
@@ -532,6 +691,7 @@ UIGestureRecognizerDelegate
 }
 
 - (void)dealloc {
+    _canResetExposures = NO;
     [self destroyCamera];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
@@ -579,6 +739,7 @@ UIGestureRecognizerDelegate
  */
 - (void)moreMenu:(CameraMoreMenuView *)moreMenu didSelectedRatio:(CGFloat)ratio {
     // 相机预览画面区域显示算法
+    NSLog(@"-------%f",ratio);
     CGFloat percentOffset = 0;
     if (ratio == 1.0 || ratio == 3.0/4) {
         if (ratio == 1.0) percentOffset = kTopBarHeight / self.view.lsqGetSizeHeight;
@@ -627,6 +788,8 @@ UIGestureRecognizerDelegate
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
     // 当美颜面板出现时则禁用左滑、右滑手势
     if (_controlMaskView.beautyPanelView.display) return NO;
+    // 在滤镜面板上禁止滑动
+    if ([_controlMaskView.filterPanelView.layer containsPoint:[touch locationInView:_controlMaskView.filterPanelView]]) return NO;
     return YES;
 }
 
@@ -655,7 +818,10 @@ UIGestureRecognizerDelegate
             break;
         case lsqCameraStateStarted:
             // 相机启动完成
+            _canResetExposures = YES;
             NSLog(@"TuSDKRecordVideoCamera state: 相机启动完成");
+            _exposureSlider.value = 0.5;
+            [self addDefaultEffect];
             break;
         case lsqCameraStateCapturing:
             // 相机正在拍摄
@@ -762,15 +928,20 @@ UIGestureRecognizerDelegate
     switch (state) {
         case lsqRecordStateRecordingCompleted:
             // 录制完成
+            _canResetExposures = YES;
+            _lastBrightnessValue = 0.0;
             NSLog(@"TuSDKRecordVideoCamera record state: 录制完成");
             [[TuSDK shared].messageHub showSuccess:NSLocalizedStringFromTable(@"tu_完成录制", @"VideoDemo", @"完成录制")];
             break;
         case lsqRecordStateRecording:
             // 正在录制
+            _canResetExposures = NO;
             NSLog(@"TuSDKRecordVideoCamera record state: 正在录制");
             break;
         case lsqRecordStatePaused:
             // 暂停录制
+            _canResetExposures = YES;
+            _lastBrightnessValue = 0.0;
             NSLog(@"TuSDKRecordVideoCamera record state: 暂停录制");
             break;
         case lsqRecordStateMerging:
@@ -1062,6 +1233,23 @@ UIGestureRecognizerDelegate
    
     // 使用上次的值
     [filterArgs enumerateObjectsUsingBlock:^(TuSDKFilterArg * _Nonnull arg, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (self.controlMaskView.beautyPanelView.useSkinNatural) {
+            if ([arg.key isEqualToString:@"smoothing"]) {
+                [skinFaceEffect argWithKey:arg.key].maxFloatValue = kSkinFaceSmothingMaxDefault;
+            } else if ([arg.key isEqualToString:@"whitening"]) {
+                [skinFaceEffect argWithKey:arg.key].maxFloatValue = kSkinFaceWhiteningMaxDefault;
+            } else if ([arg.key isEqualToString:@"ruddy"]) {
+                [skinFaceEffect argWithKey:arg.key].maxFloatValue = kSkinFaceRuddyMaxDefault;
+            }
+        } else {
+            if ([arg.key isEqualToString:@"smoothing"]) {
+                [skinFaceEffect argWithKey:arg.key].maxFloatValue = kSkinPinkFaceSmothingMaxDefault;
+            } else if ([arg.key isEqualToString:@"whitening"]) {
+                [skinFaceEffect argWithKey:arg.key].maxFloatValue = kSkinPinkFaceWhiteningMaxDefault;
+            } else if ([arg.key isEqualToString:@"ruddy"]) {
+                [skinFaceEffect argWithKey:arg.key].maxFloatValue = kSkinPinkFaceRuddyMaxDefault;
+            }
+        }
         [skinFaceEffect argWithKey:arg.key].precent = arg.precent;
     }];
     
@@ -1332,17 +1520,17 @@ UIGestureRecognizerDelegate
         
         if ([parameterName isEqualToString:@"smoothing"]) {
             // 磨皮
-            maxValueFactor = 0.7;
+            maxValueFactor = kSkinFaceSmothingMaxDefault;
             defaultValueFactor = 0.5;
             updateValue = YES;
         } else if ([parameterName isEqualToString:@"whitening"]) {
             // 美白
-            maxValueFactor = 0.4;
-            defaultValueFactor = 0.2;
+            maxValueFactor = kSkinFaceWhiteningMaxDefault;
+            defaultValueFactor = 0.5; // 最大值的百分之50
             updateValue = YES;
         } else if ([parameterName isEqualToString:@"ruddy"]) {
             // 红润
-            maxValueFactor = 0.4;
+            maxValueFactor = kSkinFaceRuddyMaxDefault;
             defaultValueFactor = 0.2;
             updateValue = YES;
         }
@@ -1353,6 +1541,7 @@ UIGestureRecognizerDelegate
             if (maxValueFactor != 1)
                 arg.maxFloatValue = arg.minFloatValue + (arg.maxFloatValue - arg.minFloatValue) * maxValueFactor;
             // 把当前值重置为默认值
+            NSLog(@"%@: %f", parameterName, arg.minFloatValue);
             [arg reset];
             
             // 存储值
