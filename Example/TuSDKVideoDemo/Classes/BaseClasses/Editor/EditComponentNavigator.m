@@ -50,7 +50,7 @@
     
     // 更新布局
     CGRect viewControllerFrame = self.rootViewController.view.frame;
-    viewControllerFrame.origin.y = viewControllerFrame.size.height;
+//    viewControllerFrame.origin.y = viewControllerFrame.size.height;
     viewController.view.frame = viewControllerFrame;
     [self.rootViewController.view addSubview:viewController.view];
     
@@ -60,8 +60,10 @@
     }
     
     // 动画过渡
+    viewController.view.transform = CGAffineTransformTranslate(viewController.view.transform, 0, viewControllerFrame.size.height);
     [UIView animateWithDuration:kNavigationAnimationDuration animations:^{
-        viewController.view.frame = self.rootViewController.view.frame;
+//        viewController.view.frame = self.rootViewController.view.frame;
+        viewController.view.transform = CGAffineTransformIdentity;
     } completion:^(BOOL finished) {
         [viewController didMoveToParentViewController:self.rootViewController];
         // 标记结束跳转过渡

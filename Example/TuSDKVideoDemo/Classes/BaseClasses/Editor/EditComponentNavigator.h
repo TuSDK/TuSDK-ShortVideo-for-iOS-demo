@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 // 导航动画时长
-static const NSTimeInterval kNavigationAnimationDuration = 0.10;
+static const NSTimeInterval kNavigationAnimationDuration = 0.25;
 
 @protocol EditComponentNavigationProtocol, EditComponentNavigatorDelegate;
 

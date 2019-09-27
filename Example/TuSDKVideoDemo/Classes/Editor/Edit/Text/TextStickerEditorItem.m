@@ -77,6 +77,7 @@ static const CGFloat kButtonWidth = 20;
 @synthesize tag = _tag;
 @synthesize editable = _editable;
 @synthesize selected = _selected;
+@synthesize isChanged = _isChanged;
 
 -(instancetype)initWithEditor:(StickerEditor *)editor;{
     if (self = [self initWithFrame:CGRectZero]){
@@ -96,7 +97,7 @@ static const CGFloat kButtonWidth = 20;
 - (void)commonInit {
     
     self.editable = YES;
-    
+    self.isChanged = YES;
     // 配置子视图
     _containerView = [[UIView alloc] initWithFrame:CGRectZero];
     [self addSubview:_containerView];
@@ -179,6 +180,7 @@ static const CGFloat kButtonWidth = 20;
 #pragma mark - property
 
 - (void)setTextLabel:(AttributedLabel *)textLabel {
+    _isChanged = YES;
     _textLabel = textLabel;
     [_containerView addSubview:textLabel];
     textLabel.layer.allowsEdgeAntialiasing = YES;
@@ -198,6 +200,7 @@ static const CGFloat kButtonWidth = 20;
 
 - (void)setSelected:(BOOL)selected {
     if (!self.editable)return;
+    
     BOOL valueChaned = self.isSelected;
     if (selected) {
         _containerView.layer.borderWidth = 1;
@@ -226,6 +229,7 @@ static const CGFloat kButtonWidth = 20;
 #pragma mark - public
 
 - (void)updateLayoutWithContentSize:(CGSize)contentSize {
+    _isChanged = YES;
     CGRect contentBounds = (CGRect){CGPointZero, contentSize};
     // frame.size 依赖于 contentSize，位置不变
     CGPoint center = self.center;
@@ -264,6 +268,7 @@ static const CGFloat kButtonWidth = 20;
  @param angle 角度
  */
 - (void)setScale:(CGFloat)scale angle:(CGFloat)angle {
+    _isChanged = YES;
     if ([self maxScale] < scale * _scale) {
         scale = [self maxScale];
     }
@@ -309,6 +314,7 @@ static const CGFloat kButtonWidth = 20;
  @param sender 滑动手势
  */
 - (void)translationPanAction:(UIPanGestureRecognizer *)sender {
+    _isChanged = YES;
     switch (sender.state) {
         case UIGestureRecognizerStateBegan:{
             
@@ -347,6 +353,7 @@ static const CGFloat kButtonWidth = 20;
  @param sender 滑动手势
  */
 - (void)transformPanAction:(UIPanGestureRecognizer *)sender {
+    _isChanged = YES;
     switch (sender.state) {
         case UIGestureRecognizerStateBegan:{
             CGPoint location = [_scaleControl.superview convertPoint:_scaleControl.center toView:self.superview];
@@ -397,7 +404,7 @@ static const CGFloat kButtonWidth = 20;
  @return id<TuSDKMediaEffect>
  */
 - (id<TuSDKMediaEffect>)resultWithRegionRect:(CGRect)regionRect;{
-    if (self.effect && !self.editable) return self.effect;
+    if (self.effect && !self.isChanged) return self.effect;
     
     CGSize videoSize = regionRect.size;
     
@@ -423,13 +430,19 @@ static const CGFloat kButtonWidth = 20;
     textEffect.textStrokeColorProgress = textLabel.textStrokeColorProgress;
     textEffect.textColorProgress = textLabel.textColorProgress;
     textEffect.bgColorProgress = textLabel.bgColorProgress;
-
+    
+    if (_effect && _stickerEditor.delegate && [_stickerEditor.delegate respondsToSelector:@selector(imageStickerEditor:updateEffectFromItem:)]) {
+        [_stickerEditor.delegate imageStickerEditor:_stickerEditor updateEffectFromItem:self];
+        [_effect destory];
+        _effect = nil;
+    }
+    NSLog(@"--textEffect:%@", textEffect);
     return textEffect;
 }
 
+
 - (void)setEffect:(id<TuSDKMediaEffect>)effect;{
     _effect = effect;
-    
     MediaTextEffect *textEffect  = effect;
     AttributedLabel *textLabel = [AttributedLabel defaultLabel];
     textLabel.edgeInsets = textEffect.edgeInsets;
@@ -472,7 +485,9 @@ static const CGFloat kButtonWidth = 20;
     CGPoint center = textLabel.center;
     textLabel.center = center;
     
+    
     UIGraphicsBeginImageContextWithOptions(textLabel.intrinsicContentSize, NO, .0);
+    
     [textLabel.layer renderInContext:UIGraphicsGetCurrentContext()];
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
@@ -483,6 +498,7 @@ static const CGFloat kButtonWidth = 20;
     
     return image;
 }
+
 
 /**
  生成基于中点的百分比 frame
@@ -519,5 +535,8 @@ static const CGFloat kButtonWidth = 20;
     return CGPointMake(x, y);
 }
 
+- (void)dealloc {
+//    NSLog(@"dealloc: %@", self);
+}
 
 @end

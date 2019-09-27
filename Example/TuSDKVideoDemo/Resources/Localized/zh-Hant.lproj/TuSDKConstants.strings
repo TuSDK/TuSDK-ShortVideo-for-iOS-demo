@@ -197,3 +197,25 @@
 
 // 3.4.4 高斯模糊
 "lsq_filter_gaosi_01" = "高斯模糊";
+
+// 3.4.5 新相机滤镜-短视频
+"lsq_filter_SkinFair_1" = "白皙";
+"lsq_filter_SkinDawn_1" = "曙光";
+"lsq_filter_SkinSummer_1" = "初夏";
+"lsq_filter_SkinButter_1" = "淡奶";
+"lsq_filter_SkinJapanese_1" = "日系";
+"lsq_filter_SkinExtraordinary_1" = "非凡";
+"lsq_filter_SkinTender_1" = "粉嫩";
+"lsq_filter_SkinConfession_1" = "告白";
+"lsq_filter_SkinRose_1" = "玫瑰";
+"lsq_filter_SkinNostalgia_1" = "懷舊";
+"lsq_filter_SkinWarm_1" = "溫暖";
+"lsq_filter_SkinNatural_1" = "自然";
+"lsq_filter_SkinClear_1" = "清晰";
+"lsq_filter_SkinLeisurely_1" = "清逸";
+"lsq_filter_SkinLotus_1" = "蓮花";
+"lsq_filter_SkinHoney_1" = "蜜糖";
+"lsq_filter_SkinDusk_1" = "黃昏";
+"lsq_filter_SkinBeckoning_1" = "心動";
+"lsq_filter_SkinSweet_1" = "甜蜜";
+"lsq_filter_SkinPlain_1" = "素淨";

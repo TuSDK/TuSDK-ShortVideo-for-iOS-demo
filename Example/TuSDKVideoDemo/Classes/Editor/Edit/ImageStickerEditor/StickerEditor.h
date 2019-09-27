@@ -35,7 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  委托事件
  */
-@property (nonatomic)id<StickerEditorDelegate> delegate;
+@property (nonatomic, weak) id<StickerEditorDelegate> delegate;
 
 /**
  内如区域
@@ -68,6 +68,7 @@ NS_ASSUME_NONNULL_BEGIN
  移除所有贴纸项
  */
 - (void)removeAllItems;
+
 
 /**
  显示指定索引的贴纸
@@ -137,6 +138,16 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)imageStickerEditor:(StickerEditor *)editor didCancelSelectedItem:(UIView<StickerEditorItem> *)item;
 
+
+
+/**
+ 一个帖纸的特效被更新 （需要外部移除，避免内存泄漏）
+
+ @param editor 特效编辑器
+ @param item 贴纸项
+ */
+- (void)imageStickerEditor:(StickerEditor *)editor updateEffectFromItem:(UIView<StickerEditorItem> *)item;
+
 @end
 
 #pragma mark - StickerEditorItem
@@ -179,6 +190,9 @@ NS_ASSUME_NONNULL_BEGIN
  当前是否已选中
  */
 @property (nonatomic) BOOL selected;
+
+/* 当前是否进行了修改编辑，默认是YES */
+@property (nonatomic, assign) BOOL isChanged;
 
 /**
  隐藏或者显示

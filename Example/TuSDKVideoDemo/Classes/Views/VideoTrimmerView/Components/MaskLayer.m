@@ -29,6 +29,8 @@
     CGPathAddRect(mPath, NULL, self.bounds);
     CGPathAddRect(mPath, NULL, maskRect);
     self.path = mPath;
+    // 内存泄漏
+    CFRelease(mPath);
 }
 
 @end

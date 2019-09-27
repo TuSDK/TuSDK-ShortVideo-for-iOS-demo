@@ -84,6 +84,20 @@ StickerEditorDelegate
         [self setupUI];
         _viewDidLayout = YES;
     }
+    
+    // 获取视频在屏幕中的大小，应用到贴纸编辑区域的布局
+    CGRect bounds = self.movieEditor.holderView.bounds;
+    TuSDKVideoTrackInfo *trackInfo = self.movieEditor.inputAssetInfo.videoInfo.videoTrackInfoArray.firstObject;
+    CGSize videoSize = trackInfo.presentSize;
+    bounds.origin = CGPointMake(0, self.movieEditor.holderView.superview.frame.origin.y);
+    /** 计算视频绘制区域 */
+    if (self.movieEditor.options.outputSizeOptions.aspectOutputRatioInSideCanvas) {
+        // 根据用户设置的比例计算
+        CGRect outputRect = AVMakeRectWithAspectRatioInsideRect(self.movieEditor.options.outputSizeOptions.outputSize, bounds);
+        _stickerEditor.contentView.frame = outputRect;
+    }else {
+        _stickerEditor.contentView.frame = AVMakeRectWithAspectRatioInsideRect(videoSize, bounds);
+    }
 }
 
 - (void)setupUI {
@@ -100,28 +114,6 @@ StickerEditorDelegate
     /** 初始化 StickerEditor 用于编辑图片贴纸 */
     _stickerEditor = [[StickerEditor alloc] initWithHolderView:self.view];
     _stickerEditor.delegate = self;
-    
-    // 获取视频在屏幕中的大小，应用到文字编辑区域的布局
-    CGRect bounds = [UIScreen mainScreen].bounds;
-    CGFloat bottomPreviewOffset = [self.class bottomPreviewOffset];
-    if (@available(iOS 11.0, *)) {
-        bounds = UIEdgeInsetsInsetRect(bounds, self.view.safeAreaInsets);
-    }
-    
-    bounds.size.height -= bottomPreviewOffset;
-    bounds.origin.y = 0;
-    
-    TuSDKVideoTrackInfo *trackInfo = self.movieEditor.inputAssetInfo.videoInfo.videoTrackInfoArray.firstObject;
-    CGSize videoSize = trackInfo.presentSize;
-    
-    /** 计算视频绘制区域 */
-    if (self.movieEditor.options.outputSizeOptions.aspectOutputRatioInSideCanvas) {
-        CGRect outputRect = AVMakeRectWithAspectRatioInsideRect(self.movieEditor.options.outputSizeOptions.outputSize, bounds);
-        _stickerEditor.contentView.frame = outputRect;
-    }else {
-        _stickerEditor.contentView.frame = AVMakeRectWithAspectRatioInsideRect(videoSize, bounds);
-    }
-   
     
     /**
      由于 StickerEditor 和  MovieEditor 的特效不能同时显示，也为了保证图片贴纸和文字贴纸的编辑顺序，并在 UI 上有层级关系，这里统一将 TuSDKMediaEffectDataTypeStickerText 与 TuSDKMediaEffectDataTypeStickerImage 添加至 StickerEditor，点击保存时通过 StickerEditor 获取编辑后的特效并添加至 MovieEditor。

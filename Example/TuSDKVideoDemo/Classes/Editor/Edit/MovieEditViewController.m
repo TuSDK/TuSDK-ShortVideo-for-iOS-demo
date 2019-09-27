@@ -292,13 +292,16 @@ EditComponentNavigatorDelegate, FilterSwipeViewDelegate
     // option.cutTimeRange = [TuSDKTimeRange makeTimeRangeWithStart:kCMTimeZero endSeconds:mediaAssetInfo.videoInfo.duration];
 
     // 设置编码视频的画质
-    option.encodeVideoQuality = [TuSDKVideoQuality makeQualityWith:TuSDKRecordVideoQuality_Medium2];
+    option.encodeVideoQuality = [TuSDKVideoQuality makeQualityWith:TuSDKRecordVideoQuality_Medium3];
     // 是否保留原音
     option.enableVideoSound = YES;
     // 视频底色
     option.regionViewColor = lsqRGB(18, 18, 18);
+    
     // 设置水印，默认为空,
-    // 水印的大小是基于视频最小边1080进行缩放的，视频小分辨率小于1080则水印会对应缩小，
+    // 水印的大小是基于视频最小边1080进行缩放的，视频分辨率小于1080则水印会对应缩小，但显示在视频中的区域是不变的
+    // 建议水印的大小是1080P上相对应的即可，比如我们Demo中，想让水印显示区域在视频的五分之一左右，
+    // 因此我们的水印图片宽度是200，即使是分辨率低于1080P的，会将其对应缩放，显示区域占五分之一左右
     option.waterMarkImage = [UIImage imageNamed:@"sample_watermark.png"];
     // 设置水印图片的位置
     option.waterMarkPosition = lsqWaterMarkTopRight;
@@ -330,13 +333,13 @@ EditComponentNavigatorDelegate, FilterSwipeViewDelegate
         }
         
     }
-//    outputSize = CGSizeMake(1080, 1920);
+//    outputSize = CGSizeMake(540, 960);
     option.outputSizeOptions.outputSize = outputSize;
     option.outputSizeOptions.aspectOutputRatioInSideCanvas = YES;
     
     
     // 预览配置
-    option.prviewSizeOptions.outputSize = CGSizeMake(720, 1280);
+    option.prviewSizeOptions.outputSize = outputSize;
     option.prviewSizeOptions.aspectOutputRatioInSideCanvas = YES;
     
     

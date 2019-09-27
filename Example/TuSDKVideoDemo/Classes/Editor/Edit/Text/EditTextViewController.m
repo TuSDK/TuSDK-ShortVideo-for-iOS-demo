@@ -107,6 +107,9 @@ UITextViewDelegate
  */
 @property (nonatomic, weak) AttributedLabel *currentItemLabel;
 
+/* desc */
+@property (nonatomic, weak) TextStickerEditorItem *currentItem;
+
 /**
  用于编辑文字的文字域
  */
@@ -142,6 +145,10 @@ UITextViewDelegate
     
     for (MediaTextEffect *textEffect in textEffects)
         [self.movieEditor addMediaEffect:textEffect];
+    
+   // 清理数据
+    self.initialEffects = nil;
+    _stickerEditor = nil;
 }
 
 /**
@@ -202,9 +209,9 @@ UITextViewDelegate
     // 获取视频在屏幕中的大小，应用到文字编辑区域的布局
     CGRect bounds = [UIScreen mainScreen].bounds;
     CGFloat bottomPreviewOffset = [self.class bottomPreviewOffset];
-    if (@available(iOS 11.0, *)) {
-        bounds = UIEdgeInsetsInsetRect(bounds, self.view.safeAreaInsets);
-    }
+//    if (@available(iOS 11.0, *)) {
+//        bounds = UIEdgeInsetsInsetRect(bounds, self.view.safeAreaInsets);
+//    }
     bounds.size.height -= bottomPreviewOffset;
     bounds.origin.y = 0;
     
@@ -239,7 +246,7 @@ UITextViewDelegate
                 item.effect = effect;
                 item.tag  = idx;
                 item.selected = NO;
-                
+                item.isChanged = NO;
                 [weakSelf addItem:item];
                 [initialEffects addObject:effect];
                 break;
@@ -269,6 +276,14 @@ UITextViewDelegate
 
 }
 
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+//    NSLog(@"dealloc: %@", self);
+    if (_stickerEditor) {
+        _stickerEditor = nil;
+    }
+}
+
 /**
  设置是否启用文字菜单
 
@@ -295,9 +310,22 @@ UITextViewDelegate
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     _bottomViewContraints.constant = self.bottomNavigationBar.frame.size.height;
-
-
+    
+    // 获取视频在屏幕中的大小，应用到文字编辑区域的布局
+    CGRect bounds = self.movieEditor.holderView.bounds;
+    TuSDKVideoTrackInfo *trackInfo = self.movieEditor.inputAssetInfo.videoInfo.videoTrackInfoArray.firstObject;
+    CGSize videoSize = trackInfo.presentSize;
+    bounds.origin = CGPointMake(0, self.movieEditor.holderView.superview.frame.origin.y);
+    /** 计算视频绘制区域 */
+    if (self.movieEditor.options.outputSizeOptions.aspectOutputRatioInSideCanvas) {
+        // 根据用户设置的比例计算
+        CGRect outputRect = AVMakeRectWithAspectRatioInsideRect(self.movieEditor.options.outputSizeOptions.outputSize, bounds);
+        _stickerEditor.contentView.frame = outputRect;
+    }else {
+        _stickerEditor.contentView.frame = AVMakeRectWithAspectRatioInsideRect(videoSize, bounds);
+    }
 }
+
 
 /**
  同步进度更新文字显示与隐藏
@@ -380,6 +408,7 @@ UITextViewDelegate
         [_stickerEditor cancelSelectedAllItems];
         _trimmerView.selectedMarkIndex = -1;
         self.currentItemLabel = nil;
+        self.currentItem = nil;
         _lastSeek = NO;
     } else {
         [self updateMenuButtonState];
@@ -424,6 +453,7 @@ UITextViewDelegate
 
 - (void)textViewDidChange:(UITextView *)textView {
     _currentItemLabel.text = textView.text;
+    _currentItem.isChanged = YES;
 }
 
 /**
@@ -669,6 +699,7 @@ UITextViewDelegate
     
     // 清空 UI 状态
     self.currentItemLabel = nil;
+    self.currentItem = nil;
     [_stickerEditor cancelSelectedAllItems];
     _trimmerView.selectedMarkIndex = -1;
 }
@@ -720,7 +751,7 @@ UITextViewDelegate
             break;
         }
     }
-    
+    _currentItem.isChanged = YES;
     [menu updateByAttributeLabel:_currentItemLabel];
 }
 
@@ -728,12 +759,14 @@ UITextViewDelegate
 
 - (void)menu:(TextDirectionMenuView *)menu didChangeDirectionType:(TextDirectionType)directionType {
     _currentItemLabel.writingDirection = @[@(directionType)];
+    _currentItem.isChanged = YES;
 }
 
 #pragma mark - TextFontSizeMenuViewDelegate
 
 -(void)menu:(TextFontSizeMenuView *)menu didChangeFontSize:(CGFloat)fontSize
 {
+    _currentItem.isChanged = YES;
     _currentItemLabel.font = _currentItemLabel.bold ? [UIFont boldSystemFontOfSize:fontSize] : [UIFont systemFontOfSize:fontSize];
 }
 
@@ -751,6 +784,7 @@ UITextViewDelegate
     
     font = [UIFont fontWithName:fontName size:pointSize];
     _currentItemLabel.font = font;
+    _currentItem.isChanged = YES;
 }
 
 #pragma mark TextColorMenuViewDelegate
@@ -764,6 +798,7 @@ UITextViewDelegate
 - (void)menu:(TextColorMenuView *)menu didChangeTextColor:(UIColor *)color
 {
     _currentItemLabel.textColor = color;
+    _currentItem.isChanged = YES;
 }
 
 #pragma mark - TextSpaceMenuViewDelegate
@@ -778,36 +813,43 @@ UITextViewDelegate
         default:
             break;
     }
+    _currentItem.isChanged = YES;
 }
 
 #pragma mark - TextAlphaMenuViewDelegate
 - (void)menu:(TextAlphaMenuView *)menu didChangeAlphavalue:(CGFloat)value {
     _currentItemLabel.textColor = [_currentItemLabel.textColor colorWithAlphaComponent:value];
+    _currentItem.isChanged = YES;
 }
 
 #pragma mark - TextBorderMenuViewDelegate
 - (void)menu:(TextBorderMenuView *)menu didChangeBorderSize:(CGFloat)borderSize {
     _currentItemLabel.textStrokeWidth = borderSize;
+    _currentItem.isChanged = YES;
 }
 
 - (void)menu:(TextBorderMenuView *)menu didChangeBorderColor:(UIColor *)color {
     _currentItemLabel.textStrokeColor = color;
+    _currentItem.isChanged = YES;
 }
 
 #pragma mark - TextBgColorMenuViewDelegate
 -(void)menu:(TextBgColorMenuView *)menu didChangeBgColor:(UIColor *)color
 {
+    _currentItem.isChanged = YES;
     _currentItemLabel.backgroundColor = [color colorWithAlphaComponent:CGColorGetAlpha(_currentItemLabel.backgroundColor.CGColor)];
 }
 
 -(void)menu:(TextBgColorMenuView *)menu didChangeBgAlpha:(CGFloat)alpha
 {
+    _currentItem.isChanged = YES;
     _currentItemLabel.backgroundColor = [_currentItemLabel.backgroundColor colorWithAlphaComponent:alpha];
 }
 
 #pragma mark - TextAlignmentMenuViewDelegate
 -(void)menu:(TextAlignmentMenuView *)menu didChangeAlignment:(NSTextAlignment)alignment;{
     _currentItemLabel.textAlignment = alignment;
+    _currentItem.isChanged = YES;
 }
 
 #pragma mark - ScrollVideoTrimmerViewDelegate
@@ -822,14 +864,16 @@ UITextViewDelegate
     
     [_stickerEditor selectWithIndex:markIndex];
 
-    if (markIndex == NSNotFound)
+    if (markIndex == NSNotFound) {
         self.currentItemLabel = nil;
-    
+        self.currentItem = nil;
+    }
     // 更新 UI
     TextStickerEditorItem *item = (TextStickerEditorItem *)[_stickerEditor itemByTag:markIndex];
     if (item.selected) return;
     
     self.currentItemLabel = item.textLabel;
+    self.currentItem = item;
     item.selected = YES;
     // 跳转到文字的时间范围内
     if (item.textLabel) [self seekToTimeRange:item.textLabel.timeRange];
@@ -855,7 +899,7 @@ UITextViewDelegate
         // 右滑块修整时间
         case TrimmerTimeLocationRight:{
             _currentItemLabel.timeRange = [_trimmerView selectedTimeRangeAtDuration:self.movieEditor.inputDuration];
-
+            _currentItem.isChanged = YES;
         } break;
         // 当前游标修整时间
         case TrimmerTimeLocationCurrent:{
@@ -922,6 +966,7 @@ UITextViewDelegate
  @param item item description
  */
 - (void)shouldEditItem:(TextStickerEditorItem *)item; {
+    self.currentItem = item;
     self.currentItemLabel = item.textLabel;
     self.textView.text = item.textLabel.text;
     [self.textView becomeFirstResponder];
@@ -955,6 +1000,7 @@ UITextViewDelegate
     
     // 联动更新 UI
     self.currentItemLabel = item.textLabel;
+    self.currentItem = item;
     [_trimmerView addMarkWithColor:[UIColor colorWithRed:255/255.0 green:204/255.0 blue:0/255.0 alpha:0.5] timeRange:item.textLabel.timeRange atDuration:duration];
     _trimmerView.selectedMarkIndex = item.selected ? item.tag : -1;
     
@@ -971,11 +1017,17 @@ UITextViewDelegate
     
     // 联动更新 UI
     self.currentItemLabel = nil;
+    self.currentItem = nil;
     [_trimmerView removeMarkAtIndex:item.tag];
     _trimmerView.trimmerMaskView.hidden = YES;
     [self.view endEditing:YES];
     
     [self resetItemsTag];
+    if (item.effect) {
+        [(NSMutableArray *)self.initialEffects removeObject:item.effect];
+        [self.movieEditor removeMediaEffect:item.effect];
+    }
+    item = nil;
 }
 
 /**
@@ -990,7 +1042,7 @@ UITextViewDelegate
     [_trimmerView selectMarkWithIndex:item.tag];
     
     self.currentItemLabel = item.textLabel;
-    
+    self.currentItem = item;
     // 跳转到文字的时间范围内
     [self seekToTimeRange:item.textLabel.timeRange];
 }
@@ -1003,6 +1055,20 @@ UITextViewDelegate
  */
 -(void)imageStickerEditor:(StickerEditor *)editor didCancelSelectedItem:(TextStickerEditorItem *)item;{
 
+}
+
+
+/**
+ 更新贴纸的特效，移除贴纸
+
+ @param editor 特效编辑器
+ @param item 贴纸
+ */
+- (void)imageStickerEditor:(StickerEditor *)editor updateEffectFromItem:(UIView<StickerEditorItem> *)item {
+    if (item.effect) {
+        [(NSMutableArray *)self.initialEffects removeObject:item.effect];
+        [self.movieEditor removeMediaEffect:item.effect];
+    }
 }
 
 @end

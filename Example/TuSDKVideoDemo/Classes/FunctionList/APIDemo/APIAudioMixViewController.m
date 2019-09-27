@@ -91,9 +91,40 @@ typedef NS_ENUM(NSInteger, AudioIndex) {
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    // 添加后台、前台切换的通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(enterBackFromFront) name:UIApplicationDidEnterBackgroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(enterFrontFromBack) name:UIApplicationWillEnterForegroundNotification object:nil];
+    
     [self setupUI];
     [self setupAudioPlayer];
     [self setupAudioMixer];
+}
+#pragma mark - 后台切换操作
+
+/**
+ 进入后台
+ */
+- (void)enterBackFromFront {
+    if (_resultURL) {
+        [_audioPlayer pause];
+    }else{
+        [self pauseMaterialAudioPlay];
+    }
+    
+    if (_audioMixer.status == lsqAudioMixStatusMixing) {
+        [_audioMixer  cancelMixing];
+    }
+}
+
+/**
+ 后台到前台
+ */
+- (void)enterFrontFromBack {
+    if (_resultURL) {
+          [_audioPlayer play];
+      }else{
+          [self playMaterialAudio];
+      }
 }
 
 #pragma mark - setup

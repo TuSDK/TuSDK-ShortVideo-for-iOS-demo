@@ -39,6 +39,8 @@
     NSArray<TuSDKPFStickerGroup *> *stickers = [[TuSDKPFStickerLocalPackage package] getSmartStickerGroupsWithFaceFeature:NO];
     for (TuSDKPFStickerGroup *sticker in stickers) {
         NSURL *audioURL = [self audioURLWithStickerIdt:sticker.idt];
+        //过滤录制相机中的动态贴纸，与音乐文件不匹配的动态贴纸都不是MV
+        if(!audioURL) continue;
         TuSDKMediaStickerAudioEffect *mvData = [[TuSDKMediaStickerAudioEffect alloc] initWithAudioURL:audioURL stickerGroup:sticker];
         [mvEffectDatas addObject:mvData];
     }

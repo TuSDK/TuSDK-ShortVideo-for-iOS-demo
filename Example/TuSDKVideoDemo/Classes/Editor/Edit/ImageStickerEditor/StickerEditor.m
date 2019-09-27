@@ -162,4 +162,15 @@
     return effects;
 }
 
+- (void)dealloc {
+//    NSLog(@"dealloc: %@", self);
+    [self clearItems];
+}
+
+- (void)clearItems {
+    [self.items enumerateObjectsUsingBlock:^(UIView<StickerEditorItem> * _Nonnull item, NSUInteger idx, BOOL * _Nonnull stop) {
+        [item removeFromSuperview];
+    }];
+}
+
 @end

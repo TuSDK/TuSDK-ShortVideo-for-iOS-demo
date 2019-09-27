@@ -58,6 +58,10 @@ static const int kCountAtRow = 5;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    // 添加后台、前台切换的通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(enterBackFromFront) name:UIApplicationDidEnterBackgroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(enterFrontFromBack) name:UIApplicationWillEnterForegroundNotification object:nil];
+    
     _imageWidth = (CGRectGetWidth([UIScreen mainScreen].bounds) - kMargin) / kCountAtRow - kMargin;
     
     // 执行 _actionsAfterViewDidLoad 存储的任务
@@ -85,6 +89,26 @@ static const int kCountAtRow = 5;
         }
         [_actionsAfterViewDidLoad addObject:action];
     }
+}
+
+#pragma mark - 后台切换操作
+
+/**
+ 进入后台
+ */
+- (void)enterBackFromFront {
+    if (_player.rate != 0) {
+        [_player pause];
+    }
+ }
+
+/**
+ 后台到前台
+ */
+- (void)enterFrontFromBack {
+     if (_player.rate == 0) {
+         [_player play];
+     }
 }
 
 #pragma mark - property

@@ -77,6 +77,9 @@ static const NSTimeInterval kMinCutDuration = 3.0;
  */
 @property (nonatomic, assign) BOOL removeTempFileFlag;
 
+
+@property (nonatomic, assign) CGSize outputSize;
+
 @end
 
 
@@ -127,9 +130,11 @@ static const NSTimeInterval kMinCutDuration = 3.0;
     }];
     
     _moviePlayer = [[TuSDKMediaMutableAssetMoviePlayer alloc] initWithMediaAssets:inputMediaAssets preview:_playerView];
+    // 这里获取的尺寸才是最正确的
+    _outputSize = inputMediaAssets.firstObject.inputAssetInfo.videoInfo.videoTrackInfoArray.firstObject.presentSize;
     
     // 预览设置
-    _moviePlayer.previewSize = CGSizeMake(720, 1280);
+//    _moviePlayer.previewSize = CGSizeMake(720, 1280);
     _moviePlayer.aspectPreviewRatioInSideCanvas = YES;
     _moviePlayer.delegate = self;
     _selectedTimeRange = CMTimeRangeMake(kCMTimeZero, _moviePlayer.asset.duration);
@@ -190,7 +195,7 @@ static const NSTimeInterval kMinCutDuration = 3.0;
     if (_moviePlayer) {
         if (_saver) {
             [_saver cancelExport];
-            _saver = nil;
+//            _saver = nil;
         }
         [_moviePlayer stop];
     }
@@ -291,7 +296,7 @@ static const NSTimeInterval kMinCutDuration = 3.0;
     [_moviePlayer appendMediaTimeSlice:cutTimeRangeSlice];
     
     exportSettings.videoComposition = _moviePlayer.videoComposition;
-    CGSize outputSize = _moviePlayer.inputAssetInfo.videoInfo.videoTrackInfoArray.firstObject.presentSize;
+    CGSize outputSize = _outputSize;
     if ([UIDevice lsqDevicePlatform] < TuSDKDevicePlatform_iPhone6) {
         // 需要裁剪: 竖屏条件/横屏条件
         if ((outputSize.width < outputSize.height && outputSize.width > 540.0) || (outputSize.width > outputSize.height && outputSize.width > 960.0)) {
@@ -317,8 +322,8 @@ static const NSTimeInterval kMinCutDuration = 3.0;
     
     exportSettings.outputSize = outputSize;
     exportSettings.aspectOutputRatioInSideCanvas = YES;
-//    exportSettings.outputVideoQuality = [TuSDKVideoQuality makeQualityWith:TuSDKRecordVideoQuality_High1];
-//    exportSettings.outputSize = _moviePlayer.inputAssetInfo.videoInfo.videoTrackInfoArray.firstObject.presentSize;
+    exportSettings.outputVideoQuality = [TuSDKVideoQuality makeQualityWith:TuSDKRecordVideoQuality_Medium3];
+    
     NSLog(@"---width:%f, height:%f", exportSettings.outputSize.width, exportSettings.outputSize.height);
     // 通过 appendMediaTimeSlice 为播放器添加切片，只是为了生成 videoComposition。
     [_moviePlayer removeAllMediaTimeSlices];
@@ -503,8 +508,11 @@ static const NSTimeInterval kMinCutDuration = 3.0;
  @since      v3.0
  */
 - (void)mediaAssetExportSession:(TuSDKMediaMovieAssetTranscoder *_Nonnull)exportSession result:(TuSDKVideoResult *_Nonnull)result error:(NSError *_Nonnull)error {
+    [[TuSDK shared].messageHub dismiss];
     if (result) {
-        
+        if (result.videoPath == nil) {
+            return;
+        }
         _outputURL = [NSURL fileURLWithPath:result.videoPath];
         
         /** 转码后生成的时临时需要自行清楚，MovieEditor 不负责清除。*/

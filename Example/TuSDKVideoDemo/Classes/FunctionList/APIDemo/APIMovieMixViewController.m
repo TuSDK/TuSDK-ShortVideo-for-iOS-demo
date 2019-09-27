@@ -76,6 +76,10 @@ typedef NS_ENUM(NSInteger, AudioIndex) {
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    // 添加后台、前台切换的通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(enterBackFromFront) name:UIApplicationDidEnterBackgroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(enterFrontFromBack) name:UIApplicationWillEnterForegroundNotification object:nil];
+    
     [self setupUI];
     [self setupVideoPlayer];
     [self setupAudioPlayer];
@@ -96,6 +100,41 @@ typedef NS_ENUM(NSInteger, AudioIndex) {
     UIImage *image =  UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return image;
+}
+
+#pragma mark - 后台切换操作
+
+/**
+ 进入后台
+ */
+- (void)enterBackFromFront {
+    if (_firstMixAudioPlayer.isPlaying) {
+        [_firstMixAudioPlayer pause];
+    }
+    if (_secondMixAudioPlayer.isPlaying) {
+        [_secondMixAudioPlayer pause];
+    }
+    if (_player.rate != 0) {
+        [_player pause];
+    }
+    if (_movieMixer.status == lsqMovieMixStatusMixing) {
+        [_movieMixer cancelMixing];
+    }
+}
+
+/**
+ 后台到前台
+ */
+- (void)enterFrontFromBack {
+     if (!_firstMixAudioPlayer.isPlaying) {
+         [_firstMixAudioPlayer play];
+     }
+     if (!_secondMixAudioPlayer.isPlaying) {
+         [_secondMixAudioPlayer play];
+     }
+     if (_player.rate == 0) {
+         [_player play];
+     }
 }
 
 #pragma mark - setup

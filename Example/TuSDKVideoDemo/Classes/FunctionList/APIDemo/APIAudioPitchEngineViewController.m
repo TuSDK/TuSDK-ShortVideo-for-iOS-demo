@@ -36,7 +36,11 @@
 - (void)viewDidLoad;
 {
     [super viewDidLoad];
-
+    
+    // 添加后台、前台切换的通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(enterBackFromFront) name:UIApplicationDidEnterBackgroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(enterFrontFromBack) name:UIApplicationWillEnterForegroundNotification object:nil];
+    
     // AVPlayer 用以演示音频播放
     _audioPlayer = [[AVPlayer alloc] init];
     
@@ -57,7 +61,33 @@
     
     [super viewWillDisappear:animated];
 }
+#pragma mark - 后台切换操作
 
+/**
+ 进入后台
+ */
+- (void)enterBackFromFront {
+    if (_audioPlayer.rate != 0) {
+        [_audioPlayer pause];
+    }
+    
+    if (_audioPitchRecoder.isRecording) {
+        [_audioPitchRecoder cancelRecord];
+    }
+}
+
+/**
+ 后台到前台
+ */
+- (void)enterFrontFromBack {
+    
+   if (_audioPlayer.rate == 0) {
+       [_audioPlayer play];
+       
+       _startAudioRecordBtn.enabled = YES;
+       _stopAudioRecordBtn.enabled = YES;
+   }
+}
 /**
  启动音频采集及音频变声处理
  */
@@ -78,10 +108,13 @@
 - (IBAction)finishRecordingAudio;
 {
     /** - (void)mediaAssetAudioRecorder:(APIAudioPitchEngineRecorder *)mediaAssetAudioRecorder filePath:(NSString *)filePath */
-    [_audioPitchRecoder stopRecord];
-    
-    _startAudioRecordBtn.enabled = YES;
-    _stopAudioRecordBtn.enabled = NO;
+    if (_audioPitchRecoder.isRecording) {
+        
+        [_audioPitchRecoder stopRecord];
+        
+        _startAudioRecordBtn.enabled = YES;
+        _stopAudioRecordBtn.enabled = NO;
+    }
 }
 
 

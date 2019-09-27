@@ -16,7 +16,8 @@
 // 视频编辑器滤镜的 filterCode
 #define kVideoFilterCodes @"Olympus_1", @"Leica_1", @"Gold_1", @"Cheerful_1", @"White_1", @"s1950_1", @"Blurred_1", @"Newborn_1", @"Fade_1", @"NewYork_1"
 // 录制相机普通滤镜的 filterCode
-#define kCameraNormalFilterCodes  @"SkinNature10", @"SkinPink10", @"SkinJelly10", @"SkinNoir10", @"SkinRuddy10", @"SkinSugar10", @"SkinPowder10", @"SkinWheat10", @"SkinSoft10", @"SkinPure10", @"SkinMoving10", @"SkinPast10", @"SkinCookies10", @"SkinRose10", @"gaosi_01"
+#define kCameraNormalFilterCodes  @"SkinNatural_1", @"SkinFair_1", @"SkinLotus_1", @"SkinBeckoning_1", @"SkinTender_1", @"SkinLeisurely_1", @"SkinRose_1", @"SkinWarm_1", @"SkinClear_1", @"SkinConfession_1", @"SkinJapanese_1",@"SkinExtraordinary_1",@"SkinHoney_1",@"SkinButter_1",@"SkinDawn_1",@"SkinSummer_1",@"SkinSweet_1",@"SkinPlain_1",@"SkinDusk_1",@"SkinNostalgia_1",@"gaosi_01"
+
 // 录制相机漫画滤镜 filterCode
 #define kCameraComicsFilterCodes @"CHComics_Video", @"USComics_Video", @"JPComics_Video", @"Lightcolor_Video", @"Ink_Video", @"Monochrome_Video"
 // 美颜滤镜参数名称

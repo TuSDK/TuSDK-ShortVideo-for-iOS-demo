@@ -35,6 +35,13 @@
  */
 @property (nonatomic)TuSDKMediaAssetExtractorSettings * _Nullable outputSettings;
 
+
+/*!
+ 是否是导出时的解码器
+ @since  v3.4.5
+ */
+@property (nonatomic, assign) BOOL isExport;
+
 /**
  分离的轨道数据类型
  @since      v3.0

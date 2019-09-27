@@ -42,11 +42,40 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    // 添加后台、前台切换的通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(enterBackFromFront) name:UIApplicationDidEnterBackgroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(enterFrontFromBack) name:UIApplicationWillEnterForegroundNotification object:nil];
+    
     // 国际化
     _usageLabel.text = NSLocalizedStringFromTable(@"tu_APIAudioRecordViewController_usage", @"VideoDemo", @"APIAudioRecordViewController_usage");
     [_actionButtons[0] setTitle:NSLocalizedStringFromTable(@"tu_开始录音", @"VideoDemo", @"开始录音") forState:UIControlStateNormal];
     [_actionButtons[1] setTitle:NSLocalizedStringFromTable(@"tu_结束录音", @"VideoDemo", @"结束录音") forState:UIControlStateNormal];
     [_actionButtons[2] setTitle:NSLocalizedStringFromTable(@"tu_播放录音", @"VideoDemo", @"播放录音") forState:UIControlStateNormal];
+}
+
+#pragma mark - 后台切换操作
+
+/**
+ 进入后台
+ */
+- (void)enterBackFromFront {
+    if (_audioPlayer.isPlaying) {
+        [_audioPlayer pause];
+    }
+    
+    if (_audioRecorder.status == lsqAudioRecordingStatusRecording) {
+        [_audioRecorder  cancelRecording];
+    }
+}
+
+/**
+ 后台到前台
+ */
+- (void)enterFrontFromBack {
+    
+   if (_audioPlayer.isPlaying) {
+       [_audioPlayer pause];
+   }
 }
 
 #pragma mark - 录音

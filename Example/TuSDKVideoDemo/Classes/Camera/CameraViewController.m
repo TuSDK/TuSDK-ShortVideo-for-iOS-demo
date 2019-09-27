@@ -21,13 +21,15 @@
 #define kComicsFilterCodes @[@"Normal", kCameraComicsFilterCodes]
 
 // 轻易不要动，产品让改才改
+// 精准美颜参数
 #define kSkinFaceSmothingMaxDefault 1.0
 #define kSkinFaceWhiteningMaxDefault 0.4
 #define kSkinFaceRuddyMaxDefault 0.35
 
-#define kSkinPinkFaceSmothingMaxDefault 1.0
-#define kSkinPinkFaceWhiteningMaxDefault 0.5
-#define kSkinPinkFaceRuddyMaxDefault 0.65
+// 极致美颜参数
+#define kSkinMoistFaceSmothingMaxDefault 1.0
+#define kSkinMoistFaceWhiteningMaxDefault 0.6
+#define kSkinMoistFaceRuddyMaxDefault 0.65
 
 // 顶部工具栏高度
 static const CGFloat kTopBarHeight = 64.0;
@@ -69,6 +71,8 @@ LSQGPUImageVideoCameraDelegate
     BOOL _canResetExposures;
     
     BOOL _isSetDefaultEffect;
+    
+    BOOL _isSetUIAfterCamera;
 }
 
 /**
@@ -131,7 +135,7 @@ LSQGPUImageVideoCameraDelegate
     [self setupUI];
     
     // 相机权限
-//    [self requestCameraPermission];
+    [self requestCameraPermission];
 }
 
 - (void)viewDidLayoutSubviews {
@@ -144,6 +148,9 @@ LSQGPUImageVideoCameraDelegate
         
         self->_exposureSlider.frame = CGRectMake(self.view.bounds.size.width - 45, (self.view.bounds.size.height-220)*0.5, 40, 220);
         self->_lightImageView.frame = CGRectMake(self.view.bounds.size.width - 40, (self.view.bounds.size.height-220)*0.5 - 35, 30, 30);
+        
+        // 更新其他 UI
+        [self setupUIAfterCameraSetup];
     });
 }
 
@@ -181,11 +188,13 @@ LSQGPUImageVideoCameraDelegate
  配置相机摄像头和闪光灯信息
  */
 - (void)setupUIAfterCameraSetup {
+    
+    //确保录制相机最小录制时间占位图只会添加一次
+    if (_isSetUIAfterCamera) return;
     // 同步相机镜头位置
     _controlMaskView.moreMenuView.disableFlashSwitching = _camera.cameraPosition == AVCaptureDevicePositionFront;
-    
     [_controlMaskView.markableProgressView addPlaceholder:_camera.minRecordingTime / _camera.maxRecordingTime markWidth:4];
-    
+    _isSetUIAfterCamera = YES;
 }
 
 
@@ -195,10 +204,10 @@ LSQGPUImageVideoCameraDelegate
     
     _lightImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
     _lightImageView.image = [UIImage imageNamed:@"ic_light"];
-    [self.view addSubview:_lightImageView];
+    [self.controlMaskView addSubview:_lightImageView];
     
     _exposureSlider = [[UISlider alloc] initWithFrame:CGRectZero];
-    [self.view addSubview:_exposureSlider];
+    [self.controlMaskView addSubview:_exposureSlider];
     _exposureSlider.transform = CGAffineTransformMakeRotation(-M_PI/2);
     _exposureSlider.maximumValue = 1.0;
     _exposureSlider.minimumValue = 0.0;
@@ -247,6 +256,7 @@ LSQGPUImageVideoCameraDelegate
 
 #pragma mark - LSQGPUImageVideoCameraDelegate
 - (void)willOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer {
+    
     // 不允许重置时，返回
     if (_canResetExposures == NO) {
         return;
@@ -254,14 +264,13 @@ LSQGPUImageVideoCameraDelegate
 
     // 获取当前帧数据的环境光强度
     CFDictionaryRef metadataDict = CMCopyDictionaryOfAttachments(NULL,sampleBuffer, kCMAttachmentMode_ShouldPropagate);
-    NSDictionary *metadata = [[NSMutableDictionary alloc] initWithDictionary:(__bridge NSDictionary*)metadataDict];
-    CFRelease(metadataDict);
-    NSDictionary *exifMetadata = [[metadata objectForKey:(NSString *)kCGImagePropertyExifDictionary] mutableCopy];
-    float brightnessValue = [[exifMetadata objectForKey:(NSString *)kCGImagePropertyExifBrightnessValue] floatValue];
     
     // 不要在处理视频线程中操作
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        
+        NSDictionary *metadata = [[NSMutableDictionary alloc] initWithDictionary:(__bridge NSDictionary*)metadataDict];
+        CFRelease(metadataDict);
+        NSDictionary *exifMetadata = [[metadata objectForKey:(NSString *)kCGImagePropertyExifDictionary] mutableCopy];
+        float brightnessValue = [[exifMetadata objectForKey:(NSString *)kCGImagePropertyExifBrightnessValue] floatValue];
         if (self->_lastBrightnessValue == 0) {
             self->_lastBrightnessValue = brightnessValue;
         }
@@ -356,9 +365,8 @@ LSQGPUImageVideoCameraDelegate
         [self setupCamera];
         // 启动相机
         [self.camera tryStartCameraCapture];
-        
         // 默认选中的滤镜
-        self.currentFilterIndex = 2;
+        self.currentFilterIndex = 1;
         // 设置默认滤镜
         self.defaultFilterCode = self.filterCodes[self.currentFilterIndex];
         
@@ -466,9 +474,6 @@ LSQGPUImageVideoCameraDelegate
     _camera.speedMode = lsqSpeedMode_Normal;
     // 设置检测框最小倍数 [取值范围: 0.1 < x < 0.5, 默认: 0.2] 值越大性能越高距离越近
     [_camera setDetectScale:0.2f];
-    
-    // 更新其他 UI
-    [self setupUIAfterCameraSetup];
 }
 
 #pragma mark - 界面按钮事件
@@ -479,6 +484,7 @@ LSQGPUImageVideoCameraDelegate
  @param sender 返回按钮事件
  */
 - (IBAction)backButtonAction:(id)sender {
+    // 取消录制状态
     _canResetExposures = NO;
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -1243,11 +1249,11 @@ LSQGPUImageVideoCameraDelegate
             }
         } else {
             if ([arg.key isEqualToString:@"smoothing"]) {
-                [skinFaceEffect argWithKey:arg.key].maxFloatValue = kSkinPinkFaceSmothingMaxDefault;
+                [skinFaceEffect argWithKey:arg.key].maxFloatValue = kSkinMoistFaceSmothingMaxDefault;
             } else if ([arg.key isEqualToString:@"whitening"]) {
-                [skinFaceEffect argWithKey:arg.key].maxFloatValue = kSkinPinkFaceWhiteningMaxDefault;
+                [skinFaceEffect argWithKey:arg.key].maxFloatValue = kSkinMoistFaceWhiteningMaxDefault;
             } else if ([arg.key isEqualToString:@"ruddy"]) {
-                [skinFaceEffect argWithKey:arg.key].maxFloatValue = kSkinPinkFaceRuddyMaxDefault;
+                [skinFaceEffect argWithKey:arg.key].maxFloatValue = kSkinMoistFaceRuddyMaxDefault;
             }
         }
         [skinFaceEffect argWithKey:arg.key].precent = arg.precent;
