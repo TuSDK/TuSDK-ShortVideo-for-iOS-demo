@@ -46,10 +46,6 @@
 		D73AA913229FA8630024BF8D /* EditTransitionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D73AA911229FA8630024BF8D /* EditTransitionViewController.m */; };
 		D73AA914229FA8630024BF8D /* EditTransitionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D73AA912229FA8630024BF8D /* EditTransitionViewController.xib */; };
 		D73AA9A422A637130024BF8D /* TransitionEffectListView.m in Sources */ = {isa = PBXBuildFile; fileRef = D73AA9A322A637130024BF8D /* TransitionEffectListView.m */; };
-		D7A40E63233E3AC400710708 /* TuSDKVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7A40E5F233E3AC400710708 /* TuSDKVideo.framework */; };
-		D7A40E64233E3AC400710708 /* TuSDKFace.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7A40E60233E3AC400710708 /* TuSDKFace.framework */; };
-		D7A40E65233E3AC400710708 /* libyuv.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7A40E61233E3AC400710708 /* libyuv.framework */; };
-		D7A40E66233E3AC400710708 /* TuSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7A40E62233E3AC400710708 /* TuSDK.framework */; };
 		D7BCA5F3229E7170001E4480 /* APIImageVideoPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7BCA5F2229E7170001E4480 /* APIImageVideoPickerViewController.m */; };
 		D7BCA5F5229E717B001E4480 /* APIImageVideoPickerViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D7BCA5F4229E717B001E4480 /* APIImageVideoPickerViewController.storyboard */; };
 		D7BCA5F9229E9B26001E4480 /* APIImageVideoComposer.m in Sources */ = {isa = PBXBuildFile; fileRef = D7BCA5F8229E9B26001E4480 /* APIImageVideoComposer.m */; };
@@ -75,6 +71,10 @@
 		D7BD2776233333B9003600C5 /* lsq_filter_thumb_SkinBeckoning_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D7BD2762233333B8003600C5 /* lsq_filter_thumb_SkinBeckoning_1.jpg */; };
 		D7BF7C5F22BA425C0063CDE8 /* TransitionHorizontalListItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = D7BF7C5E22BA425C0063CDE8 /* TransitionHorizontalListItemView.m */; };
 		D7BF7C6622BCB51C0063CDE8 /* sample_watermark.png in Resources */ = {isa = PBXBuildFile; fileRef = D7BF7C6522BCB51C0063CDE8 /* sample_watermark.png */; };
+		D7CA422F235EF27100868612 /* TuSDKVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7CA422B235EF27100868612 /* TuSDKVideo.framework */; };
+		D7CA4230235EF27100868612 /* TuSDKFace.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7CA422C235EF27100868612 /* TuSDKFace.framework */; };
+		D7CA4231235EF27100868612 /* libyuv.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7CA422D235EF27100868612 /* libyuv.framework */; };
+		D7CA4232235EF27100868612 /* TuSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7CA422E235EF27100868612 /* TuSDK.framework */; };
 		D7D93E3E22B74E6100169CCB /* ImagePreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7D93E3D22B74E6100169CCB /* ImagePreviewViewController.m */; };
 		D7E350E722E7072B005166DE /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D7E350E622E7072A005166DE /* libresolv.tbd */; };
 		D7EB49D62313859800DDA49B /* lsq_filter_thumb_gaosi_01.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D7EB49D52313859800DDA49B /* lsq_filter_thumb_gaosi_01.jpg */; };
@@ -348,10 +348,7 @@
 		D73AA912229FA8630024BF8D /* EditTransitionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditTransitionViewController.xib; sourceTree = "<group>"; };
 		D73AA9A222A637130024BF8D /* TransitionEffectListView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TransitionEffectListView.h; sourceTree = "<group>"; };
 		D73AA9A322A637130024BF8D /* TransitionEffectListView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TransitionEffectListView.m; sourceTree = "<group>"; };
-		D7A40E5F233E3AC400710708 /* TuSDKVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TuSDKVideo.framework; sourceTree = "<group>"; };
-		D7A40E60233E3AC400710708 /* TuSDKFace.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TuSDKFace.framework; sourceTree = "<group>"; };
-		D7A40E61233E3AC400710708 /* libyuv.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = libyuv.framework; sourceTree = "<group>"; };
-		D7A40E62233E3AC400710708 /* TuSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TuSDK.framework; sourceTree = "<group>"; };
+		D7634A39235ED9F50088519B /* TuSDKVideoDemo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TuSDKVideoDemo.entitlements; sourceTree = "<group>"; };
 		D7BCA5F1229E7170001E4480 /* APIImageVideoPickerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APIImageVideoPickerViewController.h; sourceTree = "<group>"; };
 		D7BCA5F2229E7170001E4480 /* APIImageVideoPickerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APIImageVideoPickerViewController.m; sourceTree = "<group>"; };
 		D7BCA5F4229E717B001E4480 /* APIImageVideoPickerViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = APIImageVideoPickerViewController.storyboard; sourceTree = "<group>"; };
@@ -380,6 +377,10 @@
 		D7BF7C5D22BA425C0063CDE8 /* TransitionHorizontalListItemView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TransitionHorizontalListItemView.h; sourceTree = "<group>"; };
 		D7BF7C5E22BA425C0063CDE8 /* TransitionHorizontalListItemView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TransitionHorizontalListItemView.m; sourceTree = "<group>"; };
 		D7BF7C6522BCB51C0063CDE8 /* sample_watermark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sample_watermark.png; sourceTree = "<group>"; };
+		D7CA422B235EF27100868612 /* TuSDKVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TuSDKVideo.framework; sourceTree = "<group>"; };
+		D7CA422C235EF27100868612 /* TuSDKFace.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TuSDKFace.framework; sourceTree = "<group>"; };
+		D7CA422D235EF27100868612 /* libyuv.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = libyuv.framework; sourceTree = "<group>"; };
+		D7CA422E235EF27100868612 /* TuSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TuSDK.framework; sourceTree = "<group>"; };
 		D7D93E3C22B74E6100169CCB /* ImagePreviewViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImagePreviewViewController.h; sourceTree = "<group>"; };
 		D7D93E3D22B74E6100169CCB /* ImagePreviewViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImagePreviewViewController.m; sourceTree = "<group>"; };
 		D7E350E622E7072A005166DE /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
@@ -703,13 +704,13 @@
 			files = (
 				D7E350E722E7072B005166DE /* libresolv.tbd in Frameworks */,
 				F8FA849D219413B0002B24EB /* libc++.tbd in Frameworks */,
-				D7A40E66233E3AC400710708 /* TuSDK.framework in Frameworks */,
-				D7A40E63233E3AC400710708 /* TuSDKVideo.framework in Frameworks */,
+				D7CA4232235EF27100868612 /* TuSDK.framework in Frameworks */,
+				D7CA422F235EF27100868612 /* TuSDKVideo.framework in Frameworks */,
 				FBC6F51020D3CE6400F2FBB7 /* Accelerate.framework in Frameworks */,
-				D7A40E64233E3AC400710708 /* TuSDKFace.framework in Frameworks */,
+				D7CA4230235EF27100868612 /* TuSDKFace.framework in Frameworks */,
 				FBC6F50E20D3CE5D00F2FBB7 /* Security.framework in Frameworks */,
 				FBC6F50C20D3CE5600F2FBB7 /* SystemConfiguration.framework in Frameworks */,
-				D7A40E65233E3AC400710708 /* libyuv.framework in Frameworks */,
+				D7CA4231235EF27100868612 /* libyuv.framework in Frameworks */,
 				FBC6F50A20D3CE4800F2FBB7 /* libz.1.2.5.tbd in Frameworks */,
 				FBF3A8C020D3CD24008466D0 /* Bugly.framework in Frameworks */,
 			);
@@ -810,17 +811,6 @@
 			path = TransitionEffect;
 			sourceTree = "<group>";
 		};
-		D7A40E5E233E3AC400710708 /* TuSDK */ = {
-			isa = PBXGroup;
-			children = (
-				D7A40E5F233E3AC400710708 /* TuSDKVideo.framework */,
-				D7A40E60233E3AC400710708 /* TuSDKFace.framework */,
-				D7A40E61233E3AC400710708 /* libyuv.framework */,
-				D7A40E62233E3AC400710708 /* TuSDK.framework */,
-			);
-			path = TuSDK;
-			sourceTree = "<group>";
-		};
 		D7BCA5F6229E9AFF001E4480 /* ImageVideoComposer */ = {
 			isa = PBXGroup;
 			children = (
@@ -828,6 +818,17 @@
 				D7BCA5F8229E9B26001E4480 /* APIImageVideoComposer.m */,
 			);
 			path = ImageVideoComposer;
+			sourceTree = "<group>";
+		};
+		D7CA422A235EF27100868612 /* TuSDK */ = {
+			isa = PBXGroup;
+			children = (
+				D7CA422B235EF27100868612 /* TuSDKVideo.framework */,
+				D7CA422C235EF27100868612 /* TuSDKFace.framework */,
+				D7CA422D235EF27100868612 /* libyuv.framework */,
+				D7CA422E235EF27100868612 /* TuSDK.framework */,
+			);
+			path = TuSDK;
 			sourceTree = "<group>";
 		};
 		F820850B21FAA7D900D398E8 /* MonsterFace */ = {
@@ -1036,6 +1037,7 @@
 		FB6EBABE20D399E000FA24F2 /* TuSDKVideoDemo */ = {
 			isa = PBXGroup;
 			children = (
+				D7634A39235ED9F50088519B /* TuSDKVideoDemo.entitlements */,
 				FB6EBABF20D399E000FA24F2 /* AppDelegate.h */,
 				FB6EBAC020D399E000FA24F2 /* AppDelegate.m */,
 				FB6EBACD20D399E200FA24F2 /* Info.plist */,
@@ -1510,7 +1512,7 @@
 		FBF3A89B20D3CCC0008466D0 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				D7A40E5E233E3AC400710708 /* TuSDK */,
+				D7CA422A235EF27100868612 /* TuSDK */,
 				FB88F03421992E1400BE021F /* Localized */,
 				FBA274E421AFD75C00D1B170 /* Thumbnails */,
 				FBF3A89C20D3CD23008466D0 /* Assets */,
@@ -1608,8 +1610,11 @@
 						CreatedOnToolsVersion = 9.4;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
-							com.apple.BackgroundModes = {
+							com.apple.AccessWiFi = {
 								enabled = 1;
+							};
+							com.apple.BackgroundModes = {
+								enabled = 0;
 							};
 						};
 					};
@@ -2075,6 +2080,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = TuSDKVideoDemo/TuSDKVideoDemo.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9U2KRZU6GT;
 				ENABLE_BITCODE = NO;
@@ -2106,6 +2112,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = TuSDKVideoDemo/TuSDKVideoDemo.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9U2KRZU6GT;
 				ENABLE_BITCODE = NO;

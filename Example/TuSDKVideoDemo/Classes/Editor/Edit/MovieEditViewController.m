@@ -706,7 +706,7 @@ EditComponentNavigatorDelegate, FilterSwipeViewDelegate
     }
     
     // 保存成功后取消提示框 同时返回到root
-    [self popToRootViewControllerAnimated:true];
+    [self lsqPopToRootViewControllerAnimated:true];
 }
 
 /**
@@ -754,6 +754,7 @@ EditComponentNavigatorDelegate, FilterSwipeViewDelegate
 - (void)destroyMovieEditor {
     [_movieEditor destroy];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    _movieEditor = nil;
 }
 
 @end

@@ -29,6 +29,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) CMTime frameDuration;
 
 /**
+ 原视频的平均帧间隔时长，用于对第一帧时长过长时的补帧
+ @since v3.4.6
+ */
+@property (nonatomic) CMTime naturalFrameDuration;
+
+/**
  是否需要该补丁
  @since v3.4.2
  */

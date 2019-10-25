@@ -77,9 +77,6 @@ static const NSTimeInterval kMinCutDuration = 3.0;
  */
 @property (nonatomic, assign) BOOL removeTempFileFlag;
 
-
-@property (nonatomic, assign) CGSize outputSize;
-
 @end
 
 
@@ -130,8 +127,6 @@ static const NSTimeInterval kMinCutDuration = 3.0;
     }];
     
     _moviePlayer = [[TuSDKMediaMutableAssetMoviePlayer alloc] initWithMediaAssets:inputMediaAssets preview:_playerView];
-    // 这里获取的尺寸才是最正确的
-    _outputSize = inputMediaAssets.firstObject.inputAssetInfo.videoInfo.videoTrackInfoArray.firstObject.presentSize;
     
     // 预览设置
 //    _moviePlayer.previewSize = CGSizeMake(720, 1280);
@@ -296,7 +291,7 @@ static const NSTimeInterval kMinCutDuration = 3.0;
     [_moviePlayer appendMediaTimeSlice:cutTimeRangeSlice];
     
     exportSettings.videoComposition = _moviePlayer.videoComposition;
-    CGSize outputSize = _outputSize;
+    CGSize outputSize = _moviePlayer.preferredOutputSize;
     if ([UIDevice lsqDevicePlatform] < TuSDKDevicePlatform_iPhone6) {
         // 需要裁剪: 竖屏条件/横屏条件
         if ((outputSize.width < outputSize.height && outputSize.width > 540.0) || (outputSize.width > outputSize.height && outputSize.width > 960.0)) {
