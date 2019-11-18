@@ -151,6 +151,10 @@
 "lsq_filter_set_eyeSize" = "Eye";
 "lsq_filter_set_eyeDis" = "Eye Distance";
 "lsq_filter_set_eyeAngle" = "Eye Angle";
+"lsq_filter_set_forehead" = "forehead";
+"lsq_filter_set_browPosition" = "browPosition";
+"lsq_filter_set_lips" = "lips";
+
 "lsq_filter_set_archEyebrow" = "Eyebrow";
 "lsq_filter_set_skin_precision" = "Precision";
 "lsq_filter_set_skin_extreme" = "Extreme";

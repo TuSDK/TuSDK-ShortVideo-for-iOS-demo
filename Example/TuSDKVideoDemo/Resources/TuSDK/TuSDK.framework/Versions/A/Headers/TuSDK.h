@@ -150,6 +150,10 @@
 #import "SLGL2DTextureProgram.h"
 #import "SLGLYUVTextureProgram.h"
 
+#import  "TuSDKComboFilterWrapChain.h"
+#import "TuSDKSkinMoistWrap.h"
+#import "TuSDKSkinNaturalWrap.h"
+
 /**
  *  SDK版本
  */

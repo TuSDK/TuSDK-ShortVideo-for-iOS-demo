@@ -10,7 +10,6 @@
 #import "TuSDKVideoCameraBase.h"
 #import "TuSDKMediaEffectCore.h"
 #import "TuSDKMediaEffectSync.h"
-#import "TuSDKComboFilterWrapChain.h"
 
 /**
  * 人脸信息检测结果类型

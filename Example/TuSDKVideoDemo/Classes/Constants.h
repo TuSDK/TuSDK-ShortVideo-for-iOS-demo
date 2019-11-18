@@ -22,8 +22,8 @@
 #define kCameraComicsFilterCodes @"CHComics_Video", @"USComics_Video", @"JPComics_Video", @"Lightcolor_Video", @"Ink_Video", @"Monochrome_Video"
 // 美颜滤镜参数名称
 #define kBeautySkinKeys @"skin_default",@"smoothing",@"whitening",@"ruddy"
-// 美型滤镜参数名称
-#define kBeautyFaceKeys @"eyeSize", @"chinSize", @"noseSize", @"mouthWidth", @"archEyebrow", @"jawSize", @"eyeAngle", @"eyeDis"
+// 美型（微整形）滤镜参数名称
+#define kBeautyFaceKeys @"eyeSize",@"chinSize",@"noseSize",@"mouthWidth",@"lips", @"archEyebrow", @"browPosition", @"jawSize",@"eyeAngle" ,@"eyeDis",  @"forehead"
 
 /**
  是否为漫画滤镜

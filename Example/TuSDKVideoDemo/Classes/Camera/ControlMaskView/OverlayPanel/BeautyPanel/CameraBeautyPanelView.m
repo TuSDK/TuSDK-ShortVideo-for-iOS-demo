@@ -229,11 +229,14 @@ static const CGFloat kBeautyListParamtersViewSpacing = 24;
         double percentValue = [self.dataSource filterPanel:weakSelf percentValueAtIndex:index];
         
         // 显示偏移取值范围
-        if ([parameterName isEqualToString:@"mouthWidth"] ||
-            [parameterName isEqualToString:@"archEyebrow"] ||
-            [parameterName isEqualToString:@"jawSize"] ||
-            [parameterName isEqualToString:@"eyeAngle"] ||
-            [parameterName isEqualToString:@"eyeDis"]) {
+        if ([parameterName isEqualToString:@"mouthWidth"]
+            || [parameterName isEqualToString:@"archEyebrow"]
+            || [parameterName isEqualToString:@"jawSize"]
+            || [parameterName isEqualToString:@"eyeAngle"]
+            || [parameterName isEqualToString:@"eyeDis"]
+            || [parameterName isEqualToString:@"forehead"]
+            || [parameterName isEqualToString:@"browPosition"]
+            || [parameterName isEqualToString:@"lips"]) {
             itemView.displayValueOffset = -.5;
         }
         

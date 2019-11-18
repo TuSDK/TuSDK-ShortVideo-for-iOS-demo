@@ -13,7 +13,7 @@
 #import "TuSDKMediaAudioRender.h"
 #import "TuSDKMediaEffect.h"
 #import "TuSDKMediaEffectSync.h"
-#import "TuSDKComboFilterWrapChain.h"
+#import "TuSDKVideoImport.h"
 #import "TuSDKMovieEditorOptions.h"
 
 

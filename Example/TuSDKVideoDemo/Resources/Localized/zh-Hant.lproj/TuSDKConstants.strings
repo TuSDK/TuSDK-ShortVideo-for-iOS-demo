@@ -144,14 +144,17 @@
 "lsq_filter_set_ruddy" = "紅潤";
 
 // 微整形
+"lsq_filter_set_forehead" = "髮際線";
 "lsq_filter_set_chinSize" = "瘦臉";
 "lsq_filter_set_jawSize" = "下巴";
 "lsq_filter_set_noseSize" = "瘦鼻";
+"lsq_filter_set_lips" = "唇厚";
 "lsq_filter_set_mouthWidth" = "嘴型";
 "lsq_filter_set_eyeSize" = "大眼";
 "lsq_filter_set_eyeDis" = "眼距";
 "lsq_filter_set_eyeAngle" = "眼角";
-"lsq_filter_set_archEyebrow" = "細眉";
+"lsq_filter_set_archEyebrow" = "细眉";
+"lsq_filter_set_browPosition" = "眉高";
 "lsq_filter_set_skin_precision" = "精準美顏";
 "lsq_filter_set_skin_extreme" = "極致美顏";
 

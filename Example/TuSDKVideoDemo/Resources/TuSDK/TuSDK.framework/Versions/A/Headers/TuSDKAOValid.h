@@ -41,7 +41,6 @@
  *  appkey
  */
 @property (nonatomic, readonly) NSString *appKey;
-
 /**
  *  appType
  */

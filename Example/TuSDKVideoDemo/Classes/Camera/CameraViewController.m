@@ -280,11 +280,10 @@ LSQGPUImageVideoCameraDelegate
             // 所以 _canResetExposures在返回的时候也设置
             dispatch_async(dispatch_get_main_queue(), ^{
                 self->_exposureSlider.value = 0.5;
+                // 重置至自动持续曝光模式， 在主线程设置，避免多线程导致lock解开的问题
+                [self.camera exposureWithMode:AVCaptureExposureModeContinuousAutoExposure point:CGPointMake(0.5, 0.5)];
+                self->_canResetExposures = NO;
             });
-        
-            // 重置至自动持续曝光模式
-            [self.camera exposureWithMode:AVCaptureExposureModeContinuousAutoExposure point:CGPointMake(0.5, 0.5)];
-            self->_canResetExposures = NO;
         }
     });
     
