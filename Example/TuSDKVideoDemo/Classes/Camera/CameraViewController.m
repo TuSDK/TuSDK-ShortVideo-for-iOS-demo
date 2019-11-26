@@ -73,6 +73,8 @@ LSQGPUImageVideoCameraDelegate
     BOOL _isSetDefaultEffect;
     
     BOOL _isSetUIAfterCamera;
+    
+    BOOL _isOpenSetting;
 }
 
 /**
@@ -142,13 +144,13 @@ LSQGPUImageVideoCameraDelegate
     
     dispatch_async(dispatch_get_main_queue(), ^{
         // 获取相机的权限并启动相机
-        if (!self->_camera) [self requestCameraPermission];
+        if(self->_isOpenSetting) [self requestCameraPermission];
         
         [self->_camera updateCameraViewBounds:self->_cameraView.bounds];
         
         self->_exposureSlider.frame = CGRectMake(self.view.bounds.size.width - 45, (self.view.bounds.size.height-220)*0.5, 40, 220);
         self->_lightImageView.frame = CGRectMake(self.view.bounds.size.width - 40, (self.view.bounds.size.height-220)*0.5 - 35, 30, 30);
-        
+
         // 更新其他 UI
         [self setupUIAfterCameraSetup];
     });
@@ -191,10 +193,13 @@ LSQGPUImageVideoCameraDelegate
     
     //确保录制相机最小录制时间占位图只会添加一次
     if (_isSetUIAfterCamera) return;
-    // 同步相机镜头位置
-    _controlMaskView.moreMenuView.disableFlashSwitching = _camera.cameraPosition == AVCaptureDevicePositionFront;
-    [_controlMaskView.markableProgressView addPlaceholder:_camera.minRecordingTime / _camera.maxRecordingTime markWidth:4];
-    _isSetUIAfterCamera = YES;
+    if (_camera) {
+        
+        // 同步相机镜头位置
+        _controlMaskView.moreMenuView.disableFlashSwitching = _camera.cameraPosition == AVCaptureDevicePositionFront;
+        [_controlMaskView.markableProgressView addPlaceholder:_camera.minRecordingTime / _camera.maxRecordingTime markWidth:4];
+        _isSetUIAfterCamera = YES;
+    }
 }
 
 
@@ -357,6 +362,8 @@ LSQGPUImageVideoCameraDelegate
     // 开启访问相机权限
     // 查看有没有相机访问权限
     [TuSDKTSDeviceSettings checkAllowWithController:self type:lsqDeviceSettingsCamera completed:^(lsqDeviceSettingsType type, BOOL openSetting) {
+        self->_isOpenSetting = openSetting;
+
         if (openSetting) {
             lsqLError(@"Can not open camera");
             return;
@@ -895,7 +902,7 @@ LSQGPUImageVideoCameraDelegate
          cutter.inputAssets = assets;
         
         [self.navigationController pushViewController:cutter animated:YES];
-        **/        
+        **/
         
     } else {
         [[TuSDK shared].messageHub showSuccess:NSLocalizedStringFromTable(@"tu_保存成功", @"VideoDemo", @"保存成功")];
@@ -1232,7 +1239,7 @@ LSQGPUImageVideoCameraDelegate
     NSArray<TuSDKFilterArg *> *filterArgs = oldSkinFaceEffect.filterArgs;
 
     
-    /** 初始化美肤特效 */
+    /** 初始化美肤特效 默认 极致美颜 */
     TuSDKMediaSkinFaceEffect *skinFaceEffect = [[TuSDKMediaSkinFaceEffect alloc] initUseSkinNatural:_controlMaskView.beautyPanelView.useSkinNatural];
     [_camera addMediaEffect:skinFaceEffect];
    

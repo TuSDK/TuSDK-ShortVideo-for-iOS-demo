@@ -24,7 +24,7 @@
     [super commonInit];
     
     NSArray *faceFeatures = @[kBeautySkinKeys];
-    _useSkinNatural = YES;
+    _useSkinNatural = NO;
     // 配置 UI
     self.autoItemSize = YES;
     [self addItemViewsWithCount:faceFeatures.count config:^(HorizontalListView *listView, NSUInteger index, HorizontalListItemView *_itemView) {
