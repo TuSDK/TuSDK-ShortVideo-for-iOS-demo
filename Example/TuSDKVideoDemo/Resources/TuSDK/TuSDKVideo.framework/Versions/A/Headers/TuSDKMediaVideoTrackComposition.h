@@ -27,6 +27,10 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (instancetype)initWithVideoAsset:(AVAsset *)inputAsset;
 
+/// seek到指定时间
+/// @param outputTime 时间
+- (void)seekToTime:(CMTime)outputTime;
+
 /**
  视频资产
  
@@ -40,6 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
  @since v3.4.1
  */
 @property (nonatomic,readonly)TuSDKMediaAssetInfo *inputAssetInfo;
+
 
 @end
 

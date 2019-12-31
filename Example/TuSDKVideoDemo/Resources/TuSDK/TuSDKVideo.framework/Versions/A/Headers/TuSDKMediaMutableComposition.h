@@ -22,6 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
     NSMutableArray<id<TuSDKMediaComposition>> *_compositions;
     
     // 当前正在读取的合成项
+@public
     id<TuSDKMediaComposition> _readingComposition;
 
 }
@@ -37,6 +38,10 @@ NS_ASSUME_NONNULL_BEGIN
  @since v3.4.1
  */
 -(void)prepareForReading;
+
+
+/// 移动到下一个compostion
+- (BOOL)moveToNextComposition;
 
 /**
  追加一个新的 Composition 合成项
@@ -54,6 +59,19 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (BOOL)removeComposition:(id<TuSDKMediaComposition>)composition;
 
+/**
+插入指定的 Composition 合成项
+
+@param composition 合成项
+@param index 指定的位置
+@since v3.5.2
+*/
+- (BOOL)insertComposition:(id<TuSDKMediaComposition>)composition atIndex:(NSInteger)index;
+
+
+/// 查找composition所在的位置
+/// @param composition 资源项
+- (NSInteger)index:(id<TuSDKMediaComposition>)composition;
 
 @end
 

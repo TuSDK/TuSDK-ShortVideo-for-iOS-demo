@@ -34,6 +34,7 @@
 #import "TuSDKMediaPlasticFaceEffect.h"
 #import "TuSDKMediaSkinFaceEffect.h"
 #import "TuSDKMediaMonsterFaceEffect.h"
+#import "TuSDKMediaScreenKeyingEffect.h"
 #import "TuSDKMediaStickerImageEffect.h"
 
 // 时间特效
@@ -104,11 +105,14 @@
 
 #import "TuSDKMediaMovieCompositionComposer.h"
 
+// 多视频编辑
+#import "TuSDKMutipleMediaMovieCompositionComposer.h"
 
 #import "TuSDKGPUVideoPixelBufferForTexture.h"
 #import "TuSDKAssetVideoTrackPixelBufferOutput.h"
 #import "TuSDKMediaAssetExtractor.h"
-
+#import "TuSDKFileWriter.h"
+#import "TuSDKAsyncEncodecBridge.h"
 
 /** Video版本号 */
 extern NSString * const lsqVideoVersion;

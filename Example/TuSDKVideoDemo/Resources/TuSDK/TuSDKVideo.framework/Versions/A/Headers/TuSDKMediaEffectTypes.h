@@ -24,6 +24,7 @@
  - TuSDKMediaEffectDataTypeSkinFace : 美肤特效
  - TuSDKMediaEffectDataTypeMonsterFace : 哈哈镜特效
  - TuSDKMediaEffectDataTypeTransition : 转场
+ - TuSDKMediaEffectDataTypeTransition : 绿幕特效
  */
 typedef NS_ENUM(NSUInteger,TuSDKMediaEffectDataType)
 {
@@ -40,5 +41,6 @@ typedef NS_ENUM(NSUInteger,TuSDKMediaEffectDataType)
     TuSDKMediaEffectDataTypeSkinFace,
     TuSDKMediaEffectDataTypeMonsterFace,
     TuSDKMediaEffectDataTypeTransition,
+    TuSDKMediaEffectDataTypeScreenKeying,
 
 };

@@ -153,6 +153,7 @@
 #import  "TuSDKComboFilterWrapChain.h"
 #import "TuSDKSkinMoistWrap.h"
 #import "TuSDKSkinNaturalWrap.h"
+#import "TuSDKScreenKeyingWrap.h"
 
 /**
  *  SDK版本

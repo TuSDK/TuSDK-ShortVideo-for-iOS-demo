@@ -17,7 +17,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 @protocol TuSDKMediaMovieCompositionComposerDelegate;
-@class TuSDKMediaCompositionVideoComposerSettings;
+@class TuSDKMediaCompositionVideoComposerSettings, TuSDKFilterProcessor;
 
 @interface TuSDKMediaMovieCompositionComposer : NSObject
 
@@ -44,17 +44,30 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (instancetype)initWithVideoComposition:(id<TuSDKMediaVideoComposition> __nullable)videoComposition audioComposition:(id<TuSDKMediaAudioComposition> __nullable)audioComposition composorSettings:(TuSDKMediaCompositionVideoComposerSettings * __nullable)composorSettings;
 
+
+/** 视频合成器 */
+@property (nonatomic, strong) id<TuSDKMediaVideoComposition> videoComposition;
+
+/** 音频合成器 */
+@property (nonatomic, strong) id<TuSDKMediaAudioComposition> audioComposition;
+
+/** 导出配置 */
+@property (nonatomic, strong, readonly)TuSDKMediaCompositionVideoComposerSettings *exportEncodeOutputSettings;
+
 /**
  当前合成器状态
  @since v3.4.1
  */
-@property (nonatomic,readonly)TuSDKMediaExportSessionStatus status;
+@property (nonatomic, readonly)TuSDKMediaExportSessionStatus status;
 
 /**
  设置事件委托
  @since v3.4.1
  */
-@property (nonatomic)id<TuSDKMediaMovieCompositionComposerDelegate> delegate;
+@property (nonatomic, weak)id<TuSDKMediaMovieCompositionComposerDelegate> delegate;
+
+/** 特效处理器 */
+@property (nonatomic, strong, readonly) TuSDKFilterProcessor *filterProcessor;
 
 /**
  开始合成
@@ -193,6 +206,7 @@ NS_ASSUME_NONNULL_BEGIN
  @since v3.4.1
  */
 @property (nonatomic) CGSize outputSize;
+
 
 /**
  设定输出 outputSize 时比例不一致时是否自适应画布大小 默认：NO

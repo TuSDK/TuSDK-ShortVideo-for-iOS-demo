@@ -707,6 +707,11 @@ EditComponentNavigatorDelegate, FilterSwipeViewDelegate
     
     // 保存成功后取消提示框 同时返回到root
     [self lsqPopToRootViewControllerAnimated:true];
+    
+    // 清理导出时的FBO缓存，需要根据业务逻辑进行适当调用, 我们的Demo的业务逻辑是，这里清理后，返回首页，再回来的时候资源都是重新创建的
+    // 不能在其他特效进行的过程中调用（这步操作会清掉FBO，之前创建的，还没执行完不能调用这个方法）
+    // 也不能立马进行下一步的导出等操作（至少需要等个1-2s）
+    [[TuSDKEncodecFBOManager shader] destoryFBO];
 }
 
 /**

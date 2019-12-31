@@ -33,7 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
  @return 输出持续时间
  @since v3.4.1
  */
-@property (nonatomic,readonly)CMTime outputTime;
+@property (nonatomic, assign)CMTime outputTime;
 
 /**
  合成物输出持续时间
@@ -41,7 +41,8 @@ NS_ASSUME_NONNULL_BEGIN
  @return 输出持续时间
  @since v3.4.1
  */
-@property (nonatomic,readonly)CMTime outputDuraiton;
+@property (nonatomic, assign)CMTime outputDuraiton;
+
 
 /**
  基准时间 默认：kCMTimeZero

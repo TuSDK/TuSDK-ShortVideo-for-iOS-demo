@@ -259,7 +259,8 @@ static const NSTimeInterval kMinCutDuration = 3.0;
         TuSDKMediaAssetInfo *assetInfo = [[TuSDKMediaAssetInfo alloc] initWithAsset:_inputAssets.firstObject];
 
         // 对于低帧率视频进入视频编辑时必须开启转码
-        if(assetInfo.videoInfo.videoTrackInfoArray.firstObject.nominalFrameRate > 15) {
+        // 避免 AVComposition（比如，系统相机拍摄的慢动作视频） 资源没有URL的crash问题
+        if(assetInfo.videoInfo.videoTrackInfoArray.firstObject.nominalFrameRate > 15 && [_inputAssets.firstObject isKindOfClass:[AVURLAsset class]]) {
             
             _outputURL = _inputAssets.firstObject.URL;
             
