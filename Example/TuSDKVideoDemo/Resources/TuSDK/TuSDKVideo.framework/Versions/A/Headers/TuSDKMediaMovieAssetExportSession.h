@@ -8,7 +8,7 @@
 
 #import "TuSDKMediaAssetExportSession.h"
 #import "TuSDKMediaAssetExtractor.h"
-#import "TuSDKFileWriter.h"
+#import "TuSDKVideoFileWriter.h"
 #import "TuSDKMediaFormatAssistant.h"
 #import "TuSDKMediaSettings.h"
 #import "TuSDKMediaAssetInfo.h"

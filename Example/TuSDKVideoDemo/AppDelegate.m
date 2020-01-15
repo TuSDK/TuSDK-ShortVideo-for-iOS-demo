@@ -36,7 +36,7 @@
     // Attention ！！！！！！
     // ********************** 更换包名和秘钥之后，一定要去控制台打包替换资源文件 **********************
     
-    [TuSDK initSdkWithAppKey:@"5e501981b069355a-04-ewdjn1"];
+    [TuSDK initSdkWithAppKey:@"96f8fbdabfd47f3d-04-ewdjn1"];
     
     
     // 设置弹框时，背景按钮不可点击

@@ -129,8 +129,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 #pragma mark - encodec control
-/** 是否异步编码 */
-@property (nonatomic, assign) BOOL isAsyncEncodec;
 
 /** 是否渲染完成 */
 @property (nonatomic, assign) BOOL isRendecCompleted;

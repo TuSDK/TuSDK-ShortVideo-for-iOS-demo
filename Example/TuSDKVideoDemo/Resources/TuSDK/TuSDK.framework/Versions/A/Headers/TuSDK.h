@@ -229,6 +229,7 @@ extern NSString * const lsqFilterSampleExtension;
  * @since v1.0.0
  */
 @property (nonatomic, strong, readonly) NSString *openid;
+
 /**
  *  TuSDK 核心
  *

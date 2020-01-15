@@ -60,9 +60,6 @@ NS_ASSUME_NONNULL_BEGIN
 /** 代理 */
 @property (nonatomic, weak) id<TuSDKAsyncEncodecBridgeDelegate> delegate;
 
-/** 是否异步编码 */
-@property (nonatomic, assign) BOOL isAsyncEncodec;
-
 /** 是否渲染完成 */
 @property (nonatomic, assign) BOOL isRendecCompleted;
 

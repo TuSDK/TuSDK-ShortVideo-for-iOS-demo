@@ -35,10 +35,6 @@
 	<string>Saving videos requires your photo library permission</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Saving videos requires your photo library permission</string>
-	<key>UIBackgroundModes</key>
-	<array>
-		<string>audio</string>
-	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

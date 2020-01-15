@@ -372,7 +372,7 @@ LSQGPUImageVideoCameraDelegate
         // 启动相机
         [self.camera tryStartCameraCapture];
         // 默认选中的滤镜
-        self.currentFilterIndex = 1;
+        self.currentFilterIndex = 3;
         // 设置默认滤镜
         self.defaultFilterCode = self.filterCodes[self.currentFilterIndex];
         
