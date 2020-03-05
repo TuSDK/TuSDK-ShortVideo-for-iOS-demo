@@ -49,6 +49,9 @@ typedef NS_ENUM(NSInteger, APIRowIndex) {
 @property (nonatomic, weak) APIImageVideoPickerViewController *imageVideoPiker;
 @property (nonatomic, strong) NSArray *apiRowIndexKeys;
 
+/** 当前选中的功能下标 */
+@property (nonatomic, assign) NSInteger currentIndex;
+
 @end
 
 @implementation FunctionListViewController
@@ -113,6 +116,7 @@ typedef NS_ENUM(NSInteger, APIRowIndex) {
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
         APIRowIndex rowIndex = indexPath.row;
+        _currentIndex = rowIndex;
         switch (rowIndex) {
             // 音频混合
             case APIRowIndexAudioMix:{
@@ -229,12 +233,11 @@ typedef NS_ENUM(NSInteger, APIRowIndex) {
     
     __weak typeof(self)weakSelf = self;
     picker.rightButtonActionHandler = ^(APIImageVideoPickerViewController *picker, UIButton *sender) {
+   
         [weakSelf imageAndVideoCompose:picker];
     };
     [self.navigationController pushViewController:picker animated:YES];
 }
-
-
 
 /**
  图像合成视频

@@ -705,6 +705,7 @@ EditComponentNavigatorDelegate, FilterSwipeViewDelegate
         [[TuSDK shared].messageHub showSuccess:NSLocalizedStringFromTable(@"tu_保存成功", @"VideoDemo", @"保存成功")];
     }
     
+    
     // 保存成功后取消提示框 同时返回到root
     [self lsqPopToRootViewControllerAnimated:true];
 }

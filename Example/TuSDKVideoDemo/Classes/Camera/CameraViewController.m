@@ -23,13 +23,13 @@
 // 轻易不要动，产品让改才改
 // 精准美颜参数
 #define kSkinFaceSmothingMaxDefault 1.0
-#define kSkinFaceWhiteningMaxDefault 0.4
-#define kSkinFaceRuddyMaxDefault 0.35
+#define kSkinFaceWhiteningMaxDefault 1.0
+#define kSkinFaceRuddyMaxDefault 1.0
 
 // 极致美颜参数
 #define kSkinMoistFaceSmothingMaxDefault 1.0
-#define kSkinMoistFaceWhiteningMaxDefault 0.6
-#define kSkinMoistFaceRuddyMaxDefault 0.65
+#define kSkinMoistFaceWhiteningMaxDefault 1.0
+#define kSkinMoistFaceRuddyMaxDefault 1.0
 
 // 顶部工具栏高度
 static const CGFloat kTopBarHeight = 64.0;
@@ -61,6 +61,7 @@ LSQGPUImageVideoCameraDelegate
 {
     UISlider *_exposureSlider;
     UIImageView *_lightImageView;
+    
     
     // 曝光模式切换逻辑：先查看是否可以切换曝光模式，如果可以再看上一帧环境光强度和当前环境光强度的差值是否大于0.3
     // 是否可以切换曝光模式：拖拽slider时不可以，结束后才行；点击屏幕曝光时不可以，点击完成后2s可以；录制的过程中不可以
@@ -107,6 +108,22 @@ LSQGPUImageVideoCameraDelegate
  */
 @property (nonatomic, strong) NSMutableDictionary<NSString *, NSDictionary *> *filterParameterDefaultDic;
 
+
+/** screenKeyView */
+@property (nonatomic, strong) UIView *screenKeyingView;
+
+/** screenLengthSlider */
+@property (nonatomic, strong) UISlider *screenLengthSlider;
+
+/** rangeOffsetSlider */
+@property (nonatomic, strong) UISlider *rangeOffsetSlider;
+
+/** 打开ScreenKeying特效开关 */
+@property (nonatomic, strong) UIButton *openButton;
+
+/** screenKeyingEffect */
+@property (nonatomic, strong) TuSDKMediaScreenKeyingEffect *screenKeyingEffect;
+
 @end
 
 
@@ -117,6 +134,73 @@ LSQGPUImageVideoCameraDelegate
 + (instancetype)recordController {
     return [[CameraViewController alloc] initWithNibName:nil bundle:nil];
 }
+
+- (void)openScreenKeyingEffect:(UIButton *)open {
+    _openButton.selected = !_openButton.selected;
+    self.screenKeyingView.hidden = !_openButton.selected;
+    if (_openButton.selected) {
+        [self.camera addMediaEffect:_screenKeyingEffect];
+    } else {
+        [self.camera removeMediaEffect:_screenKeyingEffect];
+    }
+}
+
+- (void)testView {
+    CGFloat width = [UIScreen mainScreen].bounds.size.width - 30;
+    _screenKeyingView = [[UIView alloc] initWithFrame:CGRectMake(15, [UIScreen mainScreen].bounds.size.height - 250, width, 90)];
+    _screenKeyingView.backgroundColor = [UIColor clearColor];
+    
+    UILabel *strength = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 80, 40)];
+    strength.font = [UIFont systemFontOfSize:11];
+    strength.textColor = [UIColor whiteColor];
+    strength.text = @"strength: ";
+    UIView *strengthView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, 45)];
+    [strengthView addSubview:strength];
+    _screenLengthSlider = [[UISlider alloc] initWithFrame:CGRectMake(80, 0, width-80, 45)];
+    _screenLengthSlider.maximumValue = 1.0;
+    _screenLengthSlider.minimumValue = 0.0;
+    _screenLengthSlider.value = 0.0;
+    [_screenLengthSlider addTarget:self action:@selector(screenKeyingValueChanged:) forControlEvents:UIControlEventValueChanged];
+    [strengthView addSubview:_screenLengthSlider];
+    
+    UILabel *rangeOffset = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 80, 40)];
+    rangeOffset.font = [UIFont systemFontOfSize:11];
+    rangeOffset.textColor = [UIColor whiteColor];
+    rangeOffset.text = @"rangeOffset: ";
+    UIView *rangeView = [[UIView alloc] initWithFrame:CGRectMake(0, 45, width, 45)];
+    [rangeView addSubview:rangeOffset];
+    
+    _rangeOffsetSlider = [[UISlider alloc] initWithFrame:CGRectMake(80, 0, width-80, 45)];
+    _rangeOffsetSlider.maximumValue = 1.0;
+    _rangeOffsetSlider.minimumValue = 0.0;
+    _rangeOffsetSlider.value = 0.0;
+    [_rangeOffsetSlider addTarget:self action:@selector(screenKeyingValueChanged:) forControlEvents:UIControlEventValueChanged];
+    [rangeView addSubview:_rangeOffsetSlider];
+    
+    [_screenKeyingView addSubview:strengthView];
+    [_screenKeyingView addSubview:rangeView];
+    [self.view addSubview:_screenKeyingView];
+    _screenKeyingView.hidden = YES;
+    
+    _openButton = [[UIButton alloc] initWithFrame:CGRectMake(15, [UIScreen mainScreen].bounds.size.height - 150, 50, 50)];
+    [_openButton setTitle:@"开关" forState:UIControlStateNormal];
+    [_openButton addTarget:self action:@selector(openScreenKeyingEffect:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_openButton];
+    
+    
+    _screenKeyingEffect = [[TuSDKMediaScreenKeyingEffect alloc] init];
+    _screenKeyingEffect.strength = 0.0;
+    _screenKeyingEffect.rangeOffset = 0.0;
+}
+
+- (void)screenKeyingValueChanged:(UISlider *)slider {
+    if (_screenLengthSlider == slider) {
+        _screenKeyingEffect.strength = slider.value;
+    } else if (_rangeOffsetSlider == slider) {
+        _screenKeyingEffect.rangeOffset = slider.value;
+    }
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -181,9 +265,12 @@ LSQGPUImageVideoCameraDelegate
         [self setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
     }
     
-    [_controlMaskView.speedSegmentButton addTarget:self action:@selector(speedSegmentValueChangeAction:)
+    [_controlMaskView.speedSegmentButton addTarget:self
+                                            action:@selector(speedSegmentValueChangeAction:)
                                   forControlEvents:UIControlEventValueChanged];
     [self configSlider];
+    
+    // [self testView];
 }
 
 /**
@@ -372,7 +459,7 @@ LSQGPUImageVideoCameraDelegate
         // 启动相机
         [self.camera tryStartCameraCapture];
         // 默认选中的滤镜
-        self.currentFilterIndex = 3;
+        self.currentFilterIndex = 1;
         // 设置默认滤镜
         self.defaultFilterCode = self.filterCodes[self.currentFilterIndex];
         
@@ -797,11 +884,25 @@ LSQGPUImageVideoCameraDelegate
 
 #pragma mark - UIGestureRecognizerDelegate
 
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+    if (_screenKeyingView != nil && [_screenKeyingView.layer containsPoint:[touch locationInView:_screenKeyingView]])
+    {
+        return NO;
+    }
+    
     // 当美颜面板出现时则禁用左滑、右滑手势
-    if (_controlMaskView.beautyPanelView.display) return NO;
+    if (_controlMaskView.beautyPanelView.display)
+    {
+        return NO;
+    }
+    
     // 在滤镜面板上禁止滑动
-    if ([_controlMaskView.filterPanelView.layer containsPoint:[touch locationInView:_controlMaskView.filterPanelView]]) return NO;
+    if ([_controlMaskView.filterPanelView.layer containsPoint:[touch locationInView:_controlMaskView.filterPanelView]])
+    {
+        return NO;
+    }
+    
     return YES;
 }
 
@@ -902,7 +1003,7 @@ LSQGPUImageVideoCameraDelegate
          cutter.inputAssets = assets;
         
         [self.navigationController pushViewController:cutter animated:YES];
-        **/
+        **/        
         
     } else {
         [[TuSDK shared].messageHub showSuccess:NSLocalizedStringFromTable(@"tu_保存成功", @"VideoDemo", @"保存成功")];
@@ -1533,12 +1634,12 @@ LSQGPUImageVideoCameraDelegate
         if ([parameterName isEqualToString:@"smoothing"]) {
             // 磨皮
             maxValueFactor = kSkinFaceSmothingMaxDefault;
-            defaultValueFactor = 0.5;
+            defaultValueFactor = 0.7;
             updateValue = YES;
         } else if ([parameterName isEqualToString:@"whitening"]) {
             // 美白
             maxValueFactor = kSkinFaceWhiteningMaxDefault;
-            defaultValueFactor = 0.5; // 最大值的百分之50
+            defaultValueFactor = 0.3; // 最大值的百分之30
             updateValue = YES;
         } else if ([parameterName isEqualToString:@"ruddy"]) {
             // 红润
@@ -1605,14 +1706,20 @@ LSQGPUImageVideoCameraDelegate
             updateValue = YES;
         } else if ([parameterName isEqualToString:@"mouthWidth"]) {
             // 嘴型
+        } else if ([parameterName isEqualToString:@"lips"]) {
+            // 唇厚
         } else if ([parameterName isEqualToString:@"archEyebrow"]) {
             // 细眉
-        } else if ([parameterName isEqualToString:@"jawSize"]) {
+        } else if ([parameterName isEqualToString:@"browPosition"]) {
+            // 眉高
+        }else if ([parameterName isEqualToString:@"jawSize"]) {
             // 下巴
         } else if ([parameterName isEqualToString:@"eyeAngle"]) {
             // 眼角
         } else if ([parameterName isEqualToString:@"eyeDis"]) {
             // 眼距
+        }else if ([parameterName isEqualToString:@"forehead"]) {
+            // 发际线
         }
         
         if (updateValue) {

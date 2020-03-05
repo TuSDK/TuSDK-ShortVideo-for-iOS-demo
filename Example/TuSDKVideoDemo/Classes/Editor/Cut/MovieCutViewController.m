@@ -255,7 +255,6 @@ static const NSTimeInterval kMinCutDuration = 3.0;
     if (_inputAssets.count == 1 // 单个视频
         && _speedBar.selectedIndex == 2 && CMTimeRangeEqual(_selectedTimeRange, CMTimeRangeMake(kCMTimeZero, _moviePlayer.inputDuration)))
     {
-     
         TuSDKMediaAssetInfo *assetInfo = [[TuSDKMediaAssetInfo alloc] initWithAsset:_inputAssets.firstObject];
 
         // 对于低帧率视频进入视频编辑时必须开启转码

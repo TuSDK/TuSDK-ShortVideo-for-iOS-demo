@@ -10,6 +10,7 @@
 "APIAudioPitchEngineViewController" = "Audio Pitch";
 "APIImageVideoComposerViewController" = "Image Composer";
 "APIImageVideoPickerViewController" = "Video or Image Composer";
+"APIMutipleVideoEditViewController" = "Mutiple Video Edit";
 
 // 变声
 "tu_怪兽" = "Monster";
