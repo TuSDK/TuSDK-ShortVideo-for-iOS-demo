@@ -337,16 +337,16 @@ typedef NS_ENUM(NSUInteger,lsqVideoCameraFaceDetectionResultType) {
  */
 - (BOOL)exposureWithMode:(AVCaptureExposureMode)exposureMode point:(CGPoint)point;
 
-/**
- 设置曝光感应度 ISO值 当exposureMode 为AVCaptureExposureModeCustom 才能生效
-
- @param duration 曝光时长，可以用AVCaptureExposureDurationCurrent
- @param ISO 曝光感应度 范围在[minISO maxISO]
- @return 是否设置成功
- @since v3.4.2
- */
-- (BOOL)exposureModeCustomCustomWithDuration:(CMTime)duration ISO:(float)ISO;
-
+///**
+// 设置曝光感应度 ISO值 当exposureMode 为AVCaptureExposureModeCustom 才能生效
+//
+// @param duration 曝光时长，可以用AVCaptureExposureDurationCurrent
+// @param ISO 曝光感应度 范围在[minISO maxISO]
+// @return 是否设置成功
+// @since v3.4.2
+// */
+//- (BOOL)exposureModeCustomCustomWithDuration:(CMTime)duration ISO:(float)ISO;
+//
 
 /**
  设置曝光补偿 bias
@@ -356,13 +356,6 @@ typedef NS_ENUM(NSUInteger,lsqVideoCameraFaceDetectionResultType) {
  @since v3.4.2
  */
 - (BOOL)exposureWithBias:(float)bias;
-
-/**
- *  当前聚焦状态
- *
- *  @param isFocusing 是否正在聚焦
- */
-- (void)onAdjustingFocus:(BOOL)isFocusing;
 
 /**
  *  通知相机状态发生改变

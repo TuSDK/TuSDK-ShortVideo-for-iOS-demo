@@ -234,49 +234,31 @@ UITextViewDelegate
     self.initialEffects = initialEffects;
 
     __weak typeof(self)weakSelf = self;
-    [[self.movieEditor allMediaEffects] enumerateObjectsUsingBlock:^(id<TuSDKMediaEffect> _Nonnull effect, NSUInteger idx, BOOL * _Nonnull stop) {
-        
-        
-        switch (effect.effectType) {
-            case TuSDKMediaEffectDataTypeStickerText:{
-                
-                /** appendStickerImageEffect 显示时 需要依赖 _stickerViewEditor 的 frame  */
-                TextStickerEditorItem *item = [[TextStickerEditorItem alloc] initWithEditor:weakSelf.stickerEditor];
-                item.delegate = weakSelf;
-                item.effect = effect;
-                item.tag  = idx;
-                item.selected = NO;
-                item.isChanged = NO;
-                [weakSelf addItem:item];
-                [initialEffects addObject:effect];
-                break;
-            }
-            case TuSDKMediaEffectDataTypeStickerImage: {
-                /** appendStickerImageEffect 显示时 需要依赖 _stickerViewEditor 的 frame  */
-                ImageStickerEditorItem *item = [[ImageStickerEditorItem alloc] initWithEditor:weakSelf.stickerEditor];
-                item.editable = NO;
-                item.tag  = -1;
-                item.effect = effect;
-                [weakSelf.stickerEditor addItem:item];
-                [initialEffects addObject:effect];
-                break;
-            }
-            default:
-                break;
+    [[self.movieEditor allMediaEffects] enumerateObjectsUsingBlock:^(id<TuSDKMediaEffect> _Nonnull effect, NSUInteger idx, BOOL * _Nonnull stop)
+     {
+        if (effect.effectType == TuSDKMediaEffectDataTypeStickerText)
+        {
+            /** appendStickerImageEffect 显示时 需要依赖 _stickerViewEditor 的 frame  */
+            TextStickerEditorItem *item = [[TextStickerEditorItem alloc] initWithEditor:weakSelf.stickerEditor];
+            item.delegate = weakSelf;
+            item.effect = effect;
+            item.tag  = idx;
+            item.selected = NO;
+            item.isChanged = NO;
+            [weakSelf addItem:item];
+            [initialEffects addObject:effect];
         }
     }];
     
-    // 显示指定时间内的贴纸
-    [_stickerEditor showItemByTime:kCMTimeZero];
-
-    /** 移除 MovieEditor 中的特效，因为已添加至 _stickerEditor */
-    [self.movieEditor removeMediaEffectsWithType:TuSDKMediaEffectDataTypeStickerImage];
     [self.movieEditor removeMediaEffectsWithType:TuSDKMediaEffectDataTypeStickerText];
-    [self.movieEditor seekToTime:kCMTimeZero];
 
+    [_stickerEditor showItemByTime:kCMTimeZero];
+    [self.movieEditor pausePreView];
+    [self.movieEditor seekToTime:kCMTimeZero];
 }
 
-- (void)dealloc {
+- (void)dealloc
+{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 //    NSLog(@"dealloc: %@", self);
     if (_stickerEditor) {

@@ -25,8 +25,8 @@ extern NSString *const kTuVideoGPUImageColorSwizzlingFragmentShaderString;
     // 输入尺寸
     CGSize inputImageSize;
     
-    TuSDKLiveStickerImage *mStickerImage;
-    
+    TuSDKStickerImage *mStickerImage;
+
     SLGLProgram *colorSwizzlingProgram;
     GLint colorSwizzlingPositionAttribute, colorSwizzlingTextureCoordinateAttribute;
     GLint colorSwizzlingInputTextureUniform;

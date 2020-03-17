@@ -61,18 +61,8 @@ LSQGPUImageVideoCameraDelegate
 {
     UISlider *_exposureSlider;
     UIImageView *_lightImageView;
-    
-    
-    // 曝光模式切换逻辑：先查看是否可以切换曝光模式，如果可以再看上一帧环境光强度和当前环境光强度的差值是否大于0.3
-    // 是否可以切换曝光模式：拖拽slider时不可以，结束后才行；点击屏幕曝光时不可以，点击完成后2s可以；录制的过程中不可以
-    
-    // 上一帧的环境光强度
-    float _lastBrightnessValue;
-    // 是否可以重置曝光模式
-    BOOL _canResetExposures;
-    
+        
     BOOL _isSetDefaultEffect;
-    
     BOOL _isSetUIAfterCamera;
     
     BOOL _isOpenSetting;
@@ -317,12 +307,9 @@ LSQGPUImageVideoCameraDelegate
     if (self.camera.isRecording) {
         return;
     }
-    _lastBrightnessValue = 0.0;
-    _canResetExposures = YES;
 }
 
 - (void)updateValue:(UISlider *)slider {
-    _canResetExposures = NO;
     float value = slider.value;
 
     float bias = (value - 0.5) * 8;
@@ -332,53 +319,22 @@ LSQGPUImageVideoCameraDelegate
 
 #pragma mark - TuSDKCPFocusTouchViewDelegate
 // 点击聚焦曝光点后的回调 ----- 内部已经添加了聚焦和曝光，这里不需要再设置
-- (void)focusTouchView:(id<TuSDKVideoCameraExtendViewInterface>)focusTouchView didTapPoint:(CGPoint)point {
+- (void)focusTouchView:(id<TuSDKVideoCameraExtendViewInterface>)focusTouchView didTapPoint:(CGPoint)point
+{
     _exposureSlider.value = 0.5; // 重置到中间
-    _canResetExposures = NO;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         // 录制过程中不能自动切换到运行重置曝光模式
-        if (self.camera.isRecording) {
+        if (self.camera.isRecording)
+        {
             return;
         }
-        self->_lastBrightnessValue = 0.0;
-        self->_canResetExposures = YES;
     });
 }
 
 
 #pragma mark - LSQGPUImageVideoCameraDelegate
-- (void)willOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer {
-    
-    // 不允许重置时，返回
-    if (_canResetExposures == NO) {
-        return;
-    }
-
-    // 获取当前帧数据的环境光强度
-    CFDictionaryRef metadataDict = CMCopyDictionaryOfAttachments(NULL,sampleBuffer, kCMAttachmentMode_ShouldPropagate);
-    
-    // 不要在处理视频线程中操作
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSDictionary *metadata = [[NSMutableDictionary alloc] initWithDictionary:(__bridge NSDictionary*)metadataDict];
-        CFRelease(metadataDict);
-        NSDictionary *exifMetadata = [[metadata objectForKey:(NSString *)kCGImagePropertyExifDictionary] mutableCopy];
-        float brightnessValue = [[exifMetadata objectForKey:(NSString *)kCGImagePropertyExifBrightnessValue] floatValue];
-        if (self->_lastBrightnessValue == 0) {
-            self->_lastBrightnessValue = brightnessValue;
-        }
-        if (fabs(self->_lastBrightnessValue - brightnessValue) > 0.3) {
-            self->_lastBrightnessValue = brightnessValue;
-            // 在这个类即将释放或者释放的时候调用到这里，容易造成 crash,
-            // 所以 _canResetExposures在返回的时候也设置
-            dispatch_async(dispatch_get_main_queue(), ^{
-                self->_exposureSlider.value = 0.5;
-                // 重置至自动持续曝光模式， 在主线程设置，避免多线程导致lock解开的问题
-                [self.camera exposureWithMode:AVCaptureExposureModeContinuousAutoExposure point:CGPointMake(0.5, 0.5)];
-                self->_canResetExposures = NO;
-            });
-        }
-    });
-    
+- (void)willOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
+{
 }
 
 
@@ -578,7 +534,6 @@ LSQGPUImageVideoCameraDelegate
  */
 - (IBAction)backButtonAction:(id)sender {
     // 取消录制状态
-    _canResetExposures = NO;
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -790,7 +745,6 @@ LSQGPUImageVideoCameraDelegate
 }
 
 - (void)dealloc {
-    _canResetExposures = NO;
     [self destroyCamera];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
@@ -919,8 +873,10 @@ LSQGPUImageVideoCameraDelegate
  @param camera 录制相机
  @param state 相机运行状态
  */
-- (void)onVideoCamera:(id<TuSDKVideoCameraInterface>)camera stateChanged:(lsqCameraState)state {
-    switch (state) {
+- (void)onVideoCamera:(id<TuSDKVideoCameraInterface>)camera stateChanged:(lsqCameraState)state
+{
+    switch (state)
+    {
         case lsqCameraStateStarting:
             // 相机正在启动
             NSLog(@"TuSDKRecordVideoCamera state: 相机正在启动");
@@ -931,7 +887,6 @@ LSQGPUImageVideoCameraDelegate
             break;
         case lsqCameraStateStarted:
             // 相机启动完成
-            _canResetExposures = YES;
             NSLog(@"TuSDKRecordVideoCamera state: 相机启动完成");
             _exposureSlider.value = 0.5;
             [self addDefaultEffect];
@@ -1041,20 +996,15 @@ LSQGPUImageVideoCameraDelegate
     switch (state) {
         case lsqRecordStateRecordingCompleted:
             // 录制完成
-            _canResetExposures = YES;
-            _lastBrightnessValue = 0.0;
             NSLog(@"TuSDKRecordVideoCamera record state: 录制完成");
             [[TuSDK shared].messageHub showSuccess:NSLocalizedStringFromTable(@"tu_完成录制", @"VideoDemo", @"完成录制")];
             break;
         case lsqRecordStateRecording:
             // 正在录制
-            _canResetExposures = NO;
             NSLog(@"TuSDKRecordVideoCamera record state: 正在录制");
             break;
         case lsqRecordStatePaused:
             // 暂停录制
-            _canResetExposures = YES;
-            _lastBrightnessValue = 0.0;
             NSLog(@"TuSDKRecordVideoCamera record state: 暂停录制");
             break;
         case lsqRecordStateMerging:
@@ -1639,7 +1589,7 @@ LSQGPUImageVideoCameraDelegate
         } else if ([parameterName isEqualToString:@"whitening"]) {
             // 美白
             maxValueFactor = kSkinFaceWhiteningMaxDefault;
-            defaultValueFactor = 0.3; // 最大值的百分之30
+            defaultValueFactor = 0.3; // 最大值的百分之50
             updateValue = YES;
         } else if ([parameterName isEqualToString:@"ruddy"]) {
             // 红润
@@ -1692,17 +1642,17 @@ LSQGPUImageVideoCameraDelegate
         if ([parameterName isEqualToString:@"eyeSize"]) {
             // 大眼
             defaultValueFactor = 0.3;
-            maxValueFactor = 0.85;
+//            maxValueFactor = 0.85;
             updateValue = YES;
         } else if ([parameterName isEqualToString:@"chinSize"]) {
             // 瘦脸
             defaultValueFactor = 0.5;
-            maxValueFactor = 0.9;
+//            maxValueFactor = 0.9;
             updateValue = YES;
         } else if ([parameterName isEqualToString:@"noseSize"]) {
             // 瘦鼻
             defaultValueFactor = 0.2;
-            maxValueFactor = 0.6;
+//            maxValueFactor = 0.6;
             updateValue = YES;
         } else if ([parameterName isEqualToString:@"mouthWidth"]) {
             // 嘴型

@@ -11,8 +11,6 @@
 #import "TuSDKVideoImport.h"
 #import "TuSDKLiveVideoCamera.h"
 #import "TuSDKRecordVideoCamera.h"
-#import "TuSDKLiveVideoProcessor.h"
-#import "TuSDKLiveRTCProcessor.h"
 #import "TuSDKVideoFocusTouchView.h"
 #import "TuSDKFilterConfigProtocol.h"
 #import "TuSDKFilterConfigViewBase.h"

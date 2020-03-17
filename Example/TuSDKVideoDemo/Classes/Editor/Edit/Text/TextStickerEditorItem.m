@@ -9,65 +9,26 @@
 #import "TextStickerEditorItem.h"
 #import "MediaTextEffect.h"
 
-// 按钮宽度
+
 static const CGFloat kButtonWidth = 20;
 
-@interface TextStickerEditorItem ()
+@interface TextStickerEditorItem()
 
-/**
- 内容容器
- */
 @property (nonatomic, strong) UIView *containerView;
 
-/**
- 拉伸旋转按钮
- */
 @property (nonatomic, strong) UIView *scaleControl;
-
-/**
- 关闭按钮
- */
 @property (nonatomic, strong) UIButton *closeButton;
 
-/**
- 开始滑动的记录点
- */
-@property (nonatomic, assign) CGPoint panBeganPoint;
+@property (nonatomic, assign) CGPoint panBeganPoint; // 开始滑动的记录点
+@property (nonatomic, assign) CGFloat initialFontSize; //  初始字体大小
 
-/**
- 初始字体大小
- */
-@property (nonatomic, assign) CGFloat initialFontSize;
-
-/**
- 缩放
- */
 @property (nonatomic, assign) CGFloat scale;
-
-/**
- 角度
- */
 @property (nonatomic, assign) CGFloat angle;
 
-/**
- 开始半径
- */
-@property (nonatomic, assign) CGFloat beginRadius;
-
-/**
- 开始角度
- */
-@property (nonatomic, assign) CGFloat beginAngle;
-
-/**
- 开始滑动记录的缩放值
- */
-@property (nonatomic, assign) CGFloat panBeganScale;
-
-/**
- 开始滑动记录的角度
- */
-@property (nonatomic, assign) CGFloat panBeganAngle;
+@property (nonatomic, assign) CGFloat beginRadius; // 开始半径
+@property (nonatomic, assign) CGFloat beginAngle; // 开始角度
+@property (nonatomic, assign) CGFloat panBeganScale; // 开始滑动记录的缩放值
+@property (nonatomic, assign) CGFloat panBeganAngle; // 开始滑动记录的角度
 
 @end
 
@@ -79,23 +40,32 @@ static const CGFloat kButtonWidth = 20;
 @synthesize selected = _selected;
 @synthesize isChanged = _isChanged;
 
--(instancetype)initWithEditor:(StickerEditor *)editor;{
-    if (self = [self initWithFrame:CGRectZero]){
+-(instancetype)initWithEditor:(StickerEditor *)editor
+{
+    if (self = [self initWithFrame:CGRectZero])
+    {
         _stickerEditor = editor;
         [self commonInit];
     }
     return self;
 }
 
-- (instancetype)initWithFrame:(CGRect)frame {
-    if (self = [super initWithFrame:frame]) {
+- (instancetype)initWithFrame:(CGRect)frame
+{
+    if (self = [super initWithFrame:frame])
+    {
         [self commonInit];
     }
     return self;
 }
 
-- (void)commonInit {
-    
+- (void)dealloc
+{
+//    NSLog(@"dealloc: %@", self);
+}
+
+- (void)commonInit
+{
     self.editable = YES;
     self.isChanged = YES;
     // 配置子视图
@@ -134,13 +104,14 @@ static const CGFloat kButtonWidth = 20;
     _angle = 0;
 }
 
--(void)setEditable:(BOOL)editable;{
+-(void)setEditable:(BOOL)editable
+{
     self.userInteractionEnabled = editable;
     _editable = editable;
 }
 
-- (BOOL)canDisplay:(CMTime)time;{
-    
+- (BOOL)canDisplay:(CMTime)time
+{
     CMTimeRange timeRange = self.textLabel.timeRange;
     BOOL shouldShow = CMTIME_COMPARE_INLINE(time, >=, timeRange.start) && CMTIME_COMPARE_INLINE(time , <= ,CMTimeRangeGetEnd(timeRange));
     return shouldShow;
@@ -152,8 +123,13 @@ static const CGFloat kButtonWidth = 20;
 
  @return 最大缩放值
  */
-- (CGFloat)maxScale {
-    if (_maxScale > 0.0) return _maxScale;
+- (CGFloat)maxScale
+{
+    if (_maxScale > 0.0)
+    {
+        return _maxScale;
+    }
+    
     AttributedLabel *text = [AttributedLabel defaultLabel];
     NSString *fontName = _textLabel.font.fontName;
     text.font = [UIFont fontWithName:fontName size:text.font.pointSize];
@@ -173,23 +149,27 @@ static const CGFloat kButtonWidth = 20;
  
  @param sender 点击的文字项
  */
-- (void)controlTapAction:(TextStickerEditorItem *)sender {
+- (void)controlTapAction:(TextStickerEditorItem *)sender
+{
     self.selected = YES;
 }
 
 #pragma mark - property
 
-- (void)setTextLabel:(AttributedLabel *)textLabel {
+- (void)setTextLabel:(AttributedLabel *)textLabel
+{
     _isChanged = YES;
     _textLabel = textLabel;
     [_containerView addSubview:textLabel];
     textLabel.layer.allowsEdgeAntialiasing = YES;
     // 若是有布局信息，则应用到自身
-    if (!CGPointEqualToPoint(CGPointZero, textLabel.center)) {
+    if (!CGPointEqualToPoint(CGPointZero, textLabel.center))
+    {
         self.center = textLabel.center;
     }
     
-    if (!CGAffineTransformIsIdentity(textLabel.transform)) {
+    if (!CGAffineTransformIsIdentity(textLabel.transform))
+    {
         self.transform = textLabel.transform;
         textLabel.transform = CGAffineTransformIdentity;
     }
@@ -198,43 +178,65 @@ static const CGFloat kButtonWidth = 20;
     [self updateLayoutWithContentSize:contentSize];
 }
 
-- (void)setSelected:(BOOL)selected {
-    if (!self.editable)return;
+- (void)setSelected:(BOOL)selected
+{
+    if (!self.editable)
+    {
+        return;
+    }
     
     BOOL valueChaned = self.isSelected;
-    if (selected) {
+    if (selected)
+    {
         _containerView.layer.borderWidth = 1;
         _closeButton.hidden = _scaleControl.hidden = NO;
-        if (valueChaned)[_delegate shouldEditItem:self];
-    } else {
+        
+        if (valueChaned)
+        {
+            [_delegate shouldEditItem:self];
+        }
+    }
+    else
+    {
         _containerView.layer.borderWidth = 0;
         _closeButton.hidden = _scaleControl.hidden = YES;
     }
     
-    if (_selected == selected) return;
+    if (_selected == selected)
+    {
+        return;
+    }
+    
     _selected = selected;
     [super setSelected:selected];
     
-    if (selected) {
+    if (selected)
+    {
         [_stickerEditor.delegate imageStickerEditor:_stickerEditor didSelectedItem:self];
         [_stickerEditor.items enumerateObjectsUsingBlock:^(UIView<StickerEditorItem> * _Nonnull item, NSUInteger idx, BOOL * _Nonnull stop) {
             if (item != self)
+            {
                 item.selected = NO;
+            }
         }];
-    }else{
+    }
+    else
+    {
         [_stickerEditor.delegate imageStickerEditor:_stickerEditor didCancelSelectedItem:self];
     }
 }
 
 #pragma mark - public
 
-- (void)updateLayoutWithContentSize:(CGSize)contentSize {
+- (void)updateLayoutWithContentSize:(CGSize)contentSize
+{
     _isChanged = YES;
     CGRect contentBounds = (CGRect){CGPointZero, contentSize};
     // frame.size 依赖于 contentSize，位置不变
     CGPoint center = self.center;
     self.bounds = CGRectMake(0, 0, contentSize.width + kButtonWidth, contentSize.height + kButtonWidth);;
-    if (!CGPointEqualToPoint(CGPointZero, center)) self.center = center;
+    if (!CGPointEqualToPoint(CGPointZero, center))
+        self.center = center;
     
     // containerView 大小依赖于 contentSize
     _containerView.bounds = contentBounds;
@@ -267,12 +269,19 @@ static const CGFloat kButtonWidth = 20;
  @param scale 缩放
  @param angle 角度
  */
-- (void)setScale:(CGFloat)scale angle:(CGFloat)angle {
+- (void)setScale:(CGFloat)scale angle:(CGFloat)angle
+{
     _isChanged = YES;
-    if ([self maxScale] < scale * _scale) {
+    
+    if ([self maxScale] < scale * _scale)
+    {
         scale = [self maxScale];
     }
-    if (_initialFontSize * scale > kMaxFontSize) return;
+    
+    if (_initialFontSize * scale > kMaxFontSize)
+    {
+        return;
+    }
     
     _textLabel.initialPercentCenter = CGPointZero;
     
@@ -313,14 +322,20 @@ static const CGFloat kButtonWidth = 20;
 
  @param sender 滑动手势
  */
-- (void)translationPanAction:(UIPanGestureRecognizer *)sender {
+- (void)translationPanAction:(UIPanGestureRecognizer *)sender
+{
     _isChanged = YES;
-    switch (sender.state) {
-        case UIGestureRecognizerStateBegan:{
-            
+    
+    switch (sender.state)
+    {
+        case UIGestureRecognizerStateBegan:
+        {
             _panBeganPoint = self.center;
-        } break;
-        case UIGestureRecognizerStateChanged:{
+        }
+            break;
+            
+        case UIGestureRecognizerStateChanged:
+        {
             CGPoint translation = [sender translationInView:self.superview];
             
             BOOL canPanX = (CGRectGetMinX(self.frame) < 0 && translation.x > 0)
@@ -329,21 +344,30 @@ static const CGFloat kButtonWidth = 20;
                             ||  (CGRectGetMaxY(self.frame) > CGRectGetMaxY(self.superview.bounds) && translation.x < 0);
             CGPoint resultCenter = CGPointMake(_panBeganPoint.x + translation.x, _panBeganPoint.y + translation.y);
     
-            if (CGRectContainsPoint(self.superview.bounds, resultCenter)) {
+            if (CGRectContainsPoint(self.superview.bounds, resultCenter))
+            {
                 self.center = resultCenter;
-            }else if (canPanX || canPanY) {
+            }
+            else if (canPanX || canPanY)
+            {
                 CGPoint resultCenter = CGPointMake( canPanX ?  (_panBeganPoint.x + translation.x) : self.center.x, canPanY ? (_panBeganPoint.y + translation.y) : self.center.y);
                 self.center = resultCenter;
-
             }
-
-        } break;
-        case UIGestureRecognizerStateEnded:{
+        }
+            break;
+            
+        case UIGestureRecognizerStateEnded:
+        {
             [self sendActionsForControlEvents:UIControlEventValueChanged];
-        } break;
-        case UIGestureRecognizerStateCancelled:{} break;
-        case UIGestureRecognizerStatePossible:{} break;
-        case UIGestureRecognizerStateFailed:{} break;
+        }
+            break;
+            
+        case UIGestureRecognizerStateCancelled:
+            break;
+        case UIGestureRecognizerStatePossible:
+            break;
+        case UIGestureRecognizerStateFailed:
+            break;
     }
 }
 
@@ -352,10 +376,14 @@ static const CGFloat kButtonWidth = 20;
 
  @param sender 滑动手势
  */
-- (void)transformPanAction:(UIPanGestureRecognizer *)sender {
+- (void)transformPanAction:(UIPanGestureRecognizer *)sender
+{
     _isChanged = YES;
-    switch (sender.state) {
-        case UIGestureRecognizerStateBegan:{
+    
+    switch (sender.state)
+    {
+        case UIGestureRecognizerStateBegan:
+        {
             CGPoint location = [_scaleControl.superview convertPoint:_scaleControl.center toView:self.superview];
             CGPoint vectorToCenter = CGPointMake(location.x - self.center.x, location.y - self.center.y);
             _beginRadius = sqrt(pow(vectorToCenter.x, 2) + pow(vectorToCenter.y, 2));
@@ -363,19 +391,28 @@ static const CGFloat kButtonWidth = 20;
             
             _panBeganAngle = _angle;
             _panBeganScale = _scale;
-        } break;
-        case UIGestureRecognizerStateChanged:{
+        }
+            break;
+        
+        case UIGestureRecognizerStateChanged:
+        {
             CGPoint location = [sender locationInView:self.superview];
             CGPoint vectorToCenter = CGPointMake(location.x - self.center.x, location.y - self.center.y);
             CGFloat radius = sqrt(pow(vectorToCenter.x, 2) + pow(vectorToCenter.y, 2));
             CGFloat angle = atan2(vectorToCenter.y, vectorToCenter.x);
             [self setScale:_panBeganScale * radius / _beginRadius
                      angle:_panBeganAngle + angle - _beginAngle];
-        } break;
-        case UIGestureRecognizerStateEnded:{} break;
-        case UIGestureRecognizerStateCancelled:{} break;
-        case UIGestureRecognizerStatePossible:{} break;
-        case UIGestureRecognizerStateFailed:{} break;
+        }
+            break;
+            
+        case UIGestureRecognizerStateEnded:
+            break;
+        case UIGestureRecognizerStateCancelled:
+            break;
+        case UIGestureRecognizerStatePossible:
+            break;
+        case UIGestureRecognizerStateFailed:
+            break;
     }
 }
 
@@ -384,7 +421,8 @@ static const CGFloat kButtonWidth = 20;
 
  @param sender 点击手势
  */
-- (void)tapAction:(UITapGestureRecognizer *)sender {
+- (void)tapAction:(UITapGestureRecognizer *)sender
+{
     [self sendActionsForControlEvents:UIControlEventTouchUpInside];
 }
 
@@ -393,8 +431,22 @@ static const CGFloat kButtonWidth = 20;
 
  @param sender 点击的按钮
  */
-- (void)closeButtonAction:(UIButton *)sender {
+- (void)closeButtonAction:(UIButton *)sender
+{
     [_stickerEditor removeItem:self];
+}
+
+-(void)layoutSubviews
+{
+    [super layoutSubviews];
+    
+    if (_effect)
+    {
+        CGPoint centerPos = ((MediaTextEffect *)_effect).textStickerImage.centerPercent;
+        CGSize viewSize = _stickerEditor.contentView.frame.size;
+        
+        self.center = CGPointMake(viewSize.width * centerPos.x, viewSize.height * centerPos.y);
+    }
 }
 
 /**
@@ -403,8 +455,12 @@ static const CGFloat kButtonWidth = 20;
  @param regionRect 编辑区域
  @return id<TuSDKMediaEffect>
  */
-- (id<TuSDKMediaEffect>)resultWithRegionRect:(CGRect)regionRect;{
-    if (self.effect && !self.isChanged) return self.effect;
+- (id<TuSDKMediaEffect>)resultWithRegionRect:(CGRect)regionRect
+{
+    if (self.effect && !self.isChanged)
+    {
+        return self.effect;
+    }
     
     CGSize videoSize = regionRect.size;
     
@@ -430,8 +486,10 @@ static const CGFloat kButtonWidth = 20;
     textEffect.textStrokeColorProgress = textLabel.textStrokeColorProgress;
     textEffect.textColorProgress = textLabel.textColorProgress;
     textEffect.bgColorProgress = textLabel.bgColorProgress;
-    
-    if (_effect && _stickerEditor.delegate && [_stickerEditor.delegate respondsToSelector:@selector(imageStickerEditor:updateEffectFromItem:)]) {
+    textEffect.textStickerImage.designScreenSize = regionRect.size;
+
+    if (_effect && _stickerEditor.delegate && [_stickerEditor.delegate respondsToSelector:@selector(imageStickerEditor:updateEffectFromItem:)])
+    {
         [_stickerEditor.delegate imageStickerEditor:_stickerEditor updateEffectFromItem:self];
         [_effect destory];
         _effect = nil;
@@ -441,7 +499,8 @@ static const CGFloat kButtonWidth = 20;
 }
 
 
-- (void)setEffect:(id<TuSDKMediaEffect>)effect;{
+- (void)setEffect:(id<TuSDKMediaEffect>)effect
+{
     _effect = effect;
     MediaTextEffect *textEffect  = effect;
     AttributedLabel *textLabel = [AttributedLabel defaultLabel];
@@ -457,8 +516,10 @@ static const CGFloat kButtonWidth = 20;
     textLabel.bgColorProgress = textEffect.bgColorProgress;
     // 还原角度
     _angle = textEffect.textStickerImage.degree/180.0 * M_PI;
-    self.center = CGPointMake(_stickerEditor.contentView.lsqGetSizeWidth * textEffect.textStickerImage.centerPercent.x,_stickerEditor.contentView.lsqGetSizeHeight * textEffect.textStickerImage.centerPercent.y);
     
+    self.center = CGPointMake(_stickerEditor.contentView.lsqGetSizeWidth * textEffect.textStickerImage.centerPercent.x,
+                              _stickerEditor.contentView.lsqGetSizeHeight * textEffect.textStickerImage.centerPercent.y);
+
     // textLabel 信息设置完成后方可以设置
     self.textLabel = textLabel;
     
@@ -472,7 +533,8 @@ static const CGFloat kButtonWidth = 20;
  @param textLabel 文字标签
  @return 图片
  */
-- (UIImage *)textImageWithItemLabel:(AttributedLabel *)textLabel videoSize:(CGSize)videoSize;{
+- (UIImage *)textImageWithItemLabel:(AttributedLabel *)textLabel videoSize:(CGSize)videoSize
+{
     CGRect originFrame = textLabel.frame;
     UIFont *originFont = textLabel.font;
     UIEdgeInsets originEdgeInsets = textLabel.edgeInsets;
@@ -506,7 +568,8 @@ static const CGFloat kButtonWidth = 20;
  @param textFrame 文字的 frame
  @return rect 尺寸比例
  */
-- (CGRect)centerRectWithTextFrame:(CGRect)textFrame {
+- (CGRect)centerRectWithTextFrame:(CGRect)textFrame
+{
     CGFloat x = CGRectGetMidX(textFrame);
     CGFloat y = CGRectGetMidY(textFrame);
     CGFloat w = CGRectGetWidth(textFrame);
@@ -527,7 +590,8 @@ static const CGFloat kButtonWidth = 20;
  @param bounds 边框 frame
  @return 点坐标
  */
-- (CGPoint)textCenterWithCenterRect:(CGRect)centerRect bounds:(CGRect)bounds {
+- (CGPoint)textCenterWithCenterRect:(CGRect)centerRect bounds:(CGRect)bounds
+{
     CGFloat boundsWidth = CGRectGetWidth(bounds);
     CGFloat boundsHeight = CGRectGetHeight(bounds);
     CGFloat x = centerRect.origin.x * boundsWidth;
@@ -535,8 +599,5 @@ static const CGFloat kButtonWidth = 20;
     return CGPointMake(x, y);
 }
 
-- (void)dealloc {
-//    NSLog(@"dealloc: %@", self);
-}
 
 @end
