@@ -103,9 +103,6 @@
 
 #import "TuSDKMediaMovieCompositionComposer.h"
 
-// 多视频编辑
-#import "TuSDKMutipleMediaMovieCompositionComposer.h"
-
 #import "TuSDKGPUVideoPixelBufferForTexture.h"
 #import "TuSDKAssetVideoTrackPixelBufferOutput.h"
 #import "TuSDKMediaAssetExtractor.h"

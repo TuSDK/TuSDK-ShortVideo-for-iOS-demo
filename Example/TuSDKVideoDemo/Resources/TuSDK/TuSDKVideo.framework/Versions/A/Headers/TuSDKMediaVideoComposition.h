@@ -23,34 +23,22 @@ NS_ASSUME_NONNULL_BEGIN
  @return 输出格式
  @since v3.4.1
  */
-@property (nonatomic, readonly)OSType outputPixelFormatType;
+@property (nonatomic,readonly)OSType outputPixelFormatType;
 
 /**
  画面输出方向
  
  @since v3.4.1
  */
-@property (nonatomic, assign) LSQGPUImageRotationMode outputRotation;
+@property (nonatomic,readonly) LSQGPUImageRotationMode outputRotation;
 
 /**
- 画面输出时间范围
- 
- @since v3.5.2
- */
-@property (nonatomic, assign) CMTimeRange outputTimeRange;
-
-/**
- 原视频无方向尺寸
+ 最佳输出尺寸
  
  @since v3.4.1
  */
-@property (nonatomic, readonly)CGSize preferredOutputSize;
+@property (nonatomic,readonly)CGSize preferredOutputSize;
 
-/**
- 输出尺寸
- @since v3.5.2
- */
-@property (nonatomic, assign) CGSize outputSize;
 
 @end
 

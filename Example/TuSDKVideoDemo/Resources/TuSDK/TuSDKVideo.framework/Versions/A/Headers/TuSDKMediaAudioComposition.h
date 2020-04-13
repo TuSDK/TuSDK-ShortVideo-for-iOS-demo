@@ -18,13 +18,6 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @protocol TuSDKMediaAudioComposition <TuSDKMediaComposition>
 
-/**
- 音频输出时间范围
- 
- @since v3.5.2
- */
-@property (nonatomic, assign) CMTimeRange outputTimeRange;
-
 @end
 
 NS_ASSUME_NONNULL_END
