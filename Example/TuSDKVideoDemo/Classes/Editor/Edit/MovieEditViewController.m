@@ -25,6 +25,8 @@
 #import "Constants.h"
 #import "FilterSwipeView.h"
 
+#import "TuEditFilterController.h"
+
 @interface MovieEditViewController ()<
 UICollectionViewDelegate,
 TuSDKMovieEditorLoadDelegate, TuSDKMovieEditorPlayerDelegate, TuSDKMovieEditorSaveDelegate,
@@ -484,8 +486,12 @@ EditComponentNavigatorDelegate, FilterSwipeViewDelegate
     switch (index) {
         // 进入滤镜页面
         case EditComponentIndexFilter:{
-            EditFilterViewController *filterViewController = [[EditFilterViewController alloc] initWithNibName:nil bundle:nil];
+            
+            TuEditFilterController *filterViewController = [[TuEditFilterController alloc]init];
             editComponentViewController = filterViewController;
+            
+//            EditFilterViewController *filterViewController = [[EditFilterViewController alloc] initWithNibName:nil bundle:nil];
+//            editComponentViewController = filterViewController;
         } break;
         // 进入 MV 页面
         case EditComponentIndexMV:{

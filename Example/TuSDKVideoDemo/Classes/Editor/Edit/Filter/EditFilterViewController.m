@@ -33,7 +33,8 @@
 @implementation EditFilterViewController
 
 + (CGFloat)bottomPreviewOffset {
-    return 132;
+//    return 132;
+    return 172;
 }
 
 /**
@@ -69,6 +70,34 @@
 - (void)setupUI {
     self.title = NSLocalizedStringFromTable(@"tu_滤镜", @"VideoDemo", @"滤镜");
     
+//    NSString *configPath = [TuSDKTSBundle sdkBundleOther:lsqSdkConfigs];
+//    NSString *sJson = [NSString stringWithContentsOfFile:configPath encoding:NSUTF8StringEncoding error:nil];
+//    TuSDKConfig *lsqSDKConfig = [TuSDKConfig initWithString:sJson];
+//    
+//    
+//    for (TuSDKFilterGroup *filterGroup in lsqSDKConfig.filterGroups)
+//    {
+//        if (filterGroup.groupFilterType == lsqGroupFilterTypeGeneral)
+//        {
+//            [self.fitlerTitles addObject: NSLocalizedStringFromTable(filterGroup.name, @"TuSDKConstants", @"无需国际化")];
+//            [self.filtersOptions addObject:filterGroup.filters];
+//            NSMutableArray *filters = [NSMutableArray arrayWithCapacity:filterGroup.filters.count];
+//            
+//            for (TuSDKFilterOption *option in filterGroup.filters) {
+//                [filters addObject:[option.name componentsSeparatedByString:@"lsq_filter_"].lastObject];
+//            }
+//            
+//            [self.filtersGroups addObject:filters];
+//        }
+//    }
+    
+    //重置按钮
+    UIButton *unsetButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    unsetButton.frame = CGRectMake(0, CGRectGetMinY(self.filterListView.frame) - 30, 52, 30);
+    [unsetButton setImage:[UIImage imageNamed:@"video_ic_nix"] forState:0];
+//    [unsetButton addTarget:self action:@selector(unsetButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:unsetButton];
+    
     // 载入已设置的滤镜
     TuSDKMediaFilterEffect *filterEffect = (TuSDKMediaFilterEffect *)[self.movieEditor mediaEffectsWithType:TuSDKMediaEffectDataTypeFilter].lastObject;
     
@@ -85,6 +114,7 @@
     // 开始播放
     [self.movieEditor startPreview];
 }
+
 
 /**
  更新参数列表视图中的效果

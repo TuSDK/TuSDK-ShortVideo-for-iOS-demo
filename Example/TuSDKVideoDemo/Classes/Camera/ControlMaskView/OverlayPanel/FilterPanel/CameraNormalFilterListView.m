@@ -13,7 +13,7 @@
 
 - (void)commonInit {
     [super commonInit];
-    [self setupData];
+    
 }
 
 + (Class)listItemViewClass {
@@ -21,12 +21,14 @@
 }
 
 - (void)setupData {
-    NSArray *filterCodes = @[kCameraNormalFilterCodes];
-    _filterCodes = filterCodes;
+//    NSArray *filterCodes = @[kCameraNormalFilterCodes];
+//    _filterCodes = filterCodes;
     
+    __weak typeof(self)weakSelf = self;
     // 配置 UI
-    [self addItemViewsWithCount:filterCodes.count config:^(HorizontalListView *listView, NSUInteger index, HorizontalListItemView *itemView) {
-        NSString *filterCode = filterCodes[index];
+    [self addItemViewsWithCount:self.filterCodes.count config:^(HorizontalListView *listView, NSUInteger index, HorizontalListItemView *itemView) {
+        __strong typeof(weakSelf)strongSelf = weakSelf;
+        NSString *filterCode = strongSelf.filterCodes[index];
         // 标题
         NSString *title = [NSString stringWithFormat:@"lsq_filter_%@", filterCode];
         itemView.titleLabel.text = NSLocalizedStringFromTable(title, @"TuSDKConstants", @"无需国际化");
@@ -37,7 +39,13 @@
         // 点击次数
         itemView.maxTapCount = 2;
     }];
-    [self insertItemView:[HorizontalListItemView disableItemView] atIndex:0];
+//    [self insertItemView:[HorizontalListItemView disableItemView] atIndex:0];
+}
+
+- (void)setFilterCodes:(NSArray *)filterCodes
+{
+    _filterCodes = filterCodes;
+    [self setupData];
 }
 
 #pragma mark - property
@@ -52,10 +60,39 @@
         _selectedFilterCode = nil;
         selectedIndex = -1;
     }
-    selectedIndex += 1;
+//    selectedIndex += 1;
     self.selectedIndex = selectedIndex;
+    
+    //更新本地数据
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"selectedFilter"]) {
+        NSDictionary *param = [[NSUserDefaults standardUserDefaults] objectForKey:@"selectedFilter"];
+        NSMutableDictionary *codeParam = [NSMutableDictionary dictionaryWithDictionary:param];
+        codeParam[@"selectedIndex"] = @(selectedIndex);
+        codeParam[@"selectedFilterCode"] = _selectedFilterCode;
+        codeParam[@"viewTag"] = @(self.tag);
+        [[NSUserDefaults standardUserDefaults] setObject:codeParam forKey:@"selectedFilter"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+}
 
+- (void)itemScrollToCurrentRight
+{
+    [super itemScrollToCurrentRight];
+    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(tuCameraNormalViewScrollToViewRight)])
+    {
+        [self.delegate tuCameraNormalViewScrollToViewRight];
+    }
+}
 
+- (void)itemScrollTiCurrentLeft
+{
+    [super itemScrollTiCurrentLeft];
+    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(tuCameraNormalViewScrollToViewLeft)])
+    {
+        [self.delegate tuCameraNormalViewScrollToViewLeft];
+    }
 }
 
 #pragma mark - HorizontalListItemViewDelegate
@@ -66,13 +103,22 @@
 - (void)itemViewDidTap:(HorizontalListItemView *)itemView {
     [super itemViewDidTap:itemView];
     NSString *code = nil;
-    if (self.selectedIndex > 0) {
-        code = _filterCodes[self.selectedIndex - 1];
-    }
+//    if (self.selectedIndex > 0) {
+//        code = _filterCodes[self.selectedIndex - 1];
+//    }
+    code = _filterCodes[self.selectedIndex];
     self.selectedFilterCode = code;
+    
+    NSMutableDictionary *codeDic = [NSMutableDictionary dictionary];
+    codeDic[@"selectedFilterCode"] = code;
+    codeDic[@"selectedIndex"] = @(self.selectedIndex);
+    codeDic[@"viewTag"] = @(self.tag);
+    [[NSUserDefaults standardUserDefaults] setObject:codeDic forKey:@"selectedFilter"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
     if (self.itemViewTapActionHandler) self.itemViewTapActionHandler(self, itemView, code);
-
-
 }
+
+
 
 @end

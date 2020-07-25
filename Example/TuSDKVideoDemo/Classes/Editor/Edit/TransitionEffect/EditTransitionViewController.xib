@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -30,7 +27,6 @@
                     <constraints>
                         <constraint firstAttribute="height" constant="32" id="FOf-hJ-yrY"/>
                     </constraints>
-                    <viewLayoutGuide key="safeArea" id="SGq-3s-oO5"/>
                     <connections>
                         <outlet property="delegate" destination="-1" id="uTF-2u-nuM"/>
                     </connections>
@@ -64,7 +60,6 @@
                         <constraint firstItem="dvT-qA-qIy" firstAttribute="centerX" secondItem="a6S-oG-1zE" secondAttribute="centerX" id="IJx-ub-24i"/>
                         <constraint firstItem="dvT-qA-qIy" firstAttribute="centerY" secondItem="a6S-oG-1zE" secondAttribute="centerY" id="pvW-Sj-e8S"/>
                     </constraints>
-                    <viewLayoutGuide key="safeArea" id="PlT-ld-cbJ"/>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gvz-FG-yde" customClass="TransitionEffectListView">
                     <rect key="frame" x="76" y="535" width="299" height="92"/>
@@ -72,7 +67,6 @@
                     <constraints>
                         <constraint firstAttribute="height" constant="92" id="fhN-ts-S47"/>
                     </constraints>
-                    <viewLayoutGuide key="safeArea" id="pr3-VK-Ojf"/>
                     <connections>
                         <outlet property="delegate" destination="-1" id="2Iw-Kc-1jN"/>
                     </connections>
@@ -83,17 +77,16 @@
                 <constraint firstAttribute="bottomMargin" secondItem="gvz-FG-yde" secondAttribute="bottom" constant="40" id="3Ty-fH-ZET"/>
                 <constraint firstItem="a6S-oG-1zE" firstAttribute="top" secondItem="U3O-UY-vrS" secondAttribute="bottom" constant="8" id="GSi-T8-8Q2"/>
                 <constraint firstItem="a6S-oG-1zE" firstAttribute="bottom" secondItem="gvz-FG-yde" secondAttribute="bottom" id="GoE-9k-OI7"/>
-                <constraint firstItem="U3O-UY-vrS" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="76" id="V78-SY-fkE"/>
+                <constraint firstItem="U3O-UY-vrS" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="76" id="V78-SY-fkE"/>
                 <constraint firstAttribute="trailing" secondItem="gvz-FG-yde" secondAttribute="trailing" id="Vew-A7-3of"/>
                 <constraint firstItem="hjU-9E-G5j" firstAttribute="top" secondItem="U3O-UY-vrS" secondAttribute="top" id="bvr-yN-jhc"/>
-                <constraint firstItem="a6S-oG-1zE" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="cPq-6P-g7E"/>
+                <constraint firstItem="a6S-oG-1zE" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="cPq-6P-g7E"/>
                 <constraint firstAttribute="trailing" secondItem="U3O-UY-vrS" secondAttribute="trailing" id="ehb-eL-6zV"/>
-                <constraint firstItem="gvz-FG-yde" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="76" id="gez-2s-IUa"/>
+                <constraint firstItem="gvz-FG-yde" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="76" id="gez-2s-IUa"/>
                 <constraint firstItem="a6S-oG-1zE" firstAttribute="top" secondItem="gvz-FG-yde" secondAttribute="top" id="jNG-yn-g6E"/>
                 <constraint firstItem="hjU-9E-G5j" firstAttribute="bottom" secondItem="U3O-UY-vrS" secondAttribute="bottom" id="tJ8-i2-wYD"/>
-                <constraint firstItem="hjU-9E-G5j" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="wYU-KX-fpO"/>
+                <constraint firstItem="hjU-9E-G5j" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="wYU-KX-fpO"/>
             </constraints>
-            <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
             <point key="canvasLocation" x="53.600000000000001" y="48.125937031484263"/>
         </view>
     </objects>

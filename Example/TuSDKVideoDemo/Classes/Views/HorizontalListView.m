@@ -8,12 +8,9 @@
 
 #import "HorizontalListView.h"
 
-@interface HorizontalListView ()
+@interface HorizontalListView ()<UIScrollViewDelegate>
 
-/**
- 滚动视图
- */
-@property (nonatomic, strong) UIScrollView *scrollView;
+
 
 /**
  列表项组
@@ -47,6 +44,8 @@
     _scrollView = [[UIScrollView alloc] init];
     _scrollView.showsHorizontalScrollIndicator = NO;
     _scrollView.showsVerticalScrollIndicator = NO;
+    _scrollView.bounces = NO;
+    _scrollView.delegate = self;
     
     [self addSubview:_scrollView];
     _selectedIndex = -1;
@@ -79,6 +78,48 @@
     }
     contentWidth = contentWidth - _itemSpacing + _sideMargin;
     _scrollView.contentSize = CGSizeMake(contentWidth, self.bounds.size.height);
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    CGPoint offset = scrollView.contentOffset;
+    
+    CGRect bounds = scrollView.bounds;
+    
+    CGSize size = scrollView.contentSize;
+        
+    UIEdgeInsets inset = scrollView.contentInset;
+    
+    //距离右侧
+    CGFloat currentOffSet = offset.x + bounds.size.width - inset.right;
+    
+    CGFloat maxOffSet = size.width;
+    
+    if (currentOffSet == maxOffSet)
+    {
+        [self itemScrollToCurrentRight];
+
+    }
+    if (offset.x == 0)
+    {
+        [self itemScrollTiCurrentLeft];
+    }
+}
+
+/**
+ 列表滑动到最左侧
+ */
+- (void)itemScrollTiCurrentLeft
+{
+    
+}
+
+/**
+ 列表滑动到最右侧
+ */
+- (void)itemScrollToCurrentRight
+{
+    
 }
 
 #pragma mark - property
@@ -173,6 +214,8 @@
 - (void)itemViewDidTouchUp:(HorizontalListItemBaseView *)itemView {
     // 子类重写
 }
+
+
 
 @end
 

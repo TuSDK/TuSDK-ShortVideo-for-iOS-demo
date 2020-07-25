@@ -10,10 +10,27 @@
 #import "HorizontalListItemView.h"
 
 
+@protocol CameraComicsFilterListViewDelegate <NSObject>
+
+@optional
+/**
+ 漫画滤镜列表滑动到右侧
+ */
+- (void)tuCameraComicsViewScrollToViewRight;
+
+/**
+ 漫画滤镜列表滑动到左侧
+ */
+- (void)tuCameraComicsViewScrollToViewLeft;
+
+@end
+
 /**
  相机漫画滤镜列表
  */
 @interface CameraComicsFilterListView : HorizontalListView
+
+@property (nonatomic, weak) id<CameraComicsFilterListViewDelegate> delegate;
 
 /**
  滤镜码

@@ -12,6 +12,15 @@
 #import "CameraFilterPanelProtocol.h"
 
 /**
+ 列表视图滚动方向
+ */
+typedef NS_ENUM(NSUInteger, TuFilterViewScrollDirectionType) {
+    TuFilterViewScrollDirectionLeft,
+    TuFilterViewScrollDirectionRight,
+    TuFilterViewScrollDirectionTop,
+    TuFilterViewScrollDirectionBottom
+};
+/**
  相机滤镜面板
  */
 @interface CameraFilterPanelView : UIView <OverlayViewProtocol, CameraFilterPanelProtocol>
@@ -31,7 +40,28 @@
  */
 @property (nonatomic, assign, readonly) NSInteger selectedTabIndex;
 
+@property (nonatomic, assign) NSInteger selectedIndex;
+/**
+ 标签组数量
+ */
+@property (nonatomic, assign, readonly) NSInteger filterGroupCount;
+
+
 @property (nonatomic, weak) id<CameraFilterPanelDelegate> delegate;
 @property (nonatomic, weak) id<CameraFilterPanelDataSource> dataSource;
+/**
+ 标题数组
+ */
+@property (nonatomic, strong) NSMutableArray<NSString *> *filterTitles;
+/**
+ 滤镜组-滤镜数量
+ */
+@property (nonatomic, strong) NSMutableArray *filtersGroups;
+@property (nonatomic, strong) NSMutableArray *filtersOptions;
+
+/**
+ 滚动方向
+ */
+@property (nonatomic, assign) TuFilterViewScrollDirectionType scrollDirection;
 
 @end

@@ -62,6 +62,11 @@ typedef void(^HorizontalListItemViewConfigBlock)(HorizontalListView *listView, N
 @property (nonatomic, assign) BOOL disableAutoSelect;
 
 /**
+ 滚动视图
+ */
+@property (nonatomic, strong) UIScrollView *scrollView;
+
+/**
  列表项的类型
  */
 + (Class)listItemViewClass;
@@ -100,6 +105,15 @@ typedef void(^HorizontalListItemViewConfigBlock)(HorizontalListView *listView, N
  @return 列表项
  */
 - (HorizontalListItemBaseView *)itemViewAtIndex:(NSInteger)index;
+
+/**
+ 滑动到最右侧
+ */
+- (void)itemScrollToCurrentRight;
+/**
+ 滑动到最左侧
+*/
+- (void)itemScrollTiCurrentLeft;
 
 @end
 
@@ -163,5 +177,7 @@ typedef void(^HorizontalListItemViewConfigBlock)(HorizontalListView *listView, N
  点击回调
  */
 - (void)itemViewDidTap:(HorizontalListItemBaseView *)itemView;
+
+
 
 @end

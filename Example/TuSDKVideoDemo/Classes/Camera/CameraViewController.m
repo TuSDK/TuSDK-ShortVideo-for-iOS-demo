@@ -114,6 +114,8 @@ LSQGPUImageVideoCameraDelegate
 /** screenKeyingEffect */
 @property (nonatomic, strong) TuSDKMediaScreenKeyingEffect *screenKeyingEffect;
 
+@property (nonatomic, assign) double brightness;
+
 @end
 
 
@@ -197,7 +199,7 @@ LSQGPUImageVideoCameraDelegate
     
     // 滤镜列表，获取滤镜前往 TuSDK.bundle/others/lsq_tusdk_configs.json
     // TuSDK 滤镜信息介绍 @see-https://tutucloud.com/docs/ios/self-customize-filter
-    _filterCodes = kNormalFilterCodes;
+//    _filterCodes = kNormalFilterCodes;
     _filterParameterDefaultDic = [NSMutableDictionary dictionary];
     
     // 获取相册的权限
@@ -212,6 +214,10 @@ LSQGPUImageVideoCameraDelegate
     
     // 相机权限
     [self requestCameraPermission];
+    
+    //目前进入相机会默认将手机亮度调到最大
+    self.brightness = [UIScreen mainScreen].brightness;
+    NSLog(@"屏幕亮度0 === %.f", [UIScreen mainScreen].brightness);
 }
 
 - (void)viewDidLayoutSubviews {
@@ -236,6 +242,10 @@ LSQGPUImageVideoCameraDelegate
     // [_camera resumeCameraCapture];
     // 设置屏幕常亮，默认是NO
     [UIApplication sharedApplication].idleTimerDisabled = YES;
+    
+    [UIScreen mainScreen].brightness = 1.f;
+    
+    NSLog(@"屏幕亮度2 === %.f", [UIScreen mainScreen].brightness);
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -244,6 +254,9 @@ LSQGPUImageVideoCameraDelegate
     // [_camera pauseCameraCapture];
     // 关闭屏幕常亮
     [UIApplication sharedApplication].idleTimerDisabled = NO;
+    
+    [UIScreen mainScreen].brightness = self.brightness;
+    NSLog(@"屏幕亮度3 === %.f", [UIScreen mainScreen].brightness);
 }
 
 /**
@@ -356,6 +369,9 @@ LSQGPUImageVideoCameraDelegate
 //        });
 //    }
     
+    [UIScreen mainScreen].brightness = self.brightness;
+    NSLog(@"进入后台屏幕亮度 === %.f", [UIScreen mainScreen].brightness);
+    
     // 进入后台后取消录制，舍弃之前录制的信息
     if (_camera) {
         // 取消录制
@@ -382,6 +398,9 @@ LSQGPUImageVideoCameraDelegate
     }
     // 恢复UI界面
     [_captureMode resetUI];
+    
+    [UIScreen mainScreen].brightness = 1.f;
+    NSLog(@"恢复前台屏幕亮度 === %.f", [UIScreen mainScreen].brightness);
 }
 
 #pragma mark - 权限请求
@@ -415,9 +434,19 @@ LSQGPUImageVideoCameraDelegate
         // 启动相机
         [self.camera tryStartCameraCapture];
         // 默认选中的滤镜
-        self.currentFilterIndex = 1;
         // 设置默认滤镜
-        self.defaultFilterCode = self.filterCodes[self.currentFilterIndex];
+        if ([[NSUserDefaults standardUserDefaults] objectForKey:@"selectedFilter"]) {
+            
+            NSDictionary *defaultFilter = [[NSUserDefaults standardUserDefaults] objectForKey:@"selectedFilter"];
+            self.defaultFilterCode = defaultFilter[@"selectedFilterCode"];
+            self.currentFilterIndex = [defaultFilter[@"selectedIndex"] integerValue];
+            
+        } else {
+            
+            self.currentFilterIndex = 1;
+            self.defaultFilterCode = self.filterCodes[self.currentFilterIndex];
+        }
+        
         
     }];
 }
@@ -629,20 +658,47 @@ LSQGPUImageVideoCameraDelegate
  */
 - (void)switchToPreviousFilter {
     
+    if (_filterCodes.count == 0) {
+        _filterCodes = _controlMaskView.filterPanelView.filtersGroups[0];
+    }
     if (self.currentFilterIndex == 0)
-        self.currentFilterIndex = _filterCodes.count - 1;
+    {
+        //处于第一位的时候不处理
+        if (_controlMaskView.filterPanelView.selectedTabIndex == 0) {
+            
+            _controlMaskView.filterPanelView.selectedIndex = _controlMaskView.filterPanelView.filterGroupCount - 1;
+            _filterCodes = @[kCameraComicsFilterCodes];
+            self.currentFilterIndex = _filterCodes.count - 1;
+            
+        } else {
+            _controlMaskView.filterPanelView.selectedIndex = _controlMaskView.filterPanelView.selectedTabIndex - 1;
+            _filterCodes = self.controlMaskView.filterPanelView.filtersGroups[self.controlMaskView.filterPanelView.selectedTabIndex];
+            self.currentFilterIndex = _filterCodes.count - 1;
+        }
+    }
     else
+    {
         self.currentFilterIndex = self.currentFilterIndex - 1;
+    }
+        
+    
+    if (self.currentFilterIndex >= self.filterCodes.count) {
+        return;
+    }
     
     // 漫画
-    if (_controlMaskView.filterPanelView.selectedTabIndex == 1) {
+    if (_controlMaskView.filterPanelView.selectedTabIndex == _controlMaskView.filterPanelView.filterGroupCount - 1)
+    {
         
         TuSDKMediaComicEffect *comicEffect = [[TuSDKMediaComicEffect alloc] initWithEffectCode:_filterCodes[self.currentFilterIndex]];
         [_camera addMediaEffect:comicEffect];
         
-    }else
+    }
+    else
     {
+        
         // 滤镜
+        NSLog(@"当前滤镜代码 == %@", _filterCodes[self.currentFilterIndex]);
         TuSDKMediaFilterEffect *comicEffect = [[TuSDKMediaFilterEffect alloc] initWithEffectCode:_filterCodes[self.currentFilterIndex]];
         [_camera addMediaEffect:comicEffect];
         
@@ -656,10 +712,39 @@ LSQGPUImageVideoCameraDelegate
  */
 - (void)switchToNextFilter {
     
-    self.currentFilterIndex = (self.currentFilterIndex + 1) % _filterCodes.count;
+    if (_filterCodes.count == 0) {
+        _filterCodes = self.controlMaskView.filterPanelView.filtersGroups[self.controlMaskView.filterPanelView.selectedTabIndex];
+    }
     
+//    self.currentFilterIndex = (self.currentFilterIndex + 1) % _filterCodes.count;
+    self.currentFilterIndex++;
+    
+    if (self.currentFilterIndex >= _filterCodes.count) {
+        
+        //漫画滤镜时暂时不处理
+        if (_controlMaskView.filterPanelView.selectedTabIndex == _controlMaskView.filterPanelView.filterGroupCount - 1)
+        {
+            _controlMaskView.filterPanelView.selectedIndex = 0;
+            _filterCodes = self.controlMaskView.filterPanelView.filtersGroups[self.controlMaskView.filterPanelView.selectedTabIndex];
+            self.currentFilterIndex = 0;
+        }
+        //准备切换到漫画滤镜时
+        else if (_controlMaskView.filterPanelView.selectedTabIndex == _controlMaskView.filterPanelView.filterGroupCount - 2)
+        {
+            _controlMaskView.filterPanelView.selectedIndex = _controlMaskView.filterPanelView.selectedTabIndex + 1;
+            _filterCodes = @[kCameraComicsFilterCodes];
+            self.currentFilterIndex = 0;
+        }
+        else
+        {
+            _controlMaskView.filterPanelView.selectedIndex = _controlMaskView.filterPanelView.selectedTabIndex + 1;
+            _filterCodes = self.controlMaskView.filterPanelView.filtersGroups[self.controlMaskView.filterPanelView.selectedTabIndex];
+            self.currentFilterIndex = 0;
+        }
+
+    }
     // 漫画
-    if (_controlMaskView.filterPanelView.selectedTabIndex == 1) {
+    if (_controlMaskView.filterPanelView.selectedTabIndex == _controlMaskView.filterPanelView.filterGroupCount - 1) {
         
         TuSDKMediaComicEffect *comicEffect = [[TuSDKMediaComicEffect alloc] initWithEffectCode:_filterCodes[self.currentFilterIndex]];
         [_camera addMediaEffect:comicEffect];
@@ -1099,11 +1184,29 @@ LSQGPUImageVideoCameraDelegate
             // 滤镜特效
         case TuSDKMediaEffectDataTypeFilter: {
             
+            
             // 更新在相机界面上显示的滤镜名称
             NSString *filterName = [NSString stringWithFormat:@"lsq_filter_%@", mediaEffectData.filterWrap.code];
-            self.controlMaskView.filterName = NSLocalizedStringFromTable(filterName, @"TuSDKConstants", @"无需国际化");
             
-            self.controlMaskView.filterPanelView.selectedFilterCode = mediaEffectData.filterWrap.code;
+            //优先调用本地保存的滤镜代码
+            if ([[NSUserDefaults standardUserDefaults] objectForKey:@"selectedFilter"]) {
+                NSString *code = [[NSUserDefaults standardUserDefaults] objectForKey:@"selectedFilter"][@"selectedFilterCode"];
+                self.controlMaskView.filterPanelView.selectedFilterCode = code;
+                if (!code.length) {
+                    self.controlMaskView.filterPanelView.selectedFilterCode = mediaEffectData.filterWrap.code;
+                } else {
+                    NSArray *comicsArray = @[kCameraComicsFilterCodes];
+                    if ([comicsArray containsObject:code]) {
+                        TuSDKMediaComicEffect *effect = [[TuSDKMediaComicEffect alloc] initWithEffectCode:code];
+                        [_camera addMediaEffect:effect];
+                    }
+                    filterName = [NSString stringWithFormat:@"lsq_filter_%@", code];
+                }
+                
+            } else {
+                self.controlMaskView.filterPanelView.selectedFilterCode = mediaEffectData.filterWrap.code;
+            }
+            self.controlMaskView.filterName = NSLocalizedStringFromTable(filterName, @"TuSDKConstants", @"无需国际化");
             [self.controlMaskView.filterPanelView reloadFilterParamters];
             
         }
@@ -1170,20 +1273,31 @@ LSQGPUImageVideoCameraDelegate
             }
         }
         
-    }else
+    }
+    else
     {
         // 滤镜视图面板
-        switch (_controlMaskView.filterPanelView.selectedTabIndex)
+        if (_controlMaskView.filterPanelView.selectedTabIndex == _controlMaskView.filterPanelView.filterGroupCount - 1)
         {
-            case 1: // 漫画
-            {
-                return 0;
-            }
-            case 0: { // 滤镜
-                TuSDKMediaFilterEffect *effect = [_camera mediaEffectsWithType:TuSDKMediaEffectDataTypeFilter].firstObject;
-                return effect.filterArgs.count;
-            }
+            //漫画
+            return 0;
         }
+        else
+        {
+            return [_controlMaskView.filterPanelView.filtersGroups[_controlMaskView.filterPanelView.selectedTabIndex] count];
+        }
+//        // 滤镜视图面板
+//        switch (_controlMaskView.filterPanelView.selectedTabIndex)
+//        {
+//            case 1: // 漫画
+//            {
+//                return 0;
+//            }
+//            case 0: { // 滤镜
+//                TuSDKMediaFilterEffect *effect = [_camera mediaEffectsWithType:TuSDKMediaEffectDataTypeFilter].firstObject;
+//                return effect.filterArgs.count;
+//            }
+//        }
     }
     
     return 0;
@@ -1218,17 +1332,26 @@ LSQGPUImageVideoCameraDelegate
     }else
     {
         // 滤镜视图面板
-        switch (_controlMaskView.filterPanelView.selectedTabIndex)
+//        switch (_controlMaskView.filterPanelView.selectedTabIndex)
+//        {
+//            case 1: // 漫画
+//            {
+//                return 0;
+//            }
+//            case 0:  // 滤镜
+//            {
+//                TuSDKMediaFilterEffect *effect = [_camera mediaEffectsWithType:TuSDKMediaEffectDataTypeFilter].firstObject;
+//                return effect.filterArgs[index].key;
+//            }
+//        }
+        if (_controlMaskView.filterPanelView.selectedTabIndex == _controlMaskView.filterPanelView.filterGroupCount - 1)
         {
-            case 1: // 漫画
-            {
-                return 0;
-            }
-            case 0:  // 滤镜
-            {
-                TuSDKMediaFilterEffect *effect = [_camera mediaEffectsWithType:TuSDKMediaEffectDataTypeFilter].firstObject;
-                return effect.filterArgs[index].key;
-            }
+            return 0;
+        }
+        else
+        {
+            NSArray<TuSDKFilterOption *> *filterOptions = _controlMaskView.filterPanelView.filtersOptions[_controlMaskView.filterPanelView.selectedTabIndex];
+            return [filterOptions[index].args allKeys].firstObject;
         }
     }
     
@@ -1261,20 +1384,31 @@ LSQGPUImageVideoCameraDelegate
             }
         }
         
-    }else
+    }
+    else
     {
         // 滤镜视图面板
-        switch (_controlMaskView.filterPanelView.selectedTabIndex)
+//        switch (_controlMaskView.filterPanelView.selectedTabIndex)
+//        {
+//            case 1: // 漫画
+//            {
+//                return 0;
+//            }
+//            case 0:
+//            {
+//                TuSDKMediaFilterEffect *effect = [_camera mediaEffectsWithType:TuSDKMediaEffectDataTypeFilter].firstObject;
+//                return effect.filterArgs[index].precent;
+//            }
+//        }
+        // 滤镜视图面板
+        if (self.controlMaskView.filterPanelView.selectedTabIndex == self.controlMaskView.filterPanelView.filterGroupCount - 1)
         {
-            case 1: // 漫画
-            {
-                return 0;
-            }
-            case 0:
-            {
-                TuSDKMediaFilterEffect *effect = [_camera mediaEffectsWithType:TuSDKMediaEffectDataTypeFilter].firstObject;
-                return effect.filterArgs[index].precent;
-            }
+            return 0;
+        }
+        else
+        {
+            NSArray<TuSDKFilterOption *> *filterOptions = _controlMaskView.filterPanelView.filtersOptions[_controlMaskView.filterPanelView.selectedTabIndex];
+            return [filterOptions[index].args[@"mixied"] doubleValue];
         }
     }
     
@@ -1333,13 +1467,22 @@ LSQGPUImageVideoCameraDelegate
  */
 - (void)filterPanel:(id<CameraFilterPanelProtocol>)filterPanel didSwitchTabIndex:(NSInteger)tabIndex {
     if ([filterPanel isKindOfClass:[CameraFilterPanelView class]]) {
-        _filterCodes = tabIndex == 1 ? kComicsFilterCodes : kNormalFilterCodes;
+        if (tabIndex == _controlMaskView.filterPanelView.filterGroupCount - 1)
+        {
+            _filterCodes = kComicsFilterCodes;
+        }
+        else
+        {
+//            _filterCodes = kNormalFilterCodes;
+            _filterCodes = _controlMaskView.filterPanelView.filtersGroups[tabIndex];
+        }
+//        _filterCodes = tabIndex == 1 ? kComicsFilterCodes : kNormalFilterCodes;
         self.currentFilterIndex = 0;
     }
 }
 
 -(void)setCurrentFilterIndex:(NSUInteger)currentFilterIndex;{
-    _currentFilterIndex =currentFilterIndex;
+    _currentFilterIndex = currentFilterIndex;
 }
 
 /**
@@ -1386,24 +1529,39 @@ LSQGPUImageVideoCameraDelegate
     }else {
         
         // 滤镜视图面板
-        switch (_controlMaskView.filterPanelView.selectedTabIndex)
+        // 漫画
+        if (_controlMaskView.filterPanelView.selectedTabIndex == _controlMaskView.filterPanelView.filterGroupCount - 1)
         {
-            case 1: // 漫画
-            {
-                TuSDKMediaComicEffect *effect = [[TuSDKMediaComicEffect alloc] initWithEffectCode:code];
-                [_camera addMediaEffect:effect];
-                self.currentFilterIndex = [_filterCodes indexOfObject:code];
-                break;
-            }
-            case 0: { // 滤镜
-                TuSDKMediaFilterEffect *effect = [[TuSDKMediaFilterEffect alloc] initWithEffectCode:code];
-                [_camera addMediaEffect:effect];
-                self.currentFilterIndex = [_filterCodes indexOfObject:code];
-                break;
-            }
-            default:
-                break;
+            TuSDKMediaComicEffect *effect = [[TuSDKMediaComicEffect alloc] initWithEffectCode:code];
+            [_camera addMediaEffect:effect];
+            self.currentFilterIndex = [_filterCodes indexOfObject:code];
         }
+        else
+        {
+            // 滤镜
+            TuSDKMediaFilterEffect *effect = [[TuSDKMediaFilterEffect alloc] initWithEffectCode:code];
+            [_camera addMediaEffect:effect];
+            self.currentFilterIndex = [_filterCodes indexOfObject:code];
+        }
+        // 滤镜视图面板
+//        switch (_controlMaskView.filterPanelView.selectedTabIndex)
+//        {
+//            case 1: // 漫画
+//            {
+//                TuSDKMediaComicEffect *effect = [[TuSDKMediaComicEffect alloc] initWithEffectCode:code];
+//                [_camera addMediaEffect:effect];
+//                self.currentFilterIndex = [_filterCodes indexOfObject:code];
+//                break;
+//            }
+//            case 0: { // 滤镜
+//                TuSDKMediaFilterEffect *effect = [[TuSDKMediaFilterEffect alloc] initWithEffectCode:code];
+//                [_camera addMediaEffect:effect];
+//                self.currentFilterIndex = [_filterCodes indexOfObject:code];
+//                break;
+//            }
+//            default:
+//                break;
+//        }
     }
 }
 
@@ -1436,21 +1594,23 @@ LSQGPUImageVideoCameraDelegate
             }
         }
         
-    }else
+    }
+    else
     {
         // 滤镜视图面板
-        switch (_controlMaskView.filterPanelView.selectedTabIndex)
+        if (self.controlMaskView.filterPanelView.selectedTabIndex == self.controlMaskView.filterPanelView.filterTitles.count - 1)
         {
-            case 1: // 漫画
-            {
-                break;
-            }
-            case 0: {
-                TuSDKMediaFilterEffect *effect = [_camera mediaEffectsWithType:TuSDKMediaEffectDataTypeFilter].firstObject;
-                [effect submitParameter:index argPrecent:percentValue];
-                break;
-            }
+            //漫画
+            //漫画滤镜无值改变
         }
+        else
+        {
+            TuSDKMediaFilterEffect *effect = [_camera mediaEffectsWithType:TuSDKMediaEffectDataTypeFilter].firstObject;
+            [effect submitParameter:index argPrecent:percentValue];
+            
+        }
+        
+        
     }
     
 }
@@ -1691,5 +1851,44 @@ LSQGPUImageVideoCameraDelegate
     
 }
 
+- (void)filterPanel:(id<CameraFilterPanelProtocol>)filterPanel toIndex:(NSInteger)toIndex direction:(NSInteger)direction
+{
+    //滚动到漫画滤镜
+//    if (toIndex == self.controlMaskView.filterPanelView.filterTitles.count - 1)
+//    {
+//        //右侧滚动到漫画滤镜
+//        if (direction == TuFilterViewScrollDirectionRight)
+//        {
+//            _filterCodes = @[kCameraComicsFilterCodes];
+//            self.currentFilterIndex = 0;
+//        }
+//        //左侧滚动到漫画滤镜
+//        if (direction == TuFilterViewScrollDirectionLeft)
+//        {
+//            _filterCodes = @[kCameraComicsFilterCodes];
+//            self.currentFilterIndex = self.filterCodes.count - 1;
+//        }
+//        TuSDKMediaComicEffect *comicEffect = [[TuSDKMediaComicEffect alloc] initWithEffectCode:_filterCodes[self.currentFilterIndex]];
+//        [_camera addMediaEffect:comicEffect];
+//    }
+//    else
+//    {
+//        //滚动到普通滤镜
+//        //右侧滚动到普通滤镜
+//        if (direction == TuFilterViewScrollDirectionRight)
+//        {
+//            _filterCodes = self.controlMaskView.filterPanelView.filtersGroups[toIndex];
+//            self.currentFilterIndex = 0;
+//        }
+//        //左侧滚动到普通滤镜
+//        if (direction == TuFilterViewScrollDirectionLeft)
+//        {
+//            _filterCodes = self.controlMaskView.filterPanelView.filtersGroups[toIndex];
+//            self.currentFilterIndex = self.filterCodes.count - 1;
+//        }
+//        TuSDKMediaFilterEffect *filterEffect = [[TuSDKMediaFilterEffect alloc] initWithEffectCode:_filterCodes[self.currentFilterIndex]];
+//        [_camera addMediaEffect:filterEffect];
+//    }
+}
 
 @end

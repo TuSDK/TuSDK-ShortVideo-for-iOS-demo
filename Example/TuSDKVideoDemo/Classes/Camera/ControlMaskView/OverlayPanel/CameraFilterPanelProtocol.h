@@ -49,6 +49,14 @@
  */
 - (void)filterPanel:(id<CameraFilterPanelProtocol>)filterPanel resetParamterKeys:(NSArray *)paramterKeys;
 
+/**
+ 滚动视图回调
+ @param filterPanel 滤镜面板
+ @param toIndex 目标标签下标
+ @param direction 滚动方向
+ */
+- (void)filterPanel:(id<CameraFilterPanelProtocol>)filterPanel toIndex:(NSInteger)toIndex direction:(NSInteger)direction;
+
 @end
 
 

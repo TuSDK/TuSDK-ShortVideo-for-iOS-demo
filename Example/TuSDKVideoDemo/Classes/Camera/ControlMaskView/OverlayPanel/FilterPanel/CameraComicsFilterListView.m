@@ -36,7 +36,12 @@
         itemView.thumbnailView.image = [UIImage imageWithContentsOfFile:imagePath];
         itemView.selectedImageView.image = nil;
     }];
-    [self insertItemView:[HorizontalListItemView disableItemView] atIndex:0];
+//    [self insertItemView:[HorizontalListItemView disableItemView] atIndex:0];
+}
+
+- (void)setFilterCodes:(NSArray *)filterCodes
+{
+    _filterCodes = filterCodes;
 }
 
 #pragma mark - property
@@ -51,10 +56,21 @@
         _selectedFilterCode = nil;
         selectedIndex = -1;
     }
-    selectedIndex += 1;
+
     self.selectedIndex = selectedIndex;
     
-    if (self.itemViewTapActionHandler) self.itemViewTapActionHandler(self, [self itemViewAtIndex:selectedIndex], selectedFilterCode);
+    //更新本地数据
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"selectedFilter"]) {
+        NSDictionary *param = [[NSUserDefaults standardUserDefaults] objectForKey:@"selectedFilter"];
+        NSMutableDictionary *codeParam = [NSMutableDictionary dictionaryWithDictionary:param];
+        codeParam[@"selectedIndex"] = @(selectedIndex);
+        codeParam[@"selectedFilterCode"] = _selectedFilterCode;
+        codeParam[@"viewTag"] = @(self.tag);
+        [[NSUserDefaults standardUserDefaults] setObject:codeParam forKey:@"selectedFilter"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+    
+//    if (self.itemViewTapActionHandler) self.itemViewTapActionHandler(self, [self itemViewAtIndex:selectedIndex], selectedFilterCode);
 
 }
 
@@ -66,10 +82,33 @@
 - (void)itemViewDidTap:(HorizontalListItemView *)itemView {
     [super itemViewDidTap:itemView];
     NSString *code = nil;
-    if (self.selectedIndex > 0) {
-        code = _filterCodes[self.selectedIndex - 1];
-    }
+//    if (self.selectedIndex > 0) {
+//        code = _filterCodes[self.selectedIndex - 1];
+//    }
+    code = _filterCodes[self.selectedIndex];
     self.selectedFilterCode = code;
+    
+    if (self.itemViewTapActionHandler) self.itemViewTapActionHandler(self, itemView, code);
+}
+
+
+- (void)itemScrollToCurrentRight
+{
+    [super itemScrollToCurrentRight];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(tuCameraComicsViewScrollToViewRight)])
+    {
+        [self.delegate tuCameraComicsViewScrollToViewRight];
+    }
+}
+
+- (void)itemScrollTiCurrentLeft
+{
+    [super itemScrollTiCurrentLeft];
+
+    if (self.delegate && [self.delegate respondsToSelector:@selector(tuCameraComicsViewScrollToViewLeft)])
+    {
+        [self.delegate tuCameraComicsViewScrollToViewLeft];
+    }
 }
 
 @end

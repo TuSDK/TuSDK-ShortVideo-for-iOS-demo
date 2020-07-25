@@ -44,6 +44,78 @@
 		B87008A724445F4400086F87 /* TuSDKFace.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B87008A324445F4400086F87 /* TuSDKFace.framework */; };
 		B87008A824445F4400086F87 /* libyuv.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B87008A424445F4400086F87 /* libyuv.framework */; };
 		B87008A924445F4400086F87 /* TuSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B87008A524445F4400086F87 /* TuSDK.framework */; };
+		B8A72B4A24CC5F2300CD5183 /* TuEditFilterController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8A72B4924CC5F2300CD5183 /* TuEditFilterController.m */; };
+		B8A72B9324CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Izu_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B8A72B4C24CC60BB00CD5183 /* lsq_filter_thumb_Scenery_Izu_1.jpg */; };
+		B8A72B9424CC60BC00CD5183 /* lsq_filter_thumb_Sharp_Otimes_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B8A72B4D24CC60BB00CD5183 /* lsq_filter_thumb_Sharp_Otimes_1.jpg */; };
+		B8A72B9524CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Moisten_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B8A72B4E24CC60BB00CD5183 /* lsq_filter_thumb_Portrait_Moisten_1.jpg */; };
+		B8A72B9624CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Ruddy_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B8A72B4F24CC60BB00CD5183 /* lsq_filter_thumb_Portrait_Ruddy_1.jpg */; };
+		B8A72B9724CC60BC00CD5183 /* lsq_filter_thumb_Sharp_Ash_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B8A72B5024CC60BB00CD5183 /* lsq_filter_thumb_Sharp_Ash_1.jpg */; };
+		B8A72B9824CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Rosy_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B8A72B5124CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Rosy_1.jpg */; };
+		B8A72B9924CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Rain_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B8A72B5224CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Rain_1.jpg */; };
+		B8A72B9A24CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Silent_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B8A72B5324CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Silent_1.jpg */; };
+		B8A72B9B24CC60BC00CD5183 /* lsq_filter_thumb_Food_Lemon_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B8A72B5424CC60BC00CD5183 /* lsq_filter_thumb_Food_Lemon_1.jpg */; };
+		B8A72B9C24CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Tale_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B8A72B5524CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Tale_1.jpg */; };
+		B8A72B9D24CC60BC00CD5183 /* lsq_filter_thumb_Food_Whisky_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B8A72B5624CC60BC00CD5183 /* lsq_filter_thumb_Food_Whisky_1.jpg */; };
+		B8A72B9E24CC60BC00CD5183 /* lsq_filter_thumb_Food_Mangosteen_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B8A72B5724CC60BC00CD5183 /* lsq_filter_thumb_Food_Mangosteen_1.jpg */; };
+		B8A72B9F24CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Cherry_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B8A72B5824CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Cherry_1.jpg */; };
+		B8A72BA024CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Picnic_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B8A72B5924CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Picnic_1.jpg */; };
+		B8A72BA124CC60BC00CD5183 /* lsq_filter_thumb_Sharp_Red_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B8A72B5A24CC60BC00CD5183 /* lsq_filter_thumb_Sharp_Red_1.jpg */; };
+		B8A72BA224CC60BC00CD5183 /* lsq_filter_thumb_Sharp_Orange_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B8A72B5B24CC60BC00CD5183 /* lsq_filter_thumb_Sharp_Orange_1.jpg */; };
+		B8A72BA324CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Warm_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B8A72B5C24CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Warm_1.jpg */; };
+		B8A72BA424CC60BC00CD5183 /* lsq_filter_thumb_Food_Peach_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B8A72B5D24CC60BC00CD5183 /* lsq_filter_thumb_Food_Peach_1.jpg */; };
+		B8A72BA524CC60BC00CD5183 /* lsq_filter_thumb_Sharp_Imprint_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B8A72B5E24CC60BC00CD5183 /* lsq_filter_thumb_Sharp_Imprint_1.jpg */; };
+		B8A72BA624CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Bellflower_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B8A72B5F24CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Bellflower_1.jpg */; };
+		B8A72BA724CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Lautumn_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B8A72B6024CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Lautumn_1.jpg */; };
+		B8A72BA824CC60BC00CD5183 /* lsq_filter_thumb_Food_Lime_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B8A72B6124CC60BC00CD5183 /* lsq_filter_thumb_Food_Lime_1.jpg */; };
+		B8A72BA924CC60BC00CD5183 /* lsq_filter_thumb_Food_Honey_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B8A72B6224CC60BC00CD5183 /* lsq_filter_thumb_Food_Honey_1.jpg */; };
+		B8A72BAA24CC60BC00CD5183 /* lsq_filter_thumb_Sharp_Dream_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B8A72B6324CC60BC00CD5183 /* lsq_filter_thumb_Sharp_Dream_1.jpg */; };
+		B8A72BAB24CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Sunrise_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B8A72B6424CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Sunrise_1.jpg */; };
+		B8A72BAC24CC60BC00CD5183 /* lsq_filter_thumb_Sharp_Past_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B8A72B6524CC60BC00CD5183 /* lsq_filter_thumb_Sharp_Past_1.jpg */; };
+		B8A72BAD24CC60BC00CD5183 /* lsq_filter_thumb_Sharp_Quiet_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B8A72B6624CC60BC00CD5183 /* lsq_filter_thumb_Sharp_Quiet_1.jpg */; };
+		B8A72BAE24CC60BC00CD5183 /* lsq_filter_thumb_Portrait_First_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B8A72B6724CC60BC00CD5183 /* lsq_filter_thumb_Portrait_First_1.jpg */; };
+		B8A72BAF24CC60BC00CD5183 /* lsq_filter_thumb_Sharp_Contrast_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B8A72B6824CC60BC00CD5183 /* lsq_filter_thumb_Sharp_Contrast_1.jpg */; };
+		B8A72BB024CC60BC00CD5183 /* lsq_filter_thumb_Food_Light_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B8A72B6924CC60BC00CD5183 /* lsq_filter_thumb_Food_Light_1.jpg */; };
+		B8A72BB124CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Retro_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B8A72B6A24CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Retro_1.jpg */; };
+		B8A72BB224CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Dusk_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B8A72B6B24CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Dusk_1.jpg */; };
+		B8A72BB324CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Icream_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B8A72B6C24CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Icream_1.jpg */; };
+		B8A72BB424CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Bright_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B8A72B6D24CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Bright_1.jpg */; };
+		B8A72BB524CC60BC00CD5183 /* lsq_filter_thumb_Sharp_Pink_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B8A72B6E24CC60BC00CD5183 /* lsq_filter_thumb_Sharp_Pink_1.jpg */; };
+		B8A72BB624CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Film_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B8A72B6F24CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Film_1.jpg */; };
+		B8A72BB724CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Indifference_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B8A72B7024CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Indifference_1.jpg */; };
+		B8A72BB824CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Cream_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B8A72B7124CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Cream_1.jpg */; };
+		B8A72BB924CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Innocence_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B8A72B7224CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Innocence_1.jpg */; };
+		B8A72BBA24CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Clear_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B8A72B7324CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Clear_1.jpg */; };
+		B8A72BBB24CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Pale_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B8A72B7424CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Pale_1.jpg */; };
+		B8A72BBC24CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Dawn_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B8A72B7524CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Dawn_1.jpg */; };
+		B8A72BBD24CC60BC00CD5183 /* lsq_filter_thumb_Sharp_Nostalgia_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B8A72B7624CC60BC00CD5183 /* lsq_filter_thumb_Sharp_Nostalgia_1.jpg */; };
+		B8A72BBE24CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Fog_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B8A72B7724CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Fog_1.jpg */; };
+		B8A72BBF24CC60BC00CD5183 /* lsq_filter_thumb_Scenery_SNight_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B8A72B7824CC60BC00CD5183 /* lsq_filter_thumb_Scenery_SNight_1.jpg */; };
+		B8A72BC024CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Spring_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B8A72B7924CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Spring_1.jpg */; };
+		B8A72BC124CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Sunset_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B8A72B7A24CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Sunset_1.jpg */; };
+		B8A72BC224CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Grace_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B8A72B7B24CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Grace_1.jpg */; };
+		B8A72BC324CC60BC00CD5183 /* lsq_filter_thumb_Sharp_History_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B8A72B7C24CC60BC00CD5183 /* lsq_filter_thumb_Sharp_History_1.jpg */; };
+		B8A72BC424CC60BC00CD5183 /* lsq_filter_thumb_Sharp_Neon_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B8A72B7D24CC60BC00CD5183 /* lsq_filter_thumb_Sharp_Neon_1.jpg */; };
+		B8A72BC524CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Birch_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B8A72B7E24CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Birch_1.jpg */; };
+		B8A72BC624CC60BC00CD5183 /* lsq_filter_thumb_Sharp_Black_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B8A72B7F24CC60BC00CD5183 /* lsq_filter_thumb_Sharp_Black_1.jpg */; };
+		B8A72BC724CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Flower_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B8A72B8024CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Flower_1.jpg */; };
+		B8A72BC824CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Pure_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B8A72B8124CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Pure_1.jpg */; };
+		B8A72BC924CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Withered_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B8A72B8224CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Withered_1.jpg */; };
+		B8A72BCA24CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Afternoon_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B8A72B8324CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Afternoon_1.jpg */; };
+		B8A72BCB24CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Soda_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B8A72B8424CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Soda_1.jpg */; };
+		B8A72BCC24CC60BC00CD5183 /* lsq_filter_thumb_Food_Caramel_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B8A72B8524CC60BC00CD5183 /* lsq_filter_thumb_Food_Caramel_1.jpg */; };
+		B8A72BCD24CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Natural_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B8A72B8624CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Natural_1.jpg */; };
+		B8A72BCE24CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Candy_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B8A72B8724CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Candy_1.jpg */; };
+		B8A72BCF24CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Blue_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B8A72B8824CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Blue_1.jpg */; };
+		B8A72BD024CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Milk_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B8A72B8924CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Milk_1.jpg */; };
+		B8A72BD124CC60BC00CD5183 /* lsq_filter_thumb_Sharp_Messy_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B8A72B8A24CC60BC00CD5183 /* lsq_filter_thumb_Sharp_Messy_1.jpg */; };
+		B8A72BD224CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Texture_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B8A72B8B24CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Texture_1.jpg */; };
+		B8A72BD324CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Sweet_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B8A72B8C24CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Sweet_1.jpg */; };
+		B8A72BD424CC60BC00CD5183 /* lsq_filter_thumb_Sharp_Mottled_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B8A72B8D24CC60BC00CD5183 /* lsq_filter_thumb_Sharp_Mottled_1.jpg */; };
+		B8A72BD524CC60BC00CD5183 /* lsq_filter_thumb_Sharp_Dark_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B8A72B8E24CC60BC00CD5183 /* lsq_filter_thumb_Sharp_Dark_1.jpg */; };
+		B8A72BD624CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Fresh_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B8A72B8F24CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Fresh_1.jpg */; };
+		B8A72BD724CC60BC00CD5183 /* lsq_filter_thumb_Scenery_City_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B8A72B9024CC60BC00CD5183 /* lsq_filter_thumb_Scenery_City_1.jpg */; };
+		B8A72BD824CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Desserts_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B8A72B9124CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Desserts_1.jpg */; };
+		B8A72BD924CC60BC00CD5183 /* lsq_filter_thumb_Food_Delicious_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B8A72B9224CC60BC00CD5183 /* lsq_filter_thumb_Food_Delicious_1.jpg */; };
 		D719752B215C7865000AECDD /* MoviePreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D719752A215C7865000AECDD /* MoviePreviewViewController.m */; };
 		D72E88442181964200DD3F16 /* video_camera_focus_finish@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D72E88422181964200DD3F16 /* video_camera_focus_finish@2x.png */; };
 		D72E88452181964200DD3F16 /* video_camera_focus@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D72E88432181964200DD3F16 /* video_camera_focus@2x.png */; };
@@ -343,6 +415,79 @@
 		B87008A324445F4400086F87 /* TuSDKFace.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TuSDKFace.framework; sourceTree = "<group>"; };
 		B87008A424445F4400086F87 /* libyuv.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = libyuv.framework; sourceTree = "<group>"; };
 		B87008A524445F4400086F87 /* TuSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TuSDK.framework; sourceTree = "<group>"; };
+		B8A72B4824CC5F2200CD5183 /* TuEditFilterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuEditFilterController.h; sourceTree = "<group>"; };
+		B8A72B4924CC5F2300CD5183 /* TuEditFilterController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TuEditFilterController.m; sourceTree = "<group>"; };
+		B8A72B4C24CC60BB00CD5183 /* lsq_filter_thumb_Scenery_Izu_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_Scenery_Izu_1.jpg; sourceTree = "<group>"; };
+		B8A72B4D24CC60BB00CD5183 /* lsq_filter_thumb_Sharp_Otimes_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_Sharp_Otimes_1.jpg; sourceTree = "<group>"; };
+		B8A72B4E24CC60BB00CD5183 /* lsq_filter_thumb_Portrait_Moisten_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_Portrait_Moisten_1.jpg; sourceTree = "<group>"; };
+		B8A72B4F24CC60BB00CD5183 /* lsq_filter_thumb_Portrait_Ruddy_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_Portrait_Ruddy_1.jpg; sourceTree = "<group>"; };
+		B8A72B5024CC60BB00CD5183 /* lsq_filter_thumb_Sharp_Ash_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_Sharp_Ash_1.jpg; sourceTree = "<group>"; };
+		B8A72B5124CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Rosy_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_Portrait_Rosy_1.jpg; sourceTree = "<group>"; };
+		B8A72B5224CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Rain_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_Scenery_Rain_1.jpg; sourceTree = "<group>"; };
+		B8A72B5324CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Silent_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_Scenery_Silent_1.jpg; sourceTree = "<group>"; };
+		B8A72B5424CC60BC00CD5183 /* lsq_filter_thumb_Food_Lemon_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_Food_Lemon_1.jpg; sourceTree = "<group>"; };
+		B8A72B5524CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Tale_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_Scenery_Tale_1.jpg; sourceTree = "<group>"; };
+		B8A72B5624CC60BC00CD5183 /* lsq_filter_thumb_Food_Whisky_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_Food_Whisky_1.jpg; sourceTree = "<group>"; };
+		B8A72B5724CC60BC00CD5183 /* lsq_filter_thumb_Food_Mangosteen_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_Food_Mangosteen_1.jpg; sourceTree = "<group>"; };
+		B8A72B5824CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Cherry_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_Portrait_Cherry_1.jpg; sourceTree = "<group>"; };
+		B8A72B5924CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Picnic_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_Scenery_Picnic_1.jpg; sourceTree = "<group>"; };
+		B8A72B5A24CC60BC00CD5183 /* lsq_filter_thumb_Sharp_Red_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_Sharp_Red_1.jpg; sourceTree = "<group>"; };
+		B8A72B5B24CC60BC00CD5183 /* lsq_filter_thumb_Sharp_Orange_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_Sharp_Orange_1.jpg; sourceTree = "<group>"; };
+		B8A72B5C24CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Warm_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_Portrait_Warm_1.jpg; sourceTree = "<group>"; };
+		B8A72B5D24CC60BC00CD5183 /* lsq_filter_thumb_Food_Peach_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_Food_Peach_1.jpg; sourceTree = "<group>"; };
+		B8A72B5E24CC60BC00CD5183 /* lsq_filter_thumb_Sharp_Imprint_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_Sharp_Imprint_1.jpg; sourceTree = "<group>"; };
+		B8A72B5F24CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Bellflower_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_Portrait_Bellflower_1.jpg; sourceTree = "<group>"; };
+		B8A72B6024CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Lautumn_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_Scenery_Lautumn_1.jpg; sourceTree = "<group>"; };
+		B8A72B6124CC60BC00CD5183 /* lsq_filter_thumb_Food_Lime_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_Food_Lime_1.jpg; sourceTree = "<group>"; };
+		B8A72B6224CC60BC00CD5183 /* lsq_filter_thumb_Food_Honey_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_Food_Honey_1.jpg; sourceTree = "<group>"; };
+		B8A72B6324CC60BC00CD5183 /* lsq_filter_thumb_Sharp_Dream_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_Sharp_Dream_1.jpg; sourceTree = "<group>"; };
+		B8A72B6424CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Sunrise_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_Scenery_Sunrise_1.jpg; sourceTree = "<group>"; };
+		B8A72B6524CC60BC00CD5183 /* lsq_filter_thumb_Sharp_Past_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_Sharp_Past_1.jpg; sourceTree = "<group>"; };
+		B8A72B6624CC60BC00CD5183 /* lsq_filter_thumb_Sharp_Quiet_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_Sharp_Quiet_1.jpg; sourceTree = "<group>"; };
+		B8A72B6724CC60BC00CD5183 /* lsq_filter_thumb_Portrait_First_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_Portrait_First_1.jpg; sourceTree = "<group>"; };
+		B8A72B6824CC60BC00CD5183 /* lsq_filter_thumb_Sharp_Contrast_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_Sharp_Contrast_1.jpg; sourceTree = "<group>"; };
+		B8A72B6924CC60BC00CD5183 /* lsq_filter_thumb_Food_Light_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_Food_Light_1.jpg; sourceTree = "<group>"; };
+		B8A72B6A24CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Retro_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_Portrait_Retro_1.jpg; sourceTree = "<group>"; };
+		B8A72B6B24CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Dusk_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_Portrait_Dusk_1.jpg; sourceTree = "<group>"; };
+		B8A72B6C24CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Icream_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_Portrait_Icream_1.jpg; sourceTree = "<group>"; };
+		B8A72B6D24CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Bright_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_Portrait_Bright_1.jpg; sourceTree = "<group>"; };
+		B8A72B6E24CC60BC00CD5183 /* lsq_filter_thumb_Sharp_Pink_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_Sharp_Pink_1.jpg; sourceTree = "<group>"; };
+		B8A72B6F24CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Film_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_Scenery_Film_1.jpg; sourceTree = "<group>"; };
+		B8A72B7024CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Indifference_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_Portrait_Indifference_1.jpg; sourceTree = "<group>"; };
+		B8A72B7124CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Cream_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_Portrait_Cream_1.jpg; sourceTree = "<group>"; };
+		B8A72B7224CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Innocence_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_Scenery_Innocence_1.jpg; sourceTree = "<group>"; };
+		B8A72B7324CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Clear_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_Portrait_Clear_1.jpg; sourceTree = "<group>"; };
+		B8A72B7424CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Pale_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_Portrait_Pale_1.jpg; sourceTree = "<group>"; };
+		B8A72B7524CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Dawn_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_Portrait_Dawn_1.jpg; sourceTree = "<group>"; };
+		B8A72B7624CC60BC00CD5183 /* lsq_filter_thumb_Sharp_Nostalgia_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_Sharp_Nostalgia_1.jpg; sourceTree = "<group>"; };
+		B8A72B7724CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Fog_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_Portrait_Fog_1.jpg; sourceTree = "<group>"; };
+		B8A72B7824CC60BC00CD5183 /* lsq_filter_thumb_Scenery_SNight_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_Scenery_SNight_1.jpg; sourceTree = "<group>"; };
+		B8A72B7924CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Spring_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_Portrait_Spring_1.jpg; sourceTree = "<group>"; };
+		B8A72B7A24CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Sunset_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_Scenery_Sunset_1.jpg; sourceTree = "<group>"; };
+		B8A72B7B24CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Grace_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_Scenery_Grace_1.jpg; sourceTree = "<group>"; };
+		B8A72B7C24CC60BC00CD5183 /* lsq_filter_thumb_Sharp_History_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_Sharp_History_1.jpg; sourceTree = "<group>"; };
+		B8A72B7D24CC60BC00CD5183 /* lsq_filter_thumb_Sharp_Neon_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_Sharp_Neon_1.jpg; sourceTree = "<group>"; };
+		B8A72B7E24CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Birch_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_Scenery_Birch_1.jpg; sourceTree = "<group>"; };
+		B8A72B7F24CC60BC00CD5183 /* lsq_filter_thumb_Sharp_Black_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_Sharp_Black_1.jpg; sourceTree = "<group>"; };
+		B8A72B8024CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Flower_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_Scenery_Flower_1.jpg; sourceTree = "<group>"; };
+		B8A72B8124CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Pure_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_Portrait_Pure_1.jpg; sourceTree = "<group>"; };
+		B8A72B8224CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Withered_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_Scenery_Withered_1.jpg; sourceTree = "<group>"; };
+		B8A72B8324CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Afternoon_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_Scenery_Afternoon_1.jpg; sourceTree = "<group>"; };
+		B8A72B8424CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Soda_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_Portrait_Soda_1.jpg; sourceTree = "<group>"; };
+		B8A72B8524CC60BC00CD5183 /* lsq_filter_thumb_Food_Caramel_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_Food_Caramel_1.jpg; sourceTree = "<group>"; };
+		B8A72B8624CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Natural_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_Portrait_Natural_1.jpg; sourceTree = "<group>"; };
+		B8A72B8724CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Candy_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_Portrait_Candy_1.jpg; sourceTree = "<group>"; };
+		B8A72B8824CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Blue_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_Scenery_Blue_1.jpg; sourceTree = "<group>"; };
+		B8A72B8924CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Milk_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_Portrait_Milk_1.jpg; sourceTree = "<group>"; };
+		B8A72B8A24CC60BC00CD5183 /* lsq_filter_thumb_Sharp_Messy_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_Sharp_Messy_1.jpg; sourceTree = "<group>"; };
+		B8A72B8B24CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Texture_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_Portrait_Texture_1.jpg; sourceTree = "<group>"; };
+		B8A72B8C24CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Sweet_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_Portrait_Sweet_1.jpg; sourceTree = "<group>"; };
+		B8A72B8D24CC60BC00CD5183 /* lsq_filter_thumb_Sharp_Mottled_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_Sharp_Mottled_1.jpg; sourceTree = "<group>"; };
+		B8A72B8E24CC60BC00CD5183 /* lsq_filter_thumb_Sharp_Dark_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_Sharp_Dark_1.jpg; sourceTree = "<group>"; };
+		B8A72B8F24CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Fresh_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_Scenery_Fresh_1.jpg; sourceTree = "<group>"; };
+		B8A72B9024CC60BC00CD5183 /* lsq_filter_thumb_Scenery_City_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_Scenery_City_1.jpg; sourceTree = "<group>"; };
+		B8A72B9124CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Desserts_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_Portrait_Desserts_1.jpg; sourceTree = "<group>"; };
+		B8A72B9224CC60BC00CD5183 /* lsq_filter_thumb_Food_Delicious_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_filter_thumb_Food_Delicious_1.jpg; sourceTree = "<group>"; };
 		D7197529215C7865000AECDD /* MoviePreviewViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoviePreviewViewController.h; sourceTree = "<group>"; };
 		D719752A215C7865000AECDD /* MoviePreviewViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MoviePreviewViewController.m; sourceTree = "<group>"; };
 		D72E88422181964200DD3F16 /* video_camera_focus_finish@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "video_camera_focus_finish@2x.png"; sourceTree = "<group>"; };
@@ -808,6 +953,84 @@
 			path = TuSDK;
 			sourceTree = "<group>";
 		};
+		B8A72B4B24CC60BB00CD5183 /* CameraFilter */ = {
+			isa = PBXGroup;
+			children = (
+				B8A72B4C24CC60BB00CD5183 /* lsq_filter_thumb_Scenery_Izu_1.jpg */,
+				B8A72B4D24CC60BB00CD5183 /* lsq_filter_thumb_Sharp_Otimes_1.jpg */,
+				B8A72B4E24CC60BB00CD5183 /* lsq_filter_thumb_Portrait_Moisten_1.jpg */,
+				B8A72B4F24CC60BB00CD5183 /* lsq_filter_thumb_Portrait_Ruddy_1.jpg */,
+				B8A72B5024CC60BB00CD5183 /* lsq_filter_thumb_Sharp_Ash_1.jpg */,
+				B8A72B5124CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Rosy_1.jpg */,
+				B8A72B5224CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Rain_1.jpg */,
+				B8A72B5324CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Silent_1.jpg */,
+				B8A72B5424CC60BC00CD5183 /* lsq_filter_thumb_Food_Lemon_1.jpg */,
+				B8A72B5524CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Tale_1.jpg */,
+				B8A72B5624CC60BC00CD5183 /* lsq_filter_thumb_Food_Whisky_1.jpg */,
+				B8A72B5724CC60BC00CD5183 /* lsq_filter_thumb_Food_Mangosteen_1.jpg */,
+				B8A72B5824CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Cherry_1.jpg */,
+				B8A72B5924CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Picnic_1.jpg */,
+				B8A72B5A24CC60BC00CD5183 /* lsq_filter_thumb_Sharp_Red_1.jpg */,
+				B8A72B5B24CC60BC00CD5183 /* lsq_filter_thumb_Sharp_Orange_1.jpg */,
+				B8A72B5C24CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Warm_1.jpg */,
+				B8A72B5D24CC60BC00CD5183 /* lsq_filter_thumb_Food_Peach_1.jpg */,
+				B8A72B5E24CC60BC00CD5183 /* lsq_filter_thumb_Sharp_Imprint_1.jpg */,
+				B8A72B5F24CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Bellflower_1.jpg */,
+				B8A72B6024CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Lautumn_1.jpg */,
+				B8A72B6124CC60BC00CD5183 /* lsq_filter_thumb_Food_Lime_1.jpg */,
+				B8A72B6224CC60BC00CD5183 /* lsq_filter_thumb_Food_Honey_1.jpg */,
+				B8A72B6324CC60BC00CD5183 /* lsq_filter_thumb_Sharp_Dream_1.jpg */,
+				B8A72B6424CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Sunrise_1.jpg */,
+				B8A72B6524CC60BC00CD5183 /* lsq_filter_thumb_Sharp_Past_1.jpg */,
+				B8A72B6624CC60BC00CD5183 /* lsq_filter_thumb_Sharp_Quiet_1.jpg */,
+				B8A72B6724CC60BC00CD5183 /* lsq_filter_thumb_Portrait_First_1.jpg */,
+				B8A72B6824CC60BC00CD5183 /* lsq_filter_thumb_Sharp_Contrast_1.jpg */,
+				B8A72B6924CC60BC00CD5183 /* lsq_filter_thumb_Food_Light_1.jpg */,
+				B8A72B6A24CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Retro_1.jpg */,
+				B8A72B6B24CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Dusk_1.jpg */,
+				B8A72B6C24CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Icream_1.jpg */,
+				B8A72B6D24CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Bright_1.jpg */,
+				B8A72B6E24CC60BC00CD5183 /* lsq_filter_thumb_Sharp_Pink_1.jpg */,
+				B8A72B6F24CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Film_1.jpg */,
+				B8A72B7024CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Indifference_1.jpg */,
+				B8A72B7124CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Cream_1.jpg */,
+				B8A72B7224CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Innocence_1.jpg */,
+				B8A72B7324CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Clear_1.jpg */,
+				B8A72B7424CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Pale_1.jpg */,
+				B8A72B7524CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Dawn_1.jpg */,
+				B8A72B7624CC60BC00CD5183 /* lsq_filter_thumb_Sharp_Nostalgia_1.jpg */,
+				B8A72B7724CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Fog_1.jpg */,
+				B8A72B7824CC60BC00CD5183 /* lsq_filter_thumb_Scenery_SNight_1.jpg */,
+				B8A72B7924CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Spring_1.jpg */,
+				B8A72B7A24CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Sunset_1.jpg */,
+				B8A72B7B24CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Grace_1.jpg */,
+				B8A72B7C24CC60BC00CD5183 /* lsq_filter_thumb_Sharp_History_1.jpg */,
+				B8A72B7D24CC60BC00CD5183 /* lsq_filter_thumb_Sharp_Neon_1.jpg */,
+				B8A72B7E24CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Birch_1.jpg */,
+				B8A72B7F24CC60BC00CD5183 /* lsq_filter_thumb_Sharp_Black_1.jpg */,
+				B8A72B8024CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Flower_1.jpg */,
+				B8A72B8124CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Pure_1.jpg */,
+				B8A72B8224CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Withered_1.jpg */,
+				B8A72B8324CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Afternoon_1.jpg */,
+				B8A72B8424CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Soda_1.jpg */,
+				B8A72B8524CC60BC00CD5183 /* lsq_filter_thumb_Food_Caramel_1.jpg */,
+				B8A72B8624CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Natural_1.jpg */,
+				B8A72B8724CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Candy_1.jpg */,
+				B8A72B8824CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Blue_1.jpg */,
+				B8A72B8924CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Milk_1.jpg */,
+				B8A72B8A24CC60BC00CD5183 /* lsq_filter_thumb_Sharp_Messy_1.jpg */,
+				B8A72B8B24CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Texture_1.jpg */,
+				B8A72B8C24CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Sweet_1.jpg */,
+				B8A72B8D24CC60BC00CD5183 /* lsq_filter_thumb_Sharp_Mottled_1.jpg */,
+				B8A72B8E24CC60BC00CD5183 /* lsq_filter_thumb_Sharp_Dark_1.jpg */,
+				B8A72B8F24CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Fresh_1.jpg */,
+				B8A72B9024CC60BC00CD5183 /* lsq_filter_thumb_Scenery_City_1.jpg */,
+				B8A72B9124CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Desserts_1.jpg */,
+				B8A72B9224CC60BC00CD5183 /* lsq_filter_thumb_Food_Delicious_1.jpg */,
+			);
+			path = CameraFilter;
+			sourceTree = "<group>";
+		};
 		D73AA90F229FA7F90024BF8D /* TransitionEffect */ = {
 			isa = PBXGroup;
 			children = (
@@ -991,6 +1214,8 @@
 		FB2E96A820E3879200A2B3A4 /* Filter */ = {
 			isa = PBXGroup;
 			children = (
+				B8A72B4824CC5F2200CD5183 /* TuEditFilterController.h */,
+				B8A72B4924CC5F2300CD5183 /* TuEditFilterController.m */,
 				45122B022154C62C0052D8CC /* FilterListView.h */,
 				45122B032154C62C0052D8CC /* FilterListView.m */,
 				FB1A534D21869DFE0097A8D7 /* FilterSwipeView.h */,
@@ -1204,6 +1429,7 @@
 		FBA274E421AFD75C00D1B170 /* Thumbnails */ = {
 			isa = PBXGroup;
 			children = (
+				B8A72B4B24CC60BB00CD5183 /* CameraFilter */,
 				F820850B21FAA7D900D398E8 /* MonsterFace */,
 				FBA274F621AFD75C00D1B170 /* CameraNormalFilter */,
 				FBA2751C21AFD75D00D1B170 /* CameraComicsFilter */,
@@ -1648,18 +1874,27 @@
 				F820851721FAA7D900D398E8 /* face_monster_ic_pie@3x.png in Resources */,
 				FBA2754321AFD75D00D1B170 /* lsq_filter_thumb_Olympus_1.jpg in Resources */,
 				D7BD2774233333B9003600C5 /* lsq_filter_thumb_SkinSweet_1.jpg in Resources */,
+				B8A72BC124CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Sunset_1.jpg in Resources */,
+				B8A72BD924CC60BC00CD5183 /* lsq_filter_thumb_Food_Delicious_1.jpg in Resources */,
+				B8A72BB924CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Innocence_1.jpg in Resources */,
 				FB7E05C120F4A82B00C6E4C4 /* TimeEffectViewController.xib in Resources */,
 				FBA2752421AFD75D00D1B170 /* lsq_audio_thumb_oldmovie.jpg in Resources */,
+				B8A72BB324CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Icream_1.jpg in Resources */,
 				FB88F04821992E1500BE021F /* TuSDKConstants.strings in Resources */,
+				B8A72B9B24CC60BC00CD5183 /* lsq_filter_thumb_Food_Lemon_1.jpg in Resources */,
 				F820851321FAA7D900D398E8 /* face_monster_ic_square@3x.png in Resources */,
 				FBA2752C21AFD75D00D1B170 /* lsq_effect_thumb_LiveLightning01.gif in Resources */,
 				FBA65F7220E609F900A92503 /* EditMVViewController.xib in Resources */,
 				451F4E812229099E00A227C7 /* EditRatioListItemView.xib in Resources */,
 				D7BD276C233333B9003600C5 /* lsq_filter_thumb_SkinLeisurely_1.jpg in Resources */,
+				B8A72BD024CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Milk_1.jpg in Resources */,
 				FBA2753121AFD75D00D1B170 /* lsq_effect_thumb_LiveShake01.gif in Resources */,
 				FBE15BCC21A55EBB0077DDD5 /* default.jpg in Resources */,
+				B8A72B9824CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Rosy_1.jpg in Resources */,
 				FBA2754421AFD75D00D1B170 /* lsq_filter_thumb_NewYork_1.jpg in Resources */,
+				B8A72BBA24CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Clear_1.jpg in Resources */,
 				FBA2753E21AFD75D00D1B170 /* lsq_effect_thumb_slow.gif in Resources */,
+				B8A72BC524CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Birch_1.jpg in Resources */,
 				FBF3A8C320D3CD24008466D0 /* tusdk_sample_video.mov in Resources */,
 				F820851421FAA7D900D398E8 /* face_monster_ic_thicklips@3x.png in Resources */,
 				D7BD2764233333B9003600C5 /* lsq_filter_thumb_SkinJapanese_1.jpg in Resources */,
@@ -1667,62 +1902,96 @@
 				FB80D48921B0D1FD00B3C465 /* APIMovieMixViewController.storyboard in Resources */,
 				FBA2754A21AFD75D00D1B170 /* lsq_effect_thumb_Burning.jpg in Resources */,
 				FBA2752721AFD75D00D1B170 /* lsq_effect_thumb_LiveSlosh01.gif in Resources */,
+				B8A72B9E24CC60BC00CD5183 /* lsq_filter_thumb_Food_Mangosteen_1.jpg in Resources */,
 				FBA2755721AFD75D00D1B170 /* lsq_filter_thumb_Monochrome_Video.jpg in Resources */,
 				D7BD276F233333B9003600C5 /* lsq_filter_thumb_SkinDawn_1.jpg in Resources */,
 				FB80D48821B0D1FD00B3C465 /* APIAudioRecordViewController.storyboard in Resources */,
 				FBF3A8C820D3CD24008466D0 /* sound_tangyuan.mp3 in Resources */,
 				FB25AD4620EE21D0007551F7 /* edit_ic_colorbar.jpg in Resources */,
+				B8A72B9F24CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Cherry_1.jpg in Resources */,
 				FBA2753D21AFD75D00D1B170 /* lsq_effect_thumb_reverse.gif in Resources */,
 				FBF3A8BC20D3CD24008466D0 /* TuSDK.bundle in Resources */,
+				B8A72B9A24CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Silent_1.jpg in Resources */,
+				B8A72BAC24CC60BC00CD5183 /* lsq_filter_thumb_Sharp_Past_1.jpg in Resources */,
 				FB85C65C219A66CC00D23716 /* LaunchScreen.storyboard in Resources */,
+				B8A72BAD24CC60BC00CD5183 /* lsq_filter_thumb_Sharp_Quiet_1.jpg in Resources */,
+				B8A72BA924CC60BC00CD5183 /* lsq_filter_thumb_Food_Honey_1.jpg in Resources */,
 				FBA65F7C20E60A6000A92503 /* EditTextViewController.xib in Resources */,
 				FBA2755521AFD75D00D1B170 /* lsq_filter_thumb_Lightcolor_Video.jpg in Resources */,
+				B8A72BD224CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Texture_1.jpg in Resources */,
+				B8A72B9C24CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Tale_1.jpg in Resources */,
 				FB80D48B21B0D1FD00B3C465 /* APIMovieClipViewController.storyboard in Resources */,
 				FBA2752F21AFD75D00D1B170 /* lsq_effect_thumb_LiveXRay01.gif in Resources */,
 				FB49D6E520FF249000184905 /* CameraViewController.xib in Resources */,
 				D7BD2776233333B9003600C5 /* lsq_filter_thumb_SkinBeckoning_1.jpg in Resources */,
 				FBA2752A21AFD75D00D1B170 /* lsq_effect_thumb_LiveMegrim01.gif in Resources */,
+				B8A72BC424CC60BC00CD5183 /* lsq_filter_thumb_Sharp_Neon_1.jpg in Resources */,
 				FB80D48121B0D16600B3C465 /* APIAudioMixViewController.storyboard in Resources */,
 				FB88F04721992E1500BE021F /* InfoPlist.strings in Resources */,
+				B8A72BC824CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Pure_1.jpg in Resources */,
 				FBA2754D21AFD75D00D1B170 /* lsq_effect_thumb_Flower.jpg in Resources */,
 				451F4E92222E10B500A227C7 /* StickerImageItemView.xib in Resources */,
+				B8A72BC924CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Withered_1.jpg in Resources */,
+				B8A72BB024CC60BC00CD5183 /* lsq_filter_thumb_Food_Light_1.jpg in Resources */,
 				FBA2752B21AFD75D00D1B170 /* lsq_effect_thumb_LiveSignal01.gif in Resources */,
+				B8A72BC224CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Grace_1.jpg in Resources */,
+				B8A72BCD24CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Natural_1.jpg in Resources */,
+				B8A72BBB24CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Pale_1.jpg in Resources */,
 				FB7E05C620F4A87A00C6E4C4 /* ParticleEffectViewController.xib in Resources */,
+				B8A72BC724CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Flower_1.jpg in Resources */,
 				D7BD2767233333B9003600C5 /* lsq_filter_thumb_SkinNostalgia_1.jpg in Resources */,
+				B8A72BA624CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Bellflower_1.jpg in Resources */,
 				FBA2754221AFD75D00D1B170 /* lsq_filter_thumb_Blurred_1.jpg in Resources */,
 				FBA2754121AFD75D00D1B170 /* lsq_filter_thumb_Leica_1.jpg in Resources */,
 				FB80D48A21B0D1FD00B3C465 /* APIMovieSpliceViewController.storyboard in Resources */,
 				FBA2755621AFD75D00D1B170 /* lsq_filter_thumb_JPComics_Video.jpg in Resources */,
 				451F4E8A222E0D0100A227C7 /* EditStickerImageViewController.xib in Resources */,
+				B8A72BD524CC60BC00CD5183 /* lsq_filter_thumb_Sharp_Dark_1.jpg in Resources */,
 				D72E88442181964200DD3F16 /* video_camera_focus_finish@2x.png in Resources */,
+				B8A72BA724CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Lautumn_1.jpg in Resources */,
 				D7BD276D233333B9003600C5 /* lsq_filter_thumb_SkinConfession_1.jpg in Resources */,
 				FBA2755321AFD75D00D1B170 /* lsq_effect_thumb_snow01.jpg in Resources */,
+				B8A72BCB24CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Soda_1.jpg in Resources */,
+				B8A72BB624CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Film_1.jpg in Resources */,
 				FBA65F7720E60A3700A92503 /* EditMusicViewController.xib in Resources */,
+				B8A72BA124CC60BC00CD5183 /* lsq_filter_thumb_Sharp_Red_1.jpg in Resources */,
 				D7BD2763233333B9003600C5 /* lsq_filter_thumb_SkinHoney_1.jpg in Resources */,
 				FBA2755421AFD75D00D1B170 /* lsq_filter_thumb_CHComics_Video.jpg in Resources */,
+				B8A72BBE24CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Fog_1.jpg in Resources */,
 				D7BD276B233333B9003600C5 /* lsq_filter_thumb_SkinClear_1.jpg in Resources */,
+				B8A72BAA24CC60BC00CD5183 /* lsq_filter_thumb_Sharp_Dream_1.jpg in Resources */,
 				FBEE598820EA19C3003D8453 /* EditAudioRecordController.xib in Resources */,
 				FB88F05A219930A100BE021F /* Main.storyboard in Resources */,
 				FBA2752E21AFD75D00D1B170 /* lsq_effect_thumb_LiveFancy01_1.gif in Resources */,
 				FBA2752821AFD75D00D1B170 /* lsq_effect_thumb_LiveMirrorImage01.gif in Resources */,
+				B8A72BC324CC60BC00CD5183 /* lsq_filter_thumb_Sharp_History_1.jpg in Resources */,
+				B8A72BD824CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Desserts_1.jpg in Resources */,
+				B8A72BB724CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Indifference_1.jpg in Resources */,
 				D7BD2772233333B9003600C5 /* lsq_filter_thumb_SkinPlain_1.jpg in Resources */,
 				FB203D7F20E48413001A7939 /* EditFilterViewController.xib in Resources */,
 				FBB73E97210AF34B00DCBDCF /* customStickerCategories.json in Resources */,
 				FBF3A8C420D3CD24008466D0 /* tusdk_sample_splice_video.mov in Resources */,
 				D7BD2766233333B9003600C5 /* lsq_filter_thumb_SkinFair_1.jpg in Resources */,
 				FBB2AC4120DE413700BD8EE0 /* MovieEditViewController.xib in Resources */,
+				B8A72BB824CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Cream_1.jpg in Resources */,
 				D7BD2769233333B9003600C5 /* lsq_filter_thumb_SkinWarm_1.jpg in Resources */,
+				B8A72BA524CC60BC00CD5183 /* lsq_filter_thumb_Sharp_Imprint_1.jpg in Resources */,
 				FBF3A8C220D3CD24008466D0 /* sound_relieve.mp3 in Resources */,
 				D7BCA5F5229E717B001E4480 /* APIImageVideoPickerViewController.storyboard in Resources */,
 				FB88F04521992E1500BE021F /* VideoDemo.strings in Resources */,
 				FBA2754C21AFD75D00D1B170 /* lsq_effect_thumb_Music.jpg in Resources */,
 				FBA2754821AFD75D00D1B170 /* lsq_filter_thumb_Newborn_1.jpg in Resources */,
 				F820851621FAA7D900D398E8 /* face_monster_ic_papaya@3x.png in Resources */,
+				B8A72BA324CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Warm_1.jpg in Resources */,
 				FBA2752521AFD75D00D1B170 /* lsq_audio_thumb_relieve.jpg in Resources */,
 				D73AA914229FA8630024BF8D /* EditTransitionViewController.xib in Resources */,
+				B8A72B9424CC60BC00CD5183 /* lsq_filter_thumb_Sharp_Otimes_1.jpg in Resources */,
+				B8A72B9924CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Rain_1.jpg in Resources */,
+				B8A72BC624CC60BC00CD5183 /* lsq_filter_thumb_Sharp_Black_1.jpg in Resources */,
 				F820851521FAA7D900D398E8 /* face_monster_ic_smalleyes@3x.png in Resources */,
 				D7BD2765233333B9003600C5 /* lsq_filter_thumb_SkinExtraordinary_1.jpg in Resources */,
 				FBA2754B21AFD75D00D1B170 /* lsq_effect_thumb_Fireball.jpg in Resources */,
+				B8A72BCF24CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Blue_1.jpg in Resources */,
 				D7BD2775233333B9003600C5 /* lsq_filter_thumb_SkinDusk_1.jpg in Resources */,
 				FBA2754F21AFD75D00D1B170 /* lsq_effect_thumb_Love.jpg in Resources */,
 				D7BD276A233333B9003600C5 /* lsq_filter_thumb_SkinLotus_1.jpg in Resources */,
@@ -1730,8 +1999,14 @@
 				FBA2753F21AFD75D00D1B170 /* lsq_filter_thumb_Gold_1.jpg in Resources */,
 				FBA2752D21AFD75D00D1B170 /* lsq_effect_thumb_LiveOldTV01.gif in Resources */,
 				FBA2752621AFD75D00D1B170 /* lsq_effect_thumb_EdgeMagic01.gif in Resources */,
+				B8A72B9524CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Moisten_1.jpg in Resources */,
+				B8A72BB124CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Retro_1.jpg in Resources */,
+				B8A72B9D24CC60BC00CD5183 /* lsq_filter_thumb_Food_Whisky_1.jpg in Resources */,
+				B8A72B9624CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Ruddy_1.jpg in Resources */,
+				B8A72BCE24CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Candy_1.jpg in Resources */,
 				FBF3A8C920D3CD24008466D0 /* sound_children.mp3 in Resources */,
 				FB9C700421B8CCFD00B4BF02 /* home.png in Resources */,
+				B8A72BCA24CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Afternoon_1.jpg in Resources */,
 				FBF3A8C620D3CD24008466D0 /* sound_lively.mp3 in Resources */,
 				FBA2754021AFD75D00D1B170 /* lsq_filter_thumb_White_1.jpg in Resources */,
 				FBA2755821AFD75D00D1B170 /* lsq_filter_thumb_Ink_Video.jpg in Resources */,
@@ -1741,27 +2016,49 @@
 				FBF3A8C120D3CD24008466D0 /* sound_cat.mp3 in Resources */,
 				FBA2755221AFD75D00D1B170 /* lsq_effect_thumb_Bubbles.jpg in Resources */,
 				FBA2754521AFD75D00D1B170 /* lsq_filter_thumb_s1950_1.jpg in Resources */,
+				B8A72B9724CC60BC00CD5183 /* lsq_filter_thumb_Sharp_Ash_1.jpg in Resources */,
+				B8A72BAB24CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Sunrise_1.jpg in Resources */,
 				FB7E05BC20F4A81000C6E4C4 /* SceneEffectViewController.xib in Resources */,
+				B8A72BB424CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Bright_1.jpg in Resources */,
+				B8A72BAE24CC60BC00CD5183 /* lsq_filter_thumb_Portrait_First_1.jpg in Resources */,
+				B8A72BC024CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Spring_1.jpg in Resources */,
+				B8A72BCC24CC60BC00CD5183 /* lsq_filter_thumb_Food_Caramel_1.jpg in Resources */,
 				FB6EBAC920D399E200FA24F2 /* Assets.xcassets in Resources */,
+				B8A72BD324CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Sweet_1.jpg in Resources */,
+				B8A72B9324CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Izu_1.jpg in Resources */,
+				B8A72BA424CC60BC00CD5183 /* lsq_filter_thumb_Food_Peach_1.jpg in Resources */,
 				FBF3A8C720D3CD24008466D0 /* sound_crow.mp3 in Resources */,
 				FBA2752921AFD75D00D1B170 /* lsq_effect_thumb_LiveHeartbeat01.gif in Resources */,
 				FBA2754E21AFD75D00D1B170 /* lsq_effect_thumb_Money.jpg in Resources */,
 				FBA2753C21AFD75D00D1B170 /* lsq_effect_thumb_repeat.gif in Resources */,
+				B8A72BB224CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Dusk_1.jpg in Resources */,
 				FBF3A8C520D3CD24008466D0 /* sound_oldmovie.mp3 in Resources */,
 				D7BF7C6622BCB51C0063CDE8 /* sample_watermark.png in Resources */,
+				B8A72BA224CC60BC00CD5183 /* lsq_filter_thumb_Sharp_Orange_1.jpg in Resources */,
 				D7BD276E233333B9003600C5 /* lsq_filter_thumb_SkinSummer_1.jpg in Resources */,
 				D7BD2771233333B9003600C5 /* lsq_filter_thumb_SkinTender_1.jpg in Resources */,
 				FBA2753021AFD75D00D1B170 /* lsq_effect_thumb_LiveSoulOut01.gif in Resources */,
 				D7BD2770233333B9003600C5 /* lsq_filter_thumb_SkinNatural_1.jpg in Resources */,
 				D7EB49D62313859800DDA49B /* lsq_filter_thumb_gaosi_01.jpg in Resources */,
+				B8A72BD124CC60BC00CD5183 /* lsq_filter_thumb_Sharp_Messy_1.jpg in Resources */,
+				B8A72BB524CC60BC00CD5183 /* lsq_filter_thumb_Sharp_Pink_1.jpg in Resources */,
 				FBA2755121AFD75D00D1B170 /* lsq_effect_thumb_Magic.jpg in Resources */,
+				B8A72BD724CC60BC00CD5183 /* lsq_filter_thumb_Scenery_City_1.jpg in Resources */,
+				B8A72BBF24CC60BC00CD5183 /* lsq_filter_thumb_Scenery_SNight_1.jpg in Resources */,
+				B8A72BA024CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Picnic_1.jpg in Resources */,
 				F820851821FAA7D900D398E8 /* face_monster_ic_snake@3x.png in Resources */,
 				FBA2754921AFD75D00D1B170 /* lsq_effect_thumb_Surprise.jpg in Resources */,
+				B8A72BD624CC60BC00CD5183 /* lsq_filter_thumb_Scenery_Fresh_1.jpg in Resources */,
 				D72E88452181964200DD3F16 /* video_camera_focus@2x.png in Resources */,
 				FBA2755921AFD75D00D1B170 /* lsq_filter_thumb_USComics_Video.jpg in Resources */,
+				B8A72BBD24CC60BC00CD5183 /* lsq_filter_thumb_Sharp_Nostalgia_1.jpg in Resources */,
 				D7BD2768233333B9003600C5 /* lsq_filter_thumb_SkinRose_1.jpg in Resources */,
+				B8A72BBC24CC60BC00CD5183 /* lsq_filter_thumb_Portrait_Dawn_1.jpg in Resources */,
+				B8A72BAF24CC60BC00CD5183 /* lsq_filter_thumb_Sharp_Contrast_1.jpg in Resources */,
 				FBDB320E20DA5230005DE82B /* MovieCutViewController.xib in Resources */,
 				FB80D48D21B0D1FD00B3C465 /* APIAudioPitchEngineViewController.storyboard in Resources */,
+				B8A72BA824CC60BC00CD5183 /* lsq_filter_thumb_Food_Lime_1.jpg in Resources */,
+				B8A72BD424CC60BC00CD5183 /* lsq_filter_thumb_Sharp_Mottled_1.jpg in Resources */,
 				D7BD2773233333B9003600C5 /* lsq_filter_thumb_SkinButter_1.jpg in Resources */,
 				F820851921FAA7D900D398E8 /* face_monster_ic_bignose@3x.png in Resources */,
 				FBA2754621AFD75D00D1B170 /* lsq_filter_thumb_Fade_1.jpg in Resources */,
@@ -1852,6 +2149,7 @@
 				4548DC2521D35C0C00E5EAC1 /* StickerPropsItem.m in Sources */,
 				FB203D8B20E4C8E4001A7939 /* UIImage+Demo.m in Sources */,
 				FB7356852140BB2F0091D002 /* TrimmerMaskView+Util.m in Sources */,
+				B8A72B4A24CC5F2300CD5183 /* TuEditFilterController.m in Sources */,
 				D719752B215C7865000AECDD /* MoviePreviewViewController.m in Sources */,
 				FBB2AC4020DE413700BD8EE0 /* MovieEditViewController.m in Sources */,
 				FBFF22F72109D0F70003FE59 /* FDStackViewExtensions.m in Sources */,
@@ -2082,7 +2380,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = TuSDKVideoDemo/TuSDKVideoDemo.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20200318;
+				CURRENT_PROJECT_VERSION = 20200725;
 				DEVELOPMENT_TEAM = 9U2KRZU6GT;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2090,7 +2388,7 @@
 					"$(PROJECT_DIR)/TuSDKVideoDemo/Resources/**",
 					"$(PROJECT_DIR)/TuSDKVideoDemo/Resources/TuSDK",
 				);
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				HEADER_SEARCH_PATHS = (
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"../TuSDKFace/framework/Source/**",
@@ -2100,7 +2398,7 @@
 				INFOPLIST_FILE = TuSDKVideoDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 3.5.6;
+				MARKETING_VERSION = 3.5.7;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -2117,7 +2415,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = TuSDKVideoDemo/TuSDKVideoDemo.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20200318;
+				CURRENT_PROJECT_VERSION = 20200725;
 				DEVELOPMENT_TEAM = 9U2KRZU6GT;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2125,7 +2423,7 @@
 					"$(PROJECT_DIR)/TuSDKVideoDemo/Resources/**",
 					"$(PROJECT_DIR)/TuSDKVideoDemo/Resources/TuSDK",
 				);
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				HEADER_SEARCH_PATHS = (
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"../TuSDKFace/framework/Source/**",
@@ -2135,7 +2433,7 @@
 				INFOPLIST_FILE = TuSDKVideoDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 3.5.6;
+				MARKETING_VERSION = 3.5.7;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
