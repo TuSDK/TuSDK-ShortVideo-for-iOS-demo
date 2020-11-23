@@ -20,7 +20,9 @@ static const CGFloat kItemValueWidth = 35;
 static const CGFloat kItemLineSpacing = 11;
 
 @interface ParameterAdjustItemView ()
-
+{
+    UIView *_centerPointView;
+}
 @property (nonatomic, assign) NSInteger index;
 
 @property (nonatomic, strong) UILabel *nameLabel;
@@ -73,15 +75,41 @@ static const CGFloat kItemLineSpacing = 11;
     [self addSubview:_slider];
     [DemoAppearance setupDefaultShadowOnLayer:_slider.layer];
     [_slider addTarget:self action:@selector(sliderValueChangeAction:) forControlEvents:UIControlEventValueChanged];
+    
+    
+    //滑动条默认点
+    _centerPointView = [[UIView alloc] initWithFrame:CGRectZero];
+    _centerPointView.backgroundColor = [UIColor whiteColor];
+    _centerPointView.layer.cornerRadius = 4;
+
+    [_slider addSubview:_centerPointView];
 }
 
 - (void)layoutSubviews {
     CGSize size = self.bounds.size;
     _nameLabel.frame = CGRectMake(0, 0, kItemNameWidth, size.height);
     _valueLabel.frame = CGRectMake(size.width - kItemValueWidth, 0, kItemValueWidth, size.height);
-    const CGFloat margin = 12;
+    const CGFloat margin = 8;
     const CGFloat seekBarX = CGRectGetMaxX(_nameLabel.frame) + margin;
     _slider.frame = CGRectMake(seekBarX, 0, CGRectGetMinX(_valueLabel.frame) - margin - seekBarX, size.height);
+    
+    CGRect sliderFrame = _slider.frame;
+    CGFloat sliderMinX = _defaultVal * CGRectGetWidth(sliderFrame);
+    if (_defaultVal == 1)
+    {
+        _centerPointView.frame = CGRectMake(sliderMinX - 8, CGRectGetHeight(sliderFrame) / 2 - 4, 8, 8);
+    }
+    else
+    {
+        _centerPointView.frame = CGRectMake(sliderMinX - 4, CGRectGetHeight(sliderFrame) / 2 - 4, 8, 8);
+    }
+    
+}
+
+- (void)setDefaultVal:(float)defaultVal
+{
+    _defaultVal = defaultVal;
+    [self updateValueText];
 }
 
 - (CGSize)intrinsicContentSize {
@@ -177,9 +205,10 @@ static const CGFloat kItemLineSpacing = 11;
     for (int i = 0; i < parameterCount; i++) {
         if (!configHandler) continue;
         ParameterAdjustItemView *itemView = [[ParameterAdjustItemView alloc] initWithFrame:CGRectZero];
-        configHandler(i, itemView, ^(NSString *parmName, double percentValue) {
+        configHandler(i, itemView, ^(NSString *parmName, double percentValue, double defaultValue) {
             itemView.nameLabel.text = parmName;
             itemView.slider.value = percentValue;
+            itemView.defaultVal = defaultValue;
             [itemView updateValueText];
             itemView.index = i;
             [itemViews addObject:itemView];

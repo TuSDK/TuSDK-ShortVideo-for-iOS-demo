@@ -16,6 +16,8 @@
 // 资源配置列表
 #import "Constants.h"
 #import "CameraFilterPanelView.h"
+#import "TuCameraFilterPackage.h"
+#import "TuCosmeticConfig.h"
 
 #define kNormalFilterCodes @[@"Normal", kCameraNormalFilterCodes]
 #define kComicsFilterCodes @[@"Normal", kCameraComicsFilterCodes]
@@ -115,6 +117,8 @@ LSQGPUImageVideoCameraDelegate
 @property (nonatomic, strong) TuSDKMediaScreenKeyingEffect *screenKeyingEffect;
 
 @property (nonatomic, assign) double brightness;
+/**标题数组*/
+@property (nonatomic, strong) NSMutableArray *titleSource;
 
 @end
 
@@ -217,7 +221,6 @@ LSQGPUImageVideoCameraDelegate
     
     //目前进入相机会默认将手机亮度调到最大
     self.brightness = [UIScreen mainScreen].brightness;
-    NSLog(@"屏幕亮度0 === %.f", [UIScreen mainScreen].brightness);
 }
 
 - (void)viewDidLayoutSubviews {
@@ -245,7 +248,7 @@ LSQGPUImageVideoCameraDelegate
     
     [UIScreen mainScreen].brightness = 1.f;
     
-    NSLog(@"屏幕亮度2 === %.f", [UIScreen mainScreen].brightness);
+    //NSLog(@"屏幕亮度2 === %.f", [UIScreen mainScreen].brightness);
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -256,7 +259,7 @@ LSQGPUImageVideoCameraDelegate
     [UIApplication sharedApplication].idleTimerDisabled = NO;
     
     [UIScreen mainScreen].brightness = self.brightness;
-    NSLog(@"屏幕亮度3 === %.f", [UIScreen mainScreen].brightness);
+    //NSLog(@"屏幕亮度3 === %.f", [UIScreen mainScreen].brightness);
 }
 
 /**
@@ -370,7 +373,7 @@ LSQGPUImageVideoCameraDelegate
 //    }
     
     [UIScreen mainScreen].brightness = self.brightness;
-    NSLog(@"进入后台屏幕亮度 === %.f", [UIScreen mainScreen].brightness);
+    //NSLog(@"进入后台屏幕亮度 === %.f", [UIScreen mainScreen].brightness);
     
     // 进入后台后取消录制，舍弃之前录制的信息
     if (_camera) {
@@ -400,7 +403,7 @@ LSQGPUImageVideoCameraDelegate
     [_captureMode resetUI];
     
     [UIScreen mainScreen].brightness = 1.f;
-    NSLog(@"恢复前台屏幕亮度 === %.f", [UIScreen mainScreen].brightness);
+    //NSLog(@"恢复前台屏幕亮度 === %.f", [UIScreen mainScreen].brightness);
 }
 
 #pragma mark - 权限请求
@@ -458,6 +461,10 @@ LSQGPUImageVideoCameraDelegate
     }
     _isSetDefaultEffect = YES;
     /** 初始化滤镜特效 */
+    if (self.defaultFilterCode == nil)
+    {
+        self.defaultFilterCode = @"Portrait_Bright_1";
+    }
     TuSDKMediaFilterEffect *filterEffect = [[TuSDKMediaFilterEffect alloc] initWithEffectCode:self.defaultFilterCode];
     [self.camera addMediaEffect:filterEffect];
     
@@ -666,7 +673,7 @@ LSQGPUImageVideoCameraDelegate
         //处于第一位的时候不处理
         if (_controlMaskView.filterPanelView.selectedTabIndex == 0) {
             
-            _controlMaskView.filterPanelView.selectedIndex = _controlMaskView.filterPanelView.filterGroupCount - 1;
+            _controlMaskView.filterPanelView.selectedIndex = self.titleSource.count - 1;
             _filterCodes = @[kCameraComicsFilterCodes];
             self.currentFilterIndex = _filterCodes.count - 1;
             
@@ -687,7 +694,7 @@ LSQGPUImageVideoCameraDelegate
     }
     
     // 漫画
-    if (_controlMaskView.filterPanelView.selectedTabIndex == _controlMaskView.filterPanelView.filterGroupCount - 1)
+    if (_controlMaskView.filterPanelView.selectedTabIndex == self.titleSource.count - 1)
     {
         
         TuSDKMediaComicEffect *comicEffect = [[TuSDKMediaComicEffect alloc] initWithEffectCode:_filterCodes[self.currentFilterIndex]];
@@ -722,14 +729,14 @@ LSQGPUImageVideoCameraDelegate
     if (self.currentFilterIndex >= _filterCodes.count) {
         
         //漫画滤镜时暂时不处理
-        if (_controlMaskView.filterPanelView.selectedTabIndex == _controlMaskView.filterPanelView.filterGroupCount - 1)
+        if (_controlMaskView.filterPanelView.selectedTabIndex == self.titleSource.count - 1)
         {
             _controlMaskView.filterPanelView.selectedIndex = 0;
             _filterCodes = self.controlMaskView.filterPanelView.filtersGroups[self.controlMaskView.filterPanelView.selectedTabIndex];
             self.currentFilterIndex = 0;
         }
         //准备切换到漫画滤镜时
-        else if (_controlMaskView.filterPanelView.selectedTabIndex == _controlMaskView.filterPanelView.filterGroupCount - 2)
+        else if (_controlMaskView.filterPanelView.selectedTabIndex == self.titleSource.count - 2)
         {
             _controlMaskView.filterPanelView.selectedIndex = _controlMaskView.filterPanelView.selectedTabIndex + 1;
             _filterCodes = @[kCameraComicsFilterCodes];
@@ -744,7 +751,7 @@ LSQGPUImageVideoCameraDelegate
 
     }
     // 漫画
-    if (_controlMaskView.filterPanelView.selectedTabIndex == _controlMaskView.filterPanelView.filterGroupCount - 1) {
+    if (_controlMaskView.filterPanelView.selectedTabIndex == self.titleSource.count - 1) {
         
         TuSDKMediaComicEffect *comicEffect = [[TuSDKMediaComicEffect alloc] initWithEffectCode:_filterCodes[self.currentFilterIndex]];
         [_camera addMediaEffect:comicEffect];
@@ -1265,39 +1272,35 @@ LSQGPUImageVideoCameraDelegate
             {
                 return [_camera mediaEffectsWithType:TuSDKMediaEffectDataTypeSkinFace].count > 0 ? 1 : 0;
             }
-            default:
+                break;
+            case 1:
             {
                 // 微整形特效
                 TuSDKMediaPlasticFaceEffect *effect = [_camera mediaEffectsWithType:TuSDKMediaEffectDataTypePlasticFace].firstObject;
                 return effect.filterArgs.count;
             }
+                break;
+            default:
+            {
+                return 1;
+            }
+                break;
         }
         
     }
     else
     {
         // 滤镜视图面板
-        if (_controlMaskView.filterPanelView.selectedTabIndex == _controlMaskView.filterPanelView.filterGroupCount - 1)
+        if (_controlMaskView.filterPanelView.selectedTabIndex == self.titleSource.count - 1)
         {
             //漫画
             return 0;
         }
         else
         {
-            return [_controlMaskView.filterPanelView.filtersGroups[_controlMaskView.filterPanelView.selectedTabIndex] count];
+            TuSDKMediaFilterEffect *effect = [_camera mediaEffectsWithType:TuSDKMediaEffectDataTypeFilter].firstObject;
+            return effect.filterArgs.count;
         }
-//        // 滤镜视图面板
-//        switch (_controlMaskView.filterPanelView.selectedTabIndex)
-//        {
-//            case 1: // 漫画
-//            {
-//                return 0;
-//            }
-//            case 0: { // 滤镜
-//                TuSDKMediaFilterEffect *effect = [_camera mediaEffectsWithType:TuSDKMediaEffectDataTypeFilter].firstObject;
-//                return effect.filterArgs.count;
-//            }
-//        }
     }
     
     return 0;
@@ -1321,37 +1324,31 @@ LSQGPUImageVideoCameraDelegate
             {
                 return _controlMaskView.beautyPanelView.selectedSkinKey;
             }
-            default:
+                break;
+            case 1:
             {
                 // 微整形
                 TuSDKMediaPlasticFaceEffect *effect = [_camera mediaEffectsWithType:TuSDKMediaEffectDataTypePlasticFace].firstObject;
                 return effect.filterArgs[index].key;
             }
+                break;;
+            default:
+            {
+
+            }
         }
-        
-    }else
+    }
+    else
     {
         // 滤镜视图面板
-//        switch (_controlMaskView.filterPanelView.selectedTabIndex)
-//        {
-//            case 1: // 漫画
-//            {
-//                return 0;
-//            }
-//            case 0:  // 滤镜
-//            {
-//                TuSDKMediaFilterEffect *effect = [_camera mediaEffectsWithType:TuSDKMediaEffectDataTypeFilter].firstObject;
-//                return effect.filterArgs[index].key;
-//            }
-//        }
-        if (_controlMaskView.filterPanelView.selectedTabIndex == _controlMaskView.filterPanelView.filterGroupCount - 1)
+        if (_controlMaskView.filterPanelView.selectedTabIndex == self.titleSource.count - 1)
         {
             return 0;
         }
         else
         {
-            NSArray<TuSDKFilterOption *> *filterOptions = _controlMaskView.filterPanelView.filtersOptions[_controlMaskView.filterPanelView.selectedTabIndex];
-            return [filterOptions[index].args allKeys].firstObject;
+            TuSDKMediaFilterEffect *effect = [_camera mediaEffectsWithType:TuSDKMediaEffectDataTypeFilter].firstObject;
+            return effect.filterArgs[index].key;
         }
     }
     
@@ -1376,43 +1373,169 @@ LSQGPUImageVideoCameraDelegate
                 TuSDKMediaSkinFaceEffect *effect = [_camera mediaEffectsWithType:TuSDKMediaEffectDataTypeSkinFace].firstObject;
                 return [effect argWithKey:_controlMaskView.beautyPanelView.selectedSkinKey].precent;
             }
-            default:
+                break;
+            case 1:
             {
                 // 微整形
                 TuSDKMediaPlasticFaceEffect *effect = [_camera mediaEffectsWithType:TuSDKMediaEffectDataTypePlasticFace].firstObject;
                 return effect.filterArgs[index].precent;
             }
+                break;
+            default:
+            {
+                
+                
+            }
+                break;
         }
-        
     }
     else
     {
         // 滤镜视图面板
-//        switch (_controlMaskView.filterPanelView.selectedTabIndex)
-//        {
-//            case 1: // 漫画
-//            {
-//                return 0;
-//            }
-//            case 0:
-//            {
-//                TuSDKMediaFilterEffect *effect = [_camera mediaEffectsWithType:TuSDKMediaEffectDataTypeFilter].firstObject;
-//                return effect.filterArgs[index].precent;
-//            }
-//        }
-        // 滤镜视图面板
-        if (self.controlMaskView.filterPanelView.selectedTabIndex == self.controlMaskView.filterPanelView.filterGroupCount - 1)
+        if (self.controlMaskView.filterPanelView.selectedTabIndex == self.titleSource.count - 1)
         {
             return 0;
         }
         else
         {
-            NSArray<TuSDKFilterOption *> *filterOptions = _controlMaskView.filterPanelView.filtersOptions[_controlMaskView.filterPanelView.selectedTabIndex];
-            return [filterOptions[index].args[@"mixied"] doubleValue];
+            TuSDKMediaFilterEffect *effect = [_camera mediaEffectsWithType:TuSDKMediaEffectDataTypeFilter].firstObject;
+            return effect.filterArgs[index].precent;
         }
     }
     
     return 0;
+}
+/**
+ 美妆参数值
+ 
+ @param index  美妆参数索引
+ @param cosmeticIndex  美妆参数类型
+ @return  美妆参数百分比
+ */
+- (double)filterPanel:(id<CameraFilterPanelProtocol>)filterPanel  cosmeticPercentValueAtIndex:(NSUInteger)index cosmeticIndex:(NSInteger)cosmeticIndex
+{
+    if([_camera mediaEffectsWithType:TuSDKMediaEffectDataTypeCosmetic].count != 0)
+    {
+        // 美妆
+        TuSDKMediaCosmeticEffect *effect = [_camera mediaEffectsWithType:TuSDKMediaEffectDataTypeCosmetic].firstObject;
+        return effect.filterArgs[cosmeticIndex].value;
+    }
+    else
+    {
+        TuSDKMediaCosmeticEffect *effect = [[TuSDKMediaCosmeticEffect alloc] init];
+        [_camera addMediaEffect:effect];
+        [self updateCosmeticDefaultParameters];
+        return effect.filterArgs[cosmeticIndex].value;
+    }
+}
+
+- (double)filterPanel:(id<CameraFilterPanelProtocol>)filterPanel  cosmeticDefaultValueAtIndex:(NSUInteger)index cosmeticIndex:(NSInteger)cosmeticIndex
+{
+    if([_camera mediaEffectsWithType:TuSDKMediaEffectDataTypeCosmetic].count != 0)
+    {
+        // 美妆
+        TuSDKMediaCosmeticEffect *effect = [_camera mediaEffectsWithType:TuSDKMediaEffectDataTypeCosmetic].firstObject;
+        return effect.filterArgs[cosmeticIndex].defaultValue;
+    }
+    else
+    {
+        TuSDKMediaCosmeticEffect *effect = [[TuSDKMediaCosmeticEffect alloc] init];
+        [_camera addMediaEffect:effect];
+        [self updateCosmeticDefaultParameters];
+        return effect.filterArgs[cosmeticIndex].defaultValue;
+    }
+}
+
+- (void)filterPanel:(id<CameraFilterPanelProtocol>_Nullable)filterPanel didChangeValue:(double)percent cosmeticIndex:(NSInteger)cosmeticIndex
+{
+    TuSDKMediaCosmeticEffect *effect = [_camera mediaEffectsWithType:TuSDKMediaEffectDataTypeCosmetic].firstObject;
+    switch (cosmeticIndex) {
+        case 3:
+        {
+            //眼影
+            [effect submitParameterWithKey:@"eyeshadowAlpha" argPrecent:percent];
+        }
+            break;
+        case 4:
+        {
+            //眼线
+            [effect submitParameterWithKey:@"eyelineAlpha" argPrecent:percent];
+        }
+            break;
+        case 5:
+        {
+            //睫毛
+            [effect submitParameterWithKey:@"eyeLashAlpha" argPrecent:percent];
+        }
+            break;
+        default:
+            break;
+    }
+}
+
+/**
+ 重置美妆参数默认值
+ */
+- (void)updateCosmeticDefaultParameters
+{
+    TuSDKMediaCosmeticEffect *effect = [_camera mediaEffectsWithType:TuSDKMediaEffectDataTypeCosmetic].firstObject;
+    NSArray<TuSDKFilterArg *> *args = effect.filterArgs;
+
+    for (TuSDKFilterArg *arg in args) {
+        NSString *parameterName = arg.key;
+
+        // Attention:可对参数效果强弱进行自定义调节，请用户自行测试选择最适宜强度 ！！！
+        // Attention:参数效果调节强度并非效果强度越大越好，请用户根据实际情况对强度进行控制 ！！！
+
+        // 是否需要更新参数值
+        BOOL updateValue = NO;
+        // 默认值的百分比，用于指定美妆初始的效果（参数默认值 = 最小值 + (最大值 - 最小值) * defaultValueFactor）
+        CGFloat defaultValueFactor = 1;
+        // 最大值的百分比，用于限制美妆参数变化的幅度（参数最大值 = 最小值 + (最大值 - 最小值) * maxValueFactor）
+        CGFloat maxValueFactor = 1;
+
+        if ([parameterName isEqualToString:@"lipAlpha"]) {
+            //口红
+//            maxValueFactor = 0.8;
+            defaultValueFactor = 0.4;
+            updateValue = YES;
+        } else if ([parameterName isEqualToString:@"blushAlpha"]) {
+            //腮红
+//            maxValueFactor = 0.8;
+            defaultValueFactor = 0.5;
+            updateValue = YES;
+        } else if ([parameterName isEqualToString:@"eyebrowAlpha"]) {
+            //眉毛
+//            maxValueFactor = 0.7;
+            defaultValueFactor = 0.4;
+            updateValue = YES;
+        } else if ([parameterName isEqualToString:@"eyeshadowAlpha"]) {
+            //眼影
+            defaultValueFactor = 0.5;
+            updateValue = YES;
+        } else if ([parameterName isEqualToString:@"eyelineAlpha"]) {
+            //眼线
+            defaultValueFactor = 0.5;
+            updateValue = YES;
+        } else {
+            //睫毛
+            defaultValueFactor = 0.5;
+            updateValue = YES;
+        }
+
+        if (updateValue) {
+            if (defaultValueFactor != 1)
+                arg.defaultValue = defaultValueFactor;
+
+            if (maxValueFactor != 1)
+                arg.maxFloatValue = maxValueFactor;
+            
+            // 把当前值重置为默认值
+            NSLog(@"%@: %f", parameterName, arg.minFloatValue);
+            [arg reset];
+        }
+    }
+    [effect submitParameters];
 }
 
 #pragma mark - RecordFilterPanelDelegate
@@ -1467,16 +1590,14 @@ LSQGPUImageVideoCameraDelegate
  */
 - (void)filterPanel:(id<CameraFilterPanelProtocol>)filterPanel didSwitchTabIndex:(NSInteger)tabIndex {
     if ([filterPanel isKindOfClass:[CameraFilterPanelView class]]) {
-        if (tabIndex == _controlMaskView.filterPanelView.filterGroupCount - 1)
+        if (tabIndex == self.titleSource.count - 1)
         {
             _filterCodes = kComicsFilterCodes;
         }
         else
         {
-//            _filterCodes = kNormalFilterCodes;
             _filterCodes = _controlMaskView.filterPanelView.filtersGroups[tabIndex];
         }
-//        _filterCodes = tabIndex == 1 ? kComicsFilterCodes : kNormalFilterCodes;
         self.currentFilterIndex = 0;
     }
 }
@@ -1513,24 +1634,30 @@ LSQGPUImageVideoCameraDelegate
         
                 break;
             }
-            default:
+            case 1:
             {
                 // 微整形
-                if ([_camera mediaEffectsWithType:TuSDKMediaEffectDataTypePlasticFace].count == 0) {
+                if ([_camera mediaEffectsWithType:TuSDKMediaEffectDataTypePlasticFace].count == 0)
+                {
                     TuSDKMediaPlasticFaceEffect *plasticFaceEffect = [[TuSDKMediaPlasticFaceEffect alloc] init];
                     [_camera addMediaEffect:plasticFaceEffect];
                     [self updatePlasticFaceDefaultParameters];
                     return;
                 }
-                break;
             }
+                break;
+            default:
+            {
+                
+            }
+                break;
         }
         
-    }else {
-        
+    } else {
+
         // 滤镜视图面板
         // 漫画
-        if (_controlMaskView.filterPanelView.selectedTabIndex == _controlMaskView.filterPanelView.filterGroupCount - 1)
+        if (_controlMaskView.filterPanelView.selectedTabIndex == self.titleSource.count - 1)
         {
             TuSDKMediaComicEffect *effect = [[TuSDKMediaComicEffect alloc] initWithEffectCode:code];
             [_camera addMediaEffect:effect];
@@ -1543,25 +1670,114 @@ LSQGPUImageVideoCameraDelegate
             [_camera addMediaEffect:effect];
             self.currentFilterIndex = [_filterCodes indexOfObject:code];
         }
-        // 滤镜视图面板
-//        switch (_controlMaskView.filterPanelView.selectedTabIndex)
-//        {
-//            case 1: // 漫画
-//            {
-//                TuSDKMediaComicEffect *effect = [[TuSDKMediaComicEffect alloc] initWithEffectCode:code];
-//                [_camera addMediaEffect:effect];
-//                self.currentFilterIndex = [_filterCodes indexOfObject:code];
-//                break;
-//            }
-//            case 0: { // 滤镜
-//                TuSDKMediaFilterEffect *effect = [[TuSDKMediaFilterEffect alloc] initWithEffectCode:code];
-//                [_camera addMediaEffect:effect];
-//                self.currentFilterIndex = [_filterCodes indexOfObject:code];
-//                break;
-//            }
-//            default:
-//                break;
-//        }
+    }
+}
+
+/**
+ 美妆面板选中回调
+ 
+ @param filterPanel 美妆面板
+ @param code 美妆类型码
+ @param stickerCode 美妆效果code
+ */
+- (void)filterPanel:(id<CameraFilterPanelProtocol>)filterPanel didSelectedCosmeticCode:(NSString *)code stickerCode:(nonnull NSString *)stickerCode;
+{
+
+    NSArray<TuSDKPFStickerGroup *> *allLocalStickers = [[TuSDKPFStickerLocalPackage package] getSmartStickerGroups];
+    for (TuSDKPFStickerGroup *groups in allLocalStickers)
+    {
+        if (groups.idt == stickerCode.integerValue)
+        {
+            TuSDKPFSticker *sticker = groups.stickers.firstObject;
+            
+            if ([_camera mediaEffectsWithType:TuSDKMediaEffectDataTypeCosmetic].count == 0)
+            {
+                TuSDKMediaCosmeticEffect *comsticEffect = [[TuSDKMediaCosmeticEffect alloc] init];
+                [_camera addMediaEffect:comsticEffect];
+                
+                TuSDKStickerPositionInfo *positionInfo = sticker.positionInfo;
+                switch (positionInfo.posType) {
+                    case CosEyeShadow:
+                        [comsticEffect updateEyeshadow:sticker];
+                        break;
+                    case CosEyeLine:
+                        [comsticEffect updateEyeline:sticker];
+                        break;
+                    case CosEyeLash:
+                        [comsticEffect updateEyelash:sticker];
+                        break;
+                    case CosBrows:
+                        [comsticEffect updateEyebrow:sticker];
+                        break;
+                    case CosBlush:
+                        [comsticEffect updateBlush:sticker];
+                    default:
+                        break;
+                }
+            }
+            else
+            {
+                TuSDKMediaCosmeticEffect *comsticEffect = [_camera mediaEffectsWithType:TuSDKMediaEffectDataTypeCosmetic].lastObject;
+                [_camera addMediaEffect:comsticEffect];
+
+                TuSDKStickerPositionInfo *positionInfo = sticker.positionInfo;
+                switch (positionInfo.posType) {
+                    case CosEyeShadow:
+                        [comsticEffect updateEyeshadow:sticker];
+                        break;
+                    case CosEyeLine:
+                        [comsticEffect updateEyeline:sticker];
+                        break;
+                    case CosEyeLash:
+                        [comsticEffect updateEyelash:sticker];
+                        break;
+                    case CosBrows:
+                        [comsticEffect updateEyebrow:sticker];
+                        break;
+                    case CosBlush:
+                        [comsticEffect updateBlush:sticker];
+                    default:
+                        break;
+                }
+                
+            }
+        }
+    }
+}
+/**
+ 美妆口红面板选中回调
+ 
+ @param filterPanel 美妆面板
+ @param lipStickType 口红类型
+ @param stickerName 美妆贴纸名称
+ */
+- (void)filterPanel:(id<CameraFilterPanelProtocol>)filterPanel didSelectedLipStickType:(NSInteger)lipStickType stickerName:(NSString *)stickerName
+{
+    CosmeticLipType lipType = COSMETIC_SHUIRUN_TYPE;
+    switch (lipStickType) {
+        case 1:  // 滋润
+            lipType = COSMETIC_ZIRUN_TYPE;
+            break;
+        case 2:  // 雾面
+            lipType = COSMETIC_WUMIAN_TYPE;
+            break;
+        default: // 水润
+            lipType = COSMETIC_SHUIRUN_TYPE;
+            break;
+    }
+    int RGBValue = [TuCosmeticConfig stickLipParamByStickerName:stickerName];
+    
+    if ([_camera mediaEffectsWithType:TuSDKMediaEffectDataTypeCosmetic].count == 0)
+    {
+        TuSDKMediaCosmeticEffect *comsticEffect = [[TuSDKMediaCosmeticEffect alloc] init];
+        [comsticEffect updateLip:lipType colorRGB:RGBValue];
+        [_camera addMediaEffect:comsticEffect];
+    }
+    else
+    {
+        TuSDKMediaCosmeticEffect *comsticEffect = [_camera mediaEffectsWithType:TuSDKMediaEffectDataTypeCosmetic].lastObject;
+        [comsticEffect updateLip:lipType colorRGB:RGBValue];
+        [_camera addMediaEffect:comsticEffect];
     }
 }
 
@@ -1586,14 +1802,24 @@ LSQGPUImageVideoCameraDelegate
             
                 break;
             }
-            default: {
+            case 1:
+            {
                 // 微整形
                 TuSDKMediaPlasticFaceEffect *effect = [_camera mediaEffectsWithType:TuSDKMediaEffectDataTypePlasticFace].firstObject;
                 [effect submitParameter:index argPrecent:percentValue];
-                break;
             }
+                break;
+            default:
+            {
+                //美妆
+                TuSDKMediaCosmeticEffect *effect = [_camera mediaEffectsWithType:TuSDKMediaEffectDataTypeCosmetic].firstObject;
+                [effect submitParameter:index argPrecent:percentValue];
+                
+                //NSLog(@"设置透明度 == %.2f", percentValue);
+                
+            }
+                break;
         }
-        
     }
     else
     {
@@ -1609,10 +1835,78 @@ LSQGPUImageVideoCameraDelegate
             [effect submitParameter:index argPrecent:percentValue];
             
         }
-        
-        
     }
+}
+/**
+ 美妆面板重置回调
+ 
+ @param filterPanel 滤镜面板
+ @param code 美妆效果码
+ */
+- (void)filterPanel:(id<CameraFilterPanelProtocol>)filterPanel closeCosmetic:(NSString *)code
+{
+    TuSDKMediaCosmeticEffect *effect = [_camera mediaEffectsWithType:TuSDKMediaEffectDataTypeCosmetic].firstObject;
     
+    if ([code isEqualToString:@"cosmeticReset"])
+    {
+        typeof(self)weakSelf = self;
+        NSString *title = NSLocalizedStringFromTable(@"tu_美妆", @"VideoDemo", @"美妆");
+        NSString *msg = NSLocalizedStringFromTable(@"tu_确定删除所有美妆效果?", @"VideoDemo", @"美妆");
+        TuSDKICAlertView *alert = [TuSDKICAlertView alertWithController:self
+                                                                  title:title
+                                                                message:msg];
+
+        [alert addAction:[TuSDKICAlertAction actionWithTitle:NSLocalizedStringFromTable(@"tu_确定", @"VideoDemo", @"确定") handler:^(TuSDKICAlertAction * _Nonnull action)
+                          {
+            
+            [effect closeLip];
+            [effect closeBlush];
+            [effect closeEyebrow];
+            [effect closeEyeshadow];
+            [effect closeEyeline];
+            [effect closeEyelash];
+            
+            [weakSelf->_camera removeMediaEffectsWithType:TuSDKMediaEffectDataTypeCosmetic];
+            
+            weakSelf->_controlMaskView.beautyPanelView.resetCosmetic = YES;
+
+        }]];
+        
+        [alert addAction:[TuSDKICAlertAction actionCancelWithTitle:LSQString(@"lsq_nav_cancel", @"取消") handler:nil]];
+        
+        [alert show];
+
+    }
+    else if ([code isEqualToString:@"lipstick"])
+    {
+        [effect closeLip];
+        //NSLog(@"关闭口红效果");
+    }
+    else if ([code isEqualToString:@"blush"])
+    {
+        [effect closeBlush];
+        //NSLog(@"关闭腮红效果");
+    }
+    else if ([code isEqualToString:@"eyebrow"])
+    {
+        [effect closeEyebrow];
+        //NSLog(@"关闭眉毛效果");
+    }
+    else if ([code isEqualToString:@"eyeshadow"])
+    {
+        [effect closeEyeshadow];
+        //NSLog(@"关闭眼影效果");
+    }
+    else if ([code isEqualToString:@"eyeliner"])
+    {
+        [effect closeEyeline];
+        //NSLog(@"关闭眼线效果");
+    }
+    else
+    {
+        [effect closeEyelash];
+        //NSLog(@"关闭睫毛效果");
+    }
 }
 
 /**
@@ -1802,17 +2096,15 @@ LSQGPUImageVideoCameraDelegate
         if ([parameterName isEqualToString:@"eyeSize"]) {
             // 大眼
             defaultValueFactor = 0.3;
-//            maxValueFactor = 0.85;
+            maxValueFactor = 0.8;
             updateValue = YES;
         } else if ([parameterName isEqualToString:@"chinSize"]) {
             // 瘦脸
             defaultValueFactor = 0.5;
-//            maxValueFactor = 0.9;
             updateValue = YES;
         } else if ([parameterName isEqualToString:@"noseSize"]) {
             // 瘦鼻
             defaultValueFactor = 0.2;
-//            maxValueFactor = 0.6;
             updateValue = YES;
         } else if ([parameterName isEqualToString:@"mouthWidth"]) {
             // 嘴型
@@ -1889,6 +2181,19 @@ LSQGPUImageVideoCameraDelegate
 //        TuSDKMediaFilterEffect *filterEffect = [[TuSDKMediaFilterEffect alloc] initWithEffectCode:_filterCodes[self.currentFilterIndex]];
 //        [_camera addMediaEffect:filterEffect];
 //    }
+}
+
+#pragma mark - lazyload
+- (NSMutableArray *)titleSource
+{
+    if (!_titleSource)
+    {
+        _titleSource = [NSMutableArray array];
+        //获取滤镜标题数组
+        NSArray *titleDataSet = [[TuCameraFilterPackage sharePackage] titleGroupsWithComics:YES];
+        [_titleSource addObjectsFromArray:titleDataSet];
+    }
+    return _titleSource;;
 }
 
 @end

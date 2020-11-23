@@ -10,6 +10,7 @@
 #import "TuSDKMediaEffect.h"
 #import "TuSDKComboFilterWrapChain.h"
 #import "TuSDKMediaEffectSync.h"
+#import "TuSDKMediaCosmeticEffect.h"
 
 @interface TuSDKMediaVideoEffectTimelineSync : NSObject <TuSDKMediaEffectSync,TuSDKFilterFacePositionProtocol>
 

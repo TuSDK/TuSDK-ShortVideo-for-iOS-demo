@@ -153,8 +153,6 @@ static const CGFloat kFilterBottomOffset = 172;
                 [filters addObject:[option.name componentsSeparatedByString:@"lsq_filter_"].lastObject];
             }
             
-//            NSArray *filterGroup = [[filters reverseObjectEnumerator] allObjects];
-//            [groups addObject:filterGroup];
             [groups addObject:filters];
         }
     }
@@ -162,7 +160,6 @@ static const CGFloat kFilterBottomOffset = 172;
     [self.filterTitles addObjectsFromArray:[[titles reverseObjectEnumerator] allObjects]];
     
     [self.filtersGroups addObjectsFromArray:[[groups reverseObjectEnumerator] allObjects]];
-//    [self.filtersOptions addObjectsFromArray:[[options reverseObjectEnumerator] allObjects]];
     [self.filtersOptions addObjectsFromArray:options];
     
     //重置按钮
@@ -175,7 +172,6 @@ static const CGFloat kFilterBottomOffset = 172;
     PageTabbar *tabbar = [[PageTabbar alloc] initWithFrame:CGRectZero];
     [self.view addSubview:tabbar];
     _tabbar = tabbar;
-//    tabbar.itemsSpacing = 32;
     tabbar.trackerSize = CGSizeMake(48, 2);
     tabbar.itemSelectedColor = [UIColor whiteColor];
     tabbar.itemNormalColor = [UIColor colorWithWhite:1 alpha:.25];
@@ -345,10 +341,10 @@ static const CGFloat kFilterBottomOffset = 172;
 {
     NSArray<TuSDKFilterArg *> *args = filterEffect.filterArgs;
     
-    [self.paramtersView setupWithParameterCount:args.count config:^(NSUInteger index, ParameterAdjustItemView *itemView, void (^parameterItemConfig)(NSString *name, double percent)) {
+    [self.paramtersView setupWithParameterCount:args.count config:^(NSUInteger index, ParameterAdjustItemView *itemView, void (^parameterItemConfig)(NSString *name, double percent, double defaultValue)) {
         NSString *parameterName = args[index].key;
         parameterName = [NSString stringWithFormat:@"lsq_filter_set_%@", parameterName];
-        parameterItemConfig(NSLocalizedStringFromTable(parameterName, @"TuSDKConstants", @"无需国际化"), args[index].precent);
+        parameterItemConfig(NSLocalizedStringFromTable(parameterName, @"TuSDKConstants", @"无需国际化"), args[index].precent, args[index].precent);
     } valueChange:^(NSUInteger index, double percent) {
         // 修改参数并提交参数
         args[index].precent = percent;
@@ -364,7 +360,7 @@ static const CGFloat kFilterBottomOffset = 172;
     
     _paramtersView.hidden = YES;
 
-    [_paramtersView setupWithParameterCount:1 config:^(NSUInteger index, ParameterAdjustItemView *itemView, void (^parameterItemConfig)(NSString *name, double percent)) {
+    [_paramtersView setupWithParameterCount:1 config:^(NSUInteger index, ParameterAdjustItemView *itemView, void (^parameterItemConfig)(NSString *name, double percent, double defaultValue)) {
 
 
         NSString *parameterName = self.filtersGroups[self.selectedIndex][index];
@@ -373,7 +369,7 @@ static const CGFloat kFilterBottomOffset = 172;
         
         double percentVale = [[option.args allValues].lastObject doubleValue];
         parameterName = [NSString stringWithFormat:@"lsq_filter_set_%@", parameterName];
-        parameterItemConfig(NSLocalizedStringFromTable(parameterName, @"TuSDKConstants", @"无需国际化"), percentVale);
+        parameterItemConfig(NSLocalizedStringFromTable(parameterName, @"TuSDKConstants", @"无需国际化"), percentVale, percentVale);
 
     } valueChange:^(NSUInteger index, double percent) {
 

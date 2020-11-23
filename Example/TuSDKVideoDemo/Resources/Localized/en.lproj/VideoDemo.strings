@@ -111,6 +111,7 @@
 
 /* 将所有参数恢复默认吗？ */
 "tu_将所有参数恢复默认吗？" = "Restore all parameters to default?";
+"tu_确定删除所有美妆效果?" = "Make sure to remove all cosmetic effects?";
 
 /* 居中 */
 "tu_居中" = "Align Center";
@@ -159,6 +160,9 @@
 
 /* 微整形 */
 "tu_微整形" = "Micro shaping";
+
+/* 美妆 */
+"tu_美妆" = "Beauty MakeUp";
 
 /* 手机可用空间不足，请清理手机 */
 "tu_手机可用空间不足，请清理手机" = "There is not enough space available on the phone, please clean your phone";
@@ -359,3 +363,84 @@
 "tu_已经选择视频，不能再选择照片" = "Videos has been selected, can't choose a image";
 
 "tu_不支持预览非视频文件" = "Preview non-video files is not supported";
+
+/*--- 4.0.0 - 美妆 ---*/
+"tu_lipstick" = "Lipstick";
+"tu_blush" = "Blush";
+"tu_eyebrow" = "Eyebrow";
+"tu_eyeshadow" = "Eyeshadow";
+"tu_eyeliner" = "Eyeliner";
+"tu_eyelash" = "Eyelash";
+"tu_cosmeticReset" = "Cosmetic reset";
+
+//眼线
+"tu_back" = "Pack Up";
+"tu_reset" = "No";
+
+//口红
+"lipStick_1" = "枫叶红";
+"lipStick_2" = "正红色";
+"lipStick_3" = "牛血红";
+"lipStick_4" = "番茄橘";
+"lipStick_5" = "暖柿红";
+"lipStick_6" = "正橘色";
+"lipStick_7" = "珊瑚粉";
+"lipStick_8" = "玫红色";
+"lipStick_9" = "梅子色";
+"lipStick_10" = "覆盆子";
+"lipStick_11" = "肉桂色";
+"lipStick_12" = "奶茶色";
+"lipStick_13" = "豆沙色";
+
+"tu_水润" = "WaterWet";
+"tu_滋润" = "Moist";
+"tu_雾面" = "Matte";
+
+//眉毛
+
+//眉毛
+"tu_雾眉" = "Fog";
+"tu_雾根眉" = "Fogen";
+
+"tu_标准黑" = "标准黑";
+"tu_标准灰" = "标准灰";
+"tu_标准棕" = "标准棕";
+"tu_柳弯黑" = "柳弯黑";
+"tu_柳弯灰" = "柳弯灰";
+"tu_柳弯棕" = "柳弯棕";
+"tu_叶细黑" = "叶细黑";
+"tu_叶细灰" = "叶细灰";
+"tu_叶细棕" = "叶细棕";
+"tu_峰眉黑" = "峰眉黑";
+"tu_峰眉灰" = "峰眉灰";
+"tu_峰眉棕" = "峰眉棕";
+"tu_粗平黑" = "粗平黑";
+"tu_粗平灰" = "粗平灰";
+"tu_粗平棕" = "粗平棕";
+"tu_弯线黑" = "弯线黑";
+"tu_弯线灰" = "弯线灰";
+"tu_弯线棕" = "弯线棕";
+"tu_芭比黑" = "芭比黑";
+"tu_芭比灰" = "芭比灰";
+"tu_芭比棕" = "芭比棕";
+"tu_小桃黑" = "小桃黑";
+"tu_小桃灰" = "小桃灰";
+"tu_小桃棕" = "小桃棕";
+"tu_新月黑" = "新月黑";
+"tu_新月灰" = "新月灰";
+"tu_新月棕" = "新月棕";
+"tu_断眉黑" = "断眉黑";
+"tu_断眉灰" = "断眉灰";
+"tu_断眉棕" = "断眉棕";
+"tu_野生黑" = "野生黑";
+"tu_野生灰" = "野生灰";
+"tu_野生棕" = "野生棕";
+"tu_欧线黑" = "欧线黑";
+"tu_欧线灰" = "欧线灰";
+"tu_欧线棕" = "欧线棕";
+"tu_圆眉黑" = "圆眉黑";
+"tu_圆眉灰" = "圆眉灰";
+"tu_圆眉棕" = "圆眉棕";
+"tu_延禧黑" = "延禧黑";
+"tu_延禧灰" = "延禧灰";
+"tu_延禧棕" = "延禧棕";

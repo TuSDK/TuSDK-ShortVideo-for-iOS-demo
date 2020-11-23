@@ -153,8 +153,8 @@ static const NSTimeInterval kMinMvEffectDuration = 1.0;
       @{nameKey: NSLocalizedStringFromTable(@"tu_配乐", @"VideoDemo", @"配乐"), percentKey: @(_effectAudioVolume)}
       ];
     __weak typeof(self) weakSelf = self;
-    [self.paramtersView setupWithParameterCount:parameters.count config:^(NSUInteger index, ParameterAdjustItemView *itemView, void (^parameterItemConfig)(NSString *name, double percent)) {
-        parameterItemConfig(parameters[index][nameKey], [parameters[index][percentKey] doubleValue]);
+    [self.paramtersView setupWithParameterCount:parameters.count config:^(NSUInteger index, ParameterAdjustItemView *itemView, void (^parameterItemConfig)(NSString *name, double percent, double defaultValue)) {
+        parameterItemConfig(parameters[index][nameKey], [parameters[index][percentKey] doubleValue], [parameters[index][percentKey] doubleValue]);
     } valueChange:^(NSUInteger index, double percent) {
         switch (index) {
             case 0:{

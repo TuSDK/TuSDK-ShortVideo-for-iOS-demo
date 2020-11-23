@@ -52,7 +52,7 @@
     
     _sideMargin = 16;
     _itemSize = CGSizeMake(60, 60);
-    _itemSpacing = 10;
+    _itemSpacing = 15;
 }
 
 -(CGFloat)itemCount;{

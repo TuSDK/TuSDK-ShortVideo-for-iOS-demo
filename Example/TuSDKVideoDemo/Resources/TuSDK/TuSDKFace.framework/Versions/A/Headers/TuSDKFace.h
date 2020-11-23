@@ -15,11 +15,16 @@
 
 /** Video版本号 */
 extern NSString * const lsqFaceVersion;
+/** Face打包时间 */
+extern NSString * const lsqFacePackingTime;
 
 #define TUSDKFACE_MAX_NUM_FACES_SUPPORT         3
-#define TUSDKFACE_LANDMARK_POINTS_SUPPORT       106
+#define TUSDKFACE_FACE_MARKS_POINTS_SUPPORT     106
+#define TUSDKFACE_EYE_MARKS_POINTS_SUPPORT      34
+#define TUSDKFACE_MOUTH_MARKS_POINTS_SUPPORT    40
 
-static int TUSDKFACE_LANDMARK_FILP_MAP[106] =
+
+static int TUSDKFACE_LANDMARK_FILP_MAP[TUSDKFACE_FACE_MARKS_POINTS_SUPPORT] =
 {
     32, 31, 30, 29, 28, 27, 26, 25, 24, 23, 22, 21, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0,
     42, 41, 40, 39, 38, 37, 36, 35, 34, 33,
@@ -43,7 +48,7 @@ static int TUSDKFACE_LANDMARK_FILP_MAP[106] =
 + (TuSDKFace *)shared;
 
 /** 设置检测框最小倍数 [取值范围: 0.1 < x < 0.5, 默认: 0.2] 值越大性能越高距离越近 */
-+ (void) setDetectScale: (CGFloat) scale;
++ (void)setDetectScale:(CGFloat)scale;
 
 /**
  *  检测人脸并识别
@@ -63,7 +68,11 @@ static int TUSDKFACE_LANDMARK_FILP_MAP[106] =
  @param radian 设备旋转弧度
  @return 返回查找到的人脸
  */
-+ (NSArray<TuSDKFaceAligment *> *)markFaceGL2Buffer:(uint8_t *)buffer width:(int)width height:(int)height radian:(float)radian;
++ (NSArray<TuSDKFaceAligment *> *)markFaceGL2Buffer:(uint8_t *)buffer
+                                              width:(int)width
+                                             height:(int)height
+                                             radian:(float)radian
+                                        isMarkSence:(bool)isMarkSence;
 
 /**
  对相机采集的帧数据检测人脸并识别
@@ -104,4 +113,7 @@ static int TUSDKFACE_LANDMARK_FILP_MAP[106] =
                                                      ori:(float)ori
                                                   radian:(float)radian
                                                     flip:(BOOL)flip;
+
++(void) setIsMarkSence:(BOOL)isMarkSence;
+
 @end

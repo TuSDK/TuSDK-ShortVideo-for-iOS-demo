@@ -16,7 +16,10 @@
 // 视频编辑器滤镜的 filterCode
 #define kVideoFilterCodes @"Olympus_1", @"Leica_1", @"Gold_1", @"Cheerful_1", @"White_1", @"s1950_1", @"Blurred_1", @"Newborn_1", @"Fade_1", @"NewYork_1"
 // 录制相机普通滤镜的 filterCode
-#define kCameraNormalFilterCodes  @"SkinLotus_1",@"SkinNatural_1", @"SkinFair_1", @"SkinBeckoning_1", @"SkinTender_1", @"SkinLeisurely_1", @"SkinRose_1", @"SkinWarm_1", @"SkinClear_1", @"SkinConfession_1", @"SkinJapanese_1",@"SkinExtraordinary_1",@"SkinHoney_1",@"SkinButter_1",@"SkinDawn_1",@"SkinSummer_1",@"SkinSweet_1",@"SkinPlain_1",@"SkinDusk_1",@"SkinNostalgia_1",@"gaosi_01"
+//#define kCameraNormalFilterCodes  @"SkinLotus_1",@"SkinNatural_1", @"SkinFair_1", @"SkinBeckoning_1", @"SkinTender_1", @"SkinLeisurely_1", @"SkinRose_1", @"SkinWarm_1", @"SkinClear_1", @"SkinConfession_1", @"SkinJapanese_1",@"SkinExtraordinary_1",@"SkinHoney_1",@"SkinButter_1",@"SkinDawn_1",@"SkinSummer_1",@"SkinSweet_1",@"SkinPlain_1",@"SkinDusk_1",@"SkinNostalgia_1",@"gaosi_01"
+
+// 新相机滤镜的 filterCode - 3.5.6
+#define kCameraNormalFilterCodes @"Sharp_Video",@"Scenery_Video", @"Food_Video", @"Portrait_Video"
 
 // 录制相机漫画滤镜 filterCode
 #define kCameraComicsFilterCodes @"CHComics_Video", @"USComics_Video", @"JPComics_Video", @"Lightcolor_Video", @"Ink_Video", @"Monochrome_Video"

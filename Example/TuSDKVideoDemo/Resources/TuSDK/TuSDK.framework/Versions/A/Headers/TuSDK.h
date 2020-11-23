@@ -151,10 +151,12 @@
 #import "SLGL2DTextureProgram.h"
 #import "SLGLYUVTextureProgram.h"
 
-#import  "TuSDKComboFilterWrapChain.h"
+#import "TuSDKComboFilterWrapChain.h"
 #import "TuSDKSkinMoistWrap.h"
 #import "TuSDKSkinNaturalWrap.h"
 #import "TuSDKScreenKeyingWrap.h"
+#import "CosmeticLipFilter.h"
+#import "CosmeticTaskQueue.h"
 
 /**
  *  SDK版本
@@ -165,6 +167,11 @@ extern NSString * const lsqSDKVersion;
  *  SDK版本代号
  */
 extern NSUInteger const lsqSDKCode;
+
+/**
+ *  SDK打包时间
+ */
+extern NSString * const lsqSDKPackingTime;
 
 /**
  * SDK配置文件 (lsq_tusdk_configs.json)

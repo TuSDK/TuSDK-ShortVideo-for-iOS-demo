@@ -30,6 +30,7 @@
 #import "TuSDKMediaFilterEffect.h"
 #import "TuSDKMediaComicEffect.h"
 #import "TuSDKMediaPlasticFaceEffect.h"
+#import "TuSDKMediaCosmeticEffect.h"
 #import "TuSDKMediaSkinFaceEffect.h"
 #import "TuSDKMediaMonsterFaceEffect.h"
 #import "TuSDKMediaScreenKeyingEffect.h"
@@ -111,6 +112,8 @@
 
 /** Video版本号 */
 extern NSString * const lsqVideoVersion;
+/** Video打包时间 */
+extern NSString * const lsqVideoPackingTime;
 
 @interface TuSDKVideo : NSObject
 

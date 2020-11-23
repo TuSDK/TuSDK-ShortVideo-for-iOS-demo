@@ -311,3 +311,7 @@
 "lsq_filter_Portrait_Clear_1" = "Clear";
 "lsq_filter_Portrait_Pale_1" = "Pale";
 "lsq_filter_Portrait_Natural_1" = "Natural";
+
+
+//3.6.0
+"lsq_filter_set_alpha" = "Alpha";

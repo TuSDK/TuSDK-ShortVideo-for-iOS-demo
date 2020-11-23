@@ -309,3 +309,7 @@
 "lsq_filter_Portrait_Clear_1" = "清澈";
 "lsq_filter_Portrait_Pale_1" = "白皙";
 "lsq_filter_Portrait_Natural_1" = "自然";
+
+
+//3.6.0
+"lsq_filter_set_alpha" = "透明度";

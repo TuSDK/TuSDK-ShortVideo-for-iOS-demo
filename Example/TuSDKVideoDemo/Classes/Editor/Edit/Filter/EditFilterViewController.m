@@ -127,10 +127,10 @@
 //    for (TuSDKFilterArg *arg in args) {
 //        NSLog(@"%@: %f", arg.key, arg.precent);
 //    }
-    [self.paramtersView setupWithParameterCount:args.count config:^(NSUInteger index, ParameterAdjustItemView *itemView, void (^parameterItemConfig)(NSString *name, double percent)) {
+    [self.paramtersView setupWithParameterCount:args.count config:^(NSUInteger index, ParameterAdjustItemView *itemView, void (^parameterItemConfig)(NSString *name, double percent, double defaultValue)) {
         NSString *parameterName = args[index].key;
         parameterName = [NSString stringWithFormat:@"lsq_filter_set_%@", parameterName];
-        parameterItemConfig(NSLocalizedStringFromTable(parameterName, @"TuSDKConstants", @"无需国际化"), args[index].precent);
+        parameterItemConfig(NSLocalizedStringFromTable(parameterName, @"TuSDKConstants", @"无需国际化"), args[index].precent, args[index].precent);
     } valueChange:^(NSUInteger index, double percent) {
         // 修改参数并提交参数
         args[index].precent = percent;

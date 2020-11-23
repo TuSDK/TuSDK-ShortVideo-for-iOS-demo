@@ -13,7 +13,8 @@
 #import "ViewSlider.h"
 #import "Constants.h"
 #import "CameraBeautyFaceListView.h"
-
+#import "TuCosmeticPanelView.h"
+#import "TuCosmeticConfig.h"
 // 美颜列表高度
 static const CGFloat kBeautyListHeight = 120;
 // 美颜 tabbar 高度
@@ -21,7 +22,7 @@ static const CGFloat kBeautyTabbarHeight = 30;
 // 美颜列表与参数视图间隔
 static const CGFloat kBeautyListParamtersViewSpacing = 24;
 
-@interface CameraBeautyPanelView () <PageTabbarDelegate, ViewSliderDataSource, ViewSliderDelegate>
+@interface CameraBeautyPanelView () <PageTabbarDelegate, ViewSliderDataSource, ViewSliderDelegate, TuCosmeticPanelViewDelegate>
 /**
  微整形列表
  */
@@ -32,6 +33,10 @@ static const CGFloat kBeautyListParamtersViewSpacing = 24;
  */
 @property (nonatomic, strong) CameraBeautySkinListView *beautySkinListView;
 
+/**
+ 美妆列表
+ */
+@property (nonatomic, strong) TuCosmeticPanelView *cosmeticListView;
 
 /**
  参数调节视图
@@ -53,6 +58,8 @@ static const CGFloat kBeautyListParamtersViewSpacing = 24;
  */
 @property (nonatomic, strong) ViewSlider *pageSlider;
 
+@property (nonatomic, assign) NSInteger cosmeticIndex;
+
 @end
 
 @implementation CameraBeautyPanelView
@@ -72,6 +79,8 @@ static const CGFloat kBeautyListParamtersViewSpacing = 24;
 
 - (void)commonInit {
     __weak typeof(self) weakSelf = self;
+    
+    self.cosmeticIndex = -1;
     
     _paramtersView = [[ParametersAdjustView alloc] initWithFrame:CGRectZero];
     [self addSubview:_paramtersView];
@@ -122,17 +131,19 @@ static const CGFloat kBeautyListParamtersViewSpacing = 24;
         }
     };
     
-  [self addSubview:_beautyFaceListView];
+    _cosmeticListView = [[TuCosmeticPanelView alloc] initWithFrame:CGRectZero];
+    _cosmeticListView.delegate = weakSelf;
+    
+    [self addSubview:_beautyFaceListView];
 
     PageTabbar *tabbar = [[PageTabbar alloc] initWithFrame:CGRectZero];
     [self addSubview:tabbar];
     _tabbar = tabbar;
-    //tabbar.itemWidth = CGRectGetWidth([UIScreen mainScreen].bounds) / 2.0;
     tabbar.trackerSize = CGSizeMake(20, 2);
     tabbar.itemSelectedColor = [UIColor whiteColor];
     tabbar.itemNormalColor = [UIColor colorWithWhite:1 alpha:.25];
     tabbar.delegate = self;
-    tabbar.itemTitles = @[NSLocalizedStringFromTable(@"tu_美肤", @"VideoDemo", @"美肤"), NSLocalizedStringFromTable(@"tu_微整形", @"VideoDemo", @"微整形")];
+    tabbar.itemTitles = @[NSLocalizedStringFromTable(@"tu_美肤", @"VideoDemo", @"美肤"), NSLocalizedStringFromTable(@"tu_微整形", @"VideoDemo", @"微整形"), NSLocalizedStringFromTable(@"tu_美妆", @"VideoDemo", @"美妆")];
     tabbar.disableAnimation = YES;
     tabbar.itemTitleFont = [UIFont systemFontOfSize:13];
     
@@ -153,7 +164,7 @@ static const CGFloat kBeautyListParamtersViewSpacing = 24;
         safeBounds = UIEdgeInsetsInsetRect(safeBounds, self.safeAreaInsets);
     }
     
-    _tabbar.itemWidth = CGRectGetWidth(safeBounds) / 2;
+    _tabbar.itemWidth = CGRectGetWidth(safeBounds) / 3;
     const CGFloat tabbarY = CGRectGetMaxY(safeBounds) - kBeautyListHeight;
     _tabbar.frame = CGRectMake(CGRectGetMinX(safeBounds), tabbarY, CGRectGetWidth(safeBounds), kBeautyTabbarHeight);
     const CGFloat pageSliderHeight = kBeautyListHeight - kBeautyTabbarHeight;
@@ -200,6 +211,18 @@ static const CGFloat kBeautyListParamtersViewSpacing = 24;
     [self reloadBeautyFaceParamters];
 }
 
+/**
+ 清除选择的美妆特效
+ */
+- (void)setResetCosmetic:(BOOL)resetCosmetic
+{
+    _resetCosmetic = resetCosmetic;
+    if (resetCosmetic)
+    {
+        _cosmeticListView.resetCosmetic = resetCosmetic;
+    }
+}
+
 #pragma mark - private
 
 - (void)resetParamters {
@@ -216,10 +239,15 @@ static const CGFloat kBeautyListParamtersViewSpacing = 24;
  */
 - (void)reloadBeautyFaceParamters {
     __weak typeof(self) weakSelf = self;
-    [_paramtersView setupWithParameterCount:[self.dataSource numberOfParamter:self] config:^(NSUInteger index, ParameterAdjustItemView *itemView, void (^parameterItemConfig)(NSString *name, double percent)) {
+    [_paramtersView setupWithParameterCount:[self.dataSource numberOfParamter:self] config:^(NSUInteger index, ParameterAdjustItemView *itemView, void (^parameterItemConfig)(NSString *name, double percent, double defaultValue)) {
     
+        weakSelf.paramtersView.hidden = NO;
         // 参数名称
         NSString *parameterName = [self.dataSource filterPanel:weakSelf paramterNameAtIndex:index];
+        if (parameterName == nil)
+        {
+            weakSelf.paramtersView.hidden = YES;
+        }
 
         // 是否进行配置，只更新选中项参数
         BOOL shouldConfig =  self.selectedTabIndex == 1 && ![self.beautyFaceListView.selectedFaceFeature isEqualToString:parameterName];
@@ -242,7 +270,7 @@ static const CGFloat kBeautyListParamtersViewSpacing = 24;
         
         // 更新显示参数名称和参数值
         parameterName = [NSString stringWithFormat:@"lsq_filter_set_%@", parameterName];
-        parameterItemConfig(NSLocalizedStringFromTable(parameterName, @"TuSDKConstants", @"无需国际化"), percentValue);
+        parameterItemConfig(NSLocalizedStringFromTable(parameterName, @"TuSDKConstants", @"无需国际化"), percentValue, percentValue);
     } valueChange:^(NSUInteger index, double percent) {
         if ([weakSelf.delegate respondsToSelector:@selector(filterPanel:didChangeValue:paramterIndex:)]) {
             [weakSelf.delegate filterPanel:weakSelf didChangeValue:percent paramterIndex:index];
@@ -256,16 +284,21 @@ static const CGFloat kBeautyListParamtersViewSpacing = 24;
  */
 - (void)reloadSkinFaceParamters {
     __weak typeof(self) weakSelf = self;
-    [_paramtersView setupWithParameterCount:[self.dataSource numberOfParamter:self] config:^(NSUInteger index, ParameterAdjustItemView *itemView, void (^parameterItemConfig)(NSString *name, double percent)) {
+    [_paramtersView setupWithParameterCount:[self.dataSource numberOfParamter:self] config:^(NSUInteger index, ParameterAdjustItemView *itemView, void (^parameterItemConfig)(NSString *name, double percent, double defaultValue)) {
         
+        weakSelf.paramtersView.hidden = NO;
         // 参数名称
-        NSString *parameterName = [self.dataSource filterPanel:weakSelf paramterNameAtIndex:index];    
+        NSString *parameterName = [self.dataSource filterPanel:weakSelf paramterNameAtIndex:index];
+        if (parameterName == nil)
+        {
+            weakSelf.paramtersView.hidden = YES;
+        }
         // 参数值为从数据源获取的值
         double percentValue = [self.dataSource filterPanel:weakSelf percentValueAtIndex:index];
 
         // 更新显示参数名称和参数值
         parameterName = [NSString stringWithFormat:@"lsq_filter_set_%@", parameterName];
-        parameterItemConfig(NSLocalizedStringFromTable(parameterName, @"TuSDKConstants", @"无需国际化"), percentValue);
+        parameterItemConfig(NSLocalizedStringFromTable(parameterName, @"TuSDKConstants", @"无需国际化"), percentValue, percentValue);
     } valueChange:^(NSUInteger index, double percent) {
         if ([weakSelf.delegate respondsToSelector:@selector(filterPanel:didChangeValue:paramterIndex:)]) {
             [weakSelf.delegate filterPanel:weakSelf didChangeValue:percent paramterIndex:index];
@@ -273,6 +306,60 @@ static const CGFloat kBeautyListParamtersViewSpacing = 24;
     }];
 }
 
+/**
+ 更新显示美妆参数
+ */
+- (void)reloadCosmeticParamters:(NSInteger)cosmeticIndex
+{
+    __weak typeof(self) weakSelf = self;
+    
+    if (cosmeticIndex == -1) {
+        weakSelf.paramtersView.hidden = YES;
+        return;
+    }
+    [_paramtersView setupWithParameterCount:1 config:^(NSUInteger index, ParameterAdjustItemView *itemView, void (^parameterItemConfig)(NSString *name, double percent, double defaultValue)) {
+        
+        weakSelf.paramtersView.hidden = NO;
+        // 参数名称
+        NSString *parameterName = @"alpha";
+        // 参数值为从数据源获取的值
+        
+        double percentValue = [self.dataSource filterPanel:weakSelf cosmeticPercentValueAtIndex:index cosmeticIndex:cosmeticIndex];
+        double defaultValue = [self.dataSource filterPanel:weakSelf cosmeticDefaultValueAtIndex:index cosmeticIndex:cosmeticIndex];
+        // 更新显示参数名称和参数值
+        parameterName = [NSString stringWithFormat:@"lsq_filter_set_%@", parameterName];
+        parameterItemConfig(NSLocalizedStringFromTable(parameterName, @"TuSDKConstants", @"无需国际化"), percentValue, defaultValue);
+    } valueChange:^(NSUInteger index, double percent) {
+        
+        switch (cosmeticIndex) {
+            case 0:
+            case 1:
+            case 2:
+            {
+                if ([weakSelf.delegate respondsToSelector:@selector(filterPanel:didChangeValue:paramterIndex:)])
+                {
+                    [weakSelf.delegate filterPanel:weakSelf didChangeValue:percent paramterIndex:cosmeticIndex];
+                }
+            }
+                break;
+            case 3:
+            case 4:
+            case 5:
+            {
+                if ([weakSelf.delegate respondsToSelector:@selector(filterPanel:didChangeValue:cosmeticIndex:)])
+                {
+                    [weakSelf.delegate filterPanel:weakSelf didChangeValue:percent cosmeticIndex:cosmeticIndex];
+                }
+            }
+                break;
+            default:
+            {
+                
+            }
+                break;
+        }
+    }];
+}
 
 /**
  重载滤镜参数值
@@ -280,15 +367,21 @@ static const CGFloat kBeautyListParamtersViewSpacing = 24;
 - (void)reloadFilterParamters {
     if (!self.display && self.paramtersView.hidden) return;
     
-    switch (self.selectedTabIndex) {
+    switch (self.selectedTabIndex)
+    {
         case 0:
             [self reloadSkinFaceParamters];
             break;
-        default:
+        case 1:
             [self reloadBeautyFaceParamters];
             break;
+        case 2:
+            [self reloadCosmeticParamters:0];
+            break;
+        default:
+
+            break;
     }
-    
 }
 
 /**
@@ -299,7 +392,7 @@ static const CGFloat kBeautyListParamtersViewSpacing = 24;
   - @param toIndex 目标索引
   - */
 - (void)tabbar:(PageTabbar *)tabbar didSwitchFromIndex:(NSInteger)fromIndex toIndex:(NSInteger)toIndex {
-        _pageSlider.selectedIndex = toIndex;
+    _pageSlider.selectedIndex = toIndex;
      [self reloadFilterParamters];
 }
 
@@ -309,26 +402,31 @@ static const CGFloat kBeautyListParamtersViewSpacing = 24;
  分页数量
  */
 - (NSInteger)numberOfViewsInSlider:(ViewSlider *)slider {
-    return 2;
+    return 3;
 }
 
 /**
   各分页显示的视图
    */
 - (UIView *)viewSlider:(ViewSlider *)slider viewAtIndex:(NSInteger)index {
+    
     switch (index) {
-           case 0:{
-               return _beautySkinListView;
-          } break;
-             case 1:{
-                return _beautyFaceListView;
-            } break;
-            default:{
-                  return nil;
-
-                
-            } break;
-      }
+        case 0:
+        {
+            return _beautySkinListView;
+        }
+            break;
+        case 1:
+        {
+            return _beautyFaceListView;
+        }
+            break;
+        default:
+        {
+            return _cosmeticListView;
+        }
+            break;
+    }
 }
 
 #pragma mark - ViewSliderDelegate
@@ -340,8 +438,23 @@ static const CGFloat kBeautyListParamtersViewSpacing = 24;
   @param index 目标页面索引
   */
 -(void)viewSlider:(ViewSlider *)slider didSwitchToIndex:(NSInteger)index {
-      _tabbar.selectedIndex = index;
-       [self reloadBeautyFaceParamters];
+    _tabbar.selectedIndex = index;
+    
+    switch (index)
+    {
+        case 0:
+            [self reloadSkinFaceParamters];
+            break;
+        case 1:
+            [self reloadBeautyFaceParamters];
+            break;
+        case 2:
+            [self reloadCosmeticParamters:self.cosmeticIndex];
+            break;
+        default:
+
+            break;
+    }
 }
 
 #pragma mark - touch
@@ -354,6 +467,81 @@ static const CGFloat kBeautyListParamtersViewSpacing = 24;
         return hitView;
     }
     return nil;
+}
+
+#pragma mark - TuCosmeticPanelViewDelegate
+/**
+ 美妆点击回调
+ @param view 美妆视图
+ @param code 美妆code
+ @param stickerCode 美妆贴纸code
+ */
+- (void)tuCosmeticPanelView:(TuCosmeticPanelView *)view didSelectedCosmeticCode:(NSString *)code stickerCode:(nonnull NSString *)stickerCode
+{
+    self.paramtersView.hidden = NO;
+    
+    NSArray *codeArray = [TuCosmeticConfig cosmeticDataSet];
+    if ([codeArray containsObject:code])
+    {
+        [self reloadCosmeticParamters:[codeArray indexOfObject:code] - 2];
+    }
+    
+    self.cosmeticIndex = [codeArray indexOfObject:code] - 2;
+    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(filterPanel:didSelectedFilterCode:)])
+    {
+        [self.delegate filterPanel:self didSelectedCosmeticCode:code stickerCode:stickerCode];
+    }
+}
+
+/**
+ 美妆-口红 点击回调
+ @param view 美妆视图
+ @param lipStickType 口红类型
+ @param stickerName 美妆贴纸名称
+ */
+- (void)tuCosmeticPanelView:(TuCosmeticPanelView *)view didSelectedLipStickType:(NSInteger)lipStickType stickerName:(NSString *)stickerName
+{
+    self.paramtersView.hidden = NO;
+    self.cosmeticIndex = 0;
+    [self reloadCosmeticParamters:self.cosmeticIndex];
+    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(filterPanel:didSelectedLipStickType:stickerName:)])
+    {
+        [self.delegate filterPanel:self didSelectedLipStickType:lipStickType stickerName:stickerName];
+    }
+}
+
+/**
+ 美妆重置
+ @param view 美妆视图
+ @param code 美妆code
+ */
+- (void)tuCosmeticPanelView:(TuCosmeticPanelView *)view closeCosmetic:(NSString *)code
+{
+    self.paramtersView.hidden = YES;
+    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(filterPanel:closeCosmetic:)])
+    {
+        [self.delegate filterPanel:self closeCosmetic:code];
+    }
+    
+    NSArray *codeArray = [TuCosmeticConfig cosmeticDataSet];
+    if ([codeArray containsObject:code])
+    {
+        [self reloadCosmeticParamters:-1];
+    }
+    self.cosmeticIndex = -1;
+    
+}
+
+/**
+ 美妆调节栏
+ */
+- (void)tuCosmeticPanelView:(TuCosmeticPanelView *)view closeSliderBar:(BOOL)close
+{
+    self.paramtersView.hidden = close;
+    self.cosmeticIndex = -1;
 }
 
 @end

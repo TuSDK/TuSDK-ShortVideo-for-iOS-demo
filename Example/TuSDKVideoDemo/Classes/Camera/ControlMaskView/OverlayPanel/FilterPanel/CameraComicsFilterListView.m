@@ -36,7 +36,6 @@
         itemView.thumbnailView.image = [UIImage imageWithContentsOfFile:imagePath];
         itemView.selectedImageView.image = nil;
     }];
-//    [self insertItemView:[HorizontalListItemView disableItemView] atIndex:0];
 }
 
 - (void)setFilterCodes:(NSArray *)filterCodes

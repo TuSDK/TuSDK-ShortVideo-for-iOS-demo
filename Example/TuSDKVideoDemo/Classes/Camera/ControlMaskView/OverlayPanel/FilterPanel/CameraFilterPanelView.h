@@ -41,11 +41,6 @@ typedef NS_ENUM(NSUInteger, TuFilterViewScrollDirectionType) {
 @property (nonatomic, assign, readonly) NSInteger selectedTabIndex;
 
 @property (nonatomic, assign) NSInteger selectedIndex;
-/**
- 标签组数量
- */
-@property (nonatomic, assign, readonly) NSInteger filterGroupCount;
-
 
 @property (nonatomic, weak) id<CameraFilterPanelDelegate> delegate;
 @property (nonatomic, weak) id<CameraFilterPanelDataSource> dataSource;

@@ -27,6 +27,8 @@
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>Recording video requires your camera permission</string>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>TuSDKVideo will not connect to device on your network, it only detects the connectivity with your local gateway</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Recording video requires your location permission</string>
 	<key>NSMicrophoneUsageDescription</key>

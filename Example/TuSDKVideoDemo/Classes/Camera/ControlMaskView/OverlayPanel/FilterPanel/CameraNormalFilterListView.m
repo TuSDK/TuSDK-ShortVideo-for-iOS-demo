@@ -39,7 +39,6 @@
         // 点击次数
         itemView.maxTapCount = 2;
     }];
-//    [self insertItemView:[HorizontalListItemView disableItemView] atIndex:0];
 }
 
 - (void)setFilterCodes:(NSArray *)filterCodes

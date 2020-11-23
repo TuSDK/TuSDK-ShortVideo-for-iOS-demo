@@ -41,12 +41,12 @@
     // 重置按钮
     HorizontalListItemView *resetItemView = [CameraBeautyFaceListItemView itemViewWithImage:[UIImage imageNamed:@"ic_nix"] title:nil];
     resetItemView.disableSelect = YES;
-    resetItemView.titleLabel.text = @"  ";
+    resetItemView.titleLabel.text = NSLocalizedStringFromTable(@"tu_无", @"VideoDemo", @"无");
     [self insertItemView:resetItemView atIndex:0];
     
     // 白点分割按钮
     CameraBeautyFaceListItemView *dotItemView = [CameraBeautyFaceListItemView new];
-    dotItemView.itemWidth = 4;
+    dotItemView.itemWidth = 6;
     dotItemView.thumbnailView.backgroundColor = [UIColor grayColor];
     dotItemView.disableSelect = YES;
     dotItemView.titleLabel.text = @"  ";

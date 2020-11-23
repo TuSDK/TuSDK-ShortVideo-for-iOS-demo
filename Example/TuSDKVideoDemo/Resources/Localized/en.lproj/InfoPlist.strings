@@ -5,3 +5,4 @@
 "NSCameraUsageDescription" = "Recording video requires your camera permission";
 "NSPhotoLibraryAddUsageDescription" = "Saving videos requires your photo library permission";
 "NSPhotoLibraryUsageDescription" = "Saving videos requires your photo library permission";
+"NSLocalNetworkUsageDescription" = "TuSDKVideo will not connect to device on your network, it only detects the connectivity with your local gateway";

@@ -33,6 +33,8 @@
  */
 @property (nonatomic,readonly) NSString* selectedSkinKey;
 
+@property (nonatomic, assign) BOOL resetCosmetic;
+
 /**
  事件委托
  */

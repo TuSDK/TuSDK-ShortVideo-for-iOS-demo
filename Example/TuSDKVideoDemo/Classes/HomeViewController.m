@@ -33,11 +33,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    NSLog(@"TuSDK.framework 的版本号 : %@",lsqSDKVersion);
-    NSLog(@"TuSDKVideo.framework 的版本号 : %@",lsqVideoVersion);
-    NSLog(@"TuSDKFace.framework 的版本号 : %@",lsqFaceVersion);
-    
+        
     // 配置 UI
     UIImageView *backgroundView = [self.navigationController.navigationBar valueForKey:@"_backgroundView"];
     for (UIView *view in backgroundView.subviews) {

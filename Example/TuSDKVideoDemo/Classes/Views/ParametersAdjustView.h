@@ -33,6 +33,8 @@
  */
 @property (nonatomic, assign) double displayValueOffset;
 
+@property (nonatomic, assign) float defaultVal;
+
 /**
  替换参数项控件
 
@@ -49,7 +51,7 @@
 @end
 
 // 参数配置 Block
-typedef void(^ParametersAdjustViewConfigBlock)(NSUInteger index, ParameterAdjustItemView *itemView, void (^parameterItemConfig)(NSString *name, double percent));
+typedef void(^ParametersAdjustViewConfigBlock)(NSUInteger index, ParameterAdjustItemView *itemView, void (^parameterItemConfig)(NSString *name, double percent, double defaultValue));
 // 参数变更回调 Block
 typedef void(^ParametersValueChangeBlock)(NSUInteger index, double percent);
 

@@ -5,3 +5,4 @@
 "NSCameraUsageDescription" = "錄製視頻需要您的攝像頭權限";
 "NSPhotoLibraryAddUsageDescription" = "獲取視頻需要您的相冊權限";
 "NSPhotoLibraryUsageDescription" = "保存視頻需要您的相冊權限";
+"NSLocalNetworkUsageDescription" = "塗圖短視頻將不會連接到網絡上的設備，它只會檢測與本地網關的連接";

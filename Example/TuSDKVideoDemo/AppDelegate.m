@@ -52,9 +52,9 @@
     //#import <TuSDKVideo/TuSDKVideo.h>
     //#import <TuSDKFace/TuSDKFace.h>
     // 版本号输出
-    //NSLog(@"TuSDK.framework 的版本号 : %@",lsqSDKVersion);
-    //NSLog(@"TuSDKVideo.framework 的版本号 : %@",lsqVideoVersion);
-    //NSLog(@"TuSDKFace.framework 的版本号 : %@",lsqFaceVersion);
+    NSLog(@"TuSDK.framework 的版本号 : %@",lsqSDKVersion);
+    NSLog(@"TuSDKVideo.framework 的版本号 : %@",lsqVideoVersion);
+    NSLog(@"TuSDKFace.framework 的版本号 : %@",lsqFaceVersion);
     
     return YES;
 }

@@ -33,6 +33,41 @@
 - (void)filterPanel:(id<CameraFilterPanelProtocol>)filterPanel didSelectedFilterCode:(NSString *)code;
 
 /**
+ 美妆面板选中回调
+ 
+ @param filterPanel 美妆面板
+ @param code 美妆类型码
+ @param stickerCode 美妆效果code
+ */
+- (void)filterPanel:(id<CameraFilterPanelProtocol>)filterPanel didSelectedCosmeticCode:(NSString *)code stickerCode:(nonnull NSString *)stickerCode;
+
+/**
+ 美妆面板值变更回调
+ 
+ @param filterPanel 美妆面板
+ @param percent 美妆参数变更数值
+ @param stickerCode 美妆贴纸code
+ */
+- (void)filterPanel:(id<CameraFilterPanelProtocol>_Nullable)filterPanel didChangeValue:(double)percent cosmeticIndex:(NSInteger)cosmeticIndex;
+
+/**
+ 美妆口红面板选中回调
+ 
+ @param filterPanel 美妆面板
+ @param lipStickType 口红类型
+ @param stickerName 口红贴纸名称
+ */
+- (void)filterPanel:(id<CameraFilterPanelProtocol>)filterPanel didSelectedLipStickType:(NSInteger)lipStickType stickerName:(NSString *)stickerName;
+
+/**
+ 美妆面板重置回调
+ 
+ @param filterPanel 美妆面板
+ @param code 美妆类型码
+ */
+- (void)filterPanel:(id<CameraFilterPanelProtocol>)filterPanel closeCosmetic:(NSString *)code;
+
+/**
  滤镜面板值变更回调
  
  @param filterPanel 滤镜面板
@@ -87,6 +122,21 @@
  @return 对应参数的数值
  */
 - (double)filterPanel:(id<CameraFilterPanelProtocol>)filterPanel  percentValueAtIndex:(NSUInteger)index;
+
+/**
+ 美妆参数对应索引的参数值
+
+ @param index 滤镜参数的索引
+ @return 对应参数的数值
+ */
+- (double)filterPanel:(id<CameraFilterPanelProtocol>)filterPanel  cosmeticPercentValueAtIndex:(NSUInteger)index cosmeticIndex:(NSInteger)cosmeticIndex;
+/**
+ 美妆参数对应索引的默认参数值
+
+ @param index 滤镜参数的索引
+ @return 对应参数的数值
+ */
+- (double)filterPanel:(id<CameraFilterPanelProtocol>)filterPanel  cosmeticDefaultValueAtIndex:(NSUInteger)index cosmeticIndex:(NSInteger)cosmeticIndex;
 
 @end
 
