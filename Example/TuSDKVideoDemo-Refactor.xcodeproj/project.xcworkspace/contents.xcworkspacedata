@@ -1,6 +1,1706 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Workspace
    version = "1.0">
+   <Group
+      location = "group:/Users/fanshengle/Documents/TuSDKWork/iOS_demo_lasque/iOS_TuSDKVideoDemo/TuSDK-ShortVideo-for-iOS-demo/Example/TuSDKVideoDemo/Resources/TuSDKFrameWork"
+      name = "TuSDKFrameWork">
+      <Group
+         location = "group:TuSDKVideo.framework"
+         name = "TuSDKVideo.framework">
+         <Group
+            location = "group:Versions"
+            name = "Versions">
+            <Group
+               location = "group:A"
+               name = "A">
+               <FileRef
+                  location = "group:TuSDKVideo">
+               </FileRef>
+               <Group
+                  location = "group:Headers"
+                  name = "Headers">
+                  <FileRef
+                     location = "group:TuSDKMediaTimelineAssetVideoExtractor.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaSampleBufferAssistant.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKGIFImage.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaVideoEffectTimelineSync.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaMutableComposition.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKFilterConfigViewBase.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaMovieEditorSaver.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDK2DParticleFilterWrap.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKAssetVideoTrackPixelBufferOutput.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKAudioResampleEngine.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaTimelineAssetExtractor.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaMovieAssetExportSession.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaPlayer.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaTimeRange.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaVideoTrackComposition.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKVideoSpeedData.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaSync.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaPacketSlowEffect.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaAudioTrackComposition.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaComicEffect.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaCompositionSampleBuffer.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaSkinFaceEffect.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaAssetInfo.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMovieEditorBase.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaAudioEffect.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaMonsterFaceEffect.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaAudioRender.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaTimeEffect.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaRecordCameraEffectTimelineSync.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKVideoFocusTouchView.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaTimeSliceEntity.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaSettings.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDK2DImageFilterWrap.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaDecoder.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaAudioQueuePlayer.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaEffectTypes.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKAsyncEncodecBridge.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKRecordVideoMode.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaPacketMirrorEffect.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKAudioEngine.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaPlasticFaceEffect.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKVideoRTCDataWriter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKVideoCameraBase.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKVideoQuality.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKTSAudioRecorder.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKPlasticFaceWrap.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaMovieEditor.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaPacketEffect.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKTSAudio.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaAssetExportSession.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKAudioResult.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKVideoDataWriter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaExtractorSync.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaStatus.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKLiveVideoCamera.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaAssetExtractorAudioSync.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaReverseTimeEffect.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKGPUVideoPixelBufferForTexture.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaAssetComposition.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaExportSession.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaAssetExtractorVideoSync.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKCosmeticWrap.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMoiveFragment.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaCosmeticEffect.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaPacketFrostedEffect.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMovieSpeedComposition.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKSampleBufferInput.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaAssetAudioRecorder.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaAudioMuteComposition.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKVideoImport.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaStickerEffect.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMovieEditorMode.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaAudioRecorder.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKAssetVideoComposer.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKVideoFileWriter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKTSMovieSplicer.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaMovieEditorTranscoder.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaAssetDirectorPlayerSync.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaAssetReverseExtractor.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaMutableVideoComposition.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaEffectCore.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaPacketSpeedEffect.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaTimelineAssetMoviePlayer.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaComposition.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaSequenceTimelineAssetExtractor.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKFilterConfigProtocol.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaTextEffect.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKTextureCoordinateCropBuilder.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMutableAssetMediaPlayer.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKVideoImageExtractor.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaMutableAssetMoviePlayer.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKTSMovieMixer.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaCompositionBuilder.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaEffectTimeline.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKGIFImageEncoder.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKFileWriter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaExtractor.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKAsyncShader.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKQueue.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMonsterFaceWrap.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaTransitionWrap.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKRecordVideoCamera.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKVideoDataOutputBase.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaEffectSync.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaTimelineExtractor.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKTSAudioMixer.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaStickerImageEffect.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaMovieFilmEditorOptions.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKVideoInfo.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMovieEditor.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKTimeRange.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaVideoRender.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaMovieFilmEditor.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaStickerAudioEffect.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaFormatAssistant.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaEffectParameterProtocol.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKAudioPitchEngine.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKAudioInfo.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaEffect.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaMutableAudioComposition.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaImageComposition.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaAssetExtractor.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaReverseExtractor.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaSceneEffect.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaFilterEffect.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaAudioBufferPlayer.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaAssetExtractorPitch.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaTimelineAssetAudioExtractor.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaMovieAssetTranscoder.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaAudioComposition.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKVerticeCoordinateBuilder.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMovieClipper.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaScreenKeyingEffect.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaMovieCompositionComposer.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaPacketStoryEffect.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKFilterProcessor.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaTimelineSlice.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKVideoResult.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKVideoSourceProtocol.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaParticleEffect.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKTSMovieCompresser.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaPacketShapeEffect.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaAsset.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaVideoEffectTimeline.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDVideoFocusRangeView.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKAssetVideoDecoder.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKVideoRawDataWriter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaTimeline.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaMovieFilmEditSaver.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaSpeedTimeEffect.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMovieEditorOptions.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaRepeatTimeEffect.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaTransitionEffect.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaAssetTimeline.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKVideo.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKMediaVideoComposition.h">
+                  </FileRef>
+               </Group>
+            </Group>
+            <FileRef
+               location = "group:Current">
+            </FileRef>
+         </Group>
+         <FileRef
+            location = "group:TuSDKVideo">
+         </FileRef>
+         <FileRef
+            location = "group:Headers">
+         </FileRef>
+      </Group>
+      <Group
+         location = "group:TuSDKFace.framework"
+         name = "TuSDKFace.framework">
+         <FileRef
+            location = "group:TuSDKFace">
+         </FileRef>
+         <Group
+            location = "group:Versions"
+            name = "Versions">
+            <Group
+               location = "group:A"
+               name = "A">
+               <FileRef
+                  location = "group:TuSDKFace">
+               </FileRef>
+               <Group
+                  location = "group:Headers"
+                  name = "Headers">
+                  <FileRef
+                     location = "group:TuSDKFace.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKFaceImport.h">
+                  </FileRef>
+               </Group>
+            </Group>
+            <FileRef
+               location = "group:Current">
+            </FileRef>
+         </Group>
+         <FileRef
+            location = "group:Headers">
+         </FileRef>
+      </Group>
+      <Group
+         location = "group:libyuv.framework"
+         name = "libyuv.framework">
+         <Group
+            location = "group:_CodeSignature"
+            name = "_CodeSignature">
+            <FileRef
+               location = "group:CodeResources">
+            </FileRef>
+            <FileRef
+               location = "group:CodeDirectory">
+            </FileRef>
+            <FileRef
+               location = "group:CodeRequirements-1">
+            </FileRef>
+            <FileRef
+               location = "group:CodeSignature">
+            </FileRef>
+            <FileRef
+               location = "group:CodeRequirements">
+            </FileRef>
+         </Group>
+         <Group
+            location = "group:Headers"
+            name = "Headers">
+            <FileRef
+               location = "group:scale_row.h">
+            </FileRef>
+            <FileRef
+               location = "group:scale.h">
+            </FileRef>
+            <FileRef
+               location = "group:libyuv.h">
+            </FileRef>
+            <FileRef
+               location = "group:version.h">
+            </FileRef>
+            <FileRef
+               location = "group:cpu_id.h">
+            </FileRef>
+            <FileRef
+               location = "group:video_common.h">
+            </FileRef>
+            <FileRef
+               location = "group:compare_row.h">
+            </FileRef>
+            <FileRef
+               location = "group:mjpeg_decoder.h">
+            </FileRef>
+            <FileRef
+               location = "group:rotate_row.h">
+            </FileRef>
+            <FileRef
+               location = "group:planar_functions.h">
+            </FileRef>
+            <FileRef
+               location = "group:scale_argb.h">
+            </FileRef>
+            <FileRef
+               location = "group:compare.h">
+            </FileRef>
+            <FileRef
+               location = "group:convert_argb.h">
+            </FileRef>
+            <FileRef
+               location = "group:rotate.h">
+            </FileRef>
+            <FileRef
+               location = "group:convert_from_argb.h">
+            </FileRef>
+            <FileRef
+               location = "group:basic_types.h">
+            </FileRef>
+            <FileRef
+               location = "group:convert_from.h">
+            </FileRef>
+            <FileRef
+               location = "group:convert.h">
+            </FileRef>
+            <FileRef
+               location = "group:rotate_argb.h">
+            </FileRef>
+            <FileRef
+               location = "group:macros_msa.h">
+            </FileRef>
+            <FileRef
+               location = "group:row.h">
+            </FileRef>
+         </Group>
+         <FileRef
+            location = "group:libyuv">
+         </FileRef>
+         <Group
+            location = "group:Modules"
+            name = "Modules">
+            <FileRef
+               location = "group:module.modulemap">
+            </FileRef>
+         </Group>
+         <FileRef
+            location = "group:Info.plist">
+         </FileRef>
+      </Group>
+      <Group
+         location = "group:TuSDK.framework"
+         name = "TuSDK.framework">
+         <Group
+            location = "group:Versions"
+            name = "Versions">
+            <Group
+               location = "group:A"
+               name = "A">
+               <FileRef
+                  location = "group:TuSDK">
+               </FileRef>
+               <Group
+                  location = "group:Headers"
+                  name = "Headers">
+                  <FileRef
+                     location = "group:UIImageView+TuSDKNetworkAdditions.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKTKLocation.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKGPUSmartView.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKCPImage.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKCPResultViewController.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKParticleExamples.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKICGestureRecognizerView.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKStickerImage.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:SLGPUImageUIElement.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKLiveFaultFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:SLGPUImageFramebuffer.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKICFilterImageViewWrap.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:SLGL2DTextureProgram.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKDataJson.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKGPUBaseView.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKTSLog.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKPFEditTextControllerBase.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKPFBrushGroup.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKCPGroupFilterItemCellBase.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKPFEditApertureControllerBase.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKPFCameraFilterGroupViewBase.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKTSCATransition+Extend.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKPFBrushSize.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKPFFilterSmudgeProcessor.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKCosmeticStickerManager.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKPFSmudgeViewBase.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKPFCameraPreviewControllerBase.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKCPOnlineController.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKGPUColorMultiAdjustmentFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:SLGPUImageRawDataInput.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKGPUTfmMixFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKPFSimpleProcessor.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKTKImageViewTask.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKGPUTfmEdgeFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKPFPhotosViewControllerBase.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKTSUIColor+Extend.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKTSPHAssets+Extend.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKNKFaceMark.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDK.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKGPUSobelEdgeFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKGPUImageHelper.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKPFPaintBezierPath.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKGPUColorHDRFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKSkinMoistWrap.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKPFPhotoPreviewControllerBase.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKGPUImageSixInputFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKBeautifyFaceWrap.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKGPU2DImageFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKCPGroupFilterBaseView.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKGPUPointDrawFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKPFEditTabBarControllerBase.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKGPULiveFadeInFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKGPUSurfaceBlurFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKOnlineStickerFetcher.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKGaussianBlurFiveRadiusFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKResult.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:SLGPUImageOutput.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKBoxBlur2Filter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:CosmeticBlushFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKTSVolumeButton.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKCPGroupFilterTableView.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKGPUBlurFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKGPUColorNoirFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKTSImage+Extend.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:SLGPUImageFilterPipeline.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKCPAlbumComponentBase.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKTSNSUserDefaults+Extend.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKFilterLocalPackage.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKICTableViewCell.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKPFEditCuterControllerBase.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKBoxBlurAlphaFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKAOCellGridViewAlgorithmic.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKNetworkOperation.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKPFStickerCategory.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:CosmeticTaskQueue.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:SLGPUImageColorConversion.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:SLGPUImageThreeInputFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKPFEditAdjustControllerBase.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKFilterGroup.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKCPGroupFilterBarBase.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKGPUMonsterNoseFallFace.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:SLGPUImageMovieComposition.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKTSAVCaptureDevice+Extend.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKProgressHUD.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKGPULightVignetteFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKPFStickerLocalGridViewBase.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:SLGPUImageTwoInputFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKGPULiveEdgeMagicFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKParticleManager.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKSkinFilterAPI.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKCPComponent.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:SLGPUImagePicture+TextureSubimage.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKLiveRadialBlurFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKNKDownloadAdapter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKLiveMirrorImageFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKGPULiveTransitionFilterProtocol.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKGPUFacePlasticFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKOnlineStickerDownloader.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKPFStickerLocalControllerBase.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKNKNetworkEngine.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKGPUImageFourInputFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKGPUColorMixedFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKPFEditSkinControllerBase.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKFaceWhitenFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:CosmeticLipFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKCPGifImage.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKTSDeviceSettings.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:SLGLProgram.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKICSeekBar.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKGPULiveFlashLightFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKPFEditSharpnessControllerBase.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:SLGPUImageMovieWriter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKTSScreen+Extend.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKGPUSkinGaussianBlurSmoothFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKPFEditTurnAndCutViewControllerBase.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKCPStackFilterBarBase.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKGPUTfmFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKBoxBlurFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKGPUProgramFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKLiveXRayFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKTSBundle.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKTKThread.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKCPViewController.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKLiveStickerImage.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKGPURotateShotOutput.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKGPUImagePicture.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKCosmeticSticker.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKFace2DComboFilterWrap.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKPFTextLabel.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKCPImageDecoder.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKTSNSDictionary+Extend.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKGPULiveFocusFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKNetworkReachability.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKGPUMonsterSnakeFace.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKICGPUImageView.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKGPULiveZoomFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKCPGifDecoder.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKPFAlbumViewControllerBase.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKPFSmudgeLog.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKPFFilterConfigView.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:CosmeticEyepartModel.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:SLGPUImageFilterGroup.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKTSPointCalculator.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKICViewController.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKSkinNaturalWrap.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKCPPhotoEditMultipleComponentBase.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKCPAlbumMultipleComponentBase.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKGPUTfmInkFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKTSFaceHelper.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKScreenKeyingWrap.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKPFEditFilterControllerBase.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:SLGPUImageTwoPassFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKParticleItem.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKTSMatrix.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKGPUSkinNaturalFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKConfig.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKGPUColorAdjustmentFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKICWebView.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKCPFocusTouchViewBase.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKGPUMap2DFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKTSMath.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKColorMixCoverFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKPFSticker.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKBeautifyFaceFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:SLGPUImageMovie.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKGPUSkinColorMixedFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKPFBrushTableItemCellBase.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKNKDownloadItem.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKICTouchImageView.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKGPUSkinColor2Filter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKCPSubtitlesView.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKGPUColorLomoFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKTSNSData+Extend.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKPFEditHDRControllerBase.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKNKImageAnalysis.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKGPUTfmDogFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKAOFile.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKPFSmudgeProcessor.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKCPFilterResultController.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKNormalFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKTextureCoordinateCropBuilder.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKTSMotion.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKGPULiveShakeFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKRatioType.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKICMessageHub.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKGPULiveStackUpFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:SLGPUImageContext.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKPFBrushLocalPackage.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKCPImageResultController.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:SLGPUImageStillCamera.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKPFEditWipeAndFilterControllerBase.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKGPUApertureFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKICTableView.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKICView+Extend.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKWaterMarkOption.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKNKNetworkArg.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKPFEditStickerControllerBase.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKPFStickerFactory.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKGPUSkinMoistFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKTSNSArray+Extend.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKParticleFilterInterface.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:SLGPUImageView.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKLiveOldTVFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKPFBrush.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKICSmudgeImageViewWrap.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKGPULABFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKPFFilterOnlineControllerBase.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKGPULiveSoulOutFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKGaussianBlurSevenRadiusSmoothFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKNKImageAutoColorAnalysis.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKTSAVAudioPlayer+Extend.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKGPULiveFlipFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:SLGPUImageTextureOutput.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:SLGPUImageVideoCamera.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKICEmptyView.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKGPULightHolyFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKComboFilterWrapChain.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:CosmeticLipModel.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKCPOptions.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKFilterUtils.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKGPUMonsterFace.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKNetworkImageCache.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKPFEditVignetteControllerBase.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKGaussianBilateralFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKPFStickerGroup.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKGPULiveSpreadInFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:CosmeticEyepartFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKPFStickerText.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKLiveStickerManager.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKGPUSharpenFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKPFEditFilterGroupViewBase.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKPaintDrawViewBase.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKPFStickerResult.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKTSNSData+ImageExtend.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKLiveScanningLineFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKICGuideRegionView.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKVideoCameraInterface.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKTSNSMutableDictionary+ImageMetadata.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDK2DImageSticker.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKTSDevice+Extend.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKTSALAssetsGrouped+CreateTimeDesc.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKPFBrushManager.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKGPUSkinColorFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKLiveLightningFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKFilterManager.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKFilterAdapter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:SLGPUImageFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKPFTextView.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKTKFiltersTempTask.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKICGifView.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKGPULiveFlyInFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKGPUArtBrushFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKPFEditEntryControllerBase.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKPFEditMultipleControllerBase.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKPFStickerBarViewBase.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKGPUSelectiveCircleFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKTKFiltersTaskBase.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKStillCamera.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKFilterProcessorBase.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKGPULightGlareFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:SLGPUImagePicture.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKICFocusRangeView.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKTKStatistics.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKGPULivePullInFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKOpenGLAssistant.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKLiveSloshFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:CosmeticEyebrowModel.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKLuminanceRangeFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKCPPhotoEditComponentBase.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKGPUPlasticFace.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKAuth.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKTSFileManager.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKGPUMonsterSquareFace.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKGPUVRLeftRightView.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKFilterWrap.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKICPagerView.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKICNavigationController.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKGPULiveMegrimFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKGPUParticleFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKVerticeCoordinateBuilder.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:SLGLYUVTextureProgram.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKNKDownloadTask.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKTSByte.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:SLGPUImage.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKPFStickerLocalPackage.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:SelesVertexbuffer.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKGPUTfmLicFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKGPUScreenKeyingFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKGPUColorSelectiveFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKGPUSingleGaussFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:SLGPUImageBuffer.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKFilterParameter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKLiveHeartbeatFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKPFStickerOnlineControllerBase.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKGPUImageFiveInputFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKFilterOption.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKNKDownloadManger.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKGPUImageView.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:SLGPUImageFramebufferCache.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKTSKeychainUtils.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKICMessageHubInterface.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:CosmeticBlushModel.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKTSALAssets+Extend.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKTKFilterImageWare.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKTSAnimation.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKNetworkEngine.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKCPEditActionType.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKCPImageResultOptions.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKGaussianBlurSevenRadiusFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:SLGPUImageSharpenFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKPFAlbumMultipleViewControllerBase.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKPFEditHolyLightControllerBase.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:CosmeticModelBase.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKPFStickerView.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKCPError.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKCPFilterStickerView.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKAOValid.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKCPParameterConfigViewInterface.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:SLGPUImageTextureInput.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKGPULiveFancy01Filter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKCPStackFilterTableView.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:SLGPUImageTwoPassTextureSamplingFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKPFEditSmudgeControllerBase.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:CosmeticEyebrowFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKCosmeticImage.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKPFCameraViewControllerBase.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKCPRegionHandler.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKICMaskRegionView.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:SLGPUImageRawDataOutput.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKGPUSkinWhiteningFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKICAlertView.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKCPResultOptions.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKFaceSmoothFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKInternalFilterManager.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKFaceAligment.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKGPULiveSignalFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKTSAsset.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKBilateralFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKICFilterSmudgeImageViewWrap.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKTSString+Extend.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKGPUSkinColor2MixedFilter.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKPFBrushBarViewBase.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKGPUPlasticFaceInfo.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKCPFilterOnlineControllerInterface.h">
+                  </FileRef>
+                  <FileRef
+                     location = "group:TuSDKTSDate+Extend.h">
+                  </FileRef>
+               </Group>
+            </Group>
+            <FileRef
+               location = "group:Current">
+            </FileRef>
+         </Group>
+         <FileRef
+            location = "group:TuSDK">
+         </FileRef>
+         <FileRef
+            location = "group:Headers">
+         </FileRef>
+      </Group>
+   </Group>
    <FileRef
       location = "self:">
    </FileRef>

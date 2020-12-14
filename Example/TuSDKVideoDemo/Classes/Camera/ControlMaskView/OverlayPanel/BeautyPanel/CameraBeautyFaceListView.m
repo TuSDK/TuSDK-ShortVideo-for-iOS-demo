@@ -34,7 +34,7 @@
         NSString *title = [NSString stringWithFormat:@"lsq_filter_set_%@", faceFeature];
         itemView.titleLabel.text = NSLocalizedStringFromTable(title, @"TuSDKConstants", @"无需国际化");
         // 缩略图
-        NSString *imageName = [NSString stringWithFormat:@"face_ic_%@", faceFeature];
+        NSString *imageName = [NSString stringWithFormat:@"plastic_%@", faceFeature];
         UIImage *image = [[UIImage imageNamed:imageName] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         itemView.thumbnailView.image = image;
     }];

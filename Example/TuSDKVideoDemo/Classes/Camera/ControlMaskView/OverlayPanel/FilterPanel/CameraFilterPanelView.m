@@ -195,20 +195,6 @@ static const CGFloat kFilterTabbarHeight = 36;
     pageSlider.disableSlide = YES;
 
     [tabbar setSelectedIndex:0];
-    //如果本地存在保存的滤镜代码
-    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"selectedFilter"]) {
-        NSDictionary *filterParam = [[NSUserDefaults standardUserDefaults] objectForKey:@"selectedFilter"];
-        [tabbar setSelectedIndex:[filterParam[@"viewTag"] integerValue]];
-        
-        if ([filterParam[@"viewTag"] integerValue] == self.filterTitles.count - 1) {
-            
-            _comicsFilterListView.selectedIndex = [filterParam[@"selectedIndex"] integerValue];
-            
-        } else {
-            CameraNormalFilterListView *filterListView = self.filterViews[[filterParam[@"viewTag"] integerValue]];
-            filterListView.selectedIndex = [filterParam[@"selectedIndex"] integerValue];
-        }
-    }
 }
 
 - (void)layoutSubviews {
@@ -279,13 +265,7 @@ static const CGFloat kFilterTabbarHeight = 36;
 - (void)unsetButtonAction:(UIButton *)sender
 {
     self.paramtersView.hidden = YES;
-    
-    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"selectedFilter"]) {   
-        
-        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"selectedFilter"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-    }
-    
+
     for (NSInteger viewIndex = 0; viewIndex < self.filterTitles.count; viewIndex++)
     {
         if (viewIndex == self.filterTitles.count - 1)

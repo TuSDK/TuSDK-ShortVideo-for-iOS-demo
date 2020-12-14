@@ -61,17 +61,7 @@
     }
 //    selectedIndex += 1;
     self.selectedIndex = selectedIndex;
-    
-    //更新本地数据
-    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"selectedFilter"]) {
-        NSDictionary *param = [[NSUserDefaults standardUserDefaults] objectForKey:@"selectedFilter"];
-        NSMutableDictionary *codeParam = [NSMutableDictionary dictionaryWithDictionary:param];
-        codeParam[@"selectedIndex"] = @(selectedIndex);
-        codeParam[@"selectedFilterCode"] = _selectedFilterCode;
-        codeParam[@"viewTag"] = @(self.tag);
-        [[NSUserDefaults standardUserDefaults] setObject:codeParam forKey:@"selectedFilter"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-    }
+
 }
 
 - (void)itemScrollToCurrentRight
@@ -107,13 +97,7 @@
 //    }
     code = _filterCodes[self.selectedIndex];
     self.selectedFilterCode = code;
-    
-    NSMutableDictionary *codeDic = [NSMutableDictionary dictionary];
-    codeDic[@"selectedFilterCode"] = code;
-    codeDic[@"selectedIndex"] = @(self.selectedIndex);
-    codeDic[@"viewTag"] = @(self.tag);
-    [[NSUserDefaults standardUserDefaults] setObject:codeDic forKey:@"selectedFilter"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+
     
     if (self.itemViewTapActionHandler) self.itemViewTapActionHandler(self, itemView, code);
 }

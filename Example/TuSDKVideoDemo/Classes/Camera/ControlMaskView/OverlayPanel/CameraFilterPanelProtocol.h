@@ -122,6 +122,13 @@
  @return 对应参数的数值
  */
 - (double)filterPanel:(id<CameraFilterPanelProtocol>)filterPanel  percentValueAtIndex:(NSUInteger)index;
+/**
+ 滤镜参数对应索引的参数值
+
+ @param index 滤镜参数的索引
+ @return 对应参数的数值
+ */
+- (double)filterPanel:(id<CameraFilterPanelProtocol>)filterPanel  defaultPercentValueAtIndex:(NSUInteger)index;
 
 /**
  美妆参数对应索引的参数值

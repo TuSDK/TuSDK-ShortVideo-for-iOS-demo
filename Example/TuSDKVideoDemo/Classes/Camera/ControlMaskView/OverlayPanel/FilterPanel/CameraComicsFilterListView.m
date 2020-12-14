@@ -57,19 +57,6 @@
     }
 
     self.selectedIndex = selectedIndex;
-    
-    //更新本地数据
-    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"selectedFilter"]) {
-        NSDictionary *param = [[NSUserDefaults standardUserDefaults] objectForKey:@"selectedFilter"];
-        NSMutableDictionary *codeParam = [NSMutableDictionary dictionaryWithDictionary:param];
-        codeParam[@"selectedIndex"] = @(selectedIndex);
-        codeParam[@"selectedFilterCode"] = _selectedFilterCode;
-        codeParam[@"viewTag"] = @(self.tag);
-        [[NSUserDefaults standardUserDefaults] setObject:codeParam forKey:@"selectedFilter"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-    }
-    
-//    if (self.itemViewTapActionHandler) self.itemViewTapActionHandler(self, [self itemViewAtIndex:selectedIndex], selectedFilterCode);
 
 }
 

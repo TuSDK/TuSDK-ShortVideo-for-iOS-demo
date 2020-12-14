@@ -24,9 +24,15 @@
 // 录制相机漫画滤镜 filterCode
 #define kCameraComicsFilterCodes @"CHComics_Video", @"USComics_Video", @"JPComics_Video", @"Lightcolor_Video", @"Ink_Video", @"Monochrome_Video"
 // 美颜滤镜参数名称
-#define kBeautySkinKeys @"skin_default",@"smoothing",@"whitening",@"ruddy"
+#define kBeautySkinKeys @"skin_default",@"smoothing",@"whitening", @"sharpen"
+#define kNaturalBeautySkinKeys @"skin_default",@"smoothing",@"whitening", @"ruddy"
+#define TuBeautySkinKeys @"skin_beauty",@"smoothing",@"whitening", @"sharpen"
+#define TuSkipBeautySkinKeys @"smoothing",@"whitening", @"sharpen", @"ruddy"
 // 美型（微整形）滤镜参数名称
 #define kBeautyFaceKeys @"eyeSize",@"chinSize",@"noseSize",@"mouthWidth",@"lips", @"archEyebrow", @"browPosition", @"jawSize",@"eyeAngle" ,@"eyeDis",  @"forehead"
+// 美型（微整形）滤镜参数名称 - 3.6.1
+#define kBeautyFaceKeyCodes @"eyeSize", @"chinSize", @"cheekNarrow", @"smallFace", @"noseSize", @"noseHeight", @"mouthWidth", @"lips", @"philterum", @"archEyebrow", @"browPosition", @"jawSize", @"cheekLowBoneNarrow", @"eyeAngle", @"eyeInnerConer", @"eyeOuterConer", @"eyeDis", @"eyeHeight", @"forehead", @"cheekBoneNarrow"
+
 
 /**
  是否为漫画滤镜

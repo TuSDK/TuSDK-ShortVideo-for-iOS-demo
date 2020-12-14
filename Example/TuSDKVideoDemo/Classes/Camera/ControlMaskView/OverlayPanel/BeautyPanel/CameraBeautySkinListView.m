@@ -24,7 +24,7 @@
     [super commonInit];
     
     NSArray *faceFeatures = @[kBeautySkinKeys];
-    _useSkinNatural = NO;
+    _faceType = TuSkinFaceTypeBeauty;
     // 配置 UI
     self.autoItemSize = YES;
     [self addItemViewsWithCount:faceFeatures.count config:^(HorizontalListView *listView, NSUInteger index, HorizontalListItemView *_itemView) {
@@ -52,19 +52,32 @@
     dotItemView.titleLabel.text = @"  ";
     [self insertItemView:dotItemView atIndex:2];
     
-    [self setUseSkinNatural:_useSkinNatural];
+    [self setFaceType:_faceType];
 }
 
-/**
- 设置是否使用自然美颜
-
- @param useSkinNatural true/false
- */
-- (void)setUseSkinNatural:(BOOL)useSkinNatural;
+- (void)setFaceType:(TuSkinFaceType)faceType
 {
+    _faceType = faceType;
+    
     HorizontalListItemView *itemView = [self itemViewAtIndex:1];
     itemView.selected = NO;
-    NSString *code = useSkinNatural ? @"skin_precision" : @"skin_extreme";
+    NSString *code = nil;
+    NSString *ruddyCode = nil;
+    if (_faceType == TuSkinFaceTypeNatural)
+    {
+        code = @"skin_precision";
+        ruddyCode = @"ruddy";
+    }
+    else if (_faceType == TuSkinFaceTypeMoist)
+    {
+        code = @"skin_extreme";
+        ruddyCode = @"sharpen";
+    }
+    else
+    {
+        code = @"skin_beauty";
+        ruddyCode = @"sharpen";
+    }
     // 标题
     NSString *title = [NSString stringWithFormat:@"lsq_filter_set_%@", code];
     itemView.titleLabel.text = NSLocalizedStringFromTable(title, @"TuSDKConstants", @"无需国际化");
@@ -73,13 +86,29 @@
     UIImage *image = [[UIImage imageNamed:imageName] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     itemView.thumbnailView.image = image;
     
-    _useSkinNatural = useSkinNatural;
+    HorizontalListItemView *ruddyItemView = [self itemViewAtIndex:5];
+    // 标题
+    NSString *ruddytitle = [NSString stringWithFormat:@"lsq_filter_set_%@", ruddyCode];
+    ruddyItemView.titleLabel.text = NSLocalizedStringFromTable(ruddytitle, @"TuSDKConstants", @"无需国际化");
+    // 缩略图
+    NSString *ruddyImageName = [NSString stringWithFormat:@"face_ic_%@", ruddyCode];
+    UIImage *ruddyImage = [[UIImage imageNamed:ruddyImageName] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    ruddyItemView.thumbnailView.image = ruddyImage;
 }
 
 - (NSString *)selectedSkinKey;
 {
-    if (self.selectedIndex > 2 && self.selectedIndex - 2 < @[kBeautySkinKeys].count)
-        return @[kBeautySkinKeys][self.selectedIndex - 2];
+    if (_faceType == TuSkinFaceTypeNatural)
+    {
+        if (self.selectedIndex > 2 && self.selectedIndex - 2 < @[kNaturalBeautySkinKeys].count)
+            return @[kNaturalBeautySkinKeys][self.selectedIndex - 2];
+    }
+    else
+    {
+        if (self.selectedIndex > 2 && self.selectedIndex - 2 < @[kBeautySkinKeys].count)
+            return @[kBeautySkinKeys][self.selectedIndex - 2];
+    }
+    
     return nil;
 }
 
@@ -95,7 +124,21 @@
         case 0:
             break;
         case 1:// 切换美颜模类型
-            [self setUseSkinNatural:!_useSkinNatural];
+        {
+            if (_faceType == TuSkinFaceTypeBeauty)
+            {
+                _faceType = TuSkinFaceTypeMoist;
+            }
+            else if (_faceType == TuSkinFaceTypeMoist)
+            {
+                _faceType = TuSkinFaceTypeNatural;
+            }
+            else
+            {
+                _faceType = TuSkinFaceTypeBeauty;
+            }
+            [self setFaceType:_faceType];
+        }
             break;
         default:
     

@@ -10,7 +10,51 @@
 #import "TuSDKFaceAligment.h"
 
 
+typedef NS_ENUM(NSUInteger, TuSDKPlasticType)
+{
+    TuSDK_FOREHEAD_HEIGHT = 0,   // 额头高低
+    
+    TuSDK_FACE_SMALL,            // 小脸
 
+    TuSDK_CHEEK_THIN,            // 瘦脸
+    TuSDK_CHEEK_NARROW,          // 窄脸
+    TuSDK_CHEEKBONE_NARROW,      // 瘦颧骨
+    TuSDK_CHEEKLOWERBONE_NARROW, // 下颌骨
+
+    TuSDK_BROW_THICKNESS,       // 眉毛粗细
+    TuSDK_BROW_HEIGHT,          // 眉毛高低
+    
+    TuSDK_EYE_ENLARGE,          // 眼睛大小
+    TuSDK_EYE_ANGLE,            // 眼角
+    TuSDK_EYE_DISTANCE,         // 眼距
+    TuSDK_EYE_HEIGHT,           // 眼睛高低
+    TuSDK_EYE_INNER_CONER,      // 内眼角
+    TuSDK_EYE_OUTER_CONER,      // 外眼角
+
+    TuSDK_NOSE_WIDTH,           // 鼻子大小
+    TuSDK_NOSE_HEIGHT,          // 鼻子长短
+    
+    TuSDK_PHILTRUM_THICKNESS,   // 缩人中
+
+    TuSDK_MOUTH_WIDTH,          // 嘴巴宽度
+    TuSDK_MOUTH_SIZE,           // 嘴巴大小
+    TuSDK_LIPS_THICKNESS,       // 嘴唇厚度
+    
+    TuSDK_CHIN_THICKNESS,        // 下巴高低
+    
+    TuSDK_PLASTIC_PARS_COUNT
+};
+
+
+@interface TuSDKPlasticArg : NSObject
+// isPositive == true, range == [0.0f, maxVal]
+// isPositive == false, range == [-maxVal, maxVal]
+@property(nonatomic, assign) TuSDKPlasticType eType;
+@property(nonatomic, assign) CGFloat maxVal;
+@property(nonatomic, assign) BOOL isPositive;
+
+- (instancetype)initWithType:(TuSDKPlasticType)eType maxVal:(CGFloat)maxVal isPositive:(BOOL)isPositive;
+@end
 
 static const int PLASTIC_FACE_POINTS_COUNT = 95;
 
@@ -61,36 +105,42 @@ static const int FACE_TRIANGLES_MAP[FACE_TRIANGLES_MAP_SIZE] =
     77, 66, 78,    85, 84, 76,    84, 83, 74,    83, 80, 81,    86, 87, 94
 };
 
+
 @interface TuSdkPlasticFaceInfo:NSObject
+- (instancetype)initWithFaceInfo:(TuSDKFaceAligment *)aligment frameSize:(CGSize)frameSize;
 
--(instancetype) initWithFaceInfo:(TuSDKFaceAligment *)aligment frameSize:(CGSize)frameSize;
+- (void)CalcForeheadHeight:(float)value; // 调节额头高低
 
--(void)ResetPoints;
--(void)GetPoints:(GLfloat *)points isVer:(BOOL)isVer;
+- (void)CalcFaceSmall:(float)value; // 小脸
 
-// 调节额头高低
--(void)CalcForeheadHeight:(float)value;
-// 调节瘦脸
--(void)CalcCheekThin:(float)value;
-// 调节眉毛粗细
--(void)CalcBrowThickness:(float)value;
-// 调节眉毛高低
--(void)CalcBrowPosition:(float)value;
-// 调节眼睛大小
--(void)CalcEyeEnlarge:(float)value;
-// 计算眼角
--(void)CalcEyeAngle:(float)value;
-// 计算眼距
--(void)CalcEyesDistance:(float)value;
-// 调节鼻子大小
--(void)CalcNoseWidth:(float)value;
-// 调节嘴巴宽度
--(void)CalcMouthWith:(float)value;
-// 调节嘴巴大小
--(void)CalcMouthZoom:(float)value;
-// 调节嘴唇厚度
--(void)CalcLipsThickness:(float)value;
-// 计算下巴
--(void)CalcChinThickness:(float)value;
+- (void)CalcCheekThin:(float)value; // 调节瘦脸
+- (void)CalcCheekNarrow:(float)value; // 调节窄脸
+- (void)CalcCheekBoneNarrow:(float)value; // 调节颧骨
+- (void)CalcCheekLowerBoneNarrow:(float)value; // 调节下颌骨
+
+- (void)CalcBrowThickness:(float)value; // 调节眉毛粗细
+- (void)CalcBrowHeight:(float)value; // 调节眉毛高低
+
+- (void)CalcEyeEnlarge:(float)value; // 调节眼睛大小
+- (void)CalcEyeAngle:(float)value; // 调节眼角
+- (void)CalcEyeDistance:(float)value; // 调节眼距
+- (void)CalcEyeHeight:(float)value; // 调节眼睛高低
+- (void)CalcEyeInnerConerOpen:(float)value; // 调节内眼角
+- (void)CalcEyeOuterConerOpen:(float)value; // 调节外眼角
+
+- (void)CalcNoseWidth:(float)value; // 调节鼻子宽度
+- (void)CalcNoseHeight:(float)value; // 调节鼻子高度
+
+- (void)CalcMouthWidth:(float)value; // 调节嘴巴宽度
+- (void)CalcMouthSize:(float)value; // 调节嘴巴大小
+- (void)CalcLipsThickness:(float)value; // 调节嘴唇厚度
+
+- (void)CalcPhiltrumThickness:(float)value; // 调节人中
+- (void)CalcChinThickness:(float)value; // 调节下巴
+
+
+- (void)GetPoints:(GLfloat *)points isVer:(BOOL)isVer;
 
 @end
+
+

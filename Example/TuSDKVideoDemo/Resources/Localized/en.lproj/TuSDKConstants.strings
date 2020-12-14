@@ -139,9 +139,10 @@
 "lsq_filter_set_saturation" = "Saturation";
 
 // 美颜
-"lsq_filter_set_smoothing" = "Smoothing";
-"lsq_filter_set_whitening" = "Whitening";
-"lsq_filter_set_ruddy" = "Rubby";
+"lsq_filter_set_smoothing" = "smoothing";
+"lsq_filter_set_whitening" = "whitening";
+"lsq_filter_set_ruddy" = "ruddy";
+"lsq_filter_set_sharpen" = "Sharpen";
 
 // 微整形
 "lsq_filter_set_chinSize" = "Chin";
@@ -158,6 +159,7 @@
 "lsq_filter_set_archEyebrow" = "Eyebrow";
 "lsq_filter_set_skin_precision" = "Precision";
 "lsq_filter_set_skin_extreme" = "Extreme";
+"lsq_filter_set_skin_beauty" = "Nature";
 
 // 漫画滤镜
 "lsq_filter_CHComics_Video" = "CHComics";
@@ -315,3 +317,26 @@
 
 //3.6.0
 "lsq_filter_set_alpha" = "Alpha";
+
+// 微整形 - 3.6.1
+
+"lsq_filter_set_eyeSize" = "Eye Size";
+"lsq_filter_set_chinSize" = "ChinSize";
+"lsq_filter_set_cheekNarrow" = "Cheek Narrow";
+"lsq_filter_set_smallFace" = "Small Face";
+"lsq_filter_set_noseSize" = "Nose Size";
+"lsq_filter_set_noseHeight" = "Nose Height";
+"lsq_filter_set_mouthWidth" = "Mouth Width";
+"lsq_filter_set_lips" = "Lips";
+"lsq_filter_set_philterum" = "Philterum";
+"lsq_filter_set_archEyebrow" = "ArchEyebrow";
+"lsq_filter_set_browPosition" = "BrowPosition";
+"lsq_filter_set_jawSize" = "JawSize";
+"lsq_filter_set_cheekLowBoneNarrow" = "cheekLowBoneNarrow";
+"lsq_filter_set_eyeAngle" = "Eye Angle";
+"lsq_filter_set_eyeInnerConer" = "EyeInnerConer";
+"lsq_filter_set_eyeOuterConer" = "EyeOuterConer";
+"lsq_filter_set_eyeDis" = "Eye Dis";
+"lsq_filter_set_eyeHeight" = "Eye Height";
+"lsq_filter_set_forehead" = "forehead";
+"lsq_filter_set_cheekBoneNarrow" = "CheekBoneNarrow";

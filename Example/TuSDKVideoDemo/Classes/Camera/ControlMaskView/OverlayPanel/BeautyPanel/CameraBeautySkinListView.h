@@ -8,7 +8,7 @@
 
 #import "HorizontalListView.h"
 #import "HorizontalListItemView.h"
-
+#import "TuSDKFramework.h"
 
 /**
  美颜滤镜列表
@@ -20,10 +20,9 @@
  */
 @property (nonatomic, copy) void (^itemViewTapActionHandler)(CameraBeautySkinListView *listView, HorizontalListItemView *selectedItemView);
 
-/**
- 标记当前是否选择了自然美颜
- */
-@property (nonatomic,readonly) BOOL useSkinNatural;
+
+/*美肤类型*/
+@property (nonatomic,readonly) TuSkinFaceType faceType;
 
 /**
  当前选择的美颜参数 （润滑，磨皮，红润）

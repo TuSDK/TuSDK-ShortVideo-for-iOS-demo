@@ -40,6 +40,99 @@
 		45E707D2226D633A009C73C9 /* StickerEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E707D1226D633A009C73C9 /* StickerEditor.m */; };
 		45EC66A821AE97A300385E3D /* APIAudioPitchEngineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45EC66A621AE97A200385E3D /* APIAudioPitchEngineViewController.m */; };
 		45FC1C6E2282746F00020F32 /* ImageStickerEditorItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 45FC1C6D2282746F00020F32 /* ImageStickerEditorItem.m */; };
+		B806DCB725878AD000883100 /* TuCameraEffectConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = B806DCB625878AD000883100 /* TuCameraEffectConfig.m */; };
+		B806DCBE25878B3600883100 /* TuSDKVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B806DCBA25878B3600883100 /* TuSDKVideo.framework */; };
+		B806DCBF25878B3600883100 /* TuSDKFace.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B806DCBB25878B3600883100 /* TuSDKFace.framework */; };
+		B806DCC025878B3600883100 /* libyuv.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B806DCBC25878B3600883100 /* libyuv.framework */; };
+		B806DCC125878B3600883100 /* TuSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B806DCBD25878B3600883100 /* TuSDK.framework */; };
+		B806DCCB25878D3A00883100 /* TuBeautySkinPanelViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B806DCC325878D3800883100 /* TuBeautySkinPanelViewCell.m */; };
+		B806DCCC25878D3A00883100 /* TuBeautyFacePanelViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B806DCC625878D3800883100 /* TuBeautyFacePanelViewCell.m */; };
+		B806DCCD25878D3A00883100 /* TuBeautySkinPanelView.m in Sources */ = {isa = PBXBuildFile; fileRef = B806DCC825878D3900883100 /* TuBeautySkinPanelView.m */; };
+		B806DCCE25878D3A00883100 /* TuBeautyFacePanelView.m in Sources */ = {isa = PBXBuildFile; fileRef = B806DCC925878D3900883100 /* TuBeautyFacePanelView.m */; };
+		B806DD2525878DB500883100 /* plastic_eyeHeight_sel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DCD125878DB500883100 /* plastic_eyeHeight_sel@2x.png */; };
+		B806DD2625878DB500883100 /* plastic_cheekNarrow_sel@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DCD225878DB500883100 /* plastic_cheekNarrow_sel@3x.png */; };
+		B806DD2725878DB500883100 /* plastic_eyeInnerConer_sel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DCD325878DB500883100 /* plastic_eyeInnerConer_sel@2x.png */; };
+		B806DD2825878DB500883100 /* plastic_browPosition_sel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DCD425878DB500883100 /* plastic_browPosition_sel@2x.png */; };
+		B806DD2925878DB500883100 /* plastic_chinSize@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DCD525878DB500883100 /* plastic_chinSize@3x.png */; };
+		B806DD2A25878DB500883100 /* plastic_eyeAngle_sel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DCD625878DB500883100 /* plastic_eyeAngle_sel@2x.png */; };
+		B806DD2B25878DB500883100 /* plastic_mouthWidth@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DCD725878DB500883100 /* plastic_mouthWidth@2x.png */; };
+		B806DD2C25878DB500883100 /* plastic_forehead@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DCD825878DB500883100 /* plastic_forehead@3x.png */; };
+		B806DD2D25878DB500883100 /* plastic_smallFace@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DCD925878DB500883100 /* plastic_smallFace@2x.png */; };
+		B806DD2E25878DB500883100 /* plastic_smallFace@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DCDA25878DB500883100 /* plastic_smallFace@3x.png */; };
+		B806DD2F25878DB500883100 /* plastic_forehead@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DCDB25878DB500883100 /* plastic_forehead@2x.png */; };
+		B806DD3025878DB500883100 /* plastic_mouthWidth@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DCDC25878DB500883100 /* plastic_mouthWidth@3x.png */; };
+		B806DD3125878DB500883100 /* plastic_eyeAngle_sel@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DCDD25878DB500883100 /* plastic_eyeAngle_sel@3x.png */; };
+		B806DD3225878DB500883100 /* plastic_chinSize@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DCDE25878DB500883100 /* plastic_chinSize@2x.png */; };
+		B806DD3325878DB500883100 /* plastic_browPosition_sel@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DCDF25878DB500883100 /* plastic_browPosition_sel@3x.png */; };
+		B806DD3425878DB500883100 /* plastic_eyeInnerConer_sel@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DCE025878DB500883100 /* plastic_eyeInnerConer_sel@3x.png */; };
+		B806DD3525878DB500883100 /* plastic_cheekNarrow_sel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DCE125878DB500883100 /* plastic_cheekNarrow_sel@2x.png */; };
+		B806DD3625878DB500883100 /* plastic_eyeHeight_sel@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DCE225878DB500883100 /* plastic_eyeHeight_sel@3x.png */; };
+		B806DD3725878DB500883100 /* plastic_philterum@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DCE325878DB500883100 /* plastic_philterum@2x.png */; };
+		B806DD3825878DB500883100 /* plastic_cheekLowBoneNarrow@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DCE425878DB500883100 /* plastic_cheekLowBoneNarrow@3x.png */; };
+		B806DD3925878DB500883100 /* plastic_jawSize@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DCE525878DB500883100 /* plastic_jawSize@2x.png */; };
+		B806DD3A25878DB500883100 /* plastic_eyeAngle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DCE625878DB500883100 /* plastic_eyeAngle@2x.png */; };
+		B806DD3B25878DB500883100 /* plastic_cheekLowBoneNarrow_sel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DCE725878DB500883100 /* plastic_cheekLowBoneNarrow_sel@2x.png */; };
+		B806DD3C25878DB500883100 /* plastic_cheekNarrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DCE825878DB500883100 /* plastic_cheekNarrow@2x.png */; };
+		B806DD3D25878DB500883100 /* plastic_archEyebrow_sel@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DCE925878DB500883100 /* plastic_archEyebrow_sel@3x.png */; };
+		B806DD3E25878DB500883100 /* plastic_eyeDis@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DCEA25878DB500883100 /* plastic_eyeDis@2x.png */; };
+		B806DD3F25878DB500883100 /* plastic_forehead_sel@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DCEB25878DB500883100 /* plastic_forehead_sel@3x.png */; };
+		B806DD4025878DB500883100 /* plastic_forehead_sel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DCEC25878DB500883100 /* plastic_forehead_sel@2x.png */; };
+		B806DD4125878DB500883100 /* plastic_eyeDis@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DCED25878DB500883100 /* plastic_eyeDis@3x.png */; };
+		B806DD4225878DB500883100 /* plastic_cheekLowBoneNarrow_sel@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DCEE25878DB500883100 /* plastic_cheekLowBoneNarrow_sel@3x.png */; };
+		B806DD4325878DB500883100 /* plastic_cheekNarrow@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DCEF25878DB500883100 /* plastic_cheekNarrow@3x.png */; };
+		B806DD4425878DB500883100 /* plastic_archEyebrow_sel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DCF025878DB500883100 /* plastic_archEyebrow_sel@2x.png */; };
+		B806DD4525878DB500883100 /* plastic_eyeAngle@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DCF125878DB500883100 /* plastic_eyeAngle@3x.png */; };
+		B806DD4625878DB500883100 /* plastic_jawSize@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DCF225878DB500883100 /* plastic_jawSize@3x.png */; };
+		B806DD4725878DB500883100 /* plastic_cheekLowBoneNarrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DCF325878DB500883100 /* plastic_cheekLowBoneNarrow@2x.png */; };
+		B806DD4825878DB500883100 /* plastic_philterum@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DCF425878DB500883100 /* plastic_philterum@3x.png */; };
+		B806DD4925878DB500883100 /* plastic_reset_sel@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DCF525878DB500883100 /* plastic_reset_sel@3x.png */; };
+		B806DD4A25878DB500883100 /* plastic_noseSize@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DCF625878DB500883100 /* plastic_noseSize@2x.png */; };
+		B806DD4B25878DB500883100 /* plastic_cheekBoneNarrow_sel@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DCF725878DB500883100 /* plastic_cheekBoneNarrow_sel@3x.png */; };
+		B806DD4C25878DB500883100 /* plastic_chinSize_sel@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DCF825878DB500883100 /* plastic_chinSize_sel@3x.png */; };
+		B806DD4D25878DB500883100 /* plastic_noseHeight_sel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DCF925878DB500883100 /* plastic_noseHeight_sel@2x.png */; };
+		B806DD4E25878DB500883100 /* plastic_noseHeight@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DCFA25878DB500883100 /* plastic_noseHeight@3x.png */; };
+		B806DD4F25878DB500883100 /* plastic_eyeSize@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DCFB25878DB500883100 /* plastic_eyeSize@2x.png */; };
+		B806DD5025878DB500883100 /* plastic_mouthWidth_sel@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DCFC25878DB500883100 /* plastic_mouthWidth_sel@3x.png */; };
+		B806DD5125878DB500883100 /* plastic_eyeOuterConer@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DCFD25878DB500883100 /* plastic_eyeOuterConer@2x.png */; };
+		B806DD5225878DB500883100 /* plastic_reset@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DCFE25878DB500883100 /* plastic_reset@3x.png */; };
+		B806DD5325878DB500883100 /* plastic_lips@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DCFF25878DB500883100 /* plastic_lips@3x.png */; };
+		B806DD5425878DB500883100 /* plastic_eyeInnerConer@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DD0025878DB500883100 /* plastic_eyeInnerConer@3x.png */; };
+		B806DD5525878DB500883100 /* plastic_eyeInnerConer@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DD0125878DB500883100 /* plastic_eyeInnerConer@2x.png */; };
+		B806DD5625878DB500883100 /* plastic_lips@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DD0225878DB500883100 /* plastic_lips@2x.png */; };
+		B806DD5725878DB500883100 /* plastic_reset@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DD0325878DB500883100 /* plastic_reset@2x.png */; };
+		B806DD5825878DB500883100 /* plastic_eyeOuterConer@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DD0425878DB500883100 /* plastic_eyeOuterConer@3x.png */; };
+		B806DD5925878DB500883100 /* plastic_mouthWidth_sel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DD0525878DB500883100 /* plastic_mouthWidth_sel@2x.png */; };
+		B806DD5A25878DB500883100 /* plastic_noseHeight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DD0625878DB500883100 /* plastic_noseHeight@2x.png */; };
+		B806DD5B25878DB500883100 /* plastic_eyeSize@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DD0725878DB500883100 /* plastic_eyeSize@3x.png */; };
+		B806DD5C25878DB500883100 /* plastic_noseHeight_sel@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DD0825878DB500883100 /* plastic_noseHeight_sel@3x.png */; };
+		B806DD5D25878DB500883100 /* plastic_chinSize_sel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DD0925878DB500883100 /* plastic_chinSize_sel@2x.png */; };
+		B806DD5E25878DB500883100 /* plastic_cheekBoneNarrow_sel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DD0A25878DB500883100 /* plastic_cheekBoneNarrow_sel@2x.png */; };
+		B806DD5F25878DB500883100 /* plastic_reset_sel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DD0B25878DB500883100 /* plastic_reset_sel@2x.png */; };
+		B806DD6025878DB500883100 /* plastic_noseSize@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DD0C25878DB500883100 /* plastic_noseSize@3x.png */; };
+		B806DD6125878DB500883100 /* plastic_eyeSize_sel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DD0D25878DB500883100 /* plastic_eyeSize_sel@2x.png */; };
+		B806DD6225878DB500883100 /* plastic_browPosition@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DD0E25878DB500883100 /* plastic_browPosition@3x.png */; };
+		B806DD6325878DB500883100 /* plastic_lips_sel@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DD0F25878DB500883100 /* plastic_lips_sel@3x.png */; };
+		B806DD6425878DB500883100 /* plastic_cheekBoneNarrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DD1025878DB500883100 /* plastic_cheekBoneNarrow@2x.png */; };
+		B806DD6525878DB500883100 /* plastic_noseSize_sel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DD1125878DB500883100 /* plastic_noseSize_sel@2x.png */; };
+		B806DD6625878DB500883100 /* plastic_eyeDis_sel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DD1225878DB500883100 /* plastic_eyeDis_sel@2x.png */; };
+		B806DD6725878DB500883100 /* plastic_jawSize_sel@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DD1325878DB500883100 /* plastic_jawSize_sel@3x.png */; };
+		B806DD6825878DB500883100 /* plastic_eyeOuterConer_sel@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DD1425878DB500883100 /* plastic_eyeOuterConer_sel@3x.png */; };
+		B806DD6925878DB500883100 /* plastic_smallFace_sel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DD1525878DB500883100 /* plastic_smallFace_sel@2x.png */; };
+		B806DD6A25878DB600883100 /* plastic_philterum_sel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DD1625878DB500883100 /* plastic_philterum_sel@2x.png */; };
+		B806DD6B25878DB600883100 /* plastic_archEyebrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DD1725878DB500883100 /* plastic_archEyebrow@2x.png */; };
+		B806DD6C25878DB600883100 /* plastic_eyeHeight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DD1825878DB500883100 /* plastic_eyeHeight@2x.png */; };
+		B806DD6D25878DB600883100 /* plastic_smallFace_sel@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DD1925878DB500883100 /* plastic_smallFace_sel@3x.png */; };
+		B806DD6E25878DB600883100 /* plastic_philterum_sel@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DD1A25878DB500883100 /* plastic_philterum_sel@3x.png */; };
+		B806DD6F25878DB600883100 /* plastic_archEyebrow@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DD1B25878DB500883100 /* plastic_archEyebrow@3x.png */; };
+		B806DD7025878DB600883100 /* plastic_eyeHeight@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DD1C25878DB500883100 /* plastic_eyeHeight@3x.png */; };
+		B806DD7125878DB600883100 /* plastic_eyeOuterConer_sel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DD1D25878DB500883100 /* plastic_eyeOuterConer_sel@2x.png */; };
+		B806DD7225878DB600883100 /* plastic_jawSize_sel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DD1E25878DB500883100 /* plastic_jawSize_sel@2x.png */; };
+		B806DD7325878DB600883100 /* plastic_noseSize_sel@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DD1F25878DB500883100 /* plastic_noseSize_sel@3x.png */; };
+		B806DD7425878DB600883100 /* plastic_eyeDis_sel@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DD2025878DB500883100 /* plastic_eyeDis_sel@3x.png */; };
+		B806DD7525878DB600883100 /* plastic_cheekBoneNarrow@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DD2125878DB500883100 /* plastic_cheekBoneNarrow@3x.png */; };
+		B806DD7625878DB600883100 /* plastic_lips_sel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DD2225878DB500883100 /* plastic_lips_sel@2x.png */; };
+		B806DD7725878DB600883100 /* plastic_browPosition@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DD2325878DB500883100 /* plastic_browPosition@2x.png */; };
+		B806DD7825878DB600883100 /* plastic_eyeSize_sel@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B806DD2425878DB500883100 /* plastic_eyeSize_sel@3x.png */; };
 		B8071C57256B9C6E009DD0E7 /* lsq_effect_thumb_Surprise.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B8071B01256B9C6A009DD0E7 /* lsq_effect_thumb_Surprise.jpg */; };
 		B8071C58256B9C6E009DD0E7 /* lsq_effect_thumb_Burning.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B8071B02256B9C6A009DD0E7 /* lsq_effect_thumb_Burning.jpg */; };
 		B8071C59256B9C6E009DD0E7 /* lsq_effect_thumb_Fireball.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B8071B03256B9C6A009DD0E7 /* lsq_effect_thumb_Fireball.jpg */; };
@@ -370,10 +463,6 @@
 		B8071DA7256B9C99009DD0E7 /* TuCosmeticCategoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8071DA1256B9C98009DD0E7 /* TuCosmeticCategoryCell.m */; };
 		B8071DA8256B9C99009DD0E7 /* TuCosmeticConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = B8071DA2256B9C98009DD0E7 /* TuCosmeticConfig.m */; };
 		B8071DAA256B9CA5009DD0E7 /* cosmeticCategories.json in Resources */ = {isa = PBXBuildFile; fileRef = B8071DA9256B9CA5009DD0E7 /* cosmeticCategories.json */; };
-		B87008A624445F4400086F87 /* TuSDKVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B87008A224445F4400086F87 /* TuSDKVideo.framework */; };
-		B87008A724445F4400086F87 /* TuSDKFace.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B87008A324445F4400086F87 /* TuSDKFace.framework */; };
-		B87008A824445F4400086F87 /* libyuv.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B87008A424445F4400086F87 /* libyuv.framework */; };
-		B87008A924445F4400086F87 /* TuSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B87008A524445F4400086F87 /* TuSDK.framework */; };
 		B8A72B4A24CC5F2300CD5183 /* TuEditFilterController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8A72B4924CC5F2300CD5183 /* TuEditFilterController.m */; };
 		D719752B215C7865000AECDD /* MoviePreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D719752A215C7865000AECDD /* MoviePreviewViewController.m */; };
 		D72E88442181964200DD3F16 /* video_camera_focus_finish@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D72E88422181964200DD3F16 /* video_camera_focus_finish@2x.png */; };
@@ -597,6 +686,104 @@
 		45EC66A721AE97A200385E3D /* APIAudioPitchEngineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIAudioPitchEngineViewController.h; sourceTree = "<group>"; };
 		45FC1C6C2282746F00020F32 /* ImageStickerEditorItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageStickerEditorItem.h; sourceTree = "<group>"; };
 		45FC1C6D2282746F00020F32 /* ImageStickerEditorItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageStickerEditorItem.m; sourceTree = "<group>"; };
+		B806DCB525878ACF00883100 /* TuCameraEffectConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuCameraEffectConfig.h; sourceTree = "<group>"; };
+		B806DCB625878AD000883100 /* TuCameraEffectConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TuCameraEffectConfig.m; sourceTree = "<group>"; };
+		B806DCBA25878B3600883100 /* TuSDKVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TuSDKVideo.framework; sourceTree = "<group>"; };
+		B806DCBB25878B3600883100 /* TuSDKFace.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TuSDKFace.framework; sourceTree = "<group>"; };
+		B806DCBC25878B3600883100 /* libyuv.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = libyuv.framework; sourceTree = "<group>"; };
+		B806DCBD25878B3600883100 /* TuSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TuSDK.framework; sourceTree = "<group>"; };
+		B806DCC325878D3800883100 /* TuBeautySkinPanelViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TuBeautySkinPanelViewCell.m; sourceTree = "<group>"; };
+		B806DCC425878D3800883100 /* TuBeautyFacePanelViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuBeautyFacePanelViewCell.h; sourceTree = "<group>"; };
+		B806DCC525878D3800883100 /* TuBeautySkinPanelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuBeautySkinPanelView.h; sourceTree = "<group>"; };
+		B806DCC625878D3800883100 /* TuBeautyFacePanelViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TuBeautyFacePanelViewCell.m; sourceTree = "<group>"; };
+		B806DCC725878D3900883100 /* TuBeautySkinPanelViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuBeautySkinPanelViewCell.h; sourceTree = "<group>"; };
+		B806DCC825878D3900883100 /* TuBeautySkinPanelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TuBeautySkinPanelView.m; sourceTree = "<group>"; };
+		B806DCC925878D3900883100 /* TuBeautyFacePanelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TuBeautyFacePanelView.m; sourceTree = "<group>"; };
+		B806DCCA25878D3A00883100 /* TuBeautyFacePanelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuBeautyFacePanelView.h; sourceTree = "<group>"; };
+		B806DCD125878DB500883100 /* plastic_eyeHeight_sel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_eyeHeight_sel@2x.png"; sourceTree = "<group>"; };
+		B806DCD225878DB500883100 /* plastic_cheekNarrow_sel@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_cheekNarrow_sel@3x.png"; sourceTree = "<group>"; };
+		B806DCD325878DB500883100 /* plastic_eyeInnerConer_sel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_eyeInnerConer_sel@2x.png"; sourceTree = "<group>"; };
+		B806DCD425878DB500883100 /* plastic_browPosition_sel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_browPosition_sel@2x.png"; sourceTree = "<group>"; };
+		B806DCD525878DB500883100 /* plastic_chinSize@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_chinSize@3x.png"; sourceTree = "<group>"; };
+		B806DCD625878DB500883100 /* plastic_eyeAngle_sel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_eyeAngle_sel@2x.png"; sourceTree = "<group>"; };
+		B806DCD725878DB500883100 /* plastic_mouthWidth@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_mouthWidth@2x.png"; sourceTree = "<group>"; };
+		B806DCD825878DB500883100 /* plastic_forehead@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_forehead@3x.png"; sourceTree = "<group>"; };
+		B806DCD925878DB500883100 /* plastic_smallFace@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_smallFace@2x.png"; sourceTree = "<group>"; };
+		B806DCDA25878DB500883100 /* plastic_smallFace@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_smallFace@3x.png"; sourceTree = "<group>"; };
+		B806DCDB25878DB500883100 /* plastic_forehead@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_forehead@2x.png"; sourceTree = "<group>"; };
+		B806DCDC25878DB500883100 /* plastic_mouthWidth@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_mouthWidth@3x.png"; sourceTree = "<group>"; };
+		B806DCDD25878DB500883100 /* plastic_eyeAngle_sel@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_eyeAngle_sel@3x.png"; sourceTree = "<group>"; };
+		B806DCDE25878DB500883100 /* plastic_chinSize@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_chinSize@2x.png"; sourceTree = "<group>"; };
+		B806DCDF25878DB500883100 /* plastic_browPosition_sel@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_browPosition_sel@3x.png"; sourceTree = "<group>"; };
+		B806DCE025878DB500883100 /* plastic_eyeInnerConer_sel@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_eyeInnerConer_sel@3x.png"; sourceTree = "<group>"; };
+		B806DCE125878DB500883100 /* plastic_cheekNarrow_sel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_cheekNarrow_sel@2x.png"; sourceTree = "<group>"; };
+		B806DCE225878DB500883100 /* plastic_eyeHeight_sel@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_eyeHeight_sel@3x.png"; sourceTree = "<group>"; };
+		B806DCE325878DB500883100 /* plastic_philterum@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_philterum@2x.png"; sourceTree = "<group>"; };
+		B806DCE425878DB500883100 /* plastic_cheekLowBoneNarrow@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_cheekLowBoneNarrow@3x.png"; sourceTree = "<group>"; };
+		B806DCE525878DB500883100 /* plastic_jawSize@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_jawSize@2x.png"; sourceTree = "<group>"; };
+		B806DCE625878DB500883100 /* plastic_eyeAngle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_eyeAngle@2x.png"; sourceTree = "<group>"; };
+		B806DCE725878DB500883100 /* plastic_cheekLowBoneNarrow_sel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_cheekLowBoneNarrow_sel@2x.png"; sourceTree = "<group>"; };
+		B806DCE825878DB500883100 /* plastic_cheekNarrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_cheekNarrow@2x.png"; sourceTree = "<group>"; };
+		B806DCE925878DB500883100 /* plastic_archEyebrow_sel@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_archEyebrow_sel@3x.png"; sourceTree = "<group>"; };
+		B806DCEA25878DB500883100 /* plastic_eyeDis@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_eyeDis@2x.png"; sourceTree = "<group>"; };
+		B806DCEB25878DB500883100 /* plastic_forehead_sel@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_forehead_sel@3x.png"; sourceTree = "<group>"; };
+		B806DCEC25878DB500883100 /* plastic_forehead_sel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_forehead_sel@2x.png"; sourceTree = "<group>"; };
+		B806DCED25878DB500883100 /* plastic_eyeDis@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_eyeDis@3x.png"; sourceTree = "<group>"; };
+		B806DCEE25878DB500883100 /* plastic_cheekLowBoneNarrow_sel@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_cheekLowBoneNarrow_sel@3x.png"; sourceTree = "<group>"; };
+		B806DCEF25878DB500883100 /* plastic_cheekNarrow@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_cheekNarrow@3x.png"; sourceTree = "<group>"; };
+		B806DCF025878DB500883100 /* plastic_archEyebrow_sel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_archEyebrow_sel@2x.png"; sourceTree = "<group>"; };
+		B806DCF125878DB500883100 /* plastic_eyeAngle@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_eyeAngle@3x.png"; sourceTree = "<group>"; };
+		B806DCF225878DB500883100 /* plastic_jawSize@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_jawSize@3x.png"; sourceTree = "<group>"; };
+		B806DCF325878DB500883100 /* plastic_cheekLowBoneNarrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_cheekLowBoneNarrow@2x.png"; sourceTree = "<group>"; };
+		B806DCF425878DB500883100 /* plastic_philterum@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_philterum@3x.png"; sourceTree = "<group>"; };
+		B806DCF525878DB500883100 /* plastic_reset_sel@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_reset_sel@3x.png"; sourceTree = "<group>"; };
+		B806DCF625878DB500883100 /* plastic_noseSize@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_noseSize@2x.png"; sourceTree = "<group>"; };
+		B806DCF725878DB500883100 /* plastic_cheekBoneNarrow_sel@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_cheekBoneNarrow_sel@3x.png"; sourceTree = "<group>"; };
+		B806DCF825878DB500883100 /* plastic_chinSize_sel@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_chinSize_sel@3x.png"; sourceTree = "<group>"; };
+		B806DCF925878DB500883100 /* plastic_noseHeight_sel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_noseHeight_sel@2x.png"; sourceTree = "<group>"; };
+		B806DCFA25878DB500883100 /* plastic_noseHeight@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_noseHeight@3x.png"; sourceTree = "<group>"; };
+		B806DCFB25878DB500883100 /* plastic_eyeSize@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_eyeSize@2x.png"; sourceTree = "<group>"; };
+		B806DCFC25878DB500883100 /* plastic_mouthWidth_sel@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_mouthWidth_sel@3x.png"; sourceTree = "<group>"; };
+		B806DCFD25878DB500883100 /* plastic_eyeOuterConer@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_eyeOuterConer@2x.png"; sourceTree = "<group>"; };
+		B806DCFE25878DB500883100 /* plastic_reset@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_reset@3x.png"; sourceTree = "<group>"; };
+		B806DCFF25878DB500883100 /* plastic_lips@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_lips@3x.png"; sourceTree = "<group>"; };
+		B806DD0025878DB500883100 /* plastic_eyeInnerConer@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_eyeInnerConer@3x.png"; sourceTree = "<group>"; };
+		B806DD0125878DB500883100 /* plastic_eyeInnerConer@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_eyeInnerConer@2x.png"; sourceTree = "<group>"; };
+		B806DD0225878DB500883100 /* plastic_lips@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_lips@2x.png"; sourceTree = "<group>"; };
+		B806DD0325878DB500883100 /* plastic_reset@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_reset@2x.png"; sourceTree = "<group>"; };
+		B806DD0425878DB500883100 /* plastic_eyeOuterConer@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_eyeOuterConer@3x.png"; sourceTree = "<group>"; };
+		B806DD0525878DB500883100 /* plastic_mouthWidth_sel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_mouthWidth_sel@2x.png"; sourceTree = "<group>"; };
+		B806DD0625878DB500883100 /* plastic_noseHeight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_noseHeight@2x.png"; sourceTree = "<group>"; };
+		B806DD0725878DB500883100 /* plastic_eyeSize@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_eyeSize@3x.png"; sourceTree = "<group>"; };
+		B806DD0825878DB500883100 /* plastic_noseHeight_sel@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_noseHeight_sel@3x.png"; sourceTree = "<group>"; };
+		B806DD0925878DB500883100 /* plastic_chinSize_sel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_chinSize_sel@2x.png"; sourceTree = "<group>"; };
+		B806DD0A25878DB500883100 /* plastic_cheekBoneNarrow_sel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_cheekBoneNarrow_sel@2x.png"; sourceTree = "<group>"; };
+		B806DD0B25878DB500883100 /* plastic_reset_sel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_reset_sel@2x.png"; sourceTree = "<group>"; };
+		B806DD0C25878DB500883100 /* plastic_noseSize@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_noseSize@3x.png"; sourceTree = "<group>"; };
+		B806DD0D25878DB500883100 /* plastic_eyeSize_sel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_eyeSize_sel@2x.png"; sourceTree = "<group>"; };
+		B806DD0E25878DB500883100 /* plastic_browPosition@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_browPosition@3x.png"; sourceTree = "<group>"; };
+		B806DD0F25878DB500883100 /* plastic_lips_sel@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_lips_sel@3x.png"; sourceTree = "<group>"; };
+		B806DD1025878DB500883100 /* plastic_cheekBoneNarrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_cheekBoneNarrow@2x.png"; sourceTree = "<group>"; };
+		B806DD1125878DB500883100 /* plastic_noseSize_sel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_noseSize_sel@2x.png"; sourceTree = "<group>"; };
+		B806DD1225878DB500883100 /* plastic_eyeDis_sel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_eyeDis_sel@2x.png"; sourceTree = "<group>"; };
+		B806DD1325878DB500883100 /* plastic_jawSize_sel@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_jawSize_sel@3x.png"; sourceTree = "<group>"; };
+		B806DD1425878DB500883100 /* plastic_eyeOuterConer_sel@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_eyeOuterConer_sel@3x.png"; sourceTree = "<group>"; };
+		B806DD1525878DB500883100 /* plastic_smallFace_sel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_smallFace_sel@2x.png"; sourceTree = "<group>"; };
+		B806DD1625878DB500883100 /* plastic_philterum_sel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_philterum_sel@2x.png"; sourceTree = "<group>"; };
+		B806DD1725878DB500883100 /* plastic_archEyebrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_archEyebrow@2x.png"; sourceTree = "<group>"; };
+		B806DD1825878DB500883100 /* plastic_eyeHeight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_eyeHeight@2x.png"; sourceTree = "<group>"; };
+		B806DD1925878DB500883100 /* plastic_smallFace_sel@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_smallFace_sel@3x.png"; sourceTree = "<group>"; };
+		B806DD1A25878DB500883100 /* plastic_philterum_sel@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_philterum_sel@3x.png"; sourceTree = "<group>"; };
+		B806DD1B25878DB500883100 /* plastic_archEyebrow@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_archEyebrow@3x.png"; sourceTree = "<group>"; };
+		B806DD1C25878DB500883100 /* plastic_eyeHeight@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_eyeHeight@3x.png"; sourceTree = "<group>"; };
+		B806DD1D25878DB500883100 /* plastic_eyeOuterConer_sel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_eyeOuterConer_sel@2x.png"; sourceTree = "<group>"; };
+		B806DD1E25878DB500883100 /* plastic_jawSize_sel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_jawSize_sel@2x.png"; sourceTree = "<group>"; };
+		B806DD1F25878DB500883100 /* plastic_noseSize_sel@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_noseSize_sel@3x.png"; sourceTree = "<group>"; };
+		B806DD2025878DB500883100 /* plastic_eyeDis_sel@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_eyeDis_sel@3x.png"; sourceTree = "<group>"; };
+		B806DD2125878DB500883100 /* plastic_cheekBoneNarrow@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_cheekBoneNarrow@3x.png"; sourceTree = "<group>"; };
+		B806DD2225878DB500883100 /* plastic_lips_sel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_lips_sel@2x.png"; sourceTree = "<group>"; };
+		B806DD2325878DB500883100 /* plastic_browPosition@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_browPosition@2x.png"; sourceTree = "<group>"; };
+		B806DD2425878DB500883100 /* plastic_eyeSize_sel@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_eyeSize_sel@3x.png"; sourceTree = "<group>"; };
 		B8071B01256B9C6A009DD0E7 /* lsq_effect_thumb_Surprise.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_effect_thumb_Surprise.jpg; sourceTree = "<group>"; };
 		B8071B02256B9C6A009DD0E7 /* lsq_effect_thumb_Burning.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_effect_thumb_Burning.jpg; sourceTree = "<group>"; };
 		B8071B03256B9C6A009DD0E7 /* lsq_effect_thumb_Fireball.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lsq_effect_thumb_Fireball.jpg; sourceTree = "<group>"; };
@@ -931,10 +1118,6 @@
 		B8071DA4256B9C98009DD0E7 /* TuCosmeticCategoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuCosmeticCategoryCell.h; sourceTree = "<group>"; };
 		B8071DA5256B9C98009DD0E7 /* TuCosmeticConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuCosmeticConfig.h; sourceTree = "<group>"; };
 		B8071DA9256B9CA5009DD0E7 /* cosmeticCategories.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = cosmeticCategories.json; sourceTree = "<group>"; };
-		B87008A224445F4400086F87 /* TuSDKVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TuSDKVideo.framework; sourceTree = "<group>"; };
-		B87008A324445F4400086F87 /* TuSDKFace.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TuSDKFace.framework; sourceTree = "<group>"; };
-		B87008A424445F4400086F87 /* libyuv.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = libyuv.framework; sourceTree = "<group>"; };
-		B87008A524445F4400086F87 /* TuSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TuSDK.framework; sourceTree = "<group>"; };
 		B8A72B4824CC5F2200CD5183 /* TuEditFilterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuEditFilterController.h; sourceTree = "<group>"; };
 		B8A72B4924CC5F2300CD5183 /* TuEditFilterController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TuEditFilterController.m; sourceTree = "<group>"; };
 		D7197529215C7865000AECDD /* MoviePreviewViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoviePreviewViewController.h; sourceTree = "<group>"; };
@@ -1225,13 +1408,13 @@
 			files = (
 				D7E350E722E7072B005166DE /* libresolv.tbd in Frameworks */,
 				F8FA849D219413B0002B24EB /* libc++.tbd in Frameworks */,
-				B87008A924445F4400086F87 /* TuSDK.framework in Frameworks */,
-				B87008A624445F4400086F87 /* TuSDKVideo.framework in Frameworks */,
+				B806DCC125878B3600883100 /* TuSDK.framework in Frameworks */,
+				B806DCBE25878B3600883100 /* TuSDKVideo.framework in Frameworks */,
 				FBC6F51020D3CE6400F2FBB7 /* Accelerate.framework in Frameworks */,
-				B87008A724445F4400086F87 /* TuSDKFace.framework in Frameworks */,
+				B806DCBF25878B3600883100 /* TuSDKFace.framework in Frameworks */,
 				FBC6F50E20D3CE5D00F2FBB7 /* Security.framework in Frameworks */,
 				FBC6F50C20D3CE5600F2FBB7 /* SystemConfiguration.framework in Frameworks */,
-				B87008A824445F4400086F87 /* libyuv.framework in Frameworks */,
+				B806DCC025878B3600883100 /* libyuv.framework in Frameworks */,
 				FBC6F50A20D3CE4800F2FBB7 /* libz.1.2.5.tbd in Frameworks */,
 				FBF3A8C020D3CD24008466D0 /* Bugly.framework in Frameworks */,
 			);
@@ -1316,6 +1499,108 @@
 				45E707D1226D633A009C73C9 /* StickerEditor.m */,
 			);
 			path = ImageStickerEditor;
+			sourceTree = "<group>";
+		};
+		B806DCB925878B3600883100 /* TuSDK */ = {
+			isa = PBXGroup;
+			children = (
+				B806DCBA25878B3600883100 /* TuSDKVideo.framework */,
+				B806DCBB25878B3600883100 /* TuSDKFace.framework */,
+				B806DCBC25878B3600883100 /* libyuv.framework */,
+				B806DCBD25878B3600883100 /* TuSDK.framework */,
+			);
+			path = TuSDK;
+			sourceTree = "<group>";
+		};
+		B806DCD025878DB500883100 /* TuPlastic */ = {
+			isa = PBXGroup;
+			children = (
+				B806DCD125878DB500883100 /* plastic_eyeHeight_sel@2x.png */,
+				B806DCD225878DB500883100 /* plastic_cheekNarrow_sel@3x.png */,
+				B806DCD325878DB500883100 /* plastic_eyeInnerConer_sel@2x.png */,
+				B806DCD425878DB500883100 /* plastic_browPosition_sel@2x.png */,
+				B806DCD525878DB500883100 /* plastic_chinSize@3x.png */,
+				B806DCD625878DB500883100 /* plastic_eyeAngle_sel@2x.png */,
+				B806DCD725878DB500883100 /* plastic_mouthWidth@2x.png */,
+				B806DCD825878DB500883100 /* plastic_forehead@3x.png */,
+				B806DCD925878DB500883100 /* plastic_smallFace@2x.png */,
+				B806DCDA25878DB500883100 /* plastic_smallFace@3x.png */,
+				B806DCDB25878DB500883100 /* plastic_forehead@2x.png */,
+				B806DCDC25878DB500883100 /* plastic_mouthWidth@3x.png */,
+				B806DCDD25878DB500883100 /* plastic_eyeAngle_sel@3x.png */,
+				B806DCDE25878DB500883100 /* plastic_chinSize@2x.png */,
+				B806DCDF25878DB500883100 /* plastic_browPosition_sel@3x.png */,
+				B806DCE025878DB500883100 /* plastic_eyeInnerConer_sel@3x.png */,
+				B806DCE125878DB500883100 /* plastic_cheekNarrow_sel@2x.png */,
+				B806DCE225878DB500883100 /* plastic_eyeHeight_sel@3x.png */,
+				B806DCE325878DB500883100 /* plastic_philterum@2x.png */,
+				B806DCE425878DB500883100 /* plastic_cheekLowBoneNarrow@3x.png */,
+				B806DCE525878DB500883100 /* plastic_jawSize@2x.png */,
+				B806DCE625878DB500883100 /* plastic_eyeAngle@2x.png */,
+				B806DCE725878DB500883100 /* plastic_cheekLowBoneNarrow_sel@2x.png */,
+				B806DCE825878DB500883100 /* plastic_cheekNarrow@2x.png */,
+				B806DCE925878DB500883100 /* plastic_archEyebrow_sel@3x.png */,
+				B806DCEA25878DB500883100 /* plastic_eyeDis@2x.png */,
+				B806DCEB25878DB500883100 /* plastic_forehead_sel@3x.png */,
+				B806DCEC25878DB500883100 /* plastic_forehead_sel@2x.png */,
+				B806DCED25878DB500883100 /* plastic_eyeDis@3x.png */,
+				B806DCEE25878DB500883100 /* plastic_cheekLowBoneNarrow_sel@3x.png */,
+				B806DCEF25878DB500883100 /* plastic_cheekNarrow@3x.png */,
+				B806DCF025878DB500883100 /* plastic_archEyebrow_sel@2x.png */,
+				B806DCF125878DB500883100 /* plastic_eyeAngle@3x.png */,
+				B806DCF225878DB500883100 /* plastic_jawSize@3x.png */,
+				B806DCF325878DB500883100 /* plastic_cheekLowBoneNarrow@2x.png */,
+				B806DCF425878DB500883100 /* plastic_philterum@3x.png */,
+				B806DCF525878DB500883100 /* plastic_reset_sel@3x.png */,
+				B806DCF625878DB500883100 /* plastic_noseSize@2x.png */,
+				B806DCF725878DB500883100 /* plastic_cheekBoneNarrow_sel@3x.png */,
+				B806DCF825878DB500883100 /* plastic_chinSize_sel@3x.png */,
+				B806DCF925878DB500883100 /* plastic_noseHeight_sel@2x.png */,
+				B806DCFA25878DB500883100 /* plastic_noseHeight@3x.png */,
+				B806DCFB25878DB500883100 /* plastic_eyeSize@2x.png */,
+				B806DCFC25878DB500883100 /* plastic_mouthWidth_sel@3x.png */,
+				B806DCFD25878DB500883100 /* plastic_eyeOuterConer@2x.png */,
+				B806DCFE25878DB500883100 /* plastic_reset@3x.png */,
+				B806DCFF25878DB500883100 /* plastic_lips@3x.png */,
+				B806DD0025878DB500883100 /* plastic_eyeInnerConer@3x.png */,
+				B806DD0125878DB500883100 /* plastic_eyeInnerConer@2x.png */,
+				B806DD0225878DB500883100 /* plastic_lips@2x.png */,
+				B806DD0325878DB500883100 /* plastic_reset@2x.png */,
+				B806DD0425878DB500883100 /* plastic_eyeOuterConer@3x.png */,
+				B806DD0525878DB500883100 /* plastic_mouthWidth_sel@2x.png */,
+				B806DD0625878DB500883100 /* plastic_noseHeight@2x.png */,
+				B806DD0725878DB500883100 /* plastic_eyeSize@3x.png */,
+				B806DD0825878DB500883100 /* plastic_noseHeight_sel@3x.png */,
+				B806DD0925878DB500883100 /* plastic_chinSize_sel@2x.png */,
+				B806DD0A25878DB500883100 /* plastic_cheekBoneNarrow_sel@2x.png */,
+				B806DD0B25878DB500883100 /* plastic_reset_sel@2x.png */,
+				B806DD0C25878DB500883100 /* plastic_noseSize@3x.png */,
+				B806DD0D25878DB500883100 /* plastic_eyeSize_sel@2x.png */,
+				B806DD0E25878DB500883100 /* plastic_browPosition@3x.png */,
+				B806DD0F25878DB500883100 /* plastic_lips_sel@3x.png */,
+				B806DD1025878DB500883100 /* plastic_cheekBoneNarrow@2x.png */,
+				B806DD1125878DB500883100 /* plastic_noseSize_sel@2x.png */,
+				B806DD1225878DB500883100 /* plastic_eyeDis_sel@2x.png */,
+				B806DD1325878DB500883100 /* plastic_jawSize_sel@3x.png */,
+				B806DD1425878DB500883100 /* plastic_eyeOuterConer_sel@3x.png */,
+				B806DD1525878DB500883100 /* plastic_smallFace_sel@2x.png */,
+				B806DD1625878DB500883100 /* plastic_philterum_sel@2x.png */,
+				B806DD1725878DB500883100 /* plastic_archEyebrow@2x.png */,
+				B806DD1825878DB500883100 /* plastic_eyeHeight@2x.png */,
+				B806DD1925878DB500883100 /* plastic_smallFace_sel@3x.png */,
+				B806DD1A25878DB500883100 /* plastic_philterum_sel@3x.png */,
+				B806DD1B25878DB500883100 /* plastic_archEyebrow@3x.png */,
+				B806DD1C25878DB500883100 /* plastic_eyeHeight@3x.png */,
+				B806DD1D25878DB500883100 /* plastic_eyeOuterConer_sel@2x.png */,
+				B806DD1E25878DB500883100 /* plastic_jawSize_sel@2x.png */,
+				B806DD1F25878DB500883100 /* plastic_noseSize_sel@3x.png */,
+				B806DD2025878DB500883100 /* plastic_eyeDis_sel@3x.png */,
+				B806DD2125878DB500883100 /* plastic_cheekBoneNarrow@3x.png */,
+				B806DD2225878DB500883100 /* plastic_lips_sel@2x.png */,
+				B806DD2325878DB500883100 /* plastic_browPosition@2x.png */,
+				B806DD2425878DB500883100 /* plastic_eyeSize_sel@3x.png */,
+			);
+			path = TuPlastic;
 			sourceTree = "<group>";
 		};
 		B8071B00256B9C6A009DD0E7 /* ParticleEffect */ = {
@@ -1780,6 +2065,8 @@
 		B8071D9F256B9C98009DD0E7 /* CosmeticPanel */ = {
 			isa = PBXGroup;
 			children = (
+				B806DCB525878ACF00883100 /* TuCameraEffectConfig.h */,
+				B806DCB625878AD000883100 /* TuCameraEffectConfig.m */,
 				B8071DA0256B9C98009DD0E7 /* TuCosmeticPanelView.m */,
 				B8071DA1256B9C98009DD0E7 /* TuCosmeticCategoryCell.m */,
 				B8071DA2256B9C98009DD0E7 /* TuCosmeticConfig.m */,
@@ -1788,17 +2075,6 @@
 				B8071DA5256B9C98009DD0E7 /* TuCosmeticConfig.h */,
 			);
 			path = CosmeticPanel;
-			sourceTree = "<group>";
-		};
-		B87008A124445F4400086F87 /* TuSDK */ = {
-			isa = PBXGroup;
-			children = (
-				B87008A224445F4400086F87 /* TuSDKVideo.framework */,
-				B87008A324445F4400086F87 /* TuSDKFace.framework */,
-				B87008A424445F4400086F87 /* libyuv.framework */,
-				B87008A524445F4400086F87 /* TuSDK.framework */,
-			);
-			path = TuSDK;
 			sourceTree = "<group>";
 		};
 		D73AA90F229FA7F90024BF8D /* TransitionEffect */ = {
@@ -1986,6 +2262,14 @@
 		FB4F9B9B215B6F2600938BBE /* BeautyPanel */ = {
 			isa = PBXGroup;
 			children = (
+				B806DCCA25878D3A00883100 /* TuBeautyFacePanelView.h */,
+				B806DCC925878D3900883100 /* TuBeautyFacePanelView.m */,
+				B806DCC425878D3800883100 /* TuBeautyFacePanelViewCell.h */,
+				B806DCC625878D3800883100 /* TuBeautyFacePanelViewCell.m */,
+				B806DCC525878D3800883100 /* TuBeautySkinPanelView.h */,
+				B806DCC825878D3900883100 /* TuBeautySkinPanelView.m */,
+				B806DCC725878D3900883100 /* TuBeautySkinPanelViewCell.h */,
+				B806DCC325878D3800883100 /* TuBeautySkinPanelViewCell.m */,
 				FB8C95F1214FBA660073D2C2 /* CameraBeautySkinListView.h */,
 				FB8C95F2214FBA660073D2C2 /* CameraBeautySkinListView.m */,
 				FB802D012151DBB100803BA6 /* CameraBeautyFaceListItemView.h */,
@@ -2188,6 +2472,7 @@
 		FBA274E421AFD75C00D1B170 /* Thumbnails */ = {
 			isa = PBXGroup;
 			children = (
+				B806DCD025878DB500883100 /* TuPlastic */,
 				B8071B2A256B9C6A009DD0E7 /* CameraComicsFilter */,
 				B8071B35256B9C6B009DD0E7 /* CameraFilter */,
 				B8071B0C256B9C6A009DD0E7 /* CameraNormalFilter */,
@@ -2383,7 +2668,7 @@
 		FBF3A89B20D3CCC0008466D0 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				B87008A124445F4400086F87 /* TuSDK */,
+				B806DCB925878B3600883100 /* TuSDK */,
 				FB88F03421992E1400BE021F /* Localized */,
 				FBA274E421AFD75C00D1B170 /* Thumbnails */,
 				FBF3A89C20D3CD23008466D0 /* Assets */,
@@ -2526,10 +2811,12 @@
 				B8071D85256B9C6F009DD0E7 /* lsq_filter_thumb_Leica_1.jpg in Resources */,
 				B8071CE7256B9C6F009DD0E7 /* blush_J_01.jpg in Resources */,
 				B8071D57256B9C6F009DD0E7 /* line_G.jpg in Resources */,
+				B806DD3225878DB500883100 /* plastic_chinSize@2x.png in Resources */,
 				B8071C9B256B9C6E009DD0E7 /* lsq_filter_thumb_Scenery_Lautumn_1.jpg in Resources */,
 				B8071C66256B9C6E009DD0E7 /* lsq_filter_thumb_SkinConfession_1.jpg in Resources */,
 				B8071D0B256B9C6F009DD0E7 /* 峰眉黑b.jpg in Resources */,
 				B8071CB7256B9C6E009DD0E7 /* lsq_filter_thumb_Sharp_History_1.jpg in Resources */,
+				B806DD3C25878DB500883100 /* plastic_cheekNarrow@2x.png in Resources */,
 				B8071CE4256B9C6F009DD0E7 /* blush_D_01.jpg in Resources */,
 				B8071D40256B9C6F009DD0E7 /* 欧线灰a.jpg in Resources */,
 				B8071C63256B9C6E009DD0E7 /* lsq_filter_thumb_SkinPlain_1.jpg in Resources */,
@@ -2537,7 +2824,9 @@
 				B8071D12256B9C6F009DD0E7 /* 柳弯灰b.jpg in Resources */,
 				B8071C9E256B9C6E009DD0E7 /* lsq_filter_thumb_Sharp_Dream_1.jpg in Resources */,
 				B8071CE5256B9C6F009DD0E7 /* blush_P_01.jpg in Resources */,
+				B806DD6D25878DB600883100 /* plastic_smallFace_sel@3x.png in Resources */,
 				B8071D49256B9C6F009DD0E7 /* 小桃灰a.jpg in Resources */,
+				B806DD4125878DB500883100 /* plastic_eyeDis@3x.png in Resources */,
 				B8071D45256B9C6F009DD0E7 /* 圆眉棕a.jpg in Resources */,
 				B8071D63256B9C6F009DD0E7 /* line_H.jpg in Resources */,
 				B8071CD0256B9C6E009DD0E7 /* lipStick_13.jpg in Resources */,
@@ -2546,10 +2835,12 @@
 				B8071D7F256B9C6F009DD0E7 /* eyelash_K.jpg in Resources */,
 				B8071CBF256B9C6E009DD0E7 /* lsq_filter_thumb_Portrait_Soda_1.jpg in Resources */,
 				B8071D7C256B9C6F009DD0E7 /* eyelash_N.jpg in Resources */,
+				B806DD4325878DB500883100 /* plastic_cheekNarrow@3x.png in Resources */,
 				B8071D67256B9C6F009DD0E7 /* eyelash_S.jpg in Resources */,
 				FBA65F7220E609F900A92503 /* EditMVViewController.xib in Resources */,
 				451F4E812229099E00A227C7 /* EditRatioListItemView.xib in Resources */,
 				B8071CF6256B9C6F009DD0E7 /* Shadow_G.jpg in Resources */,
+				B806DD7725878DB600883100 /* plastic_browPosition@2x.png in Resources */,
 				B8071D33256B9C6F009DD0E7 /* 峰眉黑a.jpg in Resources */,
 				B8071D64256B9C6F009DD0E7 /* line_J.jpg in Resources */,
 				FBE15BCC21A55EBB0077DDD5 /* default.jpg in Resources */,
@@ -2564,31 +2855,43 @@
 				B8071D38256B9C6F009DD0E7 /* 柳弯灰a.jpg in Resources */,
 				B8071C98256B9C6E009DD0E7 /* lsq_filter_thumb_Food_Peach_1.jpg in Resources */,
 				B8071D0E256B9C6F009DD0E7 /* 断眉棕b.jpg in Resources */,
+				B806DD5E25878DB500883100 /* plastic_cheekBoneNarrow_sel@2x.png in Resources */,
+				B806DD3125878DB500883100 /* plastic_eyeAngle_sel@3x.png in Resources */,
 				B8071CA2256B9C6E009DD0E7 /* lsq_filter_thumb_Portrait_First_1.jpg in Resources */,
 				B8071D95256B9C6F009DD0E7 /* lsq_effect_thumb_LiveSignal01.gif in Resources */,
 				FB80D48921B0D1FD00B3C465 /* APIMovieMixViewController.storyboard in Resources */,
 				B8071C61256B9C6E009DD0E7 /* lsq_effect_thumb_snow01.jpg in Resources */,
 				B8071D1D256B9C6F009DD0E7 /* 叶细灰b.jpg in Resources */,
+				B806DD3325878DB500883100 /* plastic_browPosition_sel@3x.png in Resources */,
+				B806DD4D25878DB500883100 /* plastic_noseHeight_sel@2x.png in Resources */,
 				B8071CED256B9C6F009DD0E7 /* Shadow_C.jpg in Resources */,
 				B8071D84256B9C6F009DD0E7 /* lsq_filter_thumb_White_1.jpg in Resources */,
+				B806DD5B25878DB500883100 /* plastic_eyeSize@3x.png in Resources */,
 				FB80D48821B0D1FD00B3C465 /* APIAudioRecordViewController.storyboard in Resources */,
 				B8071D46256B9C6F009DD0E7 /* 新月黑a.jpg in Resources */,
 				B8071D18256B9C6F009DD0E7 /* 弯线棕b.jpg in Resources */,
 				B8071CA8256B9C6E009DD0E7 /* lsq_filter_thumb_Portrait_Bright_1.jpg in Resources */,
 				B8071CFE256B9C6F009DD0E7 /* Shadow_M.jpg in Resources */,
+				B806DD3A25878DB500883100 /* plastic_eyeAngle@2x.png in Resources */,
 				B8071CCC256B9C6E009DD0E7 /* lsq_filter_thumb_Portrait_Desserts_1.jpg in Resources */,
+				B806DD5325878DB500883100 /* plastic_lips@3x.png in Resources */,
+				B806DD6725878DB500883100 /* plastic_jawSize_sel@3x.png in Resources */,
 				B8071CB6256B9C6E009DD0E7 /* lsq_filter_thumb_Scenery_Grace_1.jpg in Resources */,
 				B8071C7F256B9C6E009DD0E7 /* lsq_filter_thumb_Lightcolor_Video.jpg in Resources */,
 				B8071CDA256B9C6E009DD0E7 /* lipStick_3.jpg in Resources */,
+				B806DD7025878DB600883100 /* plastic_eyeHeight@3x.png in Resources */,
 				B8071D05256B9C6F009DD0E7 /* 芭比灰b.jpg in Resources */,
+				B806DD3425878DB500883100 /* plastic_eyeInnerConer_sel@3x.png in Resources */,
 				B8071C77256B9C6E009DD0E7 /* face_monster_ic_square@3x.png in Resources */,
 				B8071C90256B9C6E009DD0E7 /* lsq_filter_thumb_Scenery_Tale_1.jpg in Resources */,
+				B806DD6425878DB500883100 /* plastic_cheekBoneNarrow@2x.png in Resources */,
 				B8071CA5256B9C6E009DD0E7 /* lsq_filter_thumb_Portrait_Retro_1.jpg in Resources */,
 				B8071C5C256B9C6E009DD0E7 /* lsq_effect_thumb_Money.jpg in Resources */,
 				B8071C94256B9C6E009DD0E7 /* lsq_filter_thumb_Scenery_Picnic_1.jpg in Resources */,
 				B8071D0A256B9C6F009DD0E7 /* 圆眉黑b.jpg in Resources */,
 				B8071D96256B9C6F009DD0E7 /* lsq_effect_thumb_LiveLightning01.gif in Resources */,
 				B8071CD5256B9C6E009DD0E7 /* lipStick_6.jpg in Resources */,
+				B806DD6A25878DB600883100 /* plastic_philterum_sel@2x.png in Resources */,
 				B8071D14256B9C6F009DD0E7 /* 欧线灰b.jpg in Resources */,
 				B8071C5E256B9C6E009DD0E7 /* lsq_effect_thumb_Star.jpg in Resources */,
 				FBF3A8C820D3CD24008466D0 /* sound_tangyuan.mp3 in Resources */,
@@ -2599,12 +2902,15 @@
 				B8071CEA256B9C6F009DD0E7 /* blush_L_01.jpg in Resources */,
 				B8071D97256B9C6F009DD0E7 /* lsq_effect_thumb_LiveOldTV01.gif in Resources */,
 				B8071D55256B9C6F009DD0E7 /* 延禧灰a.jpg in Resources */,
+				B806DD2825878DB500883100 /* plastic_browPosition_sel@2x.png in Resources */,
 				B8071D11256B9C6F009DD0E7 /* 野生棕b.jpg in Resources */,
 				B8071D3F256B9C6F009DD0E7 /* 标准灰a.jpg in Resources */,
 				B8071D4B256B9C6F009DD0E7 /* 标准棕a.jpg in Resources */,
+				B806DD5C25878DB500883100 /* plastic_noseHeight_sel@3x.png in Resources */,
 				B8071CD9256B9C6E009DD0E7 /* lipStick_2.jpg in Resources */,
 				B8071C93256B9C6E009DD0E7 /* lsq_filter_thumb_Portrait_Cherry_1.jpg in Resources */,
 				B8071D71256B9C6F009DD0E7 /* eyelash_T.jpg in Resources */,
+				B806DD7825878DB600883100 /* plastic_eyeSize_sel@3x.png in Resources */,
 				FB25AD4620EE21D0007551F7 /* edit_ic_colorbar.jpg in Resources */,
 				B8071D24256B9C6F009DD0E7 /* 延禧黑b.jpg in Resources */,
 				B8071C5D256B9C6E009DD0E7 /* lsq_effect_thumb_Love.jpg in Resources */,
@@ -2615,6 +2921,7 @@
 				B8071D50256B9C6F009DD0E7 /* 延禧黑a.jpg in Resources */,
 				B8071C89256B9C6E009DD0E7 /* lsq_filter_thumb_Portrait_Moisten_1.jpg in Resources */,
 				B8071C65256B9C6E009DD0E7 /* lsq_filter_thumb_SkinLotus_1.jpg in Resources */,
+				B806DD3F25878DB500883100 /* plastic_forehead_sel@3x.png in Resources */,
 				B8071C8C256B9C6E009DD0E7 /* lsq_filter_thumb_Portrait_Rosy_1.jpg in Resources */,
 				B8071D80256B9C6F009DD0E7 /* eyelash_J.jpg in Resources */,
 				B8071D4F256B9C6F009DD0E7 /* 断眉黑a.jpg in Resources */,
@@ -2622,6 +2929,7 @@
 				B8071C7D256B9C6E009DD0E7 /* face_monster_ic_bignose@3x.png in Resources */,
 				B8071C7C256B9C6E009DD0E7 /* face_monster_ic_snake@3x.png in Resources */,
 				B8071C64256B9C6E009DD0E7 /* lsq_filter_thumb_SkinNatural_1.jpg in Resources */,
+				B806DD4B25878DB500883100 /* plastic_cheekBoneNarrow_sel@3x.png in Resources */,
 				B8071CA1256B9C6E009DD0E7 /* lsq_filter_thumb_Sharp_Quiet_1.jpg in Resources */,
 				B8071D3E256B9C6F009DD0E7 /* 柳弯黑a.jpg in Resources */,
 				B8071D91256B9C6F009DD0E7 /* lsq_effect_thumb_LiveSlosh01.gif in Resources */,
@@ -2634,6 +2942,7 @@
 				FBA65F7C20E60A6000A92503 /* EditTextViewController.xib in Resources */,
 				FB80D48B21B0D1FD00B3C465 /* APIMovieClipViewController.storyboard in Resources */,
 				B8071D94256B9C6F009DD0E7 /* lsq_effect_thumb_LiveMegrim01.gif in Resources */,
+				B806DD2B25878DB500883100 /* plastic_mouthWidth@2x.png in Resources */,
 				B8071D36256B9C6F009DD0E7 /* 芭比黑a.jpg in Resources */,
 				B8071CF2256B9C6F009DD0E7 /* Shadow_D.jpg in Resources */,
 				B8071D43256B9C6F009DD0E7 /* 弯线棕a.jpg in Resources */,
@@ -2643,30 +2952,39 @@
 				B8071CC8256B9C6E009DD0E7 /* lsq_filter_thumb_Sharp_Mottled_1.jpg in Resources */,
 				B8071D27256B9C6F009DD0E7 /* 粗平灰b.jpg in Resources */,
 				B8071D8B256B9C6F009DD0E7 /* lsq_filter_thumb_Cheerful_1.jpg in Resources */,
+				B806DD4A25878DB500883100 /* plastic_noseSize@2x.png in Resources */,
+				B806DD2C25878DB500883100 /* plastic_forehead@3x.png in Resources */,
 				B8071D62256B9C6F009DD0E7 /* line_I.jpg in Resources */,
+				B806DD6B25878DB600883100 /* plastic_archEyebrow@2x.png in Resources */,
 				B8071D6F256B9C6F009DD0E7 /* eyelash_B.jpg in Resources */,
 				B8071D31256B9C6F009DD0E7 /* 芭比灰a.jpg in Resources */,
+				B806DD7125878DB600883100 /* plastic_eyeOuterConer_sel@2x.png in Resources */,
 				FB49D6E520FF249000184905 /* CameraViewController.xib in Resources */,
 				B8071D48256B9C6F009DD0E7 /* 芭比棕a.jpg in Resources */,
 				B8071C96256B9C6E009DD0E7 /* lsq_filter_thumb_Sharp_Orange_1.jpg in Resources */,
 				B8071D32256B9C6F009DD0E7 /* 圆眉黑a.jpg in Resources */,
 				B8071D53256B9C6F009DD0E7 /* 粗平灰a.jpg in Resources */,
+				B806DD4525878DB500883100 /* plastic_eyeAngle@3x.png in Resources */,
 				FB80D48121B0D16600B3C465 /* APIAudioMixViewController.storyboard in Resources */,
 				FB88F04721992E1500BE021F /* InfoPlist.strings in Resources */,
 				B8071CDF256B9C6E009DD0E7 /* blush_O_01.jpg in Resources */,
+				B806DD6E25878DB600883100 /* plastic_philterum_sel@3x.png in Resources */,
 				B8071D5B256B9C6F009DD0E7 /* line_A.jpg in Resources */,
 				B8071CE6256B9C6F009DD0E7 /* blush_F_01.jpg in Resources */,
 				B8071D0F256B9C6F009DD0E7 /* 欧线黑b.jpg in Resources */,
 				B8071C8E256B9C6E009DD0E7 /* lsq_filter_thumb_Scenery_Silent_1.jpg in Resources */,
 				B8071C83256B9C6E009DD0E7 /* lsq_filter_thumb_USComics_Video.jpg in Resources */,
 				B8071CD1256B9C6E009DD0E7 /* lipStick_12.jpg in Resources */,
+				B806DD2525878DB500883100 /* plastic_eyeHeight_sel@2x.png in Resources */,
 				B8071CFA256B9C6F009DD0E7 /* Shadow_K.jpg in Resources */,
 				451F4E92222E10B500A227C7 /* StickerImageItemView.xib in Resources */,
 				B8071D6E256B9C6F009DD0E7 /* eyelash_U.jpg in Resources */,
 				B8071CBD256B9C6E009DD0E7 /* lsq_filter_thumb_Scenery_Withered_1.jpg in Resources */,
 				B8071D59256B9C6F009DD0E7 /* line_E.jpg in Resources */,
+				B806DD5125878DB500883100 /* plastic_eyeOuterConer@2x.png in Resources */,
 				B8071D51256B9C6F009DD0E7 /* 柳弯棕a.jpg in Resources */,
 				B8071D92256B9C6F009DD0E7 /* lsq_effect_thumb_LiveMirrorImage01.gif in Resources */,
+				B806DD4725878DB500883100 /* plastic_cheekLowBoneNarrow@2x.png in Resources */,
 				B8071C6C256B9C6E009DD0E7 /* lsq_filter_thumb_SkinSummer_1.jpg in Resources */,
 				B8071C79256B9C6E009DD0E7 /* face_monster_ic_smalleyes@3x.png in Resources */,
 				B8071CFB256B9C6F009DD0E7 /* Shadow_J.jpg in Resources */,
@@ -2675,10 +2993,12 @@
 				B8071D93256B9C6F009DD0E7 /* lsq_effect_thumb_LiveHeartbeat01.gif in Resources */,
 				B8071D79256B9C6F009DD0E7 /* eyelash_M.jpg in Resources */,
 				B8071CC5256B9C6E009DD0E7 /* lsq_filter_thumb_Sharp_Messy_1.jpg in Resources */,
+				B806DD4925878DB500883100 /* plastic_reset_sel@3x.png in Resources */,
 				FB80D48A21B0D1FD00B3C465 /* APIMovieSpliceViewController.storyboard in Resources */,
 				B8071C5A256B9C6E009DD0E7 /* lsq_effect_thumb_Music.jpg in Resources */,
 				B8071CC1256B9C6E009DD0E7 /* lsq_filter_thumb_Portrait_Natural_1.jpg in Resources */,
 				B8071CC9256B9C6E009DD0E7 /* lsq_filter_thumb_Sharp_Dark_1.jpg in Resources */,
+				B806DD4C25878DB500883100 /* plastic_chinSize_sel@3x.png in Resources */,
 				B8071D25256B9C6F009DD0E7 /* 标准棕b.jpg in Resources */,
 				B8071D74256B9C6F009DD0E7 /* eyelash_W.jpg in Resources */,
 				B8071C82256B9C6E009DD0E7 /* lsq_filter_thumb_Ink_Video.jpg in Resources */,
@@ -2689,25 +3009,37 @@
 				B8071D4E256B9C6F009DD0E7 /* 粗平黑a.jpg in Resources */,
 				B8071D3C256B9C6F009DD0E7 /* 欧线黑a.jpg in Resources */,
 				B8071C67256B9C6E009DD0E7 /* lsq_filter_thumb_SkinRose_1.jpg in Resources */,
+				B806DD4F25878DB500883100 /* plastic_eyeSize@2x.png in Resources */,
+				B806DD5925878DB500883100 /* plastic_mouthWidth_sel@2x.png in Resources */,
 				B8071D2D256B9C6F009DD0E7 /* 峰眉灰a.jpg in Resources */,
 				B8071CAE256B9C6E009DD0E7 /* lsq_filter_thumb_Portrait_Clear_1.jpg in Resources */,
+				B806DD3025878DB500883100 /* plastic_mouthWidth@3x.png in Resources */,
 				B8071D54256B9C6F009DD0E7 /* 断眉灰a.jpg in Resources */,
 				B8071CE1256B9C6E009DD0E7 /* blush_A_01.jpg in Resources */,
 				B8071D88256B9C6F009DD0E7 /* lsq_filter_thumb_NewYork_1.jpg in Resources */,
+				B806DD2725878DB500883100 /* plastic_eyeInnerConer_sel@2x.png in Resources */,
 				B8071D0C256B9C6F009DD0E7 /* 新月棕b.jpg in Resources */,
+				B806DD5825878DB500883100 /* plastic_eyeOuterConer@3x.png in Resources */,
 				D72E88442181964200DD3F16 /* video_camera_focus_finish@2x.png in Resources */,
 				B8071C71256B9C6E009DD0E7 /* lsq_filter_thumb_SkinTender_1.jpg in Resources */,
 				FBA65F7720E60A3700A92503 /* EditMusicViewController.xib in Resources */,
+				B806DD2A25878DB500883100 /* plastic_eyeAngle_sel@2x.png in Resources */,
+				B806DD6225878DB500883100 /* plastic_browPosition@3x.png in Resources */,
+				B806DD6025878DB500883100 /* plastic_noseSize@3x.png in Resources */,
 				B8071CEC256B9C6F009DD0E7 /* Shadow_B.jpg in Resources */,
 				B8071D7E256B9C6F009DD0E7 /* eyelash_X.jpg in Resources */,
 				B8071C5F256B9C6E009DD0E7 /* lsq_effect_thumb_Magic.jpg in Resources */,
 				B8071D26256B9C6F009DD0E7 /* 野生黑b.jpg in Resources */,
 				B8071D1B256B9C6F009DD0E7 /* 芭比棕b.jpg in Resources */,
 				B8071CC0256B9C6E009DD0E7 /* lsq_filter_thumb_Food_Caramel_1.jpg in Resources */,
+				B806DD2E25878DB500883100 /* plastic_smallFace@3x.png in Resources */,
 				B8071D08256B9C6F009DD0E7 /* 弯线灰b.jpg in Resources */,
 				FBEE598820EA19C3003D8453 /* EditAudioRecordController.xib in Resources */,
+				B806DD7325878DB600883100 /* plastic_noseSize_sel@3x.png in Resources */,
+				B806DD6C25878DB600883100 /* plastic_eyeHeight@2x.png in Resources */,
 				B8071D2F256B9C6F009DD0E7 /* 小桃棕a.jpg in Resources */,
 				B8071D34256B9C6F009DD0E7 /* 新月棕a.jpg in Resources */,
+				B806DD6925878DB500883100 /* plastic_smallFace_sel@2x.png in Resources */,
 				B8071D5D256B9C6F009DD0E7 /* line_B.jpg in Resources */,
 				B8071D99256B9C6F009DD0E7 /* lsq_effect_thumb_LiveXRay01.gif in Resources */,
 				B8071C7B256B9C6E009DD0E7 /* face_monster_ic_pie@3x.png in Resources */,
@@ -2717,6 +3049,8 @@
 				B8071D2E256B9C6F009DD0E7 /* 弯线黑a.jpg in Resources */,
 				B8071CA9256B9C6E009DD0E7 /* lsq_filter_thumb_Sharp_Pink_1.jpg in Resources */,
 				FB203D7F20E48413001A7939 /* EditFilterViewController.xib in Resources */,
+				B806DD4825878DB500883100 /* plastic_philterum@3x.png in Resources */,
+				B806DD2925878DB500883100 /* plastic_chinSize@3x.png in Resources */,
 				B8071CC2256B9C6E009DD0E7 /* lsq_filter_thumb_Portrait_Candy_1.jpg in Resources */,
 				B8071C9F256B9C6E009DD0E7 /* lsq_filter_thumb_Scenery_Sunrise_1.jpg in Resources */,
 				B8071D66256B9C6F009DD0E7 /* eyelash_D.jpg in Resources */,
@@ -2724,16 +3058,24 @@
 				FBB73E97210AF34B00DCBDCF /* customStickerCategories.json in Resources */,
 				B8071CCD256B9C6E009DD0E7 /* lsq_filter_thumb_Food_Delicious_1.jpg in Resources */,
 				B8071D5E256B9C6F009DD0E7 /* line_O.jpg in Resources */,
+				B806DD7525878DB600883100 /* plastic_cheekBoneNarrow@3x.png in Resources */,
 				B8071CB0256B9C6E009DD0E7 /* lsq_filter_thumb_Portrait_Dawn_1.jpg in Resources */,
+				B806DD4625878DB500883100 /* plastic_jawSize@3x.png in Resources */,
 				B8071CF8256B9C6F009DD0E7 /* Shadow_Q.jpg in Resources */,
 				B8071C84256B9C6E009DD0E7 /* lsq_effect_thumb_repeat.gif in Resources */,
 				B8071CF7256B9C6F009DD0E7 /* Shadow_P.jpg in Resources */,
+				B806DD3525878DB500883100 /* plastic_cheekNarrow_sel@2x.png in Resources */,
 				FBF3A8C420D3CD24008466D0 /* tusdk_sample_splice_video.mov in Resources */,
+				B806DD6F25878DB600883100 /* plastic_archEyebrow@3x.png in Resources */,
+				B806DD4425878DB500883100 /* plastic_archEyebrow_sel@2x.png in Resources */,
 				B8071D8A256B9C6F009DD0E7 /* lsq_filter_thumb_Fade_1.jpg in Resources */,
 				B8071CB9256B9C6E009DD0E7 /* lsq_filter_thumb_Scenery_Birch_1.jpg in Resources */,
+				B806DD4025878DB500883100 /* plastic_forehead_sel@2x.png in Resources */,
 				B8071C8D256B9C6E009DD0E7 /* lsq_filter_thumb_Scenery_Rain_1.jpg in Resources */,
 				B8071D3A256B9C6F009DD0E7 /* 延禧棕a.jpg in Resources */,
+				B806DD3725878DB500883100 /* plastic_philterum@2x.png in Resources */,
 				B8071CE3256B9C6E009DD0E7 /* blush_H_01.jpg in Resources */,
+				B806DD5625878DB500883100 /* plastic_lips@2x.png in Resources */,
 				B8071CBC256B9C6E009DD0E7 /* lsq_filter_thumb_Portrait_Pure_1.jpg in Resources */,
 				B8071D1F256B9C6F009DD0E7 /* 新月黑b.jpg in Resources */,
 				B8071D47256B9C6F009DD0E7 /* 峰眉棕a.jpg in Resources */,
@@ -2742,17 +3084,22 @@
 				B8071D7B256B9C6F009DD0E7 /* eyelash_Y.jpg in Resources */,
 				B8071CDE256B9C6E009DD0E7 /* blush_K_01.jpg in Resources */,
 				B8071D8E256B9C6F009DD0E7 /* lsq_audio_thumb_oldmovie.jpg in Resources */,
+				B806DD6625878DB500883100 /* plastic_eyeDis_sel@2x.png in Resources */,
 				FBB2AC4120DE413700BD8EE0 /* MovieEditViewController.xib in Resources */,
 				B8071D4A256B9C6F009DD0E7 /* 叶细灰a.jpg in Resources */,
+				B806DD3825878DB500883100 /* plastic_cheekLowBoneNarrow@3x.png in Resources */,
+				B806DD5525878DB500883100 /* plastic_eyeInnerConer@2x.png in Resources */,
 				B8071CC4256B9C6E009DD0E7 /* lsq_filter_thumb_Portrait_Milk_1.jpg in Resources */,
 				B8071CCF256B9C6E009DD0E7 /* lipStick_11.jpg in Resources */,
 				B8071CDB256B9C6E009DD0E7 /* blush_I_01.jpg in Resources */,
 				B8071CF5256B9C6F009DD0E7 /* Shadow_E.jpg in Resources */,
 				B8071CF4256B9C6F009DD0E7 /* Shadow_R.jpg in Resources */,
+				B806DD5D25878DB500883100 /* plastic_chinSize_sel@2x.png in Resources */,
 				B8071CF9256B9C6F009DD0E7 /* Shadow_F.jpg in Resources */,
 				B8071D56256B9C6F009DD0E7 /* line_F.jpg in Resources */,
 				B8071C91256B9C6E009DD0E7 /* lsq_filter_thumb_Food_Whisky_1.jpg in Resources */,
 				B8071CBA256B9C6E009DD0E7 /* lsq_filter_thumb_Sharp_Black_1.jpg in Resources */,
+				B806DD4225878DB500883100 /* plastic_cheekLowBoneNarrow_sel@3x.png in Resources */,
 				FBF3A8C220D3CD24008466D0 /* sound_relieve.mp3 in Resources */,
 				B8071D8D256B9C6F009DD0E7 /* lsq_audio_thumb_lively.jpg in Resources */,
 				D7BCA5F5229E717B001E4480 /* APIImageVideoPickerViewController.storyboard in Resources */,
@@ -2766,12 +3113,14 @@
 				B8071C6E256B9C6E009DD0E7 /* lsq_filter_thumb_SkinDusk_1.jpg in Resources */,
 				B8071D87256B9C6F009DD0E7 /* lsq_filter_thumb_Olympus_1.jpg in Resources */,
 				B8071D13256B9C6F009DD0E7 /* 标准黑b.jpg in Resources */,
+				B806DD2F25878DB500883100 /* plastic_forehead@2x.png in Resources */,
 				FB88F04521992E1500BE021F /* VideoDemo.strings in Resources */,
 				B8071C6B256B9C6E009DD0E7 /* lsq_filter_thumb_SkinNostalgia_1.jpg in Resources */,
 				B8071C86256B9C6E009DD0E7 /* lsq_effect_thumb_slow.gif in Resources */,
 				D73AA914229FA8630024BF8D /* EditTransitionViewController.xib in Resources */,
 				B8071D23256B9C6F009DD0E7 /* 断眉黑b.jpg in Resources */,
 				B8071C9C256B9C6E009DD0E7 /* lsq_filter_thumb_Food_Lime_1.jpg in Resources */,
+				B806DD6125878DB500883100 /* plastic_eyeSize_sel@2x.png in Resources */,
 				B8071CF3256B9C6F009DD0E7 /* Shadow_S.jpg in Resources */,
 				FBF3A8C920D3CD24008466D0 /* sound_children.mp3 in Resources */,
 				B8071D2A256B9C6F009DD0E7 /* 柳弯棕b.jpg in Resources */,
@@ -2779,10 +3128,12 @@
 				B8071CC3256B9C6E009DD0E7 /* lsq_filter_thumb_Scenery_Blue_1.jpg in Resources */,
 				B8071C88256B9C6E009DD0E7 /* lsq_filter_thumb_Sharp_Otimes_1.jpg in Resources */,
 				B8071CCA256B9C6E009DD0E7 /* lsq_filter_thumb_Scenery_Fresh_1.jpg in Resources */,
+				B806DD3E25878DB500883100 /* plastic_eyeDis@2x.png in Resources */,
 				B8071C57256B9C6E009DD0E7 /* lsq_effect_thumb_Surprise.jpg in Resources */,
 				B8071D5C256B9C6F009DD0E7 /* line_C.jpg in Resources */,
 				B8071CCE256B9C6E009DD0E7 /* lipStick_10.jpg in Resources */,
 				B8071D20256B9C6F009DD0E7 /* 峰眉棕b.jpg in Resources */,
+				B806DD6525878DB500883100 /* plastic_noseSize_sel@2x.png in Resources */,
 				B8071D10256B9C6F009DD0E7 /* 粗平棕b.jpg in Resources */,
 				B8071D73256B9C6F009DD0E7 /* eyelash_A.jpg in Resources */,
 				B8071D6B256B9C6F009DD0E7 /* eyelash_P.jpg in Resources */,
@@ -2792,12 +3143,15 @@
 				FB9C700421B8CCFD00B4BF02 /* home.png in Resources */,
 				B8071D03256B9C6F009DD0E7 /* 小桃棕b.jpg in Resources */,
 				B8071C85256B9C6E009DD0E7 /* lsq_effect_thumb_reverse.gif in Resources */,
+				B806DD5725878DB500883100 /* plastic_reset@2x.png in Resources */,
 				B8071D6D256B9C6F009DD0E7 /* eyelash_F.jpg in Resources */,
 				B8071D30256B9C6F009DD0E7 /* 叶细棕a.jpg in Resources */,
 				B8071C97256B9C6E009DD0E7 /* lsq_filter_thumb_Portrait_Warm_1.jpg in Resources */,
 				B8071CE9256B9C6F009DD0E7 /* blush_B_01.jpg in Resources */,
 				B8071D5A256B9C6F009DD0E7 /* line_D.jpg in Resources */,
+				B806DD5425878DB500883100 /* plastic_eyeInnerConer@3x.png in Resources */,
 				B8071D52256B9C6F009DD0E7 /* 野生灰a.jpg in Resources */,
+				B806DD3625878DB500883100 /* plastic_eyeHeight_sel@3x.png in Resources */,
 				B8071D07256B9C6F009DD0E7 /* 峰眉灰b.jpg in Resources */,
 				B8071CC7256B9C6E009DD0E7 /* lsq_filter_thumb_Portrait_Sweet_1.jpg in Resources */,
 				B8071D09256B9C6F009DD0E7 /* 芭比黑b.jpg in Resources */,
@@ -2808,16 +3162,20 @@
 				B8071CCB256B9C6E009DD0E7 /* lsq_filter_thumb_Scenery_City_1.jpg in Resources */,
 				451F4C6C2228E54B00A227C7 /* EditRatioViewController.xib in Resources */,
 				B8071C8B256B9C6E009DD0E7 /* lsq_filter_thumb_Sharp_Ash_1.jpg in Resources */,
+				B806DD7225878DB600883100 /* plastic_jawSize_sel@2x.png in Resources */,
 				B8071D04256B9C6F009DD0E7 /* 叶细棕b.jpg in Resources */,
 				FBF3A8C120D3CD24008466D0 /* sound_cat.mp3 in Resources */,
 				B8071CFD256B9C6F009DD0E7 /* Shadow_I.jpg in Resources */,
 				B8071CA3256B9C6E009DD0E7 /* lsq_filter_thumb_Sharp_Contrast_1.jpg in Resources */,
+				B806DD6325878DB500883100 /* plastic_lips_sel@3x.png in Resources */,
 				B8071D22256B9C6F009DD0E7 /* 粗平黑b.jpg in Resources */,
+				B806DD3B25878DB500883100 /* plastic_cheekLowBoneNarrow_sel@2x.png in Resources */,
 				B8071D3B256B9C6F009DD0E7 /* 断眉棕a.jpg in Resources */,
 				B8071CD6256B9C6E009DD0E7 /* lipStick_4.jpg in Resources */,
 				B8071C95256B9C6E009DD0E7 /* lsq_filter_thumb_Sharp_Red_1.jpg in Resources */,
 				B8071D0D256B9C6F009DD0E7 /* 延禧棕b.jpg in Resources */,
 				B8071D90256B9C6F009DD0E7 /* lsq_effect_thumb_EdgeMagic01.gif in Resources */,
+				B806DD7425878DB600883100 /* plastic_eyeDis_sel@3x.png in Resources */,
 				B8071D65256B9C6F009DD0E7 /* line_K.jpg in Resources */,
 				B8071CDD256B9C6E009DD0E7 /* blush_G_01.jpg in Resources */,
 				FB7E05BC20F4A81000C6E4C4 /* SceneEffectViewController.xib in Resources */,
@@ -2829,17 +3187,20 @@
 				B8071CE0256B9C6E009DD0E7 /* blush_C_01.jpg in Resources */,
 				B8071C70256B9C6E009DD0E7 /* lsq_filter_thumb_SkinSweet_1.jpg in Resources */,
 				B8071D69256B9C6F009DD0E7 /* eyelash_E.jpg in Resources */,
+				B806DD5F25878DB500883100 /* plastic_reset_sel@2x.png in Resources */,
 				B8071C6A256B9C6E009DD0E7 /* lsq_filter_thumb_SkinJapanese_1.jpg in Resources */,
 				B8071C76256B9C6E009DD0E7 /* lsq_filter_thumb_SkinHoney_1.jpg in Resources */,
 				B8071D89256B9C6F009DD0E7 /* lsq_filter_thumb_s1950_1.jpg in Resources */,
 				B8071CAF256B9C6E009DD0E7 /* lsq_filter_thumb_Portrait_Pale_1.jpg in Resources */,
 				B8071CFF256B9C6F009DD0E7 /* Shadow_L.jpg in Resources */,
 				FB6EBAC920D399E200FA24F2 /* Assets.xcassets in Resources */,
+				B806DD2625878DB500883100 /* plastic_cheekNarrow_sel@3x.png in Resources */,
 				B8071CB2256B9C6E009DD0E7 /* lsq_filter_thumb_Portrait_Fog_1.jpg in Resources */,
 				B8071C5B256B9C6E009DD0E7 /* lsq_effect_thumb_Flower.jpg in Resources */,
 				B8071C92256B9C6E009DD0E7 /* lsq_filter_thumb_Food_Mangosteen_1.jpg in Resources */,
 				B8071C6D256B9C6E009DD0E7 /* lsq_filter_thumb_SkinDawn_1.jpg in Resources */,
 				B8071C7A256B9C6E009DD0E7 /* face_monster_ic_papaya@3x.png in Resources */,
+				B806DD5025878DB500883100 /* plastic_mouthWidth_sel@3x.png in Resources */,
 				B8071D37256B9C6F009DD0E7 /* 野生棕a.jpg in Resources */,
 				FBF3A8C720D3CD24008466D0 /* sound_crow.mp3 in Resources */,
 				B8071C73256B9C6E009DD0E7 /* lsq_filter_thumb_SkinExtraordinary_1.jpg in Resources */,
@@ -2871,11 +3232,18 @@
 				B8071D60256B9C6F009DD0E7 /* line_L.jpg in Resources */,
 				B8071D82256B9C6F009DD0E7 /* eyelash_I.jpg in Resources */,
 				B8071CAA256B9C6E009DD0E7 /* lsq_filter_thumb_Scenery_Film_1.jpg in Resources */,
+				B806DD3925878DB500883100 /* plastic_jawSize@2x.png in Resources */,
 				B8071CBE256B9C6E009DD0E7 /* lsq_filter_thumb_Scenery_Afternoon_1.jpg in Resources */,
 				B8071CEB256B9C6F009DD0E7 /* Shadow_U.jpg in Resources */,
+				B806DD7625878DB600883100 /* plastic_lips_sel@2x.png in Resources */,
+				B806DD2D25878DB500883100 /* plastic_smallFace@2x.png in Resources */,
 				B8071CD3256B9C6E009DD0E7 /* lipStick_9.jpg in Resources */,
+				B806DD4E25878DB500883100 /* plastic_noseHeight@3x.png in Resources */,
 				B8071D16256B9C6F009DD0E7 /* 标准灰b.jpg in Resources */,
 				B8071C59256B9C6E009DD0E7 /* lsq_effect_thumb_Fireball.jpg in Resources */,
+				B806DD3D25878DB500883100 /* plastic_archEyebrow_sel@3x.png in Resources */,
+				B806DD6825878DB500883100 /* plastic_eyeOuterConer_sel@3x.png in Resources */,
+				B806DD5A25878DB500883100 /* plastic_noseHeight@2x.png in Resources */,
 				B8071CE8256B9C6F009DD0E7 /* blush_N_01.jpg in Resources */,
 				B8071C9A256B9C6E009DD0E7 /* lsq_filter_thumb_Portrait_Bellflower_1.jpg in Resources */,
 				B8071D72256B9C6F009DD0E7 /* eyelash_V.jpg in Resources */,
@@ -2889,6 +3257,7 @@
 				B8071C60256B9C6E009DD0E7 /* lsq_effect_thumb_Bubbles.jpg in Resources */,
 				FB80D48D21B0D1FD00B3C465 /* APIAudioPitchEngineViewController.storyboard in Resources */,
 				B8071D01256B9C6F009DD0E7 /* Shadow_O.jpg in Resources */,
+				B806DD5225878DB500883100 /* plastic_reset@3x.png in Resources */,
 				B8071D28256B9C6F009DD0E7 /* 断眉灰b.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2969,9 +3338,11 @@
 				FBFF22F42109D0F70003FE59 /* FDTransformLayer.m in Sources */,
 				451F4E98222E21F400A227C7 /* EditStickerView.m in Sources */,
 				FB7356862140BB2F0091D002 /* ThumbView.m in Sources */,
+				B806DCCE25878D3A00883100 /* TuBeautyFacePanelView.m in Sources */,
 				FBF1DF2C20EB8C0B009ED5EC /* AttributedLabel.m in Sources */,
 				FB25AD0720ED9C1E007551F7 /* TextMenuView.m in Sources */,
 				FBE95F4720EF60B200535FCD /* TextStickerEditorItem.m in Sources */,
+				B806DCCD25878D3A00883100 /* TuBeautySkinPanelView.m in Sources */,
 				FBA65FBD20E6590900A92503 /* MVListView.m in Sources */,
 				FBDB320C20DA4D49005DE82B /* MovieCutViewController.m in Sources */,
 				D7BF7C5F22BA425C0063CDE8 /* TransitionHorizontalListItemView.m in Sources */,
@@ -2983,6 +3354,7 @@
 				D719752B215C7865000AECDD /* MoviePreviewViewController.m in Sources */,
 				B8071DA6256B9C99009DD0E7 /* TuCosmeticPanelView.m in Sources */,
 				FBB2AC4020DE413700BD8EE0 /* MovieEditViewController.m in Sources */,
+				B806DCCC25878D3A00883100 /* TuBeautyFacePanelViewCell.m in Sources */,
 				FBFF22F72109D0F70003FE59 /* FDStackViewExtensions.m in Sources */,
 				B8071DA8256B9C99009DD0E7 /* TuCosmeticConfig.m in Sources */,
 				FB785C9720F33F320021D641 /* TextStyleMenuView.m in Sources */,
@@ -3008,6 +3380,7 @@
 				451F4E7F2229063100A227C7 /* EditRatioListView.m in Sources */,
 				4510A83B21AEABF200705ECD /* APIAudioPitchEngineRecorder.m in Sources */,
 				FB7356842140BB2F0091D002 /* TrimmerMaskView.m in Sources */,
+				B806DCB725878AD000883100 /* TuCameraEffectConfig.m in Sources */,
 				4566B7B5222FDAB700E3485F /* TextSpaceMenuView.m in Sources */,
 				FBFF22F62109D0F70003FE59 /* FDStackView.m in Sources */,
 				45EC66A821AE97A300385E3D /* APIAudioPitchEngineViewController.m in Sources */,
@@ -3035,6 +3408,7 @@
 				FBCB2B9620D3BBED00921AD6 /* BaseViewController.m in Sources */,
 				FBCB2B9A20D3C0A100921AD6 /* APIAudioMixViewController.m in Sources */,
 				4548DC2321D35C0C00E5EAC1 /* PropsItemStickerCategory.m in Sources */,
+				B806DCCB25878D3A00883100 /* TuBeautySkinPanelViewCell.m in Sources */,
 				FB76499320FDDDC900A6DFA2 /* PhotoCaptureMode.m in Sources */,
 				FB1A534F21869DFE0097A8D7 /* FilterSwipeView.m in Sources */,
 				45FC1C6E2282746F00020F32 /* ImageStickerEditorItem.m in Sources */,

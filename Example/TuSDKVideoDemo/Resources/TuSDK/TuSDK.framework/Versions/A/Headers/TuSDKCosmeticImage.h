@@ -21,6 +21,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(void) updateStickerSync:(TuSDKPFSticker *)sticker;
 
+-(void) updateStickerSyncImage:(UIImage *)image;
+
 -(void) reset;
 
 @end

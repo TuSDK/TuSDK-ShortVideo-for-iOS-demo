@@ -23,15 +23,20 @@
 #define kComicsFilterCodes @[@"Normal", kCameraComicsFilterCodes]
 
 // 轻易不要动，产品让改才改
-// 精准美颜参数
+// 精准美肤参数
 #define kSkinFaceSmothingMaxDefault 1.0
 #define kSkinFaceWhiteningMaxDefault 1.0
 #define kSkinFaceRuddyMaxDefault 1.0
 
-// 极致美颜参数
+// 极致美肤参数
 #define kSkinMoistFaceSmothingMaxDefault 1.0
 #define kSkinMoistFaceWhiteningMaxDefault 1.0
 #define kSkinMoistFaceRuddyMaxDefault 1.0
+
+// 新美肤参数
+#define kSkinBeautyFaceSmothingMaxDefault 1.0
+#define kSkinBeautyFaceWhiteningMaxDefault 1.0
+#define kSkinBeautyFaceRuddyMaxDefault 1.0
 
 // 顶部工具栏高度
 static const CGFloat kTopBarHeight = 64.0;
@@ -259,7 +264,12 @@ LSQGPUImageVideoCameraDelegate
     [UIApplication sharedApplication].idleTimerDisabled = NO;
     
     [UIScreen mainScreen].brightness = self.brightness;
-    //NSLog(@"屏幕亮度3 === %.f", [UIScreen mainScreen].brightness);
+    
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"ruddy"])
+    {
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"ruddy"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
 }
 
 /**
@@ -436,21 +446,6 @@ LSQGPUImageVideoCameraDelegate
         [self setupCamera];
         // 启动相机
         [self.camera tryStartCameraCapture];
-        // 默认选中的滤镜
-        // 设置默认滤镜
-        if ([[NSUserDefaults standardUserDefaults] objectForKey:@"selectedFilter"]) {
-            
-            NSDictionary *defaultFilter = [[NSUserDefaults standardUserDefaults] objectForKey:@"selectedFilter"];
-            self.defaultFilterCode = defaultFilter[@"selectedFilterCode"];
-            self.currentFilterIndex = [defaultFilter[@"selectedIndex"] integerValue];
-            
-        } else {
-            
-            self.currentFilterIndex = 1;
-            self.defaultFilterCode = self.filterCodes[self.currentFilterIndex];
-        }
-        
-        
     }];
 }
 
@@ -461,12 +456,12 @@ LSQGPUImageVideoCameraDelegate
     }
     _isSetDefaultEffect = YES;
     /** 初始化滤镜特效 */
-    if (self.defaultFilterCode == nil)
-    {
-        self.defaultFilterCode = @"Portrait_Bright_1";
-    }
-    TuSDKMediaFilterEffect *filterEffect = [[TuSDKMediaFilterEffect alloc] initWithEffectCode:self.defaultFilterCode];
-    [self.camera addMediaEffect:filterEffect];
+//    if (self.defaultFilterCode == nil)
+//    {
+//        self.defaultFilterCode = @"Portrait_Bright_1";
+//    }
+//    TuSDKMediaFilterEffect *filterEffect = [[TuSDKMediaFilterEffect alloc] initWithEffectCode:self.defaultFilterCode];
+//    [self.camera addMediaEffect:filterEffect];
     
     /** 初始化微整形特效 */
     TuSDKMediaPlasticFaceEffect *plasticFaceEffect = [[TuSDKMediaPlasticFaceEffect alloc] init];
@@ -1195,24 +1190,6 @@ LSQGPUImageVideoCameraDelegate
             // 更新在相机界面上显示的滤镜名称
             NSString *filterName = [NSString stringWithFormat:@"lsq_filter_%@", mediaEffectData.filterWrap.code];
             
-            //优先调用本地保存的滤镜代码
-            if ([[NSUserDefaults standardUserDefaults] objectForKey:@"selectedFilter"]) {
-                NSString *code = [[NSUserDefaults standardUserDefaults] objectForKey:@"selectedFilter"][@"selectedFilterCode"];
-                self.controlMaskView.filterPanelView.selectedFilterCode = code;
-                if (!code.length) {
-                    self.controlMaskView.filterPanelView.selectedFilterCode = mediaEffectData.filterWrap.code;
-                } else {
-                    NSArray *comicsArray = @[kCameraComicsFilterCodes];
-                    if ([comicsArray containsObject:code]) {
-                        TuSDKMediaComicEffect *effect = [[TuSDKMediaComicEffect alloc] initWithEffectCode:code];
-                        [_camera addMediaEffect:effect];
-                    }
-                    filterName = [NSString stringWithFormat:@"lsq_filter_%@", code];
-                }
-                
-            } else {
-                self.controlMaskView.filterPanelView.selectedFilterCode = mediaEffectData.filterWrap.code;
-            }
             self.controlMaskView.filterName = NSLocalizedStringFromTable(filterName, @"TuSDKConstants", @"无需国际化");
             [self.controlMaskView.filterPanelView reloadFilterParamters];
             
@@ -1405,6 +1382,58 @@ LSQGPUImageVideoCameraDelegate
     
     return 0;
 }
+
+/**
+ 滤镜/微整形参数默认值
+ 
+ @param index  滤镜/微整形参数索引
+ @return  滤镜/微整形参数百分比
+ */
+- (double)filterPanel:(id<CameraFilterPanelProtocol>)filterPanel defaultPercentValueAtIndex:(NSUInteger)index
+{
+    
+    // 美颜视图面板
+    if (filterPanel == _controlMaskView.beautyPanelView)
+    {
+        switch (_controlMaskView.beautyPanelView.selectedTabIndex)
+        {
+            case 0: // 精准美颜，极度美颜
+            {
+                TuSDKMediaSkinFaceEffect *effect = [_camera mediaEffectsWithType:TuSDKMediaEffectDataTypeSkinFace].firstObject;
+                TuSDKFilterArg *arg = [effect argWithKey:_controlMaskView.beautyPanelView.selectedSkinKey];
+                return arg.defaultValue;
+            }
+                break;
+            case 1:
+            {
+                // 微整形
+                TuSDKMediaPlasticFaceEffect *effect = [_camera mediaEffectsWithType:TuSDKMediaEffectDataTypePlasticFace].firstObject;
+                return effect.filterArgs[index].defaultValue;
+            }
+                break;
+            default:
+            {
+            }
+                break;
+        }
+    }
+    else
+    {
+        // 滤镜视图面板
+        if (self.controlMaskView.filterPanelView.selectedTabIndex == self.titleSource.count - 1)
+        {
+            return 0;
+        }
+        else
+        {
+            TuSDKMediaFilterEffect *effect = [_camera mediaEffectsWithType:TuSDKMediaEffectDataTypeFilter].firstObject;
+            return effect.filterArgs[index].defaultValue;
+        }
+    }
+    
+    return 0;
+}
+
 /**
  美妆参数值
  
@@ -1546,40 +1575,78 @@ LSQGPUImageVideoCameraDelegate
     TuSDKMediaSkinFaceEffect *oldSkinFaceEffect = [_camera mediaEffectsWithType:TuSDKMediaEffectDataTypeSkinFace].firstObject;
     NSArray<TuSDKFilterArg *> *filterArgs = oldSkinFaceEffect.filterArgs;
 
-    
     /** 初始化美肤特效 默认 极致美颜 */
-    TuSDKMediaSkinFaceEffect *skinFaceEffect = [[TuSDKMediaSkinFaceEffect alloc] initUseSkinNatural:_controlMaskView.beautyPanelView.useSkinNatural];
+    TuSDKMediaSkinFaceEffect *skinFaceEffect = [[TuSDKMediaSkinFaceEffect alloc] initUseSkinFaceType:self.controlMaskView.beautyPanelView.faceType];
     [_camera addMediaEffect:skinFaceEffect];
-   
+
     // 使用上次的值
     [filterArgs enumerateObjectsUsingBlock:^(TuSDKFilterArg * _Nonnull arg, NSUInteger idx, BOOL * _Nonnull stop) {
-        if (self.controlMaskView.beautyPanelView.useSkinNatural) {
-            if ([arg.key isEqualToString:@"smoothing"]) {
-                [skinFaceEffect argWithKey:arg.key].maxFloatValue = kSkinFaceSmothingMaxDefault;
-            } else if ([arg.key isEqualToString:@"whitening"]) {
-                [skinFaceEffect argWithKey:arg.key].maxFloatValue = kSkinFaceWhiteningMaxDefault;
-            } else if ([arg.key isEqualToString:@"ruddy"]) {
-                [skinFaceEffect argWithKey:arg.key].maxFloatValue = kSkinFaceRuddyMaxDefault;
-            }
-        } else {
+        
+        if (self.controlMaskView.beautyPanelView.faceType == TuSkinFaceTypeMoist)
+        {
             if ([arg.key isEqualToString:@"smoothing"]) {
                 [skinFaceEffect argWithKey:arg.key].maxFloatValue = kSkinMoistFaceSmothingMaxDefault;
             } else if ([arg.key isEqualToString:@"whitening"]) {
                 [skinFaceEffect argWithKey:arg.key].maxFloatValue = kSkinMoistFaceWhiteningMaxDefault;
             } else if ([arg.key isEqualToString:@"ruddy"]) {
                 [skinFaceEffect argWithKey:arg.key].maxFloatValue = kSkinMoistFaceRuddyMaxDefault;
+            } else if ([arg.key isEqualToString:@"sharpen"]) {
+                [skinFaceEffect argWithKey:arg.key].maxFloatValue = kSkinMoistFaceRuddyMaxDefault;
+            }
+        }
+        else if (self.controlMaskView.beautyPanelView.faceType == TuSkinFaceTypeNatural)
+        {
+            if ([arg.key isEqualToString:@"smoothing"]) {
+                [skinFaceEffect argWithKey:arg.key].maxFloatValue = kSkinFaceSmothingMaxDefault;
+            } else if ([arg.key isEqualToString:@"whitening"]) {
+                [skinFaceEffect argWithKey:arg.key].maxFloatValue = kSkinFaceWhiteningMaxDefault;
+            } else if ([arg.key isEqualToString:@"ruddy"]) {
+                [skinFaceEffect argWithKey:arg.key].maxFloatValue = kSkinMoistFaceRuddyMaxDefault;
+            } else if ([arg.key isEqualToString:@"sharpen"]) {
+                [skinFaceEffect argWithKey:arg.key].maxFloatValue = kSkinMoistFaceRuddyMaxDefault;
+            }
+        }
+        else
+        {
+            if ([arg.key isEqualToString:@"smoothing"]) {
+                [skinFaceEffect argWithKey:arg.key].maxFloatValue = kSkinBeautyFaceSmothingMaxDefault;
+            } else if ([arg.key isEqualToString:@"whitening"]) {
+                [skinFaceEffect argWithKey:arg.key].maxFloatValue = kSkinBeautyFaceWhiteningMaxDefault;
+            } else if ([arg.key isEqualToString:@"ruddy"]) {
+                [skinFaceEffect argWithKey:arg.key].maxFloatValue = kSkinMoistFaceRuddyMaxDefault;
+            } else if ([arg.key isEqualToString:@"sharpen"]) {
+                [skinFaceEffect argWithKey:arg.key].maxFloatValue = kSkinMoistFaceRuddyMaxDefault;
             }
         }
         [skinFaceEffect argWithKey:arg.key].precent = arg.precent;
     }];
     
-    if (oldSkinFaceEffect)
-        [skinFaceEffect submitParameters];
-    else
-        [self updateSkinFaceDefaultParameters];
-
-    [_controlMaskView setFilterName:_controlMaskView.beautyPanelView.useSkinNatural ? NSLocalizedStringFromTable(@"lsq_filter_set_skin_precision", @"TuSDKConstants", @"精准美颜") : NSLocalizedStringFromTable(@"lsq_filter_set_skin_extreme", @"TuSDKConstants", @"极致美颜")];
     
+    if (oldSkinFaceEffect)
+    {
+        [skinFaceEffect submitParameters];
+    }
+    else
+    {
+        [self updateSkinFaceDefaultParameters];
+    }
+    
+    //设置标题
+    if (_controlMaskView.beautyPanelView.faceType == TuSkinFaceTypeNatural)
+    {
+        NSString *title = [NSString stringWithFormat:@"lsq_filter_set_%@", @"skin_precision"];
+        [_controlMaskView setFilterName: NSLocalizedStringFromTable(title, @"TuSDKConstants", @"无需国际化")];
+    }
+    else if (_controlMaskView.beautyPanelView.faceType == TuSkinFaceTypeMoist)
+    {
+        NSString *title = [NSString stringWithFormat:@"lsq_filter_set_%@", @"skin_extreme"];
+        [_controlMaskView setFilterName: NSLocalizedStringFromTable(title, @"TuSDKConstants", @"无需国际化")];
+    }
+    else
+    {
+        NSString *title = [NSString stringWithFormat:@"lsq_filter_set_%@", @"skin_beauty"];
+        [_controlMaskView setFilterName: NSLocalizedStringFromTable(title, @"TuSDKConstants", @"无需国际化")];
+    }
 }
 
 /**
@@ -1626,7 +1693,7 @@ LSQGPUImageVideoCameraDelegate
                 {
                     [self applySkinFaceEffect];
                     
-                }else {
+                } else {
                     
                     if ([_camera mediaEffectsWithType:TuSDKMediaEffectDataTypeSkinFace].count == 0)
                         [self applySkinFaceEffect];
@@ -1800,8 +1867,8 @@ LSQGPUImageVideoCameraDelegate
                 TuSDKMediaSkinFaceEffect *effect = [_camera mediaEffectsWithType:TuSDKMediaEffectDataTypeSkinFace].firstObject;
                 [effect submitParameterWithKey:_controlMaskView.beautyPanelView.selectedSkinKey argPrecent:percentValue];
             
-                break;
             }
+                break;
             case 1:
             {
                 // 微整形
@@ -1837,6 +1904,7 @@ LSQGPUImageVideoCameraDelegate
         }
     }
 }
+
 /**
  美妆面板重置回调
  
@@ -1934,6 +2002,10 @@ LSQGPUImageVideoCameraDelegate
                 
                 [weakSelf->_camera removeMediaEffectsWithType:TuSDKMediaEffectDataTypePlasticFace];
                 
+                /** 添加初始微整形特效 */
+                TuSDKMediaPlasticFaceEffect *plasticFaceEffect = [[TuSDKMediaPlasticFaceEffect alloc] init];
+                [weakSelf->_camera addMediaEffect:plasticFaceEffect];
+                
             }]];
             [self presentViewController:alertController animated:YES completion:nil];
             
@@ -1941,7 +2013,15 @@ LSQGPUImageVideoCameraDelegate
         
         switch (_controlMaskView.beautyPanelView.selectedTabIndex) {
             case 0:
+            {
+                if ([[NSUserDefaults standardUserDefaults] objectForKey:@"ruddy"])
+                {
+                    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"ruddy"];
+                    [[NSUserDefaults standardUserDefaults] synchronize];
+                }
                 [_camera removeMediaEffectsWithType:TuSDKMediaEffectDataTypeSkinFace];
+            }
+                
                 break;
             case 1:
                 resetBlock();
@@ -2038,17 +2118,22 @@ LSQGPUImageVideoCameraDelegate
         if ([parameterName isEqualToString:@"smoothing"]) {
             // 磨皮
             maxValueFactor = kSkinFaceSmothingMaxDefault;
-            defaultValueFactor = 0.7;
+            defaultValueFactor = 0.8;
             updateValue = YES;
         } else if ([parameterName isEqualToString:@"whitening"]) {
             // 美白
             maxValueFactor = kSkinFaceWhiteningMaxDefault;
-            defaultValueFactor = 0.3; // 最大值的百分之50
+            defaultValueFactor = 0.3;
             updateValue = YES;
         } else if ([parameterName isEqualToString:@"ruddy"]) {
             // 红润
-            maxValueFactor = kSkinFaceRuddyMaxDefault;
+            maxValueFactor = kSkinFaceWhiteningMaxDefault;
             defaultValueFactor = 0.2;
+            updateValue = YES;
+        } else if ([parameterName isEqualToString:@"sharpen"]) {
+            // 锐化
+            maxValueFactor = kSkinFaceRuddyMaxDefault;
+            defaultValueFactor = 0.6;
             updateValue = YES;
         }
         if (updateValue) {
@@ -2092,11 +2177,10 @@ LSQGPUImageVideoCameraDelegate
         // 默认值的百分比，用于指定滤镜初始的效果（参数默认值 = 最小值 + (最大值 - 最小值) * defaultValueFactor）
         CGFloat defaultValueFactor = 1;
         // 最大值的百分比，用于限制滤镜参数变化的幅度（参数最大值 = 最小值 + (最大值 - 最小值) * maxValueFactor）
-        CGFloat maxValueFactor = 1;
+//        CGFloat maxValueFactor = 1;
         if ([parameterName isEqualToString:@"eyeSize"]) {
             // 大眼
             defaultValueFactor = 0.3;
-            maxValueFactor = 0.8;
             updateValue = YES;
         } else if ([parameterName isEqualToString:@"chinSize"]) {
             // 瘦脸
@@ -2126,10 +2210,11 @@ LSQGPUImageVideoCameraDelegate
         
         if (updateValue) {
             if (defaultValueFactor != 1)
-                arg.defaultValue = arg.minFloatValue + (arg.maxFloatValue - arg.minFloatValue) * defaultValueFactor * maxValueFactor;
-            
-            if (maxValueFactor != 1)
-                arg.maxFloatValue = arg.minFloatValue + (arg.maxFloatValue - arg.minFloatValue) * maxValueFactor;
+                arg.defaultValue = defaultValueFactor;
+//                arg.defaultValue = arg.minFloatValue + (arg.maxFloatValue - arg.minFloatValue) * defaultValueFactor * maxValueFactor;
+//
+//            if (maxValueFactor != 1)
+//                arg.maxFloatValue = arg.minFloatValue + (arg.maxFloatValue - arg.minFloatValue) * maxValueFactor;
             // 把当前值重置为默认值
             [arg reset];
             

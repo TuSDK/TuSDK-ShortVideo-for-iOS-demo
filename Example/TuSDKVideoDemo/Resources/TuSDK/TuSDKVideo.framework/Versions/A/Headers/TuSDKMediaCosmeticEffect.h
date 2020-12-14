@@ -7,9 +7,13 @@
 //
 
 #import "TuSDKMediaEffectCore.h"
+//#import "TuSDKPFSticker.h"
+//#import "TuSDKCosmeticSticker.h"
+//#import "CosmeticTaskQueue.h"
 
 @interface TuSDKMediaCosmeticEffect : TuSDKMediaEffectCore
 
+//<TuSDKCosmeticSticker *>
 @property(atomic,readwrite) CosmeticTaskQueue *cosmeticStickerQueue;
 
 

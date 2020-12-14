@@ -142,6 +142,7 @@
 "lsq_filter_set_smoothing" = "磨皮";
 "lsq_filter_set_whitening" = "美白";
 "lsq_filter_set_ruddy" = "紅潤";
+"lsq_filter_set_sharpen" = "銳化";
 
 // 微整形
 "lsq_filter_set_forehead" = "髮際線";
@@ -155,8 +156,9 @@
 "lsq_filter_set_eyeAngle" = "眼角";
 "lsq_filter_set_archEyebrow" = "细眉";
 "lsq_filter_set_browPosition" = "眉高";
-"lsq_filter_set_skin_precision" = "精準美顏";
-"lsq_filter_set_skin_extreme" = "極致美顏";
+"lsq_filter_set_skin_precision" = "精準美膚";
+"lsq_filter_set_skin_extreme" = "極致美膚";
+"lsq_filter_set_skin_beauty" = "自然美膚";
 
 // 漫画滤镜
 "lsq_filter_CHComics_Video" = "國漫";
@@ -313,3 +315,26 @@
 
 //3.6.0
 "lsq_filter_set_alpha" = "透明度";
+
+// 微整形 - 3.6.1
+
+"lsq_filter_set_eyeSize" = "大眼";
+"lsq_filter_set_chinSize" = "瘦臉";
+"lsq_filter_set_cheekNarrow" = "窄臉";
+"lsq_filter_set_smallFace" = "小臉";
+"lsq_filter_set_noseSize" = "瘦鼻";
+"lsq_filter_set_noseHeight" = "長鼻";
+"lsq_filter_set_mouthWidth" = "嘴形";
+"lsq_filter_set_lips" = "厚唇";
+"lsq_filter_set_philterum" = "縮人中";
+"lsq_filter_set_archEyebrow" = "細眉";
+"lsq_filter_set_browPosition" = "眉高";
+"lsq_filter_set_jawSize" = "下巴";
+"lsq_filter_set_cheekLowBoneNarrow" = "下頜骨";
+"lsq_filter_set_eyeAngle" = "眼角";
+"lsq_filter_set_eyeInnerConer" = "開內眼角";
+"lsq_filter_set_eyeOuterConer" = "開外眼角";
+"lsq_filter_set_eyeDis" = "眼距";
+"lsq_filter_set_eyeHeight" = "眼移動";
+"lsq_filter_set_forehead" = "髮際線";
+"lsq_filter_set_cheekBoneNarrow" = "瘦顴骨";

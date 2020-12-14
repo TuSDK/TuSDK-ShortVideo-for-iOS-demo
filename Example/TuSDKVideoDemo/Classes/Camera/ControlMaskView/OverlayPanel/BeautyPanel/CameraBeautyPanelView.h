@@ -10,7 +10,7 @@
 #import "OverlayViewProtocol.h"
 #import "CameraFilterPanelProtocol.h"
 #import "CameraBeautySkinListView.h"
-
+#import "TuSDKFramework.h"
 
 /**
  美化面板
@@ -27,6 +27,9 @@
  标记当前是否选择了自然美颜
  */
 @property (nonatomic,readonly) BOOL useSkinNatural;
+
+/*美肤类型*/
+@property (nonatomic,readonly) TuSkinFaceType faceType;
 
 /**
  当前选择的美颜参数 （润滑，磨皮，红润）
