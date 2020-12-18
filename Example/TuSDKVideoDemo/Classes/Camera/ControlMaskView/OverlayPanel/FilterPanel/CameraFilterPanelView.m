@@ -357,40 +357,12 @@ static const CGFloat kFilterTabbarHeight = 36;
             double percentVale = [self.dataSource filterPanel:weakSelf percentValueAtIndex:index];
             parameterName = [NSString stringWithFormat:@"lsq_filter_set_%@", parameterName];
             
-            //判断本地是否有存储数据
-            if ([[NSUserDefaults standardUserDefaults] objectForKey:@"FilterPercent"])
-            {
-                NSDictionary *filterParam = [[NSUserDefaults standardUserDefaults] objectForKey:@"FilterPercent"];
-                if ([[filterParam allKeys] containsObject:weakSelf.selectedFilterCode])
-                {
-                    parameterItemConfig(NSLocalizedStringFromTable(parameterName, @"TuSDKConstants", @"无需国际化"), [filterParam[weakSelf.selectedFilterCode] doubleValue], [filterParam[weakSelf.selectedFilterCode] doubleValue]);
-                    return;
-                }
-            }
-            
             parameterItemConfig(NSLocalizedStringFromTable(parameterName, @"TuSDKConstants", @"无需国际化"), percentVale, percentVale);
         }
     } valueChange:^(NSUInteger index, double percent) {
             
         if ([weakSelf.delegate respondsToSelector:@selector(filterPanel:didChangeValue:paramterIndex:)]) {
             [weakSelf.delegate filterPanel:weakSelf didChangeValue:percent paramterIndex:index];
-            
-            //判断本地是否存在滤镜参数字典
-            if ([[NSUserDefaults standardUserDefaults] objectForKey:@"FilterPercent"])
-            {
-                NSDictionary *filterParam = [[NSUserDefaults standardUserDefaults] objectForKey:@"FilterPercent"];
-                NSMutableDictionary *filterDic = [NSMutableDictionary dictionaryWithDictionary:filterParam];
-                filterDic[weakSelf.selectedFilterCode] = @(percent);
-                [[NSUserDefaults standardUserDefaults] setObject:filterDic forKey:@"FilterPercent"];
-                [[NSUserDefaults standardUserDefaults] synchronize];
-            }
-            else
-            {
-                NSMutableDictionary *filterParam = [NSMutableDictionary dictionary];
-                filterParam[weakSelf.selectedFilterCode] = @(percent);
-                [[NSUserDefaults standardUserDefaults] setObject:filterParam forKey:@"FilterPercent"];
-                [[NSUserDefaults standardUserDefaults] synchronize];
-            }
         }
     }];
 }
