@@ -53,6 +53,7 @@
     //#import <TuSDKFace/TuSDKFace.h>
     // 版本号输出
     NSLog(@"TuSDK.framework 的版本号 : %@",lsqSDKVersion);
+    NSLog(@"TuSDK.framework 的打包时间 : %@",lsqSDKPackingTime);
     NSLog(@"TuSDKVideo.framework 的版本号 : %@",lsqVideoVersion);
     NSLog(@"TuSDKFace.framework 的版本号 : %@",lsqFaceVersion);
     
