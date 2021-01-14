@@ -340,3 +340,10 @@
 "lsq_filter_set_eyeHeight" = "Eye Height";
 "lsq_filter_set_forehead" = "forehead";
 "lsq_filter_set_cheekBoneNarrow" = "CheekBoneNarrow";
+
+"lsq_filter_set_eyelid" = "Eyelid";
+"lsq_filter_set_eyemazing" = "Eyemazing";
+"lsq_filter_set_whitenTeeth" = "Whiten Teeth";
+"lsq_filter_set_eyeDetail" = "Eye Detail";
+"lsq_filter_set_removePouch" = "Remove Pouch";
+"lsq_filter_set_removeWrinkles" = "Wrinkles";

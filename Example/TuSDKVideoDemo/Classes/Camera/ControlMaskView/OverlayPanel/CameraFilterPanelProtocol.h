@@ -76,6 +76,8 @@
  */
 - (void)filterPanel:(id<CameraFilterPanelProtocol>)filterPanel didChangeValue:(double)percent paramterIndex:(NSUInteger)index;
 
+- (void)filterPanel:(id<CameraFilterPanelProtocol>)filterPanel didChangeValue:(double)percent eyeParamterIndex:(NSUInteger)index;
+
 /**
  重置滤镜参数回调
  
@@ -107,6 +109,8 @@
  */
 - (NSInteger)numberOfParamter:(id<CameraFilterPanelProtocol>)filterPanel;
 
+- (NSInteger)numberOfParamter:(id<CameraFilterPanelProtocol>)filterPanel codeType:(NSInteger)codeType;
+
 /**
  对应索引的参数名称
 
@@ -115,6 +119,8 @@
  */
 - (NSString *)filterPanel:(id<CameraFilterPanelProtocol>)filterPanel  paramterNameAtIndex:(NSUInteger)index;
 
+- (NSString *)filterPanel:(id<CameraFilterPanelProtocol>)filterPanel  newParamterNameAtIndex:(NSUInteger)index;
+
 /**
  滤镜参数对应索引的参数值
 
@@ -122,6 +128,8 @@
  @return 对应参数的数值
  */
 - (double)filterPanel:(id<CameraFilterPanelProtocol>)filterPanel  percentValueAtIndex:(NSUInteger)index;
+
+- (double)filterPanel:(id<CameraFilterPanelProtocol>)filterPanel  eyePercentValueAtIndex:(NSUInteger)index;
 /**
  滤镜参数对应索引的参数值
 

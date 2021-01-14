@@ -356,7 +356,7 @@ static const CGFloat kFilterTabbarHeight = 36;
         if (!shouldSkip) {
             double percentVale = [self.dataSource filterPanel:weakSelf percentValueAtIndex:index];
             parameterName = [NSString stringWithFormat:@"lsq_filter_set_%@", parameterName];
-            
+
             parameterItemConfig(NSLocalizedStringFromTable(parameterName, @"TuSDKConstants", @"无需国际化"), percentVale, percentVale);
         }
     } valueChange:^(NSUInteger index, double percent) {

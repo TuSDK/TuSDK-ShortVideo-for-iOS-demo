@@ -143,13 +143,16 @@ static const CGFloat kItemLineSpacing = 11;
 - (void)updateValueText {
     // 文字显示的范围是 0% ~ 100%
     double percentValue = (_slider.value - _slider.minimumValue) / (_slider.maximumValue - _slider.minimumValue) * 1.0;
-    if (percentValue > 0.49 && percentValue < 0.51)
+    if (_displayValueOffset == -0.5)
     {
-        percentValue = 0;
-    }
-    else
-    {
-        percentValue += _displayValueOffset;
+        if (percentValue > 0.49 && percentValue < 0.51)
+        {
+            percentValue = 0;
+        }
+        else
+        {
+            percentValue += _displayValueOffset;
+        }
     }
     
     _valueLabel.text = [NSNumberFormatter localizedStringFromNumber:@(percentValue) numberStyle:NSNumberFormatterPercentStyle];

@@ -30,11 +30,13 @@
 #import "TuSDKMediaFilterEffect.h"
 #import "TuSDKMediaComicEffect.h"
 #import "TuSDKMediaPlasticFaceEffect.h"
+#import "TuSDKMediaReshapeEffect.h"
 #import "TuSDKMediaCosmeticEffect.h"
 #import "TuSDKMediaSkinFaceEffect.h"
 #import "TuSDKMediaMonsterFaceEffect.h"
 #import "TuSDKMediaScreenKeyingEffect.h"
 #import "TuSDKMediaStickerImageEffect.h"
+#import "TuSDKMediaReshapeEffect.h"
 
 // 时间特效
 #import "TuSDKMediaTimeEffect.h"

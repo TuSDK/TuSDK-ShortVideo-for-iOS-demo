@@ -19,7 +19,7 @@
 {
     // 美妆
     //@"CosLipGloss", @"CosBlush", @"CosBrows", @"CosEyeShadow", @"CosEyeLine", @"CosEyeLash", @"CosIris"
-    return @[@"reset", @"point", @"lipstick", @"blush", @"eyebrow", @"eyeshadow", @"eyeliner", @"eyelash"];
+    return @[@"reset", @"point", @"lipstick", @"blush", @"eyebrow", @"eyeshadow", @"eyeliner", @"eyelash", @"shading powder"];
 }
 
 /**
@@ -119,7 +119,9 @@
         NSString *codeName = stickerParam[@"name"];
         [titleDataSet addObject:codeName];
     }
-    if (![code isEqualToString:@"eyelash"])
+    //shading powder
+    //foundation
+    if (![code isEqualToString:@"shading powder"])
     {
         [titleDataSet addObject:@"point"];
     }

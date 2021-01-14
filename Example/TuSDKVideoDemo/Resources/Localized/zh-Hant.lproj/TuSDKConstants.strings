@@ -338,3 +338,10 @@
 "lsq_filter_set_eyeHeight" = "眼移動";
 "lsq_filter_set_forehead" = "髮際線";
 "lsq_filter_set_cheekBoneNarrow" = "瘦顴骨";
+
+"lsq_filter_set_eyelid" = "雙眼皮";
+"lsq_filter_set_eyemazing" = "臥蠶";
+"lsq_filter_set_whitenTeeth" = "白牙";
+"lsq_filter_set_eyeDetail" = "亮眼";
+"lsq_filter_set_removePouch" = "去黑眼圈";
+"lsq_filter_set_removeWrinkles" = "去法令紋";

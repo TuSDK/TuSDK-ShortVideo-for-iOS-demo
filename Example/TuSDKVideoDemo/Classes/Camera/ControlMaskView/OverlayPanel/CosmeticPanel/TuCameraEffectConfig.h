@@ -19,7 +19,11 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (instancetype)sharePackage;
 
+/**设置默认的微整形参数值*/
 - (NSDictionary *)defaultPlasticValue;
+
+/**设置默认的美妆参数值*/
+- (NSDictionary *)defaultCosmeticValue;
 
 @end
 

@@ -26,6 +26,19 @@
  */
 - (instancetype)initWithTimeRange:(TuSDKTimeRange * _Nullable)timeRange;
 
+
+/**
+ * 更新修容贴纸
+ * @param sticker
+ * @param alpha
+ */
+-(void)updateFacial:(TuSDKPFSticker *)sticker;
+
+/**
+ * 关闭修容效果
+ */
+-(void)closeFacial;
+
 /**
  * 更新唇彩类型，颜色
  * @param type 类型

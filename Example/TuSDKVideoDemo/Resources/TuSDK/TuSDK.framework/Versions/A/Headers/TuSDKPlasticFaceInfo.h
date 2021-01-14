@@ -1,5 +1,5 @@
 //
-//  TuSdkPlasticFaceInfo.h
+//  TuSDKPlasticFaceInfo.h
 //  TuSDK
 //
 //  Created by hecc on 2018/8/16.
@@ -106,7 +106,7 @@ static const int FACE_TRIANGLES_MAP[FACE_TRIANGLES_MAP_SIZE] =
 };
 
 
-@interface TuSdkPlasticFaceInfo:NSObject
+@interface TuSDKPlasticFaceInfo:NSObject
 - (instancetype)initWithFaceInfo:(TuSDKFaceAligment *)aligment frameSize:(CGSize)frameSize;
 
 - (void)CalcForeheadHeight:(float)value; // 调节额头高低

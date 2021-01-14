@@ -52,6 +52,8 @@ typedef NS_ENUM(NSUInteger, lsqStickerPositionType)
     CosLipGloss = 36,
     /** 虹膜 (v4.0)*/
     CosIris = 37,
+    /** 修容 (v4.0)*/
+    CosFacial = 38,
     
     /** 全屏显示*/
     lsqStickerPosFullScreen = 100,

@@ -322,7 +322,7 @@
         {
             NSArray *eyeLinerArray = [TuCosmeticConfig dataSetWithCosmeticCode:itemData.cosmeticCode];
             NSInteger stickerIndex = [eyeLinerArray indexOfObject:itemData.stickerName];
-            _titleLabel.text = [NSString stringWithFormat:@"%ld", stickerIndex - 3];
+            _titleLabel.text = [NSString stringWithFormat:@"%d", stickerIndex - 3];
         }
         
         imagePath = [[NSBundle mainBundle] pathForResource:thumbName ofType:@"jpg"];

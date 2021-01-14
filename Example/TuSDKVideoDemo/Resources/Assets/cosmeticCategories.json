@@ -757,5 +757,58 @@
                 "id" : "2018"
             }
         ]
+    },
+    "shading powder" : {
+        "categoryName" : "修容",
+        "stickers" : [
+            {
+                "name" : "face_a",
+                "id" : "2117"
+            },
+            {
+                "name" : "face_b",
+                "id" : "2118"
+            },
+            {
+                "name" : "face_c",
+                "id" : "2119"
+            },
+            {
+                "name" : "face_d",
+                "id" : "2120"
+            },
+            {
+                "name" : "face_g",
+                "id" : "2121"
+            },
+            {
+                "name" : "face_h",
+                "id" : "2122"
+            },
+            {
+                "name" : "face_i",
+                "id" : "2123"
+            },
+            {
+                "name" : "face_j",
+                "id" : "2124"
+            },
+            {
+                "name" : "face_k",
+                "id" : "2125"
+            },
+            {
+                "name" : "face_l",
+                "id" : "2126"
+            },
+            {
+                "name" : "face_m",
+                "id" : "2127"
+            },
+            {
+                "name" : "face_n",
+                "id" : "2128"
+            }
+        ]
     }
 }

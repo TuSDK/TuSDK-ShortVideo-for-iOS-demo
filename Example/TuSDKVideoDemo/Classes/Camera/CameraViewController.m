@@ -467,6 +467,9 @@ LSQGPUImageVideoCameraDelegate
     TuSDKMediaPlasticFaceEffect *plasticFaceEffect = [[TuSDKMediaPlasticFaceEffect alloc] init];
     [self.camera addMediaEffect:plasticFaceEffect];
     
+    TuSDKMediaReshapeEffect *reshapeEffect = [[TuSDKMediaReshapeEffect alloc] init];
+    [self.camera addMediaEffect:reshapeEffect];
+    
     /** 添加默认美颜效果 */
     [self applySkinFaceEffect];
     
@@ -718,7 +721,6 @@ LSQGPUImageVideoCameraDelegate
         _filterCodes = self.controlMaskView.filterPanelView.filtersGroups[self.controlMaskView.filterPanelView.selectedTabIndex];
     }
     
-//    self.currentFilterIndex = (self.currentFilterIndex + 1) % _filterCodes.count;
     self.currentFilterIndex++;
     
     if (self.currentFilterIndex >= _filterCodes.count) {
@@ -834,6 +836,9 @@ LSQGPUImageVideoCameraDelegate
 - (void)dealloc {
     [self destroyCamera];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"facialAlpha"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 @end
@@ -1254,6 +1259,7 @@ LSQGPUImageVideoCameraDelegate
             {
                 // 微整形特效
                 TuSDKMediaPlasticFaceEffect *effect = [_camera mediaEffectsWithType:TuSDKMediaEffectDataTypePlasticFace].firstObject;
+                NSLog(@"特效数量 == %ld", (long)effect.filterArgs.count);
                 return effect.filterArgs.count;
             }
                 break;
@@ -1284,6 +1290,17 @@ LSQGPUImageVideoCameraDelegate
     
 }
 
+- (NSInteger)numberOfParamter:(id<CameraFilterPanelProtocol>)filterPanel codeType:(NSInteger)codeType
+{
+    if (codeType == 0)
+    {
+        TuSDKMediaReshapeEffect *effect = [_camera mediaEffectsWithType:TuSDKMediaEffectDataTypeReshape].firstObject;
+        NSLog(@"特效数量 == %ld", (long)effect.filterArgs.count);
+        return effect.filterArgs.count;
+    }
+    return 0;
+}
+
 /**
  滤镜/微整形参数名称
  
@@ -1311,7 +1328,8 @@ LSQGPUImageVideoCameraDelegate
                 break;;
             default:
             {
-
+                TuSDKMediaPlasticFaceEffect *effect = [_camera mediaEffectsWithType:TuSDKMediaEffectDataTypePlasticFace].firstObject;
+                return effect.filterArgs[index].key;
             }
         }
     }
@@ -1330,6 +1348,13 @@ LSQGPUImageVideoCameraDelegate
     }
     
     return @"";
+}
+
+- (NSString *)filterPanel:(id<CameraFilterPanelProtocol>)filterPanel newParamterNameAtIndex:(NSUInteger)index
+{
+    // 微整形
+    TuSDKMediaReshapeEffect *effect = [_camera mediaEffectsWithType:TuSDKMediaEffectDataTypeReshape].firstObject;
+    return effect.filterArgs[index].key;
 }
 
 /**
@@ -1381,6 +1406,13 @@ LSQGPUImageVideoCameraDelegate
     }
     
     return 0;
+}
+
+- (double)filterPanel:(id<CameraFilterPanelProtocol>)filterPanel  eyePercentValueAtIndex:(NSUInteger)index
+{
+    // 微整形
+    TuSDKMediaReshapeEffect *effect = [_camera mediaEffectsWithType:TuSDKMediaEffectDataTypeReshape].firstObject;
+    return effect.filterArgs[index].precent;
 }
 
 /**
@@ -1479,6 +1511,21 @@ LSQGPUImageVideoCameraDelegate
 {
     TuSDKMediaCosmeticEffect *effect = [_camera mediaEffectsWithType:TuSDKMediaEffectDataTypeCosmetic].firstObject;
     switch (cosmeticIndex) {
+        case 0:
+        {
+            [effect submitParameterWithKey:@"lipAlpha" argPrecent:percent];
+        }
+            break;
+        case 1:
+        {
+            [effect submitParameterWithKey:@"blushAlpha" argPrecent:percent];
+        }
+            break;
+        case 2:
+        {
+            [effect submitParameterWithKey:@"eyebrowAlpha" argPrecent:percent];
+        }
+            break;
         case 3:
         {
             //眼影
@@ -1495,6 +1542,14 @@ LSQGPUImageVideoCameraDelegate
         {
             //睫毛
             [effect submitParameterWithKey:@"eyeLashAlpha" argPrecent:percent];
+        }
+            break;
+        case 6:
+        {
+            //修容
+            [effect submitParameterWithKey:@"facialAlpha" argPrecent:percent];
+            [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithDouble:percent] forKey:@"facialAlpha"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
         }
             break;
         default:
@@ -1546,12 +1601,19 @@ LSQGPUImageVideoCameraDelegate
             //眼线
             defaultValueFactor = 0.5;
             updateValue = YES;
-        } else {
+        } else if ([parameterName isEqualToString:@"eyeLashAlpha"]) {
             //睫毛
             defaultValueFactor = 0.5;
             updateValue = YES;
+        } else if ([parameterName isEqualToString:@"facialAlpha"]) {
+            //修容
+            defaultValueFactor = 0.4;
+            updateValue = YES;
+        } else {
+            //粉底等
+            defaultValueFactor = 0;
+            updateValue = YES;
         }
-
         if (updateValue) {
             if (defaultValueFactor != 1)
                 arg.defaultValue = defaultValueFactor;
@@ -1709,7 +1771,12 @@ LSQGPUImageVideoCameraDelegate
                     TuSDKMediaPlasticFaceEffect *plasticFaceEffect = [[TuSDKMediaPlasticFaceEffect alloc] init];
                     [_camera addMediaEffect:plasticFaceEffect];
                     [self updatePlasticFaceDefaultParameters];
-                    return;
+                }
+                if ([_camera mediaEffectsWithType:TuSDKMediaEffectDataTypeReshape].count == 0)
+                {
+                    TuSDKMediaReshapeEffect *effect = [[TuSDKMediaReshapeEffect alloc] init];
+                    [_camera addMediaEffect:effect];
+                    [self updateReshapeFaceDefaultParameters];
                 }
             }
                 break;
@@ -1749,7 +1816,10 @@ LSQGPUImageVideoCameraDelegate
  */
 - (void)filterPanel:(id<CameraFilterPanelProtocol>)filterPanel didSelectedCosmeticCode:(NSString *)code stickerCode:(nonnull NSString *)stickerCode;
 {
-
+//    if ([code isEqualToString:@"foundation"] || [code isEqualToString:@"shading powder"]) {
+//        
+//        return;
+//    }
     NSArray<TuSDKPFStickerGroup *> *allLocalStickers = [[TuSDKPFStickerLocalPackage package] getSmartStickerGroups];
     for (TuSDKPFStickerGroup *groups in allLocalStickers)
     {
@@ -1803,6 +1873,10 @@ LSQGPUImageVideoCameraDelegate
                         break;
                     case CosBlush:
                         [comsticEffect updateBlush:sticker];
+                        break;
+                    case CosFacial:
+                        [comsticEffect updateFacial:sticker];
+                        break;
                     default:
                         break;
                 }
@@ -1881,9 +1955,7 @@ LSQGPUImageVideoCameraDelegate
                 //美妆
                 TuSDKMediaCosmeticEffect *effect = [_camera mediaEffectsWithType:TuSDKMediaEffectDataTypeCosmetic].firstObject;
                 [effect submitParameter:index argPrecent:percentValue];
-                
-                //NSLog(@"设置透明度 == %.2f", percentValue);
-                
+                                
             }
                 break;
         }
@@ -1903,6 +1975,14 @@ LSQGPUImageVideoCameraDelegate
             
         }
     }
+}
+
+- (void)filterPanel:(id<CameraFilterPanelProtocol>)filterPanel didChangeValue:(double)percent eyeParamterIndex:(NSUInteger)index
+{
+    // 微整形
+    TuSDKMediaReshapeEffect *effect = [_camera mediaEffectsWithType:TuSDKMediaEffectDataTypeReshape].firstObject;
+    [effect submitParameter:index argPrecent:percent];
+    
 }
 
 /**
@@ -1933,6 +2013,10 @@ LSQGPUImageVideoCameraDelegate
             [effect closeEyeshadow];
             [effect closeEyeline];
             [effect closeEyelash];
+            [effect closeFacial];
+            
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"facialAlpha"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
             
             [weakSelf->_camera removeMediaEffectsWithType:TuSDKMediaEffectDataTypeCosmetic];
             
@@ -1970,10 +2054,17 @@ LSQGPUImageVideoCameraDelegate
         [effect closeEyeline];
         //NSLog(@"关闭眼线效果");
     }
-    else
+    else if ([code isEqualToString:@"eyelash"])
     {
         [effect closeEyelash];
         //NSLog(@"关闭睫毛效果");
+    }
+    else if ([code isEqualToString:@"shading powder"])
+    {
+        [effect closeFacial];
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"facialAlpha"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        //关闭修容
     }
 }
 
@@ -2000,11 +2091,14 @@ LSQGPUImageVideoCameraDelegate
             
             [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedStringFromTable(@"tu_确定", @"VideoDemo", @"确定") style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
                 
-                [weakSelf->_camera removeMediaEffectsWithType:TuSDKMediaEffectDataTypePlasticFace];
+//                [weakSelf->_camera removeMediaEffectsWithType:TuSDKMediaEffectDataTypePlasticFace];
                 
                 /** 添加初始微整形特效 */
-                TuSDKMediaPlasticFaceEffect *plasticFaceEffect = [[TuSDKMediaPlasticFaceEffect alloc] init];
-                [weakSelf->_camera addMediaEffect:plasticFaceEffect];
+//                TuSDKMediaPlasticFaceEffect *plasticFaceEffect = [[TuSDKMediaPlasticFaceEffect alloc] init];
+//                [weakSelf->_camera addMediaEffect:plasticFaceEffect];
+                
+                [weakSelf updatePlasticFaceDefaultParameters];
+                [weakSelf updateReshapeFaceDefaultParameters];
                 
             }]];
             [self presentViewController:alertController animated:YES completion:nil];
@@ -2192,30 +2286,63 @@ LSQGPUImageVideoCameraDelegate
             updateValue = YES;
         } else if ([parameterName isEqualToString:@"mouthWidth"]) {
             // 嘴型
+            updateValue = YES;
         } else if ([parameterName isEqualToString:@"lips"]) {
             // 唇厚
+            updateValue = YES;
         } else if ([parameterName isEqualToString:@"archEyebrow"]) {
             // 细眉
+            updateValue = YES;
         } else if ([parameterName isEqualToString:@"browPosition"]) {
             // 眉高
+            updateValue = YES;
         }else if ([parameterName isEqualToString:@"jawSize"]) {
             // 下巴
+            updateValue = YES;
         } else if ([parameterName isEqualToString:@"eyeAngle"]) {
             // 眼角
+            updateValue = YES;
         } else if ([parameterName isEqualToString:@"eyeDis"]) {
             // 眼距
-        }else if ([parameterName isEqualToString:@"forehead"]) {
+            updateValue = YES;
+        } else if ([parameterName isEqualToString:@"forehead"]) {
             // 发际线
+        } else {
+            updateValue = YES;
+            defaultValueFactor = 0;
         }
         
         if (updateValue) {
             if (defaultValueFactor != 1)
                 arg.defaultValue = defaultValueFactor;
-//                arg.defaultValue = arg.minFloatValue + (arg.maxFloatValue - arg.minFloatValue) * defaultValueFactor * maxValueFactor;
-//
-//            if (maxValueFactor != 1)
-//                arg.maxFloatValue = arg.minFloatValue + (arg.maxFloatValue - arg.minFloatValue) * maxValueFactor;
-            // 把当前值重置为默认值
+            [arg reset];
+            
+            needSubmitParameter = YES;
+        }
+    }
+    
+    // 提交修改结果
+    if (needSubmitParameter)
+        [effect submitParameters];
+    
+}
+
+- (void)updateReshapeFaceDefaultParameters {
+    
+    TuSDKMediaReshapeEffect *effect = [_camera mediaEffectsWithType:TuSDKMediaEffectDataTypeReshape].firstObject;
+    NSArray<TuSDKFilterArg *> *args = effect.filterArgs;
+    BOOL needSubmitParameter = NO;
+    
+    for (TuSDKFilterArg *arg in args) {
+//        NSString *parameterName = arg.key;
+        
+        // 是否需要更新参数值
+        BOOL updateValue = YES;
+        CGFloat defaultValueFactor = 0;
+
+        if (updateValue) {
+            if (defaultValueFactor != 1)
+                arg.defaultValue = defaultValueFactor;
             [arg reset];
             
             needSubmitParameter = YES;

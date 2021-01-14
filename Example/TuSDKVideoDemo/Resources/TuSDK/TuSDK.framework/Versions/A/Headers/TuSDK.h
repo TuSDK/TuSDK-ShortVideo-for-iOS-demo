@@ -155,8 +155,10 @@
 #import "TuSDKSkinMoistWrap.h"
 #import "TuSDKSkinNaturalWrap.h"
 #import "TuSDKScreenKeyingWrap.h"
+
 #import "CosmeticTaskQueue.h"
-#import "CosmeticLipFilter.h"
+#import "TuSDKCosmeticSticker.h"
+
 
 /**
  *  SDK版本

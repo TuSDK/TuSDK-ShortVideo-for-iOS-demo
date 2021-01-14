@@ -32,7 +32,7 @@
 #define kBeautyFaceKeys @"eyeSize",@"chinSize",@"noseSize",@"mouthWidth",@"lips", @"archEyebrow", @"browPosition", @"jawSize",@"eyeAngle" ,@"eyeDis",  @"forehead"
 // 美型（微整形）滤镜参数名称 - 3.6.1
 #define kBeautyFaceKeyCodes @"eyeSize", @"chinSize", @"cheekNarrow", @"smallFace", @"noseSize", @"noseHeight", @"mouthWidth", @"lips", @"philterum", @"archEyebrow", @"browPosition", @"jawSize", @"cheekLowBoneNarrow", @"eyeAngle", @"eyeInnerConer", @"eyeOuterConer", @"eyeDis", @"eyeHeight", @"forehead", @"cheekBoneNarrow"
-
+#define kBeautyFaceNewKeyCodes @"eyelid", @"eyemazing", @"whitenTeeth", @"eyeDetail", @"removePouch", @"removeWrinkles"
 
 /**
  是否为漫画滤镜

@@ -20,12 +20,13 @@
  - TuSDKMediaEffectDataTypeStickerText: 字幕贴纸特效
  - TuSDKMediaEffectDataTypeStickerImage: 图片贴纸特效
  - TuSDKMediaEffectDataTypeComic : 漫画特效
- - TuSDKMediaEffectDataTypePlasticFace : 微整形
+ - TuSDKMediaEffectDataTypePlasticFace : 微整形 v1 大眼廋脸
  - TuSDKMediaEffectDataTypeSkinFace : 美肤特效
  - TuSDKMediaEffectDataTypeMonsterFace : 哈哈镜特效
  - TuSDKMediaEffectDataTypeTransition : 转场
  - TuSDKMediaEffectDataTypeTransition : 绿幕特效
  - TuSDKMediaEffectDataTypeCosmetic : 美妆特效
+ - TuSDKMediaEffectDataTypeReshape: 微整形 v2 白牙祛皱
 
  */
 typedef NS_ENUM(NSUInteger,TuSDKMediaEffectDataType)
@@ -45,5 +46,6 @@ typedef NS_ENUM(NSUInteger,TuSDKMediaEffectDataType)
     TuSDKMediaEffectDataTypeTransition,
     TuSDKMediaEffectDataTypeScreenKeying,
     TuSDKMediaEffectDataTypeCosmetic,
+    TuSDKMediaEffectDataTypeReshape,
 
 };

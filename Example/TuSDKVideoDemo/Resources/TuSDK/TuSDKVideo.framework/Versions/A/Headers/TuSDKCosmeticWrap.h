@@ -14,6 +14,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface TuSDKCosmeticWrap : TuSDKFilterWrap <TuSDKFilterFacePositionProtocol>
 
+-(void) updateCosmeticFacial:(TuSDKCosmeticImage*)stickerImage;
+
+-(void) closeCosmeticFacial;
+
 -(void)updateCosmeticLip:(CosmeticLipType)type colorRGB:(int)colorRGB;
 
 -(void) closeCosmeticLip;

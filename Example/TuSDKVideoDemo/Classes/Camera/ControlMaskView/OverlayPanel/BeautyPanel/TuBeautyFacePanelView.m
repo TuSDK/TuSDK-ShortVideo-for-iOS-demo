@@ -143,6 +143,8 @@
     }
 }
 
+
+
 #pragma mark - method
 - (void)loadBeautyFaceData
 {
@@ -158,7 +160,7 @@
     pointData.beautyFaceSelectType = TuBeautyFaceSelectTypeUnselected;
     [self.plasticDataSet addObject:pointData];
     
-    NSArray *faceFeatures = @[kBeautyFaceKeyCodes];
+    NSArray *faceFeatures = @[kBeautyFaceKeyCodes, kBeautyFaceNewKeyCodes];
     
     for (int i = 0; i < faceFeatures.count; i++)
     {
