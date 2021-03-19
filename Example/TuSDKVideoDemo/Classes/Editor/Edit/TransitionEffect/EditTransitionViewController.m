@@ -155,29 +155,63 @@
 
 - (void)transitionEffectList:(TransitionEffectListView *)listView didTapWithType:(TuSDKMediaTransitionType)transitionType color:(UIColor *)color {
     
-    
-    CMTime duration = self.movieEditor.inputDuration;
-    
-    // 设置默认的时间范围
-    CMTime startTime = self.movieEditor.outputTimeAtSlice;
-    NSTimeInterval durationInterval = CMTimeGetSeconds(duration);
-    if (durationInterval - CMTimeGetSeconds(startTime) < kDefaultTransitionEffectDuration) {
-        startTime = CMTimeMakeWithSeconds(durationInterval - kDefaultTransitionEffectDuration, duration.timescale);
+    // 判断是否进行了时间反转
+    BOOL isEffectRecerse = NO;
+    if (self.movieEditor.mediaTimeEffects)
+    {
+        for (NSInteger index = 0; index < self.movieEditor.mediaTimeEffects.count; index++)
+        {
+            if ([self.movieEditor.mediaTimeEffects[index] isKindOfClass:[TuSDKMediaReverseTimeEffect class]])
+            {
+                isEffectRecerse = YES;
+                break;
+            }
+        }
     }
     
-    if (CMTimeGetSeconds(startTime) < 0) {
-        startTime = kCMTimeZero;
-    }
+    CMTime effectStartTime = self.movieEditor.outputTimeAtSlice;
+    CMTime videoDuration = self.movieEditor.inputDuration;
+    CMTimeRange timeRange;
     
-    CMTimeRange timeRange = CMTimeRangeMake(startTime, CMTimeMakeWithSeconds(kDefaultTransitionEffectDuration, duration.timescale));
+    if (isEffectRecerse)
+    {
+        if (CMTimeGetSeconds(effectStartTime) < kDefaultTransitionEffectDuration)
+        {
+            effectStartTime = CMTimeMakeWithSeconds(kDefaultTransitionEffectDuration, videoDuration.timescale);
+        }
+        
+        effectStartTime = CMTimeMakeWithSeconds(CMTimeGetSeconds(effectStartTime) - kDefaultTransitionEffectDuration, videoDuration.timescale);
+        
+        timeRange = CMTimeRangeMake(effectStartTime, CMTimeMakeWithSeconds(kDefaultTransitionEffectDuration, videoDuration.timescale));
+    }
+    else
+    {
+        if (CMTimeGetSeconds(videoDuration) - CMTimeGetSeconds(effectStartTime) < kDefaultTransitionEffectDuration)
+        {
+            effectStartTime = CMTimeMakeWithSeconds(CMTimeGetSeconds(videoDuration) - kDefaultTransitionEffectDuration, videoDuration.timescale);
+        }
+        
+        if (CMTimeGetSeconds(effectStartTime) < 0)
+        {
+            effectStartTime = kCMTimeZero;
+        }
+        
+        timeRange = CMTimeRangeMake(effectStartTime, CMTimeMakeWithSeconds(kDefaultTransitionEffectDuration, videoDuration.timescale));
+    }
+        
+    
+    
     
     // `-applyMediaEffect:` 应用特效
-    TuSDKMediaTransitionEffect *transitionEffect = [[TuSDKMediaTransitionEffect alloc] initWithTransitionType:transitionType atTimeRange:[TuSDKTimeRange makeTimeRangeWithStart:startTime duration:timeRange.duration]];
-    transitionEffect.animationDuration = kDefaultTransitionEffectDuration * 1000;
+    TuSDKTimeRange *tuTimeRange = [TuSDKTimeRange makeTimeRangeWithStart:effectStartTime duration:timeRange.duration];
+    TuSDKMediaTransitionEffect *transitionEffect = [[TuSDKMediaTransitionEffect alloc] initWithTransitionType:transitionType
+                                                                                                  atTimeRange:tuTimeRange];
+    
+    transitionEffect.animationDuration = [tuTimeRange durationSeconds] * 1000;
     [self.movieEditor addMediaEffect:transitionEffect];
     
     // 同步更新 UI
-    [_trimmerView addMarkWithColor:color timeRange:timeRange atDuration:duration];
+    [_trimmerView addMarkWithColor:color timeRange:timeRange atDuration:videoDuration];
     [self.movieEditor startPreview];
     [self updateUndoButtonState];
 }

@@ -515,7 +515,6 @@ static const CGFloat kBeautyListParamtersViewSpacing = 24;
                 [self reloadEyeBeautyFaceParamters];
             }
         }
-//            [self reloadBeautyFaceParamters];
             break;
         case 2:
             [self reloadCosmeticParamters:self.cosmeticIndex];

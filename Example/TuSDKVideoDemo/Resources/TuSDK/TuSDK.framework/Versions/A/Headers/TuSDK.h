@@ -156,9 +156,8 @@
 #import "TuSDKSkinNaturalWrap.h"
 #import "TuSDKScreenKeyingWrap.h"
 
-#import "CosmeticTaskQueue.h"
 #import "TuSDKCosmeticSticker.h"
-
+#import "CosmeticTaskQueue.h"
 
 /**
  *  SDK版本
