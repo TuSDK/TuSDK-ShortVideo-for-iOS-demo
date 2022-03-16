@@ -40,6 +40,9 @@
 		45E707D2226D633A009C73C9 /* StickerEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E707D1226D633A009C73C9 /* StickerEditor.m */; };
 		45EC66A821AE97A300385E3D /* APIAudioPitchEngineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45EC66A621AE97A200385E3D /* APIAudioPitchEngineViewController.m */; };
 		45FC1C6E2282746F00020F32 /* ImageStickerEditorItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 45FC1C6D2282746F00020F32 /* ImageStickerEditorItem.m */; };
+		A643066327E1C02700D1E59F /* TuSDKVideo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A64304F927E1C02500D1E59F /* TuSDKVideo.a */; };
+		A643066427E1C02700D1E59F /* TuSDKFace.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A64304FB27E1C02500D1E59F /* TuSDKFace.a */; };
+		A643066527E1C02700D1E59F /* TuSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A643050027E1C02500D1E59F /* TuSDK.a */; };
 		B8210F71253EDB5400E17525 /* TuCosmeticPanelView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8210F70253EDB5400E17525 /* TuCosmeticPanelView.m */; };
 		B8210F77253FD13700E17525 /* TuCosmeticCategoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8210F76253FD13700E17525 /* TuCosmeticCategoryCell.m */; };
 		B8210F7D253FE69100E17525 /* TuCosmeticConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = B8210F7C253FE69100E17525 /* TuCosmeticConfig.m */; };
@@ -391,10 +394,7 @@
 		B8B2BDDD25417BEF0017611E /* 芭比灰b.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B8B2BDB325417BEF0017611E /* 芭比灰b.jpg */; };
 		B8B2BDDF254188040017611E /* 标准灰b.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B8B2BDDE254188040017611E /* 标准灰b.jpg */; };
 		B8B787472559321E00B82F76 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D7E350E622E7072A005166DE /* libresolv.tbd */; };
-		B8B7C7E325B052FE00BA87AF /* TuSDKVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8B7C7DF25B052FE00BA87AF /* TuSDKVideo.framework */; };
-		B8B7C7E425B052FE00BA87AF /* TuSDKFace.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8B7C7E025B052FE00BA87AF /* TuSDKFace.framework */; };
 		B8B7C7E525B052FE00BA87AF /* libyuv.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8B7C7E125B052FE00BA87AF /* libyuv.framework */; };
-		B8B7C7E625B052FE00BA87AF /* TuSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8B7C7E225B052FE00BA87AF /* TuSDK.framework */; };
 		B8BD5BDC257F6DA400F83259 /* plastic_eyeHeight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8BD5BD6257F6DA300F83259 /* plastic_eyeHeight@2x.png */; };
 		B8BD5BDD257F6DA400F83259 /* plastic_eyeHeight_sel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8BD5BD7257F6DA300F83259 /* plastic_eyeHeight_sel@2x.png */; };
 		B8BD5BDE257F6DA400F83259 /* plastic_eyeHeight_sel@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8BD5BD8257F6DA300F83259 /* plastic_eyeHeight_sel@3x.png */; };
@@ -725,6 +725,522 @@
 		45EC66A721AE97A200385E3D /* APIAudioPitchEngineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIAudioPitchEngineViewController.h; sourceTree = "<group>"; };
 		45FC1C6C2282746F00020F32 /* ImageStickerEditorItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageStickerEditorItem.h; sourceTree = "<group>"; };
 		45FC1C6D2282746F00020F32 /* ImageStickerEditorItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageStickerEditorItem.m; sourceTree = "<group>"; };
+		A643045B27E1C02500D1E59F /* TuSDKMediaTimelineAssetVideoExtractor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaTimelineAssetVideoExtractor.h; sourceTree = "<group>"; };
+		A643045C27E1C02500D1E59F /* TuSDKMediaSampleBufferAssistant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaSampleBufferAssistant.h; sourceTree = "<group>"; };
+		A643045D27E1C02500D1E59F /* TuSDKGIFImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKGIFImage.h; sourceTree = "<group>"; };
+		A643045E27E1C02500D1E59F /* TuSDKMediaVideoEffectTimelineSync.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaVideoEffectTimelineSync.h; sourceTree = "<group>"; };
+		A643045F27E1C02500D1E59F /* TuSDKMediaMutableComposition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaMutableComposition.h; sourceTree = "<group>"; };
+		A643046027E1C02500D1E59F /* TuSDKFilterConfigViewBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKFilterConfigViewBase.h; sourceTree = "<group>"; };
+		A643046127E1C02500D1E59F /* TuSDKMediaMovieEditorSaver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaMovieEditorSaver.h; sourceTree = "<group>"; };
+		A643046227E1C02500D1E59F /* TuSDK2DParticleFilterWrap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDK2DParticleFilterWrap.h; sourceTree = "<group>"; };
+		A643046327E1C02500D1E59F /* TuSDKAssetVideoTrackPixelBufferOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKAssetVideoTrackPixelBufferOutput.h; sourceTree = "<group>"; };
+		A643046427E1C02500D1E59F /* TuSDKAudioResampleEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKAudioResampleEngine.h; sourceTree = "<group>"; };
+		A643046527E1C02500D1E59F /* TuSDKMediaTimelineAssetExtractor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaTimelineAssetExtractor.h; sourceTree = "<group>"; };
+		A643046627E1C02500D1E59F /* TuSDKMediaMovieAssetExportSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaMovieAssetExportSession.h; sourceTree = "<group>"; };
+		A643046727E1C02500D1E59F /* TuSDKMediaPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaPlayer.h; sourceTree = "<group>"; };
+		A643046827E1C02500D1E59F /* TuSDKMediaTimeRange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaTimeRange.h; sourceTree = "<group>"; };
+		A643046927E1C02500D1E59F /* TuSDKMediaVideoTrackComposition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaVideoTrackComposition.h; sourceTree = "<group>"; };
+		A643046A27E1C02500D1E59F /* TuSDKVideoSpeedData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKVideoSpeedData.h; sourceTree = "<group>"; };
+		A643046B27E1C02500D1E59F /* TuSDKMediaSync.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaSync.h; sourceTree = "<group>"; };
+		A643046C27E1C02500D1E59F /* TuSDKMediaPacketSlowEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaPacketSlowEffect.h; sourceTree = "<group>"; };
+		A643046D27E1C02500D1E59F /* TuSDKMediaAudioTrackComposition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaAudioTrackComposition.h; sourceTree = "<group>"; };
+		A643046E27E1C02500D1E59F /* TuSDKMediaComicEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaComicEffect.h; sourceTree = "<group>"; };
+		A643046F27E1C02500D1E59F /* TuSDKMediaCompositionSampleBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaCompositionSampleBuffer.h; sourceTree = "<group>"; };
+		A643047027E1C02500D1E59F /* TuSDKMediaSkinFaceEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaSkinFaceEffect.h; sourceTree = "<group>"; };
+		A643047127E1C02500D1E59F /* TuSDKMediaAssetInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaAssetInfo.h; sourceTree = "<group>"; };
+		A643047227E1C02500D1E59F /* TuSDKMovieEditorBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMovieEditorBase.h; sourceTree = "<group>"; };
+		A643047327E1C02500D1E59F /* TuSDKMediaAudioEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaAudioEffect.h; sourceTree = "<group>"; };
+		A643047427E1C02500D1E59F /* TuSDKMediaMonsterFaceEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaMonsterFaceEffect.h; sourceTree = "<group>"; };
+		A643047527E1C02500D1E59F /* TuSDKMediaAudioRender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaAudioRender.h; sourceTree = "<group>"; };
+		A643047627E1C02500D1E59F /* TuSDKMediaTimeEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaTimeEffect.h; sourceTree = "<group>"; };
+		A643047727E1C02500D1E59F /* TuSDKMediaRecordCameraEffectTimelineSync.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaRecordCameraEffectTimelineSync.h; sourceTree = "<group>"; };
+		A643047827E1C02500D1E59F /* TuSDKVideoFocusTouchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKVideoFocusTouchView.h; sourceTree = "<group>"; };
+		A643047927E1C02500D1E59F /* TuSDKMediaTimeSliceEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaTimeSliceEntity.h; sourceTree = "<group>"; };
+		A643047A27E1C02500D1E59F /* TuSDKMediaSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaSettings.h; sourceTree = "<group>"; };
+		A643047B27E1C02500D1E59F /* TuSDK2DImageFilterWrap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDK2DImageFilterWrap.h; sourceTree = "<group>"; };
+		A643047C27E1C02500D1E59F /* TuSDKMediaDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaDecoder.h; sourceTree = "<group>"; };
+		A643047D27E1C02500D1E59F /* TuSDKMediaAudioQueuePlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaAudioQueuePlayer.h; sourceTree = "<group>"; };
+		A643047E27E1C02500D1E59F /* TuSDKMediaEffectTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaEffectTypes.h; sourceTree = "<group>"; };
+		A643047F27E1C02500D1E59F /* TuSDKAsyncEncodecBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKAsyncEncodecBridge.h; sourceTree = "<group>"; };
+		A643048027E1C02500D1E59F /* TuSDKRecordVideoMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKRecordVideoMode.h; sourceTree = "<group>"; };
+		A643048127E1C02500D1E59F /* TuSDKMediaPacketMirrorEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaPacketMirrorEffect.h; sourceTree = "<group>"; };
+		A643048227E1C02500D1E59F /* TuSDKAudioEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKAudioEngine.h; sourceTree = "<group>"; };
+		A643048327E1C02500D1E59F /* TuSDKMediaPlasticFaceEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaPlasticFaceEffect.h; sourceTree = "<group>"; };
+		A643048427E1C02500D1E59F /* TuSDKVideoRTCDataWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKVideoRTCDataWriter.h; sourceTree = "<group>"; };
+		A643048527E1C02500D1E59F /* TuSDKVideoCameraBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKVideoCameraBase.h; sourceTree = "<group>"; };
+		A643048627E1C02500D1E59F /* TuSDKVideoQuality.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKVideoQuality.h; sourceTree = "<group>"; };
+		A643048727E1C02500D1E59F /* TuSDKTSAudioRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKTSAudioRecorder.h; sourceTree = "<group>"; };
+		A643048827E1C02500D1E59F /* TuSDKPlasticFaceWrap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKPlasticFaceWrap.h; sourceTree = "<group>"; };
+		A643048927E1C02500D1E59F /* TuSDKMediaMovieEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaMovieEditor.h; sourceTree = "<group>"; };
+		A643048A27E1C02500D1E59F /* TuSDKMediaPacketEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaPacketEffect.h; sourceTree = "<group>"; };
+		A643048B27E1C02500D1E59F /* TuSDKTSAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKTSAudio.h; sourceTree = "<group>"; };
+		A643048C27E1C02500D1E59F /* TuSDKMediaAssetExportSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaAssetExportSession.h; sourceTree = "<group>"; };
+		A643048D27E1C02500D1E59F /* TuSDKAudioResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKAudioResult.h; sourceTree = "<group>"; };
+		A643048E27E1C02500D1E59F /* TuSDKVideoDataWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKVideoDataWriter.h; sourceTree = "<group>"; };
+		A643048F27E1C02500D1E59F /* TuSDKMediaExtractorSync.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaExtractorSync.h; sourceTree = "<group>"; };
+		A643049027E1C02500D1E59F /* TuSDKMediaStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaStatus.h; sourceTree = "<group>"; };
+		A643049127E1C02500D1E59F /* TuSDKLiveVideoCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKLiveVideoCamera.h; sourceTree = "<group>"; };
+		A643049227E1C02500D1E59F /* TuSDKMediaAssetExtractorAudioSync.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaAssetExtractorAudioSync.h; sourceTree = "<group>"; };
+		A643049327E1C02500D1E59F /* TuSDKMediaReverseTimeEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaReverseTimeEffect.h; sourceTree = "<group>"; };
+		A643049427E1C02500D1E59F /* TuSDKGPUVideoPixelBufferForTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKGPUVideoPixelBufferForTexture.h; sourceTree = "<group>"; };
+		A643049527E1C02500D1E59F /* TuSDKMediaAssetComposition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaAssetComposition.h; sourceTree = "<group>"; };
+		A643049627E1C02500D1E59F /* TuSDKMediaExportSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaExportSession.h; sourceTree = "<group>"; };
+		A643049727E1C02500D1E59F /* TuSDKMediaAssetExtractorVideoSync.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaAssetExtractorVideoSync.h; sourceTree = "<group>"; };
+		A643049827E1C02500D1E59F /* TuSDKCosmeticWrap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKCosmeticWrap.h; sourceTree = "<group>"; };
+		A643049927E1C02500D1E59F /* TuSDKMoiveFragment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMoiveFragment.h; sourceTree = "<group>"; };
+		A643049A27E1C02500D1E59F /* TuSDKMediaCosmeticEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaCosmeticEffect.h; sourceTree = "<group>"; };
+		A643049B27E1C02500D1E59F /* TuSDKMediaPacketFrostedEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaPacketFrostedEffect.h; sourceTree = "<group>"; };
+		A643049C27E1C02500D1E59F /* TuSDKMovieSpeedComposition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMovieSpeedComposition.h; sourceTree = "<group>"; };
+		A643049D27E1C02500D1E59F /* TuSDKSampleBufferInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKSampleBufferInput.h; sourceTree = "<group>"; };
+		A643049E27E1C02500D1E59F /* TuSDKMediaAssetAudioRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaAssetAudioRecorder.h; sourceTree = "<group>"; };
+		A643049F27E1C02500D1E59F /* TuSDKMediaAudioMuteComposition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaAudioMuteComposition.h; sourceTree = "<group>"; };
+		A64304A027E1C02500D1E59F /* TuSDKVideoImport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKVideoImport.h; sourceTree = "<group>"; };
+		A64304A127E1C02500D1E59F /* TuSDKMediaStickerEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaStickerEffect.h; sourceTree = "<group>"; };
+		A64304A227E1C02500D1E59F /* TuSDKMovieEditorMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMovieEditorMode.h; sourceTree = "<group>"; };
+		A64304A327E1C02500D1E59F /* TuSDKMediaAudioRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaAudioRecorder.h; sourceTree = "<group>"; };
+		A64304A427E1C02500D1E59F /* TuSDKAssetVideoComposer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKAssetVideoComposer.h; sourceTree = "<group>"; };
+		A64304A527E1C02500D1E59F /* TuSDKVideoFileWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKVideoFileWriter.h; sourceTree = "<group>"; };
+		A64304A627E1C02500D1E59F /* TuSDKTSMovieSplicer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKTSMovieSplicer.h; sourceTree = "<group>"; };
+		A64304A727E1C02500D1E59F /* TuSDKMediaMovieEditorTranscoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaMovieEditorTranscoder.h; sourceTree = "<group>"; };
+		A64304A827E1C02500D1E59F /* TuSDKMediaAssetDirectorPlayerSync.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaAssetDirectorPlayerSync.h; sourceTree = "<group>"; };
+		A64304A927E1C02500D1E59F /* TuSDKMediaAssetReverseExtractor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaAssetReverseExtractor.h; sourceTree = "<group>"; };
+		A64304AA27E1C02500D1E59F /* TuSDKMediaMutableVideoComposition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaMutableVideoComposition.h; sourceTree = "<group>"; };
+		A64304AB27E1C02500D1E59F /* TuSDKMediaEffectCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaEffectCore.h; sourceTree = "<group>"; };
+		A64304AC27E1C02500D1E59F /* TuSDKMediaPacketSpeedEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaPacketSpeedEffect.h; sourceTree = "<group>"; };
+		A64304AD27E1C02500D1E59F /* TuSDKMediaTimelineAssetMoviePlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaTimelineAssetMoviePlayer.h; sourceTree = "<group>"; };
+		A64304AE27E1C02500D1E59F /* TuSDKMediaComposition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaComposition.h; sourceTree = "<group>"; };
+		A64304AF27E1C02500D1E59F /* TuSDKMediaSequenceTimelineAssetExtractor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaSequenceTimelineAssetExtractor.h; sourceTree = "<group>"; };
+		A64304B027E1C02500D1E59F /* TuSDKFilterConfigProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKFilterConfigProtocol.h; sourceTree = "<group>"; };
+		A64304B127E1C02500D1E59F /* TuSDKMediaTextEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaTextEffect.h; sourceTree = "<group>"; };
+		A64304B227E1C02500D1E59F /* TuSDKTextureCoordinateCropBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKTextureCoordinateCropBuilder.h; sourceTree = "<group>"; };
+		A64304B327E1C02500D1E59F /* TuSDKMutableAssetMediaPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMutableAssetMediaPlayer.h; sourceTree = "<group>"; };
+		A64304B427E1C02500D1E59F /* TuSDKVideoImageExtractor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKVideoImageExtractor.h; sourceTree = "<group>"; };
+		A64304B527E1C02500D1E59F /* TuSDKMediaMutableAssetMoviePlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaMutableAssetMoviePlayer.h; sourceTree = "<group>"; };
+		A64304B627E1C02500D1E59F /* TuSDKTSMovieMixer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKTSMovieMixer.h; sourceTree = "<group>"; };
+		A64304B727E1C02500D1E59F /* TuSDKMediaCompositionBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaCompositionBuilder.h; sourceTree = "<group>"; };
+		A64304B827E1C02500D1E59F /* TuSDKMediaEffectTimeline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaEffectTimeline.h; sourceTree = "<group>"; };
+		A64304B927E1C02500D1E59F /* TuSDKGIFImageEncoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKGIFImageEncoder.h; sourceTree = "<group>"; };
+		A64304BA27E1C02500D1E59F /* TuSDKFileWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKFileWriter.h; sourceTree = "<group>"; };
+		A64304BB27E1C02500D1E59F /* TuSDKMediaExtractor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaExtractor.h; sourceTree = "<group>"; };
+		A64304BC27E1C02500D1E59F /* TuSDKAsyncShader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKAsyncShader.h; sourceTree = "<group>"; };
+		A64304BD27E1C02500D1E59F /* TuSDKQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKQueue.h; sourceTree = "<group>"; };
+		A64304BE27E1C02500D1E59F /* TuSDKMonsterFaceWrap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMonsterFaceWrap.h; sourceTree = "<group>"; };
+		A64304BF27E1C02500D1E59F /* TuSDKMediaTransitionWrap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaTransitionWrap.h; sourceTree = "<group>"; };
+		A64304C027E1C02500D1E59F /* TuSDKRecordVideoCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKRecordVideoCamera.h; sourceTree = "<group>"; };
+		A64304C127E1C02500D1E59F /* TuSDKVideoDataOutputBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKVideoDataOutputBase.h; sourceTree = "<group>"; };
+		A64304C227E1C02500D1E59F /* TuSDKMediaEffectSync.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaEffectSync.h; sourceTree = "<group>"; };
+		A64304C327E1C02500D1E59F /* TuSDKMediaTimelineExtractor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaTimelineExtractor.h; sourceTree = "<group>"; };
+		A64304C427E1C02500D1E59F /* TuSDKTSAudioMixer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKTSAudioMixer.h; sourceTree = "<group>"; };
+		A64304C527E1C02500D1E59F /* TuSDKMediaStickerImageEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaStickerImageEffect.h; sourceTree = "<group>"; };
+		A64304C627E1C02500D1E59F /* TuSDKMediaMovieFilmEditorOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaMovieFilmEditorOptions.h; sourceTree = "<group>"; };
+		A64304C727E1C02500D1E59F /* TuSDKVideoInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKVideoInfo.h; sourceTree = "<group>"; };
+		A64304C827E1C02500D1E59F /* TuSDKMovieEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMovieEditor.h; sourceTree = "<group>"; };
+		A64304C927E1C02500D1E59F /* TuSDKTimeRange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKTimeRange.h; sourceTree = "<group>"; };
+		A64304CA27E1C02500D1E59F /* TuSDKReshapeWrap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKReshapeWrap.h; sourceTree = "<group>"; };
+		A64304CB27E1C02500D1E59F /* TuSDKMediaVideoRender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaVideoRender.h; sourceTree = "<group>"; };
+		A64304CC27E1C02500D1E59F /* TuSDKMediaMovieFilmEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaMovieFilmEditor.h; sourceTree = "<group>"; };
+		A64304CD27E1C02500D1E59F /* TuSDKMediaStickerAudioEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaStickerAudioEffect.h; sourceTree = "<group>"; };
+		A64304CE27E1C02500D1E59F /* TuSDKMediaFormatAssistant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaFormatAssistant.h; sourceTree = "<group>"; };
+		A64304CF27E1C02500D1E59F /* TuSDKMediaEffectParameterProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaEffectParameterProtocol.h; sourceTree = "<group>"; };
+		A64304D027E1C02500D1E59F /* TuSDKAudioPitchEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKAudioPitchEngine.h; sourceTree = "<group>"; };
+		A64304D127E1C02500D1E59F /* TuSDKAudioInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKAudioInfo.h; sourceTree = "<group>"; };
+		A64304D227E1C02500D1E59F /* TuSDKMediaEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaEffect.h; sourceTree = "<group>"; };
+		A64304D327E1C02500D1E59F /* TuSDKMediaMutableAudioComposition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaMutableAudioComposition.h; sourceTree = "<group>"; };
+		A64304D427E1C02500D1E59F /* TuSDKMediaImageComposition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaImageComposition.h; sourceTree = "<group>"; };
+		A64304D527E1C02500D1E59F /* TuSDKMediaAssetExtractor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaAssetExtractor.h; sourceTree = "<group>"; };
+		A64304D627E1C02500D1E59F /* TuSDKMediaReverseExtractor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaReverseExtractor.h; sourceTree = "<group>"; };
+		A64304D727E1C02500D1E59F /* TuSDKMediaSceneEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaSceneEffect.h; sourceTree = "<group>"; };
+		A64304D827E1C02500D1E59F /* TuSDKMediaFilterEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaFilterEffect.h; sourceTree = "<group>"; };
+		A64304D927E1C02500D1E59F /* TuSDKMediaAudioBufferPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaAudioBufferPlayer.h; sourceTree = "<group>"; };
+		A64304DA27E1C02500D1E59F /* TuSDKMediaAssetExtractorPitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaAssetExtractorPitch.h; sourceTree = "<group>"; };
+		A64304DB27E1C02500D1E59F /* TuSDKMediaTimelineAssetAudioExtractor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaTimelineAssetAudioExtractor.h; sourceTree = "<group>"; };
+		A64304DC27E1C02500D1E59F /* TuSDKMediaMovieAssetTranscoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaMovieAssetTranscoder.h; sourceTree = "<group>"; };
+		A64304DD27E1C02500D1E59F /* TuSDKMediaAudioComposition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaAudioComposition.h; sourceTree = "<group>"; };
+		A64304DE27E1C02500D1E59F /* TuSDKVerticeCoordinateBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKVerticeCoordinateBuilder.h; sourceTree = "<group>"; };
+		A64304DF27E1C02500D1E59F /* TuSDKMovieClipper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMovieClipper.h; sourceTree = "<group>"; };
+		A64304E027E1C02500D1E59F /* TuSDKMediaScreenKeyingEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaScreenKeyingEffect.h; sourceTree = "<group>"; };
+		A64304E127E1C02500D1E59F /* TuSDKMediaMovieCompositionComposer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaMovieCompositionComposer.h; sourceTree = "<group>"; };
+		A64304E227E1C02500D1E59F /* TuSDKMediaPacketStoryEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaPacketStoryEffect.h; sourceTree = "<group>"; };
+		A64304E327E1C02500D1E59F /* TuSDKFilterProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKFilterProcessor.h; sourceTree = "<group>"; };
+		A64304E427E1C02500D1E59F /* TuSDKMediaTimelineSlice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaTimelineSlice.h; sourceTree = "<group>"; };
+		A64304E527E1C02500D1E59F /* TuSDKVideoResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKVideoResult.h; sourceTree = "<group>"; };
+		A64304E627E1C02500D1E59F /* TuSDKVideoSourceProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKVideoSourceProtocol.h; sourceTree = "<group>"; };
+		A64304E727E1C02500D1E59F /* TuSDKMediaParticleEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaParticleEffect.h; sourceTree = "<group>"; };
+		A64304E827E1C02500D1E59F /* TuSDKTSMovieCompresser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKTSMovieCompresser.h; sourceTree = "<group>"; };
+		A64304E927E1C02500D1E59F /* TuSDKMediaPacketShapeEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaPacketShapeEffect.h; sourceTree = "<group>"; };
+		A64304EA27E1C02500D1E59F /* TuSDKMediaAsset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaAsset.h; sourceTree = "<group>"; };
+		A64304EB27E1C02500D1E59F /* TuSDKMediaVideoEffectTimeline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaVideoEffectTimeline.h; sourceTree = "<group>"; };
+		A64304EC27E1C02500D1E59F /* TuSDVideoFocusRangeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDVideoFocusRangeView.h; sourceTree = "<group>"; };
+		A64304ED27E1C02500D1E59F /* TuSDKAssetVideoDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKAssetVideoDecoder.h; sourceTree = "<group>"; };
+		A64304EE27E1C02500D1E59F /* TuSDKVideoRawDataWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKVideoRawDataWriter.h; sourceTree = "<group>"; };
+		A64304EF27E1C02500D1E59F /* TuSDKMediaTimeline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaTimeline.h; sourceTree = "<group>"; };
+		A64304F027E1C02500D1E59F /* TuSDKMediaMovieFilmEditSaver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaMovieFilmEditSaver.h; sourceTree = "<group>"; };
+		A64304F127E1C02500D1E59F /* TuSDKMediaReshapeEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaReshapeEffect.h; sourceTree = "<group>"; };
+		A64304F227E1C02500D1E59F /* TuSDKMediaSpeedTimeEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaSpeedTimeEffect.h; sourceTree = "<group>"; };
+		A64304F327E1C02500D1E59F /* TuSDKMovieEditorOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMovieEditorOptions.h; sourceTree = "<group>"; };
+		A64304F427E1C02500D1E59F /* TuSDKMediaRepeatTimeEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaRepeatTimeEffect.h; sourceTree = "<group>"; };
+		A64304F527E1C02500D1E59F /* TuSDKMediaTransitionEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaTransitionEffect.h; sourceTree = "<group>"; };
+		A64304F627E1C02500D1E59F /* TuSDKMediaAssetTimeline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaAssetTimeline.h; sourceTree = "<group>"; };
+		A64304F727E1C02500D1E59F /* TuSDKVideo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKVideo.h; sourceTree = "<group>"; };
+		A64304F827E1C02500D1E59F /* TuSDKMediaVideoComposition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMediaVideoComposition.h; sourceTree = "<group>"; };
+		A64304F927E1C02500D1E59F /* TuSDKVideo.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = TuSDKVideo.a; sourceTree = "<group>"; };
+		A64304FB27E1C02500D1E59F /* TuSDKFace.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = TuSDKFace.a; sourceTree = "<group>"; };
+		A64304FD27E1C02500D1E59F /* TuSDKFace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKFace.h; sourceTree = "<group>"; };
+		A64304FE27E1C02500D1E59F /* TuSDKFaceImport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKFaceImport.h; sourceTree = "<group>"; };
+		A643050027E1C02500D1E59F /* TuSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = TuSDK.a; sourceTree = "<group>"; };
+		A643050227E1C02500D1E59F /* UIImageView+TuSDKNetworkAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+TuSDKNetworkAdditions.h"; sourceTree = "<group>"; };
+		A643050327E1C02500D1E59F /* TuSDKTKLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKTKLocation.h; sourceTree = "<group>"; };
+		A643050427E1C02500D1E59F /* TuSDKGPUSmartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKGPUSmartView.h; sourceTree = "<group>"; };
+		A643050527E1C02500D1E59F /* TuSDKCPImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKCPImage.h; sourceTree = "<group>"; };
+		A643050627E1C02500D1E59F /* TuSDKCPResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKCPResultViewController.h; sourceTree = "<group>"; };
+		A643050727E1C02500D1E59F /* TuSDKParticleExamples.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKParticleExamples.h; sourceTree = "<group>"; };
+		A643050827E1C02500D1E59F /* TuSDKICGestureRecognizerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKICGestureRecognizerView.h; sourceTree = "<group>"; };
+		A643050927E1C02500D1E59F /* TuSDKStickerImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKStickerImage.h; sourceTree = "<group>"; };
+		A643050A27E1C02500D1E59F /* SLGPUImageUIElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLGPUImageUIElement.h; sourceTree = "<group>"; };
+		A643050B27E1C02500D1E59F /* TuSDKLiveFaultFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKLiveFaultFilter.h; sourceTree = "<group>"; };
+		A643050C27E1C02500D1E59F /* SLGPUImageFramebuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLGPUImageFramebuffer.h; sourceTree = "<group>"; };
+		A643050D27E1C02600D1E59F /* TuSDKICFilterImageViewWrap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKICFilterImageViewWrap.h; sourceTree = "<group>"; };
+		A643050E27E1C02600D1E59F /* SLGL2DTextureProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLGL2DTextureProgram.h; sourceTree = "<group>"; };
+		A643050F27E1C02600D1E59F /* TuSDKDataJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKDataJson.h; sourceTree = "<group>"; };
+		A643051027E1C02600D1E59F /* TuSDKGPUBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKGPUBaseView.h; sourceTree = "<group>"; };
+		A643051127E1C02600D1E59F /* TuSDKTSLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKTSLog.h; sourceTree = "<group>"; };
+		A643051227E1C02600D1E59F /* TuSDKPFEditTextControllerBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKPFEditTextControllerBase.h; sourceTree = "<group>"; };
+		A643051327E1C02600D1E59F /* TuSDKPFBrushGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKPFBrushGroup.h; sourceTree = "<group>"; };
+		A643051427E1C02600D1E59F /* TuSDKCPGroupFilterItemCellBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKCPGroupFilterItemCellBase.h; sourceTree = "<group>"; };
+		A643051527E1C02600D1E59F /* TuSDKPFEditApertureControllerBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKPFEditApertureControllerBase.h; sourceTree = "<group>"; };
+		A643051627E1C02600D1E59F /* TuSDKPFCameraFilterGroupViewBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKPFCameraFilterGroupViewBase.h; sourceTree = "<group>"; };
+		A643051727E1C02600D1E59F /* TuSDKTSCATransition+Extend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TuSDKTSCATransition+Extend.h"; sourceTree = "<group>"; };
+		A643051827E1C02600D1E59F /* TuSDKPFBrushSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKPFBrushSize.h; sourceTree = "<group>"; };
+		A643051927E1C02600D1E59F /* TuSDKPFFilterSmudgeProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKPFFilterSmudgeProcessor.h; sourceTree = "<group>"; };
+		A643051A27E1C02600D1E59F /* TuSDKCosmeticStickerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKCosmeticStickerManager.h; sourceTree = "<group>"; };
+		A643051B27E1C02600D1E59F /* TuSDKPFSmudgeViewBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKPFSmudgeViewBase.h; sourceTree = "<group>"; };
+		A643051C27E1C02600D1E59F /* TuSDKPFCameraPreviewControllerBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKPFCameraPreviewControllerBase.h; sourceTree = "<group>"; };
+		A643051D27E1C02600D1E59F /* TuSDKCPOnlineController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKCPOnlineController.h; sourceTree = "<group>"; };
+		A643051E27E1C02600D1E59F /* TuSDKGPUColorMultiAdjustmentFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKGPUColorMultiAdjustmentFilter.h; sourceTree = "<group>"; };
+		A643051F27E1C02600D1E59F /* SLGPUImageRawDataInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLGPUImageRawDataInput.h; sourceTree = "<group>"; };
+		A643052027E1C02600D1E59F /* TuSDKGPUTfmMixFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKGPUTfmMixFilter.h; sourceTree = "<group>"; };
+		A643052127E1C02600D1E59F /* TuSDKPFSimpleProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKPFSimpleProcessor.h; sourceTree = "<group>"; };
+		A643052227E1C02600D1E59F /* TuSDKTKImageViewTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKTKImageViewTask.h; sourceTree = "<group>"; };
+		A643052327E1C02600D1E59F /* TuSDKGPUTfmEdgeFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKGPUTfmEdgeFilter.h; sourceTree = "<group>"; };
+		A643052427E1C02600D1E59F /* TuSDKPFPhotosViewControllerBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKPFPhotosViewControllerBase.h; sourceTree = "<group>"; };
+		A643052527E1C02600D1E59F /* TuSDKTSUIColor+Extend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TuSDKTSUIColor+Extend.h"; sourceTree = "<group>"; };
+		A643052627E1C02600D1E59F /* TuSDKTSPHAssets+Extend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TuSDKTSPHAssets+Extend.h"; sourceTree = "<group>"; };
+		A643052727E1C02600D1E59F /* TuSDKNKFaceMark.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKNKFaceMark.h; sourceTree = "<group>"; };
+		A643052827E1C02600D1E59F /* TuSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDK.h; sourceTree = "<group>"; };
+		A643052927E1C02600D1E59F /* TuSDKGPUSobelEdgeFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKGPUSobelEdgeFilter.h; sourceTree = "<group>"; };
+		A643052A27E1C02600D1E59F /* TuSDKGPUImageHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKGPUImageHelper.h; sourceTree = "<group>"; };
+		A643052B27E1C02600D1E59F /* TuSDKPFPaintBezierPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKPFPaintBezierPath.h; sourceTree = "<group>"; };
+		A643052C27E1C02600D1E59F /* TuSDKGPUColorHDRFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKGPUColorHDRFilter.h; sourceTree = "<group>"; };
+		A643052D27E1C02600D1E59F /* TuSDKSkinMoistWrap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKSkinMoistWrap.h; sourceTree = "<group>"; };
+		A643052E27E1C02600D1E59F /* TuSDKPFPhotoPreviewControllerBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKPFPhotoPreviewControllerBase.h; sourceTree = "<group>"; };
+		A643052F27E1C02600D1E59F /* TuSDKGPUImageSixInputFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKGPUImageSixInputFilter.h; sourceTree = "<group>"; };
+		A643053027E1C02600D1E59F /* TuSDKBeautifyFaceWrap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKBeautifyFaceWrap.h; sourceTree = "<group>"; };
+		A643053127E1C02600D1E59F /* TuSDKGPU2DImageFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKGPU2DImageFilter.h; sourceTree = "<group>"; };
+		A643053227E1C02600D1E59F /* TuSDKCPGroupFilterBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKCPGroupFilterBaseView.h; sourceTree = "<group>"; };
+		A643053327E1C02600D1E59F /* TuSDKGPUPointDrawFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKGPUPointDrawFilter.h; sourceTree = "<group>"; };
+		A643053427E1C02600D1E59F /* TuSDKPFEditTabBarControllerBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKPFEditTabBarControllerBase.h; sourceTree = "<group>"; };
+		A643053527E1C02600D1E59F /* TuSDKGPULiveFadeInFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKGPULiveFadeInFilter.h; sourceTree = "<group>"; };
+		A643053627E1C02600D1E59F /* TuSDKGPUSurfaceBlurFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKGPUSurfaceBlurFilter.h; sourceTree = "<group>"; };
+		A643053727E1C02600D1E59F /* TuSDKOnlineStickerFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKOnlineStickerFetcher.h; sourceTree = "<group>"; };
+		A643053827E1C02600D1E59F /* TuSDKGaussianBlurFiveRadiusFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKGaussianBlurFiveRadiusFilter.h; sourceTree = "<group>"; };
+		A643053927E1C02600D1E59F /* TuSDKResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKResult.h; sourceTree = "<group>"; };
+		A643053A27E1C02600D1E59F /* SLGPUImageOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLGPUImageOutput.h; sourceTree = "<group>"; };
+		A643053B27E1C02600D1E59F /* TuSDKBoxBlur2Filter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKBoxBlur2Filter.h; sourceTree = "<group>"; };
+		A643053C27E1C02600D1E59F /* CosmeticBlushFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CosmeticBlushFilter.h; sourceTree = "<group>"; };
+		A643053D27E1C02600D1E59F /* TuSDKTSVolumeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKTSVolumeButton.h; sourceTree = "<group>"; };
+		A643053E27E1C02600D1E59F /* TuSDKCPGroupFilterTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKCPGroupFilterTableView.h; sourceTree = "<group>"; };
+		A643053F27E1C02600D1E59F /* TuSDKGPUBlurFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKGPUBlurFilter.h; sourceTree = "<group>"; };
+		A643054027E1C02600D1E59F /* TuSDKGPUColorNoirFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKGPUColorNoirFilter.h; sourceTree = "<group>"; };
+		A643054127E1C02600D1E59F /* TuSDKTSImage+Extend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TuSDKTSImage+Extend.h"; sourceTree = "<group>"; };
+		A643054227E1C02600D1E59F /* SLGPUImageFilterPipeline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLGPUImageFilterPipeline.h; sourceTree = "<group>"; };
+		A643054327E1C02600D1E59F /* TuSDKCPAlbumComponentBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKCPAlbumComponentBase.h; sourceTree = "<group>"; };
+		A643054427E1C02600D1E59F /* TuSDKTSNSUserDefaults+Extend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TuSDKTSNSUserDefaults+Extend.h"; sourceTree = "<group>"; };
+		A643054527E1C02600D1E59F /* TuSDKFilterLocalPackage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKFilterLocalPackage.h; sourceTree = "<group>"; };
+		A643054627E1C02600D1E59F /* TuSDKICTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKICTableViewCell.h; sourceTree = "<group>"; };
+		A643054727E1C02600D1E59F /* TuSDKPFEditCuterControllerBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKPFEditCuterControllerBase.h; sourceTree = "<group>"; };
+		A643054827E1C02600D1E59F /* TuSDKBoxBlurAlphaFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKBoxBlurAlphaFilter.h; sourceTree = "<group>"; };
+		A643054927E1C02600D1E59F /* TuSDKAOCellGridViewAlgorithmic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKAOCellGridViewAlgorithmic.h; sourceTree = "<group>"; };
+		A643054A27E1C02600D1E59F /* TuSDKNetworkOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKNetworkOperation.h; sourceTree = "<group>"; };
+		A643054B27E1C02600D1E59F /* TuSDKPFStickerCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKPFStickerCategory.h; sourceTree = "<group>"; };
+		A643054C27E1C02600D1E59F /* CosmeticTaskQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CosmeticTaskQueue.h; sourceTree = "<group>"; };
+		A643054D27E1C02600D1E59F /* SLGPUImageColorConversion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLGPUImageColorConversion.h; sourceTree = "<group>"; };
+		A643054E27E1C02600D1E59F /* SLGPUImageThreeInputFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLGPUImageThreeInputFilter.h; sourceTree = "<group>"; };
+		A643054F27E1C02600D1E59F /* TuSDKPFEditAdjustControllerBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKPFEditAdjustControllerBase.h; sourceTree = "<group>"; };
+		A643055027E1C02600D1E59F /* TuSDKFilterGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKFilterGroup.h; sourceTree = "<group>"; };
+		A643055127E1C02600D1E59F /* TuSDKCPGroupFilterBarBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKCPGroupFilterBarBase.h; sourceTree = "<group>"; };
+		A643055227E1C02600D1E59F /* TuSDKGPUMonsterNoseFallFace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKGPUMonsterNoseFallFace.h; sourceTree = "<group>"; };
+		A643055327E1C02600D1E59F /* SLGPUImageMovieComposition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLGPUImageMovieComposition.h; sourceTree = "<group>"; };
+		A643055427E1C02600D1E59F /* TuSDKTSAVCaptureDevice+Extend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TuSDKTSAVCaptureDevice+Extend.h"; sourceTree = "<group>"; };
+		A643055527E1C02600D1E59F /* TuSDKProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKProgressHUD.h; sourceTree = "<group>"; };
+		A643055627E1C02600D1E59F /* TuSDKGPULightVignetteFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKGPULightVignetteFilter.h; sourceTree = "<group>"; };
+		A643055727E1C02600D1E59F /* TuSDKPFStickerLocalGridViewBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKPFStickerLocalGridViewBase.h; sourceTree = "<group>"; };
+		A643055827E1C02600D1E59F /* SLGPUImageTwoInputFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLGPUImageTwoInputFilter.h; sourceTree = "<group>"; };
+		A643055927E1C02600D1E59F /* TuSDKGPULiveEdgeMagicFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKGPULiveEdgeMagicFilter.h; sourceTree = "<group>"; };
+		A643055A27E1C02600D1E59F /* TuSDKParticleManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKParticleManager.h; sourceTree = "<group>"; };
+		A643055B27E1C02600D1E59F /* TuSDKSkinFilterAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKSkinFilterAPI.h; sourceTree = "<group>"; };
+		A643055C27E1C02600D1E59F /* TuSDKCPComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKCPComponent.h; sourceTree = "<group>"; };
+		A643055D27E1C02600D1E59F /* SLGPUImagePicture+TextureSubimage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SLGPUImagePicture+TextureSubimage.h"; sourceTree = "<group>"; };
+		A643055E27E1C02600D1E59F /* TuSDKLiveRadialBlurFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKLiveRadialBlurFilter.h; sourceTree = "<group>"; };
+		A643055F27E1C02600D1E59F /* TuSDKNKDownloadAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKNKDownloadAdapter.h; sourceTree = "<group>"; };
+		A643056027E1C02600D1E59F /* TuSDKLiveMirrorImageFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKLiveMirrorImageFilter.h; sourceTree = "<group>"; };
+		A643056127E1C02600D1E59F /* TuSDKGPULiveTransitionFilterProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKGPULiveTransitionFilterProtocol.h; sourceTree = "<group>"; };
+		A643056227E1C02600D1E59F /* TuSDKGPUFacePlasticFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKGPUFacePlasticFilter.h; sourceTree = "<group>"; };
+		A643056327E1C02600D1E59F /* TuSDKOnlineStickerDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKOnlineStickerDownloader.h; sourceTree = "<group>"; };
+		A643056427E1C02600D1E59F /* TuSDKPFStickerLocalControllerBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKPFStickerLocalControllerBase.h; sourceTree = "<group>"; };
+		A643056527E1C02600D1E59F /* TuSDKNKNetworkEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKNKNetworkEngine.h; sourceTree = "<group>"; };
+		A643056627E1C02600D1E59F /* TuSDKGPUImageFourInputFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKGPUImageFourInputFilter.h; sourceTree = "<group>"; };
+		A643056727E1C02600D1E59F /* TuSDKGPUColorMixedFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKGPUColorMixedFilter.h; sourceTree = "<group>"; };
+		A643056827E1C02600D1E59F /* TuSDKPFEditSkinControllerBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKPFEditSkinControllerBase.h; sourceTree = "<group>"; };
+		A643056927E1C02600D1E59F /* TuSDKFaceWhitenFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKFaceWhitenFilter.h; sourceTree = "<group>"; };
+		A643056A27E1C02600D1E59F /* CosmeticLipFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CosmeticLipFilter.h; sourceTree = "<group>"; };
+		A643056B27E1C02600D1E59F /* TuSDKCPGifImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKCPGifImage.h; sourceTree = "<group>"; };
+		A643056C27E1C02600D1E59F /* TuSDKTSDeviceSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKTSDeviceSettings.h; sourceTree = "<group>"; };
+		A643056D27E1C02600D1E59F /* SLGLProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLGLProgram.h; sourceTree = "<group>"; };
+		A643056E27E1C02600D1E59F /* TuSDKICSeekBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKICSeekBar.h; sourceTree = "<group>"; };
+		A643056F27E1C02600D1E59F /* TuSDKGPULiveFlashLightFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKGPULiveFlashLightFilter.h; sourceTree = "<group>"; };
+		A643057027E1C02600D1E59F /* TuSDKPFEditSharpnessControllerBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKPFEditSharpnessControllerBase.h; sourceTree = "<group>"; };
+		A643057127E1C02600D1E59F /* SLGPUImageMovieWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLGPUImageMovieWriter.h; sourceTree = "<group>"; };
+		A643057227E1C02600D1E59F /* TuSDKTSScreen+Extend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TuSDKTSScreen+Extend.h"; sourceTree = "<group>"; };
+		A643057327E1C02600D1E59F /* TuSDKGPUSkinGaussianBlurSmoothFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKGPUSkinGaussianBlurSmoothFilter.h; sourceTree = "<group>"; };
+		A643057427E1C02600D1E59F /* TuSDKPFEditTurnAndCutViewControllerBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKPFEditTurnAndCutViewControllerBase.h; sourceTree = "<group>"; };
+		A643057527E1C02600D1E59F /* TuSDKCPStackFilterBarBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKCPStackFilterBarBase.h; sourceTree = "<group>"; };
+		A643057627E1C02600D1E59F /* TuSDKGPUTfmFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKGPUTfmFilter.h; sourceTree = "<group>"; };
+		A643057727E1C02600D1E59F /* TuSDKBoxBlurFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKBoxBlurFilter.h; sourceTree = "<group>"; };
+		A643057827E1C02600D1E59F /* TuSDKGPUProgramFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKGPUProgramFilter.h; sourceTree = "<group>"; };
+		A643057927E1C02600D1E59F /* TuSDKLiveXRayFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKLiveXRayFilter.h; sourceTree = "<group>"; };
+		A643057A27E1C02600D1E59F /* TuSDKTSBundle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKTSBundle.h; sourceTree = "<group>"; };
+		A643057B27E1C02600D1E59F /* TuSDKTKThread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKTKThread.h; sourceTree = "<group>"; };
+		A643057C27E1C02600D1E59F /* TuSDKReshapeFaceModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKReshapeFaceModel.h; sourceTree = "<group>"; };
+		A643057D27E1C02600D1E59F /* TuSDKCPViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKCPViewController.h; sourceTree = "<group>"; };
+		A643057E27E1C02600D1E59F /* TuSDKLiveStickerImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKLiveStickerImage.h; sourceTree = "<group>"; };
+		A643057F27E1C02600D1E59F /* TuSDKPlasticFaceInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKPlasticFaceInfo.h; sourceTree = "<group>"; };
+		A643058027E1C02600D1E59F /* TuSDKGPURotateShotOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKGPURotateShotOutput.h; sourceTree = "<group>"; };
+		A643058127E1C02600D1E59F /* TuSDKGPUImagePicture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKGPUImagePicture.h; sourceTree = "<group>"; };
+		A643058227E1C02600D1E59F /* TuSDKCosmeticSticker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKCosmeticSticker.h; sourceTree = "<group>"; };
+		A643058327E1C02600D1E59F /* TuSDKFace2DComboFilterWrap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKFace2DComboFilterWrap.h; sourceTree = "<group>"; };
+		A643058427E1C02600D1E59F /* TuSDKMeanBlurFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKMeanBlurFilter.h; sourceTree = "<group>"; };
+		A643058527E1C02600D1E59F /* TuSDKPFTextLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKPFTextLabel.h; sourceTree = "<group>"; };
+		A643058627E1C02600D1E59F /* TuSDKCPImageDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKCPImageDecoder.h; sourceTree = "<group>"; };
+		A643058727E1C02600D1E59F /* TuSDKTSNSDictionary+Extend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TuSDKTSNSDictionary+Extend.h"; sourceTree = "<group>"; };
+		A643058827E1C02600D1E59F /* TuSDKGPULiveFocusFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKGPULiveFocusFilter.h; sourceTree = "<group>"; };
+		A643058927E1C02600D1E59F /* TuSDKNetworkReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKNetworkReachability.h; sourceTree = "<group>"; };
+		A643058A27E1C02600D1E59F /* TuSDKGPUMonsterSnakeFace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKGPUMonsterSnakeFace.h; sourceTree = "<group>"; };
+		A643058B27E1C02600D1E59F /* TuSDKICGPUImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKICGPUImageView.h; sourceTree = "<group>"; };
+		A643058C27E1C02600D1E59F /* TuSDKGPULiveZoomFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKGPULiveZoomFilter.h; sourceTree = "<group>"; };
+		A643058D27E1C02600D1E59F /* TuSDKCPGifDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKCPGifDecoder.h; sourceTree = "<group>"; };
+		A643058E27E1C02600D1E59F /* TuSDKPFAlbumViewControllerBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKPFAlbumViewControllerBase.h; sourceTree = "<group>"; };
+		A643058F27E1C02600D1E59F /* TuSDKPFSmudgeLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKPFSmudgeLog.h; sourceTree = "<group>"; };
+		A643059027E1C02600D1E59F /* TuSDKPFFilterConfigView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKPFFilterConfigView.h; sourceTree = "<group>"; };
+		A643059127E1C02600D1E59F /* CosmeticEyepartModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CosmeticEyepartModel.h; sourceTree = "<group>"; };
+		A643059227E1C02600D1E59F /* SLGPUImageFilterGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLGPUImageFilterGroup.h; sourceTree = "<group>"; };
+		A643059327E1C02600D1E59F /* TuSDKTSPointCalculator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKTSPointCalculator.h; sourceTree = "<group>"; };
+		A643059427E1C02600D1E59F /* TuSDKICViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKICViewController.h; sourceTree = "<group>"; };
+		A643059527E1C02600D1E59F /* TuSDKSkinNaturalWrap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKSkinNaturalWrap.h; sourceTree = "<group>"; };
+		A643059627E1C02600D1E59F /* TuSDKCPPhotoEditMultipleComponentBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKCPPhotoEditMultipleComponentBase.h; sourceTree = "<group>"; };
+		A643059727E1C02600D1E59F /* TuSDKCPAlbumMultipleComponentBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKCPAlbumMultipleComponentBase.h; sourceTree = "<group>"; };
+		A643059827E1C02600D1E59F /* TuSDKGPUTfmInkFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKGPUTfmInkFilter.h; sourceTree = "<group>"; };
+		A643059927E1C02600D1E59F /* TuSDKTSFaceHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKTSFaceHelper.h; sourceTree = "<group>"; };
+		A643059A27E1C02600D1E59F /* TuSDKScreenKeyingWrap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKScreenKeyingWrap.h; sourceTree = "<group>"; };
+		A643059B27E1C02600D1E59F /* TuSDKPFEditFilterControllerBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKPFEditFilterControllerBase.h; sourceTree = "<group>"; };
+		A643059C27E1C02600D1E59F /* SLGPUImageTwoPassFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLGPUImageTwoPassFilter.h; sourceTree = "<group>"; };
+		A643059D27E1C02600D1E59F /* TuSDKParticleItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKParticleItem.h; sourceTree = "<group>"; };
+		A643059E27E1C02600D1E59F /* TuSDKTSMatrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKTSMatrix.h; sourceTree = "<group>"; };
+		A643059F27E1C02600D1E59F /* TuSDKGPUSkinNaturalFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKGPUSkinNaturalFilter.h; sourceTree = "<group>"; };
+		A64305A027E1C02600D1E59F /* TuSDKConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKConfig.h; sourceTree = "<group>"; };
+		A64305A127E1C02600D1E59F /* TuSDKGPUColorAdjustmentFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKGPUColorAdjustmentFilter.h; sourceTree = "<group>"; };
+		A64305A227E1C02600D1E59F /* TuSDKICWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKICWebView.h; sourceTree = "<group>"; };
+		A64305A327E1C02600D1E59F /* TuSDKCPFocusTouchViewBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKCPFocusTouchViewBase.h; sourceTree = "<group>"; };
+		A64305A427E1C02600D1E59F /* TuSDKGPUMap2DFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKGPUMap2DFilter.h; sourceTree = "<group>"; };
+		A64305A527E1C02600D1E59F /* TuSDKTSMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKTSMath.h; sourceTree = "<group>"; };
+		A64305A627E1C02600D1E59F /* TuSDKColorMixCoverFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKColorMixCoverFilter.h; sourceTree = "<group>"; };
+		A64305A727E1C02600D1E59F /* TuSDKPFSticker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKPFSticker.h; sourceTree = "<group>"; };
+		A64305A827E1C02600D1E59F /* TuSDKBeautifyFaceFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKBeautifyFaceFilter.h; sourceTree = "<group>"; };
+		A64305A927E1C02600D1E59F /* SLGPUImageMovie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLGPUImageMovie.h; sourceTree = "<group>"; };
+		A64305AA27E1C02600D1E59F /* TuSDKGPUSkinColorMixedFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKGPUSkinColorMixedFilter.h; sourceTree = "<group>"; };
+		A64305AB27E1C02600D1E59F /* TuSDKPFBrushTableItemCellBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKPFBrushTableItemCellBase.h; sourceTree = "<group>"; };
+		A64305AC27E1C02600D1E59F /* TuSDKNKDownloadItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKNKDownloadItem.h; sourceTree = "<group>"; };
+		A64305AD27E1C02600D1E59F /* TuSDKICTouchImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKICTouchImageView.h; sourceTree = "<group>"; };
+		A64305AE27E1C02600D1E59F /* TuSDKGPUSkinColor2Filter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKGPUSkinColor2Filter.h; sourceTree = "<group>"; };
+		A64305AF27E1C02600D1E59F /* TuSDKReshapeEyeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKReshapeEyeModel.h; sourceTree = "<group>"; };
+		A64305B027E1C02600D1E59F /* TuSDKCPSubtitlesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKCPSubtitlesView.h; sourceTree = "<group>"; };
+		A64305B127E1C02600D1E59F /* TuSDKGPUColorLomoFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKGPUColorLomoFilter.h; sourceTree = "<group>"; };
+		A64305B227E1C02600D1E59F /* TuSDKTSNSData+Extend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TuSDKTSNSData+Extend.h"; sourceTree = "<group>"; };
+		A64305B327E1C02600D1E59F /* CosmeticFacialModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CosmeticFacialModel.h; sourceTree = "<group>"; };
+		A64305B427E1C02600D1E59F /* TuSDKPFEditHDRControllerBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKPFEditHDRControllerBase.h; sourceTree = "<group>"; };
+		A64305B527E1C02600D1E59F /* TuSDKNKImageAnalysis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKNKImageAnalysis.h; sourceTree = "<group>"; };
+		A64305B627E1C02600D1E59F /* TuSDKGPUTfmDogFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKGPUTfmDogFilter.h; sourceTree = "<group>"; };
+		A64305B727E1C02600D1E59F /* TuSDKAOFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKAOFile.h; sourceTree = "<group>"; };
+		A64305B827E1C02600D1E59F /* TuSDKPFSmudgeProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKPFSmudgeProcessor.h; sourceTree = "<group>"; };
+		A64305B927E1C02600D1E59F /* TuSDKCPFilterResultController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKCPFilterResultController.h; sourceTree = "<group>"; };
+		A64305BA27E1C02600D1E59F /* TuSDKNormalFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKNormalFilter.h; sourceTree = "<group>"; };
+		A64305BB27E1C02600D1E59F /* TuSDKTextureCoordinateCropBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKTextureCoordinateCropBuilder.h; sourceTree = "<group>"; };
+		A64305BC27E1C02600D1E59F /* TuSDKReshapeEyeFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKReshapeEyeFilter.h; sourceTree = "<group>"; };
+		A64305BD27E1C02600D1E59F /* TuSDKTSMotion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKTSMotion.h; sourceTree = "<group>"; };
+		A64305BE27E1C02600D1E59F /* TuSDKGPULiveShakeFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKGPULiveShakeFilter.h; sourceTree = "<group>"; };
+		A64305BF27E1C02600D1E59F /* TuSDKRatioType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKRatioType.h; sourceTree = "<group>"; };
+		A64305C027E1C02600D1E59F /* TuSDKICMessageHub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKICMessageHub.h; sourceTree = "<group>"; };
+		A64305C127E1C02600D1E59F /* TuSDKGPULiveStackUpFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKGPULiveStackUpFilter.h; sourceTree = "<group>"; };
+		A64305C227E1C02600D1E59F /* SLGPUImageContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLGPUImageContext.h; sourceTree = "<group>"; };
+		A64305C327E1C02600D1E59F /* TuSDKPFBrushLocalPackage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKPFBrushLocalPackage.h; sourceTree = "<group>"; };
+		A64305C427E1C02600D1E59F /* TuSDKCPImageResultController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKCPImageResultController.h; sourceTree = "<group>"; };
+		A64305C527E1C02600D1E59F /* SLGPUImageStillCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLGPUImageStillCamera.h; sourceTree = "<group>"; };
+		A64305C627E1C02600D1E59F /* TuSDKPFEditWipeAndFilterControllerBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKPFEditWipeAndFilterControllerBase.h; sourceTree = "<group>"; };
+		A64305C727E1C02600D1E59F /* TuSDKGPUApertureFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKGPUApertureFilter.h; sourceTree = "<group>"; };
+		A64305C827E1C02600D1E59F /* TuSDKICTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKICTableView.h; sourceTree = "<group>"; };
+		A64305C927E1C02600D1E59F /* TuSDKICView+Extend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TuSDKICView+Extend.h"; sourceTree = "<group>"; };
+		A64305CA27E1C02600D1E59F /* TuSDKWaterMarkOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKWaterMarkOption.h; sourceTree = "<group>"; };
+		A64305CB27E1C02600D1E59F /* TuSDKNKNetworkArg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKNKNetworkArg.h; sourceTree = "<group>"; };
+		A64305CC27E1C02600D1E59F /* TuSDKPFEditStickerControllerBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKPFEditStickerControllerBase.h; sourceTree = "<group>"; };
+		A64305CD27E1C02600D1E59F /* TuSDKPFStickerFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKPFStickerFactory.h; sourceTree = "<group>"; };
+		A64305CE27E1C02600D1E59F /* TuSDKGPUSkinMoistFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKGPUSkinMoistFilter.h; sourceTree = "<group>"; };
+		A64305CF27E1C02600D1E59F /* TuSDKTSNSArray+Extend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TuSDKTSNSArray+Extend.h"; sourceTree = "<group>"; };
+		A64305D027E1C02600D1E59F /* TuSDKParticleFilterInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKParticleFilterInterface.h; sourceTree = "<group>"; };
+		A64305D127E1C02600D1E59F /* SLGPUImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLGPUImageView.h; sourceTree = "<group>"; };
+		A64305D227E1C02600D1E59F /* TuSDKLiveOldTVFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKLiveOldTVFilter.h; sourceTree = "<group>"; };
+		A64305D327E1C02600D1E59F /* TuSDKPFBrush.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKPFBrush.h; sourceTree = "<group>"; };
+		A64305D427E1C02600D1E59F /* TuSDKICSmudgeImageViewWrap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKICSmudgeImageViewWrap.h; sourceTree = "<group>"; };
+		A64305D527E1C02600D1E59F /* TuSDKGPULABFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKGPULABFilter.h; sourceTree = "<group>"; };
+		A64305D627E1C02600D1E59F /* TuSDKPFFilterOnlineControllerBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKPFFilterOnlineControllerBase.h; sourceTree = "<group>"; };
+		A64305D727E1C02600D1E59F /* TuSDKGPULiveSoulOutFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKGPULiveSoulOutFilter.h; sourceTree = "<group>"; };
+		A64305D827E1C02600D1E59F /* TuSDKGaussianBlurSevenRadiusSmoothFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKGaussianBlurSevenRadiusSmoothFilter.h; sourceTree = "<group>"; };
+		A64305D927E1C02600D1E59F /* TuSDKNKImageAutoColorAnalysis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKNKImageAutoColorAnalysis.h; sourceTree = "<group>"; };
+		A64305DA27E1C02600D1E59F /* TuSDKTSAVAudioPlayer+Extend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TuSDKTSAVAudioPlayer+Extend.h"; sourceTree = "<group>"; };
+		A64305DB27E1C02600D1E59F /* TuSDKGPULiveFlipFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKGPULiveFlipFilter.h; sourceTree = "<group>"; };
+		A64305DC27E1C02600D1E59F /* SLGPUImageTextureOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLGPUImageTextureOutput.h; sourceTree = "<group>"; };
+		A64305DD27E1C02600D1E59F /* SLGPUImageVideoCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLGPUImageVideoCamera.h; sourceTree = "<group>"; };
+		A64305DE27E1C02600D1E59F /* TuSDKICEmptyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKICEmptyView.h; sourceTree = "<group>"; };
+		A64305DF27E1C02600D1E59F /* CosmeticFacialFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CosmeticFacialFilter.h; sourceTree = "<group>"; };
+		A64305E027E1C02600D1E59F /* TuSDKGPULightHolyFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKGPULightHolyFilter.h; sourceTree = "<group>"; };
+		A64305E127E1C02600D1E59F /* TuSDKComboFilterWrapChain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKComboFilterWrapChain.h; sourceTree = "<group>"; };
+		A64305E227E1C02600D1E59F /* CosmeticLipModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CosmeticLipModel.h; sourceTree = "<group>"; };
+		A64305E327E1C02600D1E59F /* TuSDKCPOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKCPOptions.h; sourceTree = "<group>"; };
+		A64305E427E1C02600D1E59F /* TuSDKFilterUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKFilterUtils.h; sourceTree = "<group>"; };
+		A64305E527E1C02600D1E59F /* TuSDKReshapeGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKReshapeGroup.h; sourceTree = "<group>"; };
+		A64305E627E1C02600D1E59F /* TuSDKGPUMonsterFace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKGPUMonsterFace.h; sourceTree = "<group>"; };
+		A64305E727E1C02600D1E59F /* TuSDKNetworkImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKNetworkImageCache.h; sourceTree = "<group>"; };
+		A64305E827E1C02600D1E59F /* TuSDKPFEditVignetteControllerBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKPFEditVignetteControllerBase.h; sourceTree = "<group>"; };
+		A64305E927E1C02600D1E59F /* TuSDKGaussianBilateralFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKGaussianBilateralFilter.h; sourceTree = "<group>"; };
+		A64305EA27E1C02600D1E59F /* TuSDKPFStickerGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKPFStickerGroup.h; sourceTree = "<group>"; };
+		A64305EB27E1C02600D1E59F /* TuSDKGPULiveSpreadInFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKGPULiveSpreadInFilter.h; sourceTree = "<group>"; };
+		A64305EC27E1C02600D1E59F /* CosmeticEyepartFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CosmeticEyepartFilter.h; sourceTree = "<group>"; };
+		A64305ED27E1C02600D1E59F /* TuSDKPFStickerText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKPFStickerText.h; sourceTree = "<group>"; };
+		A64305EE27E1C02600D1E59F /* TuSDKLiveStickerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKLiveStickerManager.h; sourceTree = "<group>"; };
+		A64305EF27E1C02600D1E59F /* TuSDKGPUSharpenFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKGPUSharpenFilter.h; sourceTree = "<group>"; };
+		A64305F027E1C02600D1E59F /* TuSDKPFEditFilterGroupViewBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKPFEditFilterGroupViewBase.h; sourceTree = "<group>"; };
+		A64305F127E1C02600D1E59F /* TuSDKPaintDrawViewBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKPaintDrawViewBase.h; sourceTree = "<group>"; };
+		A64305F227E1C02600D1E59F /* TuSDKPFStickerResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKPFStickerResult.h; sourceTree = "<group>"; };
+		A64305F327E1C02600D1E59F /* TuSDKTSNSData+ImageExtend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TuSDKTSNSData+ImageExtend.h"; sourceTree = "<group>"; };
+		A64305F427E1C02600D1E59F /* TuSDKLiveScanningLineFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKLiveScanningLineFilter.h; sourceTree = "<group>"; };
+		A64305F527E1C02600D1E59F /* TuSDKICGuideRegionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKICGuideRegionView.h; sourceTree = "<group>"; };
+		A64305F627E1C02600D1E59F /* TuSDKVideoCameraInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKVideoCameraInterface.h; sourceTree = "<group>"; };
+		A64305F727E1C02600D1E59F /* TuSDKTSNSMutableDictionary+ImageMetadata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TuSDKTSNSMutableDictionary+ImageMetadata.h"; sourceTree = "<group>"; };
+		A64305F827E1C02600D1E59F /* TuSDK2DImageSticker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDK2DImageSticker.h; sourceTree = "<group>"; };
+		A64305F927E1C02600D1E59F /* TuSDKTSDevice+Extend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TuSDKTSDevice+Extend.h"; sourceTree = "<group>"; };
+		A64305FA27E1C02600D1E59F /* TuSDKTSALAssetsGrouped+CreateTimeDesc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TuSDKTSALAssetsGrouped+CreateTimeDesc.h"; sourceTree = "<group>"; };
+		A64305FB27E1C02600D1E59F /* TuSDKPFBrushManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKPFBrushManager.h; sourceTree = "<group>"; };
+		A64305FC27E1C02600D1E59F /* TuSDKGPUSkinColorFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKGPUSkinColorFilter.h; sourceTree = "<group>"; };
+		A64305FD27E1C02600D1E59F /* TuSDKLiveLightningFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKLiveLightningFilter.h; sourceTree = "<group>"; };
+		A64305FE27E1C02600D1E59F /* TuSDKFilterManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKFilterManager.h; sourceTree = "<group>"; };
+		A64305FF27E1C02600D1E59F /* TuSDKFilterAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKFilterAdapter.h; sourceTree = "<group>"; };
+		A643060027E1C02600D1E59F /* SLGPUImageFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLGPUImageFilter.h; sourceTree = "<group>"; };
+		A643060127E1C02600D1E59F /* TuSDKPFTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKPFTextView.h; sourceTree = "<group>"; };
+		A643060227E1C02600D1E59F /* TuSDKTKFiltersTempTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKTKFiltersTempTask.h; sourceTree = "<group>"; };
+		A643060327E1C02600D1E59F /* TuSDKICGifView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKICGifView.h; sourceTree = "<group>"; };
+		A643060427E1C02700D1E59F /* TuSDKGPULiveFlyInFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKGPULiveFlyInFilter.h; sourceTree = "<group>"; };
+		A643060527E1C02700D1E59F /* TuSDKGPUArtBrushFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKGPUArtBrushFilter.h; sourceTree = "<group>"; };
+		A643060627E1C02700D1E59F /* TuSDKPFEditEntryControllerBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKPFEditEntryControllerBase.h; sourceTree = "<group>"; };
+		A643060727E1C02700D1E59F /* TuSDKPFEditMultipleControllerBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKPFEditMultipleControllerBase.h; sourceTree = "<group>"; };
+		A643060827E1C02700D1E59F /* TuSDKPFStickerBarViewBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKPFStickerBarViewBase.h; sourceTree = "<group>"; };
+		A643060927E1C02700D1E59F /* TuSDKGPUSelectiveCircleFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKGPUSelectiveCircleFilter.h; sourceTree = "<group>"; };
+		A643060A27E1C02700D1E59F /* TuSDKTKFiltersTaskBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKTKFiltersTaskBase.h; sourceTree = "<group>"; };
+		A643060B27E1C02700D1E59F /* TuSDKStillCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKStillCamera.h; sourceTree = "<group>"; };
+		A643060C27E1C02700D1E59F /* TuSDKFilterProcessorBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKFilterProcessorBase.h; sourceTree = "<group>"; };
+		A643060D27E1C02700D1E59F /* TuSDKGPULightGlareFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKGPULightGlareFilter.h; sourceTree = "<group>"; };
+		A643060E27E1C02700D1E59F /* SLGPUImagePicture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLGPUImagePicture.h; sourceTree = "<group>"; };
+		A643060F27E1C02700D1E59F /* TuSDKICFocusRangeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKICFocusRangeView.h; sourceTree = "<group>"; };
+		A643061027E1C02700D1E59F /* TuSDKTKStatistics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKTKStatistics.h; sourceTree = "<group>"; };
+		A643061127E1C02700D1E59F /* TuSDKGPULivePullInFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKGPULivePullInFilter.h; sourceTree = "<group>"; };
+		A643061227E1C02700D1E59F /* TuSDKOpenGLAssistant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKOpenGLAssistant.h; sourceTree = "<group>"; };
+		A643061327E1C02700D1E59F /* TuSDKLiveSloshFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKLiveSloshFilter.h; sourceTree = "<group>"; };
+		A643061427E1C02700D1E59F /* TuSDKPlasticFace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKPlasticFace.h; sourceTree = "<group>"; };
+		A643061527E1C02700D1E59F /* CosmeticEyebrowModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CosmeticEyebrowModel.h; sourceTree = "<group>"; };
+		A643061627E1C02700D1E59F /* TuSDKLuminanceRangeFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKLuminanceRangeFilter.h; sourceTree = "<group>"; };
+		A643061727E1C02700D1E59F /* TuSDKCPPhotoEditComponentBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKCPPhotoEditComponentBase.h; sourceTree = "<group>"; };
+		A643061827E1C02700D1E59F /* TuSDKAuth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKAuth.h; sourceTree = "<group>"; };
+		A643061927E1C02700D1E59F /* TuSDKTSFileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKTSFileManager.h; sourceTree = "<group>"; };
+		A643061A27E1C02700D1E59F /* TuSDKGPUMonsterSquareFace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKGPUMonsterSquareFace.h; sourceTree = "<group>"; };
+		A643061B27E1C02700D1E59F /* TuSDKGPUVRLeftRightView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKGPUVRLeftRightView.h; sourceTree = "<group>"; };
+		A643061C27E1C02700D1E59F /* TuSDKFilterWrap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKFilterWrap.h; sourceTree = "<group>"; };
+		A643061D27E1C02700D1E59F /* TuSDKICPagerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKICPagerView.h; sourceTree = "<group>"; };
+		A643061E27E1C02700D1E59F /* TuSDKICNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKICNavigationController.h; sourceTree = "<group>"; };
+		A643061F27E1C02700D1E59F /* TuSDKGPULiveMegrimFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKGPULiveMegrimFilter.h; sourceTree = "<group>"; };
+		A643062027E1C02700D1E59F /* TuSDKGPUParticleFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKGPUParticleFilter.h; sourceTree = "<group>"; };
+		A643062127E1C02700D1E59F /* TuSDKVerticeCoordinateBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKVerticeCoordinateBuilder.h; sourceTree = "<group>"; };
+		A643062227E1C02700D1E59F /* SLGLYUVTextureProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLGLYUVTextureProgram.h; sourceTree = "<group>"; };
+		A643062327E1C02700D1E59F /* TuSDKNKDownloadTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKNKDownloadTask.h; sourceTree = "<group>"; };
+		A643062427E1C02700D1E59F /* TuSDKTSByte.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKTSByte.h; sourceTree = "<group>"; };
+		A643062527E1C02700D1E59F /* SLGPUImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLGPUImage.h; sourceTree = "<group>"; };
+		A643062627E1C02700D1E59F /* TuSDKPFStickerLocalPackage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKPFStickerLocalPackage.h; sourceTree = "<group>"; };
+		A643062727E1C02700D1E59F /* SelesVertexbuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelesVertexbuffer.h; sourceTree = "<group>"; };
+		A643062827E1C02700D1E59F /* TuSDKGPUTfmLicFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKGPUTfmLicFilter.h; sourceTree = "<group>"; };
+		A643062927E1C02700D1E59F /* TuSDKGPUScreenKeyingFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKGPUScreenKeyingFilter.h; sourceTree = "<group>"; };
+		A643062A27E1C02700D1E59F /* TuSDKGPUColorSelectiveFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKGPUColorSelectiveFilter.h; sourceTree = "<group>"; };
+		A643062B27E1C02700D1E59F /* TuSDKGPUSingleGaussFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKGPUSingleGaussFilter.h; sourceTree = "<group>"; };
+		A643062C27E1C02700D1E59F /* SLGPUImageBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLGPUImageBuffer.h; sourceTree = "<group>"; };
+		A643062D27E1C02700D1E59F /* TuSDKFilterParameter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKFilterParameter.h; sourceTree = "<group>"; };
+		A643062E27E1C02700D1E59F /* TuSDKLiveHeartbeatFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKLiveHeartbeatFilter.h; sourceTree = "<group>"; };
+		A643062F27E1C02700D1E59F /* TuSDKPFStickerOnlineControllerBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKPFStickerOnlineControllerBase.h; sourceTree = "<group>"; };
+		A643063027E1C02700D1E59F /* TuSDKGPUImageFiveInputFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKGPUImageFiveInputFilter.h; sourceTree = "<group>"; };
+		A643063127E1C02700D1E59F /* TuSDKReshapeFaceFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKReshapeFaceFilter.h; sourceTree = "<group>"; };
+		A643063227E1C02700D1E59F /* TuSDKFilterOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKFilterOption.h; sourceTree = "<group>"; };
+		A643063327E1C02700D1E59F /* TuSDKNKDownloadManger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKNKDownloadManger.h; sourceTree = "<group>"; };
+		A643063427E1C02700D1E59F /* TuSDKGPUImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKGPUImageView.h; sourceTree = "<group>"; };
+		A643063527E1C02700D1E59F /* SLGPUImageFramebufferCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLGPUImageFramebufferCache.h; sourceTree = "<group>"; };
+		A643063627E1C02700D1E59F /* TuSDKTSKeychainUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKTSKeychainUtils.h; sourceTree = "<group>"; };
+		A643063727E1C02700D1E59F /* TuSDKICMessageHubInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKICMessageHubInterface.h; sourceTree = "<group>"; };
+		A643063827E1C02700D1E59F /* CosmeticBlushModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CosmeticBlushModel.h; sourceTree = "<group>"; };
+		A643063927E1C02700D1E59F /* TuSDKTSALAssets+Extend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TuSDKTSALAssets+Extend.h"; sourceTree = "<group>"; };
+		A643063A27E1C02700D1E59F /* TuSDKTKFilterImageWare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKTKFilterImageWare.h; sourceTree = "<group>"; };
+		A643063B27E1C02700D1E59F /* TuSDKTSAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKTSAnimation.h; sourceTree = "<group>"; };
+		A643063C27E1C02700D1E59F /* TuSDKNetworkEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKNetworkEngine.h; sourceTree = "<group>"; };
+		A643063D27E1C02700D1E59F /* TuSDKCPEditActionType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKCPEditActionType.h; sourceTree = "<group>"; };
+		A643063E27E1C02700D1E59F /* TuSDKCPImageResultOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKCPImageResultOptions.h; sourceTree = "<group>"; };
+		A643063F27E1C02700D1E59F /* TuSDKGaussianBlurSevenRadiusFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKGaussianBlurSevenRadiusFilter.h; sourceTree = "<group>"; };
+		A643064027E1C02700D1E59F /* SLGPUImageSharpenFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLGPUImageSharpenFilter.h; sourceTree = "<group>"; };
+		A643064127E1C02700D1E59F /* TuSDKPFAlbumMultipleViewControllerBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKPFAlbumMultipleViewControllerBase.h; sourceTree = "<group>"; };
+		A643064227E1C02700D1E59F /* TuSDKPFEditHolyLightControllerBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKPFEditHolyLightControllerBase.h; sourceTree = "<group>"; };
+		A643064327E1C02700D1E59F /* CosmeticModelBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CosmeticModelBase.h; sourceTree = "<group>"; };
+		A643064427E1C02700D1E59F /* TuSDKPFStickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKPFStickerView.h; sourceTree = "<group>"; };
+		A643064527E1C02700D1E59F /* TuSDKCPError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKCPError.h; sourceTree = "<group>"; };
+		A643064627E1C02700D1E59F /* TuSDKCPFilterStickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKCPFilterStickerView.h; sourceTree = "<group>"; };
+		A643064727E1C02700D1E59F /* TuSDKAOValid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKAOValid.h; sourceTree = "<group>"; };
+		A643064827E1C02700D1E59F /* TuSDKCPParameterConfigViewInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKCPParameterConfigViewInterface.h; sourceTree = "<group>"; };
+		A643064927E1C02700D1E59F /* SLGPUImageTextureInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLGPUImageTextureInput.h; sourceTree = "<group>"; };
+		A643064A27E1C02700D1E59F /* TuSDKGPULiveFancy01Filter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKGPULiveFancy01Filter.h; sourceTree = "<group>"; };
+		A643064B27E1C02700D1E59F /* TuSDKCPStackFilterTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKCPStackFilterTableView.h; sourceTree = "<group>"; };
+		A643064C27E1C02700D1E59F /* SLGPUImageTwoPassTextureSamplingFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLGPUImageTwoPassTextureSamplingFilter.h; sourceTree = "<group>"; };
+		A643064D27E1C02700D1E59F /* TuSDKPFEditSmudgeControllerBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKPFEditSmudgeControllerBase.h; sourceTree = "<group>"; };
+		A643064E27E1C02700D1E59F /* CosmeticEyebrowFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CosmeticEyebrowFilter.h; sourceTree = "<group>"; };
+		A643064F27E1C02700D1E59F /* TuSDKCosmeticImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKCosmeticImage.h; sourceTree = "<group>"; };
+		A643065027E1C02700D1E59F /* TuSDKPFCameraViewControllerBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKPFCameraViewControllerBase.h; sourceTree = "<group>"; };
+		A643065127E1C02700D1E59F /* TuSDKCPRegionHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKCPRegionHandler.h; sourceTree = "<group>"; };
+		A643065227E1C02700D1E59F /* TuSDKICMaskRegionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKICMaskRegionView.h; sourceTree = "<group>"; };
+		A643065327E1C02700D1E59F /* SLGPUImageRawDataOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLGPUImageRawDataOutput.h; sourceTree = "<group>"; };
+		A643065427E1C02700D1E59F /* TuSDKGPUSkinWhiteningFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKGPUSkinWhiteningFilter.h; sourceTree = "<group>"; };
+		A643065527E1C02700D1E59F /* TuSDKICAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKICAlertView.h; sourceTree = "<group>"; };
+		A643065627E1C02700D1E59F /* TuSDKCPResultOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKCPResultOptions.h; sourceTree = "<group>"; };
+		A643065727E1C02700D1E59F /* TuSDKFaceSmoothFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKFaceSmoothFilter.h; sourceTree = "<group>"; };
+		A643065827E1C02700D1E59F /* TuSDKInternalFilterManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKInternalFilterManager.h; sourceTree = "<group>"; };
+		A643065927E1C02700D1E59F /* TuSDKFaceAligment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKFaceAligment.h; sourceTree = "<group>"; };
+		A643065A27E1C02700D1E59F /* TuSDKGPULiveSignalFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKGPULiveSignalFilter.h; sourceTree = "<group>"; };
+		A643065B27E1C02700D1E59F /* TuSDKTSAsset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKTSAsset.h; sourceTree = "<group>"; };
+		A643065C27E1C02700D1E59F /* TuSDKBilateralFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKBilateralFilter.h; sourceTree = "<group>"; };
+		A643065D27E1C02700D1E59F /* TuSDKICFilterSmudgeImageViewWrap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKICFilterSmudgeImageViewWrap.h; sourceTree = "<group>"; };
+		A643065E27E1C02700D1E59F /* TuSDKTSString+Extend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TuSDKTSString+Extend.h"; sourceTree = "<group>"; };
+		A643065F27E1C02700D1E59F /* TuSDKGPUSkinColor2MixedFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKGPUSkinColor2MixedFilter.h; sourceTree = "<group>"; };
+		A643066027E1C02700D1E59F /* TuSDKPFBrushBarViewBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKPFBrushBarViewBase.h; sourceTree = "<group>"; };
+		A643066127E1C02700D1E59F /* TuSDKCPFilterOnlineControllerInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuSDKCPFilterOnlineControllerInterface.h; sourceTree = "<group>"; };
+		A643066227E1C02700D1E59F /* TuSDKTSDate+Extend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TuSDKTSDate+Extend.h"; sourceTree = "<group>"; };
 		B8210F6F253EDB5400E17525 /* TuCosmeticPanelView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TuCosmeticPanelView.h; sourceTree = "<group>"; };
 		B8210F70253EDB5400E17525 /* TuCosmeticPanelView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TuCosmeticPanelView.m; sourceTree = "<group>"; };
 		B8210F75253FD13700E17525 /* TuCosmeticCategoryCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TuCosmeticCategoryCell.h; sourceTree = "<group>"; };
@@ -1084,10 +1600,7 @@
 		B8B2BDB225417BEF0017611E /* 断眉黑b.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "断眉黑b.jpg"; sourceTree = "<group>"; };
 		B8B2BDB325417BEF0017611E /* 芭比灰b.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "芭比灰b.jpg"; sourceTree = "<group>"; };
 		B8B2BDDE254188040017611E /* 标准灰b.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "标准灰b.jpg"; sourceTree = "<group>"; };
-		B8B7C7DF25B052FE00BA87AF /* TuSDKVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TuSDKVideo.framework; sourceTree = "<group>"; };
-		B8B7C7E025B052FE00BA87AF /* TuSDKFace.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TuSDKFace.framework; sourceTree = "<group>"; };
 		B8B7C7E125B052FE00BA87AF /* libyuv.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = libyuv.framework; sourceTree = "<group>"; };
-		B8B7C7E225B052FE00BA87AF /* TuSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TuSDK.framework; sourceTree = "<group>"; };
 		B8BD5BD6257F6DA300F83259 /* plastic_eyeHeight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_eyeHeight@2x.png"; sourceTree = "<group>"; };
 		B8BD5BD7257F6DA300F83259 /* plastic_eyeHeight_sel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_eyeHeight_sel@2x.png"; sourceTree = "<group>"; };
 		B8BD5BD8257F6DA300F83259 /* plastic_eyeHeight_sel@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plastic_eyeHeight_sel@3x.png"; sourceTree = "<group>"; };
@@ -1488,19 +2001,19 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B8B7C7E325B052FE00BA87AF /* TuSDKVideo.framework in Frameworks */,
+				A643066327E1C02700D1E59F /* TuSDKVideo.a in Frameworks */,
 				B8B787472559321E00B82F76 /* libresolv.tbd in Frameworks */,
 				F8FA849D219413B0002B24EB /* libc++.tbd in Frameworks */,
 				FBC6F51920D3CEF300F2FBB7 /* libyuv.framework in Frameworks */,
-				B8B7C7E625B052FE00BA87AF /* TuSDK.framework in Frameworks */,
 				B8B7C7E525B052FE00BA87AF /* libyuv.framework in Frameworks */,
 				FBC6F51020D3CE6400F2FBB7 /* Accelerate.framework in Frameworks */,
 				FBC6F50E20D3CE5D00F2FBB7 /* Security.framework in Frameworks */,
 				FBC6F50C20D3CE5600F2FBB7 /* SystemConfiguration.framework in Frameworks */,
+				A643066527E1C02700D1E59F /* TuSDK.a in Frameworks */,
+				A643066427E1C02700D1E59F /* TuSDKFace.a in Frameworks */,
 				FBC6F50A20D3CE4800F2FBB7 /* libz.1.2.5.tbd in Frameworks */,
 				FBF3A8C020D3CD24008466D0 /* Bugly.framework in Frameworks */,
 				B85C249023CEFB3500C9BD96 /* AudioToolbox.framework in Frameworks */,
-				B8B7C7E425B052FE00BA87AF /* TuSDKFace.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1583,6 +2096,567 @@
 				45E707D1226D633A009C73C9 /* StickerEditor.m */,
 			);
 			path = ImageStickerEditor;
+			sourceTree = "<group>";
+		};
+		A643045927E1C02500D1E59F /* TuSDKVideo */ = {
+			isa = PBXGroup;
+			children = (
+				A643045A27E1C02500D1E59F /* Headers */,
+				A64304F927E1C02500D1E59F /* TuSDKVideo.a */,
+			);
+			path = TuSDKVideo;
+			sourceTree = "<group>";
+		};
+		A643045A27E1C02500D1E59F /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				A643045B27E1C02500D1E59F /* TuSDKMediaTimelineAssetVideoExtractor.h */,
+				A643045C27E1C02500D1E59F /* TuSDKMediaSampleBufferAssistant.h */,
+				A643045D27E1C02500D1E59F /* TuSDKGIFImage.h */,
+				A643045E27E1C02500D1E59F /* TuSDKMediaVideoEffectTimelineSync.h */,
+				A643045F27E1C02500D1E59F /* TuSDKMediaMutableComposition.h */,
+				A643046027E1C02500D1E59F /* TuSDKFilterConfigViewBase.h */,
+				A643046127E1C02500D1E59F /* TuSDKMediaMovieEditorSaver.h */,
+				A643046227E1C02500D1E59F /* TuSDK2DParticleFilterWrap.h */,
+				A643046327E1C02500D1E59F /* TuSDKAssetVideoTrackPixelBufferOutput.h */,
+				A643046427E1C02500D1E59F /* TuSDKAudioResampleEngine.h */,
+				A643046527E1C02500D1E59F /* TuSDKMediaTimelineAssetExtractor.h */,
+				A643046627E1C02500D1E59F /* TuSDKMediaMovieAssetExportSession.h */,
+				A643046727E1C02500D1E59F /* TuSDKMediaPlayer.h */,
+				A643046827E1C02500D1E59F /* TuSDKMediaTimeRange.h */,
+				A643046927E1C02500D1E59F /* TuSDKMediaVideoTrackComposition.h */,
+				A643046A27E1C02500D1E59F /* TuSDKVideoSpeedData.h */,
+				A643046B27E1C02500D1E59F /* TuSDKMediaSync.h */,
+				A643046C27E1C02500D1E59F /* TuSDKMediaPacketSlowEffect.h */,
+				A643046D27E1C02500D1E59F /* TuSDKMediaAudioTrackComposition.h */,
+				A643046E27E1C02500D1E59F /* TuSDKMediaComicEffect.h */,
+				A643046F27E1C02500D1E59F /* TuSDKMediaCompositionSampleBuffer.h */,
+				A643047027E1C02500D1E59F /* TuSDKMediaSkinFaceEffect.h */,
+				A643047127E1C02500D1E59F /* TuSDKMediaAssetInfo.h */,
+				A643047227E1C02500D1E59F /* TuSDKMovieEditorBase.h */,
+				A643047327E1C02500D1E59F /* TuSDKMediaAudioEffect.h */,
+				A643047427E1C02500D1E59F /* TuSDKMediaMonsterFaceEffect.h */,
+				A643047527E1C02500D1E59F /* TuSDKMediaAudioRender.h */,
+				A643047627E1C02500D1E59F /* TuSDKMediaTimeEffect.h */,
+				A643047727E1C02500D1E59F /* TuSDKMediaRecordCameraEffectTimelineSync.h */,
+				A643047827E1C02500D1E59F /* TuSDKVideoFocusTouchView.h */,
+				A643047927E1C02500D1E59F /* TuSDKMediaTimeSliceEntity.h */,
+				A643047A27E1C02500D1E59F /* TuSDKMediaSettings.h */,
+				A643047B27E1C02500D1E59F /* TuSDK2DImageFilterWrap.h */,
+				A643047C27E1C02500D1E59F /* TuSDKMediaDecoder.h */,
+				A643047D27E1C02500D1E59F /* TuSDKMediaAudioQueuePlayer.h */,
+				A643047E27E1C02500D1E59F /* TuSDKMediaEffectTypes.h */,
+				A643047F27E1C02500D1E59F /* TuSDKAsyncEncodecBridge.h */,
+				A643048027E1C02500D1E59F /* TuSDKRecordVideoMode.h */,
+				A643048127E1C02500D1E59F /* TuSDKMediaPacketMirrorEffect.h */,
+				A643048227E1C02500D1E59F /* TuSDKAudioEngine.h */,
+				A643048327E1C02500D1E59F /* TuSDKMediaPlasticFaceEffect.h */,
+				A643048427E1C02500D1E59F /* TuSDKVideoRTCDataWriter.h */,
+				A643048527E1C02500D1E59F /* TuSDKVideoCameraBase.h */,
+				A643048627E1C02500D1E59F /* TuSDKVideoQuality.h */,
+				A643048727E1C02500D1E59F /* TuSDKTSAudioRecorder.h */,
+				A643048827E1C02500D1E59F /* TuSDKPlasticFaceWrap.h */,
+				A643048927E1C02500D1E59F /* TuSDKMediaMovieEditor.h */,
+				A643048A27E1C02500D1E59F /* TuSDKMediaPacketEffect.h */,
+				A643048B27E1C02500D1E59F /* TuSDKTSAudio.h */,
+				A643048C27E1C02500D1E59F /* TuSDKMediaAssetExportSession.h */,
+				A643048D27E1C02500D1E59F /* TuSDKAudioResult.h */,
+				A643048E27E1C02500D1E59F /* TuSDKVideoDataWriter.h */,
+				A643048F27E1C02500D1E59F /* TuSDKMediaExtractorSync.h */,
+				A643049027E1C02500D1E59F /* TuSDKMediaStatus.h */,
+				A643049127E1C02500D1E59F /* TuSDKLiveVideoCamera.h */,
+				A643049227E1C02500D1E59F /* TuSDKMediaAssetExtractorAudioSync.h */,
+				A643049327E1C02500D1E59F /* TuSDKMediaReverseTimeEffect.h */,
+				A643049427E1C02500D1E59F /* TuSDKGPUVideoPixelBufferForTexture.h */,
+				A643049527E1C02500D1E59F /* TuSDKMediaAssetComposition.h */,
+				A643049627E1C02500D1E59F /* TuSDKMediaExportSession.h */,
+				A643049727E1C02500D1E59F /* TuSDKMediaAssetExtractorVideoSync.h */,
+				A643049827E1C02500D1E59F /* TuSDKCosmeticWrap.h */,
+				A643049927E1C02500D1E59F /* TuSDKMoiveFragment.h */,
+				A643049A27E1C02500D1E59F /* TuSDKMediaCosmeticEffect.h */,
+				A643049B27E1C02500D1E59F /* TuSDKMediaPacketFrostedEffect.h */,
+				A643049C27E1C02500D1E59F /* TuSDKMovieSpeedComposition.h */,
+				A643049D27E1C02500D1E59F /* TuSDKSampleBufferInput.h */,
+				A643049E27E1C02500D1E59F /* TuSDKMediaAssetAudioRecorder.h */,
+				A643049F27E1C02500D1E59F /* TuSDKMediaAudioMuteComposition.h */,
+				A64304A027E1C02500D1E59F /* TuSDKVideoImport.h */,
+				A64304A127E1C02500D1E59F /* TuSDKMediaStickerEffect.h */,
+				A64304A227E1C02500D1E59F /* TuSDKMovieEditorMode.h */,
+				A64304A327E1C02500D1E59F /* TuSDKMediaAudioRecorder.h */,
+				A64304A427E1C02500D1E59F /* TuSDKAssetVideoComposer.h */,
+				A64304A527E1C02500D1E59F /* TuSDKVideoFileWriter.h */,
+				A64304A627E1C02500D1E59F /* TuSDKTSMovieSplicer.h */,
+				A64304A727E1C02500D1E59F /* TuSDKMediaMovieEditorTranscoder.h */,
+				A64304A827E1C02500D1E59F /* TuSDKMediaAssetDirectorPlayerSync.h */,
+				A64304A927E1C02500D1E59F /* TuSDKMediaAssetReverseExtractor.h */,
+				A64304AA27E1C02500D1E59F /* TuSDKMediaMutableVideoComposition.h */,
+				A64304AB27E1C02500D1E59F /* TuSDKMediaEffectCore.h */,
+				A64304AC27E1C02500D1E59F /* TuSDKMediaPacketSpeedEffect.h */,
+				A64304AD27E1C02500D1E59F /* TuSDKMediaTimelineAssetMoviePlayer.h */,
+				A64304AE27E1C02500D1E59F /* TuSDKMediaComposition.h */,
+				A64304AF27E1C02500D1E59F /* TuSDKMediaSequenceTimelineAssetExtractor.h */,
+				A64304B027E1C02500D1E59F /* TuSDKFilterConfigProtocol.h */,
+				A64304B127E1C02500D1E59F /* TuSDKMediaTextEffect.h */,
+				A64304B227E1C02500D1E59F /* TuSDKTextureCoordinateCropBuilder.h */,
+				A64304B327E1C02500D1E59F /* TuSDKMutableAssetMediaPlayer.h */,
+				A64304B427E1C02500D1E59F /* TuSDKVideoImageExtractor.h */,
+				A64304B527E1C02500D1E59F /* TuSDKMediaMutableAssetMoviePlayer.h */,
+				A64304B627E1C02500D1E59F /* TuSDKTSMovieMixer.h */,
+				A64304B727E1C02500D1E59F /* TuSDKMediaCompositionBuilder.h */,
+				A64304B827E1C02500D1E59F /* TuSDKMediaEffectTimeline.h */,
+				A64304B927E1C02500D1E59F /* TuSDKGIFImageEncoder.h */,
+				A64304BA27E1C02500D1E59F /* TuSDKFileWriter.h */,
+				A64304BB27E1C02500D1E59F /* TuSDKMediaExtractor.h */,
+				A64304BC27E1C02500D1E59F /* TuSDKAsyncShader.h */,
+				A64304BD27E1C02500D1E59F /* TuSDKQueue.h */,
+				A64304BE27E1C02500D1E59F /* TuSDKMonsterFaceWrap.h */,
+				A64304BF27E1C02500D1E59F /* TuSDKMediaTransitionWrap.h */,
+				A64304C027E1C02500D1E59F /* TuSDKRecordVideoCamera.h */,
+				A64304C127E1C02500D1E59F /* TuSDKVideoDataOutputBase.h */,
+				A64304C227E1C02500D1E59F /* TuSDKMediaEffectSync.h */,
+				A64304C327E1C02500D1E59F /* TuSDKMediaTimelineExtractor.h */,
+				A64304C427E1C02500D1E59F /* TuSDKTSAudioMixer.h */,
+				A64304C527E1C02500D1E59F /* TuSDKMediaStickerImageEffect.h */,
+				A64304C627E1C02500D1E59F /* TuSDKMediaMovieFilmEditorOptions.h */,
+				A64304C727E1C02500D1E59F /* TuSDKVideoInfo.h */,
+				A64304C827E1C02500D1E59F /* TuSDKMovieEditor.h */,
+				A64304C927E1C02500D1E59F /* TuSDKTimeRange.h */,
+				A64304CA27E1C02500D1E59F /* TuSDKReshapeWrap.h */,
+				A64304CB27E1C02500D1E59F /* TuSDKMediaVideoRender.h */,
+				A64304CC27E1C02500D1E59F /* TuSDKMediaMovieFilmEditor.h */,
+				A64304CD27E1C02500D1E59F /* TuSDKMediaStickerAudioEffect.h */,
+				A64304CE27E1C02500D1E59F /* TuSDKMediaFormatAssistant.h */,
+				A64304CF27E1C02500D1E59F /* TuSDKMediaEffectParameterProtocol.h */,
+				A64304D027E1C02500D1E59F /* TuSDKAudioPitchEngine.h */,
+				A64304D127E1C02500D1E59F /* TuSDKAudioInfo.h */,
+				A64304D227E1C02500D1E59F /* TuSDKMediaEffect.h */,
+				A64304D327E1C02500D1E59F /* TuSDKMediaMutableAudioComposition.h */,
+				A64304D427E1C02500D1E59F /* TuSDKMediaImageComposition.h */,
+				A64304D527E1C02500D1E59F /* TuSDKMediaAssetExtractor.h */,
+				A64304D627E1C02500D1E59F /* TuSDKMediaReverseExtractor.h */,
+				A64304D727E1C02500D1E59F /* TuSDKMediaSceneEffect.h */,
+				A64304D827E1C02500D1E59F /* TuSDKMediaFilterEffect.h */,
+				A64304D927E1C02500D1E59F /* TuSDKMediaAudioBufferPlayer.h */,
+				A64304DA27E1C02500D1E59F /* TuSDKMediaAssetExtractorPitch.h */,
+				A64304DB27E1C02500D1E59F /* TuSDKMediaTimelineAssetAudioExtractor.h */,
+				A64304DC27E1C02500D1E59F /* TuSDKMediaMovieAssetTranscoder.h */,
+				A64304DD27E1C02500D1E59F /* TuSDKMediaAudioComposition.h */,
+				A64304DE27E1C02500D1E59F /* TuSDKVerticeCoordinateBuilder.h */,
+				A64304DF27E1C02500D1E59F /* TuSDKMovieClipper.h */,
+				A64304E027E1C02500D1E59F /* TuSDKMediaScreenKeyingEffect.h */,
+				A64304E127E1C02500D1E59F /* TuSDKMediaMovieCompositionComposer.h */,
+				A64304E227E1C02500D1E59F /* TuSDKMediaPacketStoryEffect.h */,
+				A64304E327E1C02500D1E59F /* TuSDKFilterProcessor.h */,
+				A64304E427E1C02500D1E59F /* TuSDKMediaTimelineSlice.h */,
+				A64304E527E1C02500D1E59F /* TuSDKVideoResult.h */,
+				A64304E627E1C02500D1E59F /* TuSDKVideoSourceProtocol.h */,
+				A64304E727E1C02500D1E59F /* TuSDKMediaParticleEffect.h */,
+				A64304E827E1C02500D1E59F /* TuSDKTSMovieCompresser.h */,
+				A64304E927E1C02500D1E59F /* TuSDKMediaPacketShapeEffect.h */,
+				A64304EA27E1C02500D1E59F /* TuSDKMediaAsset.h */,
+				A64304EB27E1C02500D1E59F /* TuSDKMediaVideoEffectTimeline.h */,
+				A64304EC27E1C02500D1E59F /* TuSDVideoFocusRangeView.h */,
+				A64304ED27E1C02500D1E59F /* TuSDKAssetVideoDecoder.h */,
+				A64304EE27E1C02500D1E59F /* TuSDKVideoRawDataWriter.h */,
+				A64304EF27E1C02500D1E59F /* TuSDKMediaTimeline.h */,
+				A64304F027E1C02500D1E59F /* TuSDKMediaMovieFilmEditSaver.h */,
+				A64304F127E1C02500D1E59F /* TuSDKMediaReshapeEffect.h */,
+				A64304F227E1C02500D1E59F /* TuSDKMediaSpeedTimeEffect.h */,
+				A64304F327E1C02500D1E59F /* TuSDKMovieEditorOptions.h */,
+				A64304F427E1C02500D1E59F /* TuSDKMediaRepeatTimeEffect.h */,
+				A64304F527E1C02500D1E59F /* TuSDKMediaTransitionEffect.h */,
+				A64304F627E1C02500D1E59F /* TuSDKMediaAssetTimeline.h */,
+				A64304F727E1C02500D1E59F /* TuSDKVideo.h */,
+				A64304F827E1C02500D1E59F /* TuSDKMediaVideoComposition.h */,
+			);
+			path = Headers;
+			sourceTree = "<group>";
+		};
+		A64304FA27E1C02500D1E59F /* TuSDKFace */ = {
+			isa = PBXGroup;
+			children = (
+				A64304FB27E1C02500D1E59F /* TuSDKFace.a */,
+				A64304FC27E1C02500D1E59F /* Headers */,
+			);
+			path = TuSDKFace;
+			sourceTree = "<group>";
+		};
+		A64304FC27E1C02500D1E59F /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				A64304FD27E1C02500D1E59F /* TuSDKFace.h */,
+				A64304FE27E1C02500D1E59F /* TuSDKFaceImport.h */,
+			);
+			path = Headers;
+			sourceTree = "<group>";
+		};
+		A64304FF27E1C02500D1E59F /* TuSDK */ = {
+			isa = PBXGroup;
+			children = (
+				A643050027E1C02500D1E59F /* TuSDK.a */,
+				A643050127E1C02500D1E59F /* Headers */,
+			);
+			path = TuSDK;
+			sourceTree = "<group>";
+		};
+		A643050127E1C02500D1E59F /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				A643050227E1C02500D1E59F /* UIImageView+TuSDKNetworkAdditions.h */,
+				A643050327E1C02500D1E59F /* TuSDKTKLocation.h */,
+				A643050427E1C02500D1E59F /* TuSDKGPUSmartView.h */,
+				A643050527E1C02500D1E59F /* TuSDKCPImage.h */,
+				A643050627E1C02500D1E59F /* TuSDKCPResultViewController.h */,
+				A643050727E1C02500D1E59F /* TuSDKParticleExamples.h */,
+				A643050827E1C02500D1E59F /* TuSDKICGestureRecognizerView.h */,
+				A643050927E1C02500D1E59F /* TuSDKStickerImage.h */,
+				A643050A27E1C02500D1E59F /* SLGPUImageUIElement.h */,
+				A643050B27E1C02500D1E59F /* TuSDKLiveFaultFilter.h */,
+				A643050C27E1C02500D1E59F /* SLGPUImageFramebuffer.h */,
+				A643050D27E1C02600D1E59F /* TuSDKICFilterImageViewWrap.h */,
+				A643050E27E1C02600D1E59F /* SLGL2DTextureProgram.h */,
+				A643050F27E1C02600D1E59F /* TuSDKDataJson.h */,
+				A643051027E1C02600D1E59F /* TuSDKGPUBaseView.h */,
+				A643051127E1C02600D1E59F /* TuSDKTSLog.h */,
+				A643051227E1C02600D1E59F /* TuSDKPFEditTextControllerBase.h */,
+				A643051327E1C02600D1E59F /* TuSDKPFBrushGroup.h */,
+				A643051427E1C02600D1E59F /* TuSDKCPGroupFilterItemCellBase.h */,
+				A643051527E1C02600D1E59F /* TuSDKPFEditApertureControllerBase.h */,
+				A643051627E1C02600D1E59F /* TuSDKPFCameraFilterGroupViewBase.h */,
+				A643051727E1C02600D1E59F /* TuSDKTSCATransition+Extend.h */,
+				A643051827E1C02600D1E59F /* TuSDKPFBrushSize.h */,
+				A643051927E1C02600D1E59F /* TuSDKPFFilterSmudgeProcessor.h */,
+				A643051A27E1C02600D1E59F /* TuSDKCosmeticStickerManager.h */,
+				A643051B27E1C02600D1E59F /* TuSDKPFSmudgeViewBase.h */,
+				A643051C27E1C02600D1E59F /* TuSDKPFCameraPreviewControllerBase.h */,
+				A643051D27E1C02600D1E59F /* TuSDKCPOnlineController.h */,
+				A643051E27E1C02600D1E59F /* TuSDKGPUColorMultiAdjustmentFilter.h */,
+				A643051F27E1C02600D1E59F /* SLGPUImageRawDataInput.h */,
+				A643052027E1C02600D1E59F /* TuSDKGPUTfmMixFilter.h */,
+				A643052127E1C02600D1E59F /* TuSDKPFSimpleProcessor.h */,
+				A643052227E1C02600D1E59F /* TuSDKTKImageViewTask.h */,
+				A643052327E1C02600D1E59F /* TuSDKGPUTfmEdgeFilter.h */,
+				A643052427E1C02600D1E59F /* TuSDKPFPhotosViewControllerBase.h */,
+				A643052527E1C02600D1E59F /* TuSDKTSUIColor+Extend.h */,
+				A643052627E1C02600D1E59F /* TuSDKTSPHAssets+Extend.h */,
+				A643052727E1C02600D1E59F /* TuSDKNKFaceMark.h */,
+				A643052827E1C02600D1E59F /* TuSDK.h */,
+				A643052927E1C02600D1E59F /* TuSDKGPUSobelEdgeFilter.h */,
+				A643052A27E1C02600D1E59F /* TuSDKGPUImageHelper.h */,
+				A643052B27E1C02600D1E59F /* TuSDKPFPaintBezierPath.h */,
+				A643052C27E1C02600D1E59F /* TuSDKGPUColorHDRFilter.h */,
+				A643052D27E1C02600D1E59F /* TuSDKSkinMoistWrap.h */,
+				A643052E27E1C02600D1E59F /* TuSDKPFPhotoPreviewControllerBase.h */,
+				A643052F27E1C02600D1E59F /* TuSDKGPUImageSixInputFilter.h */,
+				A643053027E1C02600D1E59F /* TuSDKBeautifyFaceWrap.h */,
+				A643053127E1C02600D1E59F /* TuSDKGPU2DImageFilter.h */,
+				A643053227E1C02600D1E59F /* TuSDKCPGroupFilterBaseView.h */,
+				A643053327E1C02600D1E59F /* TuSDKGPUPointDrawFilter.h */,
+				A643053427E1C02600D1E59F /* TuSDKPFEditTabBarControllerBase.h */,
+				A643053527E1C02600D1E59F /* TuSDKGPULiveFadeInFilter.h */,
+				A643053627E1C02600D1E59F /* TuSDKGPUSurfaceBlurFilter.h */,
+				A643053727E1C02600D1E59F /* TuSDKOnlineStickerFetcher.h */,
+				A643053827E1C02600D1E59F /* TuSDKGaussianBlurFiveRadiusFilter.h */,
+				A643053927E1C02600D1E59F /* TuSDKResult.h */,
+				A643053A27E1C02600D1E59F /* SLGPUImageOutput.h */,
+				A643053B27E1C02600D1E59F /* TuSDKBoxBlur2Filter.h */,
+				A643053C27E1C02600D1E59F /* CosmeticBlushFilter.h */,
+				A643053D27E1C02600D1E59F /* TuSDKTSVolumeButton.h */,
+				A643053E27E1C02600D1E59F /* TuSDKCPGroupFilterTableView.h */,
+				A643053F27E1C02600D1E59F /* TuSDKGPUBlurFilter.h */,
+				A643054027E1C02600D1E59F /* TuSDKGPUColorNoirFilter.h */,
+				A643054127E1C02600D1E59F /* TuSDKTSImage+Extend.h */,
+				A643054227E1C02600D1E59F /* SLGPUImageFilterPipeline.h */,
+				A643054327E1C02600D1E59F /* TuSDKCPAlbumComponentBase.h */,
+				A643054427E1C02600D1E59F /* TuSDKTSNSUserDefaults+Extend.h */,
+				A643054527E1C02600D1E59F /* TuSDKFilterLocalPackage.h */,
+				A643054627E1C02600D1E59F /* TuSDKICTableViewCell.h */,
+				A643054727E1C02600D1E59F /* TuSDKPFEditCuterControllerBase.h */,
+				A643054827E1C02600D1E59F /* TuSDKBoxBlurAlphaFilter.h */,
+				A643054927E1C02600D1E59F /* TuSDKAOCellGridViewAlgorithmic.h */,
+				A643054A27E1C02600D1E59F /* TuSDKNetworkOperation.h */,
+				A643054B27E1C02600D1E59F /* TuSDKPFStickerCategory.h */,
+				A643054C27E1C02600D1E59F /* CosmeticTaskQueue.h */,
+				A643054D27E1C02600D1E59F /* SLGPUImageColorConversion.h */,
+				A643054E27E1C02600D1E59F /* SLGPUImageThreeInputFilter.h */,
+				A643054F27E1C02600D1E59F /* TuSDKPFEditAdjustControllerBase.h */,
+				A643055027E1C02600D1E59F /* TuSDKFilterGroup.h */,
+				A643055127E1C02600D1E59F /* TuSDKCPGroupFilterBarBase.h */,
+				A643055227E1C02600D1E59F /* TuSDKGPUMonsterNoseFallFace.h */,
+				A643055327E1C02600D1E59F /* SLGPUImageMovieComposition.h */,
+				A643055427E1C02600D1E59F /* TuSDKTSAVCaptureDevice+Extend.h */,
+				A643055527E1C02600D1E59F /* TuSDKProgressHUD.h */,
+				A643055627E1C02600D1E59F /* TuSDKGPULightVignetteFilter.h */,
+				A643055727E1C02600D1E59F /* TuSDKPFStickerLocalGridViewBase.h */,
+				A643055827E1C02600D1E59F /* SLGPUImageTwoInputFilter.h */,
+				A643055927E1C02600D1E59F /* TuSDKGPULiveEdgeMagicFilter.h */,
+				A643055A27E1C02600D1E59F /* TuSDKParticleManager.h */,
+				A643055B27E1C02600D1E59F /* TuSDKSkinFilterAPI.h */,
+				A643055C27E1C02600D1E59F /* TuSDKCPComponent.h */,
+				A643055D27E1C02600D1E59F /* SLGPUImagePicture+TextureSubimage.h */,
+				A643055E27E1C02600D1E59F /* TuSDKLiveRadialBlurFilter.h */,
+				A643055F27E1C02600D1E59F /* TuSDKNKDownloadAdapter.h */,
+				A643056027E1C02600D1E59F /* TuSDKLiveMirrorImageFilter.h */,
+				A643056127E1C02600D1E59F /* TuSDKGPULiveTransitionFilterProtocol.h */,
+				A643056227E1C02600D1E59F /* TuSDKGPUFacePlasticFilter.h */,
+				A643056327E1C02600D1E59F /* TuSDKOnlineStickerDownloader.h */,
+				A643056427E1C02600D1E59F /* TuSDKPFStickerLocalControllerBase.h */,
+				A643056527E1C02600D1E59F /* TuSDKNKNetworkEngine.h */,
+				A643056627E1C02600D1E59F /* TuSDKGPUImageFourInputFilter.h */,
+				A643056727E1C02600D1E59F /* TuSDKGPUColorMixedFilter.h */,
+				A643056827E1C02600D1E59F /* TuSDKPFEditSkinControllerBase.h */,
+				A643056927E1C02600D1E59F /* TuSDKFaceWhitenFilter.h */,
+				A643056A27E1C02600D1E59F /* CosmeticLipFilter.h */,
+				A643056B27E1C02600D1E59F /* TuSDKCPGifImage.h */,
+				A643056C27E1C02600D1E59F /* TuSDKTSDeviceSettings.h */,
+				A643056D27E1C02600D1E59F /* SLGLProgram.h */,
+				A643056E27E1C02600D1E59F /* TuSDKICSeekBar.h */,
+				A643056F27E1C02600D1E59F /* TuSDKGPULiveFlashLightFilter.h */,
+				A643057027E1C02600D1E59F /* TuSDKPFEditSharpnessControllerBase.h */,
+				A643057127E1C02600D1E59F /* SLGPUImageMovieWriter.h */,
+				A643057227E1C02600D1E59F /* TuSDKTSScreen+Extend.h */,
+				A643057327E1C02600D1E59F /* TuSDKGPUSkinGaussianBlurSmoothFilter.h */,
+				A643057427E1C02600D1E59F /* TuSDKPFEditTurnAndCutViewControllerBase.h */,
+				A643057527E1C02600D1E59F /* TuSDKCPStackFilterBarBase.h */,
+				A643057627E1C02600D1E59F /* TuSDKGPUTfmFilter.h */,
+				A643057727E1C02600D1E59F /* TuSDKBoxBlurFilter.h */,
+				A643057827E1C02600D1E59F /* TuSDKGPUProgramFilter.h */,
+				A643057927E1C02600D1E59F /* TuSDKLiveXRayFilter.h */,
+				A643057A27E1C02600D1E59F /* TuSDKTSBundle.h */,
+				A643057B27E1C02600D1E59F /* TuSDKTKThread.h */,
+				A643057C27E1C02600D1E59F /* TuSDKReshapeFaceModel.h */,
+				A643057D27E1C02600D1E59F /* TuSDKCPViewController.h */,
+				A643057E27E1C02600D1E59F /* TuSDKLiveStickerImage.h */,
+				A643057F27E1C02600D1E59F /* TuSDKPlasticFaceInfo.h */,
+				A643058027E1C02600D1E59F /* TuSDKGPURotateShotOutput.h */,
+				A643058127E1C02600D1E59F /* TuSDKGPUImagePicture.h */,
+				A643058227E1C02600D1E59F /* TuSDKCosmeticSticker.h */,
+				A643058327E1C02600D1E59F /* TuSDKFace2DComboFilterWrap.h */,
+				A643058427E1C02600D1E59F /* TuSDKMeanBlurFilter.h */,
+				A643058527E1C02600D1E59F /* TuSDKPFTextLabel.h */,
+				A643058627E1C02600D1E59F /* TuSDKCPImageDecoder.h */,
+				A643058727E1C02600D1E59F /* TuSDKTSNSDictionary+Extend.h */,
+				A643058827E1C02600D1E59F /* TuSDKGPULiveFocusFilter.h */,
+				A643058927E1C02600D1E59F /* TuSDKNetworkReachability.h */,
+				A643058A27E1C02600D1E59F /* TuSDKGPUMonsterSnakeFace.h */,
+				A643058B27E1C02600D1E59F /* TuSDKICGPUImageView.h */,
+				A643058C27E1C02600D1E59F /* TuSDKGPULiveZoomFilter.h */,
+				A643058D27E1C02600D1E59F /* TuSDKCPGifDecoder.h */,
+				A643058E27E1C02600D1E59F /* TuSDKPFAlbumViewControllerBase.h */,
+				A643058F27E1C02600D1E59F /* TuSDKPFSmudgeLog.h */,
+				A643059027E1C02600D1E59F /* TuSDKPFFilterConfigView.h */,
+				A643059127E1C02600D1E59F /* CosmeticEyepartModel.h */,
+				A643059227E1C02600D1E59F /* SLGPUImageFilterGroup.h */,
+				A643059327E1C02600D1E59F /* TuSDKTSPointCalculator.h */,
+				A643059427E1C02600D1E59F /* TuSDKICViewController.h */,
+				A643059527E1C02600D1E59F /* TuSDKSkinNaturalWrap.h */,
+				A643059627E1C02600D1E59F /* TuSDKCPPhotoEditMultipleComponentBase.h */,
+				A643059727E1C02600D1E59F /* TuSDKCPAlbumMultipleComponentBase.h */,
+				A643059827E1C02600D1E59F /* TuSDKGPUTfmInkFilter.h */,
+				A643059927E1C02600D1E59F /* TuSDKTSFaceHelper.h */,
+				A643059A27E1C02600D1E59F /* TuSDKScreenKeyingWrap.h */,
+				A643059B27E1C02600D1E59F /* TuSDKPFEditFilterControllerBase.h */,
+				A643059C27E1C02600D1E59F /* SLGPUImageTwoPassFilter.h */,
+				A643059D27E1C02600D1E59F /* TuSDKParticleItem.h */,
+				A643059E27E1C02600D1E59F /* TuSDKTSMatrix.h */,
+				A643059F27E1C02600D1E59F /* TuSDKGPUSkinNaturalFilter.h */,
+				A64305A027E1C02600D1E59F /* TuSDKConfig.h */,
+				A64305A127E1C02600D1E59F /* TuSDKGPUColorAdjustmentFilter.h */,
+				A64305A227E1C02600D1E59F /* TuSDKICWebView.h */,
+				A64305A327E1C02600D1E59F /* TuSDKCPFocusTouchViewBase.h */,
+				A64305A427E1C02600D1E59F /* TuSDKGPUMap2DFilter.h */,
+				A64305A527E1C02600D1E59F /* TuSDKTSMath.h */,
+				A64305A627E1C02600D1E59F /* TuSDKColorMixCoverFilter.h */,
+				A64305A727E1C02600D1E59F /* TuSDKPFSticker.h */,
+				A64305A827E1C02600D1E59F /* TuSDKBeautifyFaceFilter.h */,
+				A64305A927E1C02600D1E59F /* SLGPUImageMovie.h */,
+				A64305AA27E1C02600D1E59F /* TuSDKGPUSkinColorMixedFilter.h */,
+				A64305AB27E1C02600D1E59F /* TuSDKPFBrushTableItemCellBase.h */,
+				A64305AC27E1C02600D1E59F /* TuSDKNKDownloadItem.h */,
+				A64305AD27E1C02600D1E59F /* TuSDKICTouchImageView.h */,
+				A64305AE27E1C02600D1E59F /* TuSDKGPUSkinColor2Filter.h */,
+				A64305AF27E1C02600D1E59F /* TuSDKReshapeEyeModel.h */,
+				A64305B027E1C02600D1E59F /* TuSDKCPSubtitlesView.h */,
+				A64305B127E1C02600D1E59F /* TuSDKGPUColorLomoFilter.h */,
+				A64305B227E1C02600D1E59F /* TuSDKTSNSData+Extend.h */,
+				A64305B327E1C02600D1E59F /* CosmeticFacialModel.h */,
+				A64305B427E1C02600D1E59F /* TuSDKPFEditHDRControllerBase.h */,
+				A64305B527E1C02600D1E59F /* TuSDKNKImageAnalysis.h */,
+				A64305B627E1C02600D1E59F /* TuSDKGPUTfmDogFilter.h */,
+				A64305B727E1C02600D1E59F /* TuSDKAOFile.h */,
+				A64305B827E1C02600D1E59F /* TuSDKPFSmudgeProcessor.h */,
+				A64305B927E1C02600D1E59F /* TuSDKCPFilterResultController.h */,
+				A64305BA27E1C02600D1E59F /* TuSDKNormalFilter.h */,
+				A64305BB27E1C02600D1E59F /* TuSDKTextureCoordinateCropBuilder.h */,
+				A64305BC27E1C02600D1E59F /* TuSDKReshapeEyeFilter.h */,
+				A64305BD27E1C02600D1E59F /* TuSDKTSMotion.h */,
+				A64305BE27E1C02600D1E59F /* TuSDKGPULiveShakeFilter.h */,
+				A64305BF27E1C02600D1E59F /* TuSDKRatioType.h */,
+				A64305C027E1C02600D1E59F /* TuSDKICMessageHub.h */,
+				A64305C127E1C02600D1E59F /* TuSDKGPULiveStackUpFilter.h */,
+				A64305C227E1C02600D1E59F /* SLGPUImageContext.h */,
+				A64305C327E1C02600D1E59F /* TuSDKPFBrushLocalPackage.h */,
+				A64305C427E1C02600D1E59F /* TuSDKCPImageResultController.h */,
+				A64305C527E1C02600D1E59F /* SLGPUImageStillCamera.h */,
+				A64305C627E1C02600D1E59F /* TuSDKPFEditWipeAndFilterControllerBase.h */,
+				A64305C727E1C02600D1E59F /* TuSDKGPUApertureFilter.h */,
+				A64305C827E1C02600D1E59F /* TuSDKICTableView.h */,
+				A64305C927E1C02600D1E59F /* TuSDKICView+Extend.h */,
+				A64305CA27E1C02600D1E59F /* TuSDKWaterMarkOption.h */,
+				A64305CB27E1C02600D1E59F /* TuSDKNKNetworkArg.h */,
+				A64305CC27E1C02600D1E59F /* TuSDKPFEditStickerControllerBase.h */,
+				A64305CD27E1C02600D1E59F /* TuSDKPFStickerFactory.h */,
+				A64305CE27E1C02600D1E59F /* TuSDKGPUSkinMoistFilter.h */,
+				A64305CF27E1C02600D1E59F /* TuSDKTSNSArray+Extend.h */,
+				A64305D027E1C02600D1E59F /* TuSDKParticleFilterInterface.h */,
+				A64305D127E1C02600D1E59F /* SLGPUImageView.h */,
+				A64305D227E1C02600D1E59F /* TuSDKLiveOldTVFilter.h */,
+				A64305D327E1C02600D1E59F /* TuSDKPFBrush.h */,
+				A64305D427E1C02600D1E59F /* TuSDKICSmudgeImageViewWrap.h */,
+				A64305D527E1C02600D1E59F /* TuSDKGPULABFilter.h */,
+				A64305D627E1C02600D1E59F /* TuSDKPFFilterOnlineControllerBase.h */,
+				A64305D727E1C02600D1E59F /* TuSDKGPULiveSoulOutFilter.h */,
+				A64305D827E1C02600D1E59F /* TuSDKGaussianBlurSevenRadiusSmoothFilter.h */,
+				A64305D927E1C02600D1E59F /* TuSDKNKImageAutoColorAnalysis.h */,
+				A64305DA27E1C02600D1E59F /* TuSDKTSAVAudioPlayer+Extend.h */,
+				A64305DB27E1C02600D1E59F /* TuSDKGPULiveFlipFilter.h */,
+				A64305DC27E1C02600D1E59F /* SLGPUImageTextureOutput.h */,
+				A64305DD27E1C02600D1E59F /* SLGPUImageVideoCamera.h */,
+				A64305DE27E1C02600D1E59F /* TuSDKICEmptyView.h */,
+				A64305DF27E1C02600D1E59F /* CosmeticFacialFilter.h */,
+				A64305E027E1C02600D1E59F /* TuSDKGPULightHolyFilter.h */,
+				A64305E127E1C02600D1E59F /* TuSDKComboFilterWrapChain.h */,
+				A64305E227E1C02600D1E59F /* CosmeticLipModel.h */,
+				A64305E327E1C02600D1E59F /* TuSDKCPOptions.h */,
+				A64305E427E1C02600D1E59F /* TuSDKFilterUtils.h */,
+				A64305E527E1C02600D1E59F /* TuSDKReshapeGroup.h */,
+				A64305E627E1C02600D1E59F /* TuSDKGPUMonsterFace.h */,
+				A64305E727E1C02600D1E59F /* TuSDKNetworkImageCache.h */,
+				A64305E827E1C02600D1E59F /* TuSDKPFEditVignetteControllerBase.h */,
+				A64305E927E1C02600D1E59F /* TuSDKGaussianBilateralFilter.h */,
+				A64305EA27E1C02600D1E59F /* TuSDKPFStickerGroup.h */,
+				A64305EB27E1C02600D1E59F /* TuSDKGPULiveSpreadInFilter.h */,
+				A64305EC27E1C02600D1E59F /* CosmeticEyepartFilter.h */,
+				A64305ED27E1C02600D1E59F /* TuSDKPFStickerText.h */,
+				A64305EE27E1C02600D1E59F /* TuSDKLiveStickerManager.h */,
+				A64305EF27E1C02600D1E59F /* TuSDKGPUSharpenFilter.h */,
+				A64305F027E1C02600D1E59F /* TuSDKPFEditFilterGroupViewBase.h */,
+				A64305F127E1C02600D1E59F /* TuSDKPaintDrawViewBase.h */,
+				A64305F227E1C02600D1E59F /* TuSDKPFStickerResult.h */,
+				A64305F327E1C02600D1E59F /* TuSDKTSNSData+ImageExtend.h */,
+				A64305F427E1C02600D1E59F /* TuSDKLiveScanningLineFilter.h */,
+				A64305F527E1C02600D1E59F /* TuSDKICGuideRegionView.h */,
+				A64305F627E1C02600D1E59F /* TuSDKVideoCameraInterface.h */,
+				A64305F727E1C02600D1E59F /* TuSDKTSNSMutableDictionary+ImageMetadata.h */,
+				A64305F827E1C02600D1E59F /* TuSDK2DImageSticker.h */,
+				A64305F927E1C02600D1E59F /* TuSDKTSDevice+Extend.h */,
+				A64305FA27E1C02600D1E59F /* TuSDKTSALAssetsGrouped+CreateTimeDesc.h */,
+				A64305FB27E1C02600D1E59F /* TuSDKPFBrushManager.h */,
+				A64305FC27E1C02600D1E59F /* TuSDKGPUSkinColorFilter.h */,
+				A64305FD27E1C02600D1E59F /* TuSDKLiveLightningFilter.h */,
+				A64305FE27E1C02600D1E59F /* TuSDKFilterManager.h */,
+				A64305FF27E1C02600D1E59F /* TuSDKFilterAdapter.h */,
+				A643060027E1C02600D1E59F /* SLGPUImageFilter.h */,
+				A643060127E1C02600D1E59F /* TuSDKPFTextView.h */,
+				A643060227E1C02600D1E59F /* TuSDKTKFiltersTempTask.h */,
+				A643060327E1C02600D1E59F /* TuSDKICGifView.h */,
+				A643060427E1C02700D1E59F /* TuSDKGPULiveFlyInFilter.h */,
+				A643060527E1C02700D1E59F /* TuSDKGPUArtBrushFilter.h */,
+				A643060627E1C02700D1E59F /* TuSDKPFEditEntryControllerBase.h */,
+				A643060727E1C02700D1E59F /* TuSDKPFEditMultipleControllerBase.h */,
+				A643060827E1C02700D1E59F /* TuSDKPFStickerBarViewBase.h */,
+				A643060927E1C02700D1E59F /* TuSDKGPUSelectiveCircleFilter.h */,
+				A643060A27E1C02700D1E59F /* TuSDKTKFiltersTaskBase.h */,
+				A643060B27E1C02700D1E59F /* TuSDKStillCamera.h */,
+				A643060C27E1C02700D1E59F /* TuSDKFilterProcessorBase.h */,
+				A643060D27E1C02700D1E59F /* TuSDKGPULightGlareFilter.h */,
+				A643060E27E1C02700D1E59F /* SLGPUImagePicture.h */,
+				A643060F27E1C02700D1E59F /* TuSDKICFocusRangeView.h */,
+				A643061027E1C02700D1E59F /* TuSDKTKStatistics.h */,
+				A643061127E1C02700D1E59F /* TuSDKGPULivePullInFilter.h */,
+				A643061227E1C02700D1E59F /* TuSDKOpenGLAssistant.h */,
+				A643061327E1C02700D1E59F /* TuSDKLiveSloshFilter.h */,
+				A643061427E1C02700D1E59F /* TuSDKPlasticFace.h */,
+				A643061527E1C02700D1E59F /* CosmeticEyebrowModel.h */,
+				A643061627E1C02700D1E59F /* TuSDKLuminanceRangeFilter.h */,
+				A643061727E1C02700D1E59F /* TuSDKCPPhotoEditComponentBase.h */,
+				A643061827E1C02700D1E59F /* TuSDKAuth.h */,
+				A643061927E1C02700D1E59F /* TuSDKTSFileManager.h */,
+				A643061A27E1C02700D1E59F /* TuSDKGPUMonsterSquareFace.h */,
+				A643061B27E1C02700D1E59F /* TuSDKGPUVRLeftRightView.h */,
+				A643061C27E1C02700D1E59F /* TuSDKFilterWrap.h */,
+				A643061D27E1C02700D1E59F /* TuSDKICPagerView.h */,
+				A643061E27E1C02700D1E59F /* TuSDKICNavigationController.h */,
+				A643061F27E1C02700D1E59F /* TuSDKGPULiveMegrimFilter.h */,
+				A643062027E1C02700D1E59F /* TuSDKGPUParticleFilter.h */,
+				A643062127E1C02700D1E59F /* TuSDKVerticeCoordinateBuilder.h */,
+				A643062227E1C02700D1E59F /* SLGLYUVTextureProgram.h */,
+				A643062327E1C02700D1E59F /* TuSDKNKDownloadTask.h */,
+				A643062427E1C02700D1E59F /* TuSDKTSByte.h */,
+				A643062527E1C02700D1E59F /* SLGPUImage.h */,
+				A643062627E1C02700D1E59F /* TuSDKPFStickerLocalPackage.h */,
+				A643062727E1C02700D1E59F /* SelesVertexbuffer.h */,
+				A643062827E1C02700D1E59F /* TuSDKGPUTfmLicFilter.h */,
+				A643062927E1C02700D1E59F /* TuSDKGPUScreenKeyingFilter.h */,
+				A643062A27E1C02700D1E59F /* TuSDKGPUColorSelectiveFilter.h */,
+				A643062B27E1C02700D1E59F /* TuSDKGPUSingleGaussFilter.h */,
+				A643062C27E1C02700D1E59F /* SLGPUImageBuffer.h */,
+				A643062D27E1C02700D1E59F /* TuSDKFilterParameter.h */,
+				A643062E27E1C02700D1E59F /* TuSDKLiveHeartbeatFilter.h */,
+				A643062F27E1C02700D1E59F /* TuSDKPFStickerOnlineControllerBase.h */,
+				A643063027E1C02700D1E59F /* TuSDKGPUImageFiveInputFilter.h */,
+				A643063127E1C02700D1E59F /* TuSDKReshapeFaceFilter.h */,
+				A643063227E1C02700D1E59F /* TuSDKFilterOption.h */,
+				A643063327E1C02700D1E59F /* TuSDKNKDownloadManger.h */,
+				A643063427E1C02700D1E59F /* TuSDKGPUImageView.h */,
+				A643063527E1C02700D1E59F /* SLGPUImageFramebufferCache.h */,
+				A643063627E1C02700D1E59F /* TuSDKTSKeychainUtils.h */,
+				A643063727E1C02700D1E59F /* TuSDKICMessageHubInterface.h */,
+				A643063827E1C02700D1E59F /* CosmeticBlushModel.h */,
+				A643063927E1C02700D1E59F /* TuSDKTSALAssets+Extend.h */,
+				A643063A27E1C02700D1E59F /* TuSDKTKFilterImageWare.h */,
+				A643063B27E1C02700D1E59F /* TuSDKTSAnimation.h */,
+				A643063C27E1C02700D1E59F /* TuSDKNetworkEngine.h */,
+				A643063D27E1C02700D1E59F /* TuSDKCPEditActionType.h */,
+				A643063E27E1C02700D1E59F /* TuSDKCPImageResultOptions.h */,
+				A643063F27E1C02700D1E59F /* TuSDKGaussianBlurSevenRadiusFilter.h */,
+				A643064027E1C02700D1E59F /* SLGPUImageSharpenFilter.h */,
+				A643064127E1C02700D1E59F /* TuSDKPFAlbumMultipleViewControllerBase.h */,
+				A643064227E1C02700D1E59F /* TuSDKPFEditHolyLightControllerBase.h */,
+				A643064327E1C02700D1E59F /* CosmeticModelBase.h */,
+				A643064427E1C02700D1E59F /* TuSDKPFStickerView.h */,
+				A643064527E1C02700D1E59F /* TuSDKCPError.h */,
+				A643064627E1C02700D1E59F /* TuSDKCPFilterStickerView.h */,
+				A643064727E1C02700D1E59F /* TuSDKAOValid.h */,
+				A643064827E1C02700D1E59F /* TuSDKCPParameterConfigViewInterface.h */,
+				A643064927E1C02700D1E59F /* SLGPUImageTextureInput.h */,
+				A643064A27E1C02700D1E59F /* TuSDKGPULiveFancy01Filter.h */,
+				A643064B27E1C02700D1E59F /* TuSDKCPStackFilterTableView.h */,
+				A643064C27E1C02700D1E59F /* SLGPUImageTwoPassTextureSamplingFilter.h */,
+				A643064D27E1C02700D1E59F /* TuSDKPFEditSmudgeControllerBase.h */,
+				A643064E27E1C02700D1E59F /* CosmeticEyebrowFilter.h */,
+				A643064F27E1C02700D1E59F /* TuSDKCosmeticImage.h */,
+				A643065027E1C02700D1E59F /* TuSDKPFCameraViewControllerBase.h */,
+				A643065127E1C02700D1E59F /* TuSDKCPRegionHandler.h */,
+				A643065227E1C02700D1E59F /* TuSDKICMaskRegionView.h */,
+				A643065327E1C02700D1E59F /* SLGPUImageRawDataOutput.h */,
+				A643065427E1C02700D1E59F /* TuSDKGPUSkinWhiteningFilter.h */,
+				A643065527E1C02700D1E59F /* TuSDKICAlertView.h */,
+				A643065627E1C02700D1E59F /* TuSDKCPResultOptions.h */,
+				A643065727E1C02700D1E59F /* TuSDKFaceSmoothFilter.h */,
+				A643065827E1C02700D1E59F /* TuSDKInternalFilterManager.h */,
+				A643065927E1C02700D1E59F /* TuSDKFaceAligment.h */,
+				A643065A27E1C02700D1E59F /* TuSDKGPULiveSignalFilter.h */,
+				A643065B27E1C02700D1E59F /* TuSDKTSAsset.h */,
+				A643065C27E1C02700D1E59F /* TuSDKBilateralFilter.h */,
+				A643065D27E1C02700D1E59F /* TuSDKICFilterSmudgeImageViewWrap.h */,
+				A643065E27E1C02700D1E59F /* TuSDKTSString+Extend.h */,
+				A643065F27E1C02700D1E59F /* TuSDKGPUSkinColor2MixedFilter.h */,
+				A643066027E1C02700D1E59F /* TuSDKPFBrushBarViewBase.h */,
+				A643066127E1C02700D1E59F /* TuSDKCPFilterOnlineControllerInterface.h */,
+				A643066227E1C02700D1E59F /* TuSDKTSDate+Extend.h */,
+			);
+			path = Headers;
 			sourceTree = "<group>";
 		};
 		B8210F6B253ED85000E17525 /* CosmeticPanel */ = {
@@ -2056,10 +3130,10 @@
 		B8B7C7DE25B052FE00BA87AF /* TuSDK */ = {
 			isa = PBXGroup;
 			children = (
-				B8B7C7DF25B052FE00BA87AF /* TuSDKVideo.framework */,
-				B8B7C7E025B052FE00BA87AF /* TuSDKFace.framework */,
+				A64304FF27E1C02500D1E59F /* TuSDK */,
+				A64304FA27E1C02500D1E59F /* TuSDKFace */,
+				A643045927E1C02500D1E59F /* TuSDKVideo */,
 				B8B7C7E125B052FE00BA87AF /* libyuv.framework */,
-				B8B7C7E225B052FE00BA87AF /* TuSDK.framework */,
 			);
 			path = TuSDK;
 			sourceTree = "<group>";
@@ -3785,6 +4859,12 @@
 				INFOPLIST_FILE = TuSDKVideoDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/TuSDKVideoDemo/Resources/TuSDK/TuSDKVideo",
+					"$(PROJECT_DIR)/TuSDKVideoDemo/Resources/TuSDK/TuSDKFace",
+					"$(PROJECT_DIR)/TuSDKVideoDemo/Resources/TuSDK/TuSDK",
+				);
 				MARKETING_VERSION = 3.6.2;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -3819,6 +4899,12 @@
 				INFOPLIST_FILE = TuSDKVideoDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/TuSDKVideoDemo/Resources/TuSDK/TuSDKVideo",
+					"$(PROJECT_DIR)/TuSDKVideoDemo/Resources/TuSDK/TuSDKFace",
+					"$(PROJECT_DIR)/TuSDKVideoDemo/Resources/TuSDK/TuSDK",
+				);
 				MARKETING_VERSION = 3.6.2;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
