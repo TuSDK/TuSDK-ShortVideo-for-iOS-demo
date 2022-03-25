@@ -641,7 +641,7 @@
 		FBEE598B20EA2FDE003D8453 /* RecordButton.m in Sources */ = {isa = PBXBuildFile; fileRef = FBEE598A20EA2FDE003D8453 /* RecordButton.m */; };
 		FBF1DED720EB1FB6009ED5EC /* MarkableProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF1DED620EB1FB6009ED5EC /* MarkableProgressView.m */; };
 		FBF1DF2C20EB8C0B009ED5EC /* AttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF1DF2B20EB8C0B009ED5EC /* AttributedLabel.m */; };
-		FBF3A8BC20D3CD24008466D0 /* TuSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = FBF3A8A020D3CD23008466D0 /* TuSDK.bundle */; };
+		FBF3A8BC20D3CD24008466D0 /* TuSDKPulse.bundle in Resources */ = {isa = PBXBuildFile; fileRef = FBF3A8A020D3CD23008466D0 /* TuSDKPulse.bundle */; };
 		FBF3A8C020D3CD24008466D0 /* Bugly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FBF3A8AE20D3CD23008466D0 /* Bugly.framework */; };
 		FBF3A8C120D3CD24008466D0 /* sound_cat.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FBF3A8B020D3CD23008466D0 /* sound_cat.mp3 */; };
 		FBF3A8C220D3CD24008466D0 /* sound_relieve.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FBF3A8B120D3CD23008466D0 /* sound_relieve.mp3 */; };
@@ -1967,7 +1967,7 @@
 		FBF1DED620EB1FB6009ED5EC /* MarkableProgressView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MarkableProgressView.m; sourceTree = "<group>"; };
 		FBF1DF2A20EB8C0B009ED5EC /* AttributedLabel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AttributedLabel.h; sourceTree = "<group>"; };
 		FBF1DF2B20EB8C0B009ED5EC /* AttributedLabel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AttributedLabel.m; sourceTree = "<group>"; };
-		FBF3A8A020D3CD23008466D0 /* TuSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = TuSDK.bundle; sourceTree = "<group>"; };
+		FBF3A8A020D3CD23008466D0 /* TuSDKPulse.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = TuSDKPulse.bundle; sourceTree = "<group>"; };
 		FBF3A8AE20D3CD23008466D0 /* Bugly.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bugly.framework; sourceTree = "<group>"; };
 		FBF3A8B020D3CD23008466D0 /* sound_cat.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = sound_cat.mp3; sourceTree = "<group>"; };
 		FBF3A8B120D3CD23008466D0 /* sound_relieve.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = sound_relieve.mp3; sourceTree = "<group>"; };
@@ -3891,7 +3891,7 @@
 				FBF3A89C20D3CD23008466D0 /* Assets */,
 				FBF3A8AF20D3CD23008466D0 /* AVSamples */,
 				FBF3A8AE20D3CD23008466D0 /* Bugly.framework */,
-				FBF3A8A020D3CD23008466D0 /* TuSDK.bundle */,
+				FBF3A8A020D3CD23008466D0 /* TuSDKPulse.bundle */,
 				FB6EBAC820D399E200FA24F2 /* Assets.xcassets */,
 			);
 			path = Resources;
@@ -4122,7 +4122,7 @@
 				B8831D51257A13940032E2AE /* plastic_eyeAngle@2x.png in Resources */,
 				FBA2753D21AFD75D00D1B170 /* lsq_effect_thumb_reverse.gif in Resources */,
 				B8C7F38825405C08001B8849 /* blush_H_01.jpg in Resources */,
-				FBF3A8BC20D3CD24008466D0 /* TuSDK.bundle in Resources */,
+				FBF3A8BC20D3CD24008466D0 /* TuSDKPulse.bundle in Resources */,
 				B8A72AFA24C92A6C00CD5183 /* lsq_filter_thumb_Scenery_Silent_1.jpg in Resources */,
 				FB85C65C219A66CC00D23716 /* LaunchScreen.storyboard in Resources */,
 				FBA65F7C20E60A6000A92503 /* EditTextViewController.xib in Resources */,
