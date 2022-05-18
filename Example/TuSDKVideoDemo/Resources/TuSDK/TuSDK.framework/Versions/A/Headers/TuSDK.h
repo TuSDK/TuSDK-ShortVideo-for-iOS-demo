@@ -142,6 +142,7 @@
 #import "TuSDKOnlineStickerDownloader.h"
 
 #import "TuSDKGPU2DImageFilter.h"
+#import "TuSDKGPU2DDynamicImageFilter.h"
 #import "TuSDKGPULiveTransitionFilterProtocol.h"
 
 
